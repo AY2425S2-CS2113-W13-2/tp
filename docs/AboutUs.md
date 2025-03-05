@@ -2,4 +2,4 @@
 
 Display | Name | Github Profile | Portfolio 
 --------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | YanXinyaoo | [Github](https://github.com/) | [Portfolio](docs/team/yanxinyaoo.md)
+![](https://via.placeholder.com/100.png?text=Photo) | YanXinyaoo | [Github](https://github.com/yanxinyaoo) | [Portfolio](docs/team/yanxinyaoo.md)
