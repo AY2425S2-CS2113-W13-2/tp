@@ -8,7 +8,7 @@ public class SyncException extends Exception {
     public static String invalidCommandErrorMessage(String command) {
         return "   (╯°□°)╯︵ OOPS!!! Invalid command: " + command + "\n" +
                 "   Please enter a valid command. \n" +
-                "   Example: `add` or `list`.";
+                "   Example: `add` or `list` or `edit`.";
     }
 
     public static String invalidEventIndexErrorMessage() {
@@ -35,4 +35,6 @@ public class SyncException extends Exception {
                 "   Please provide a valid event index to duplicate.\n" +
                 "   Example: `duplicate 2 New Event Name`.";
     }
+
+
 }

@@ -68,11 +68,33 @@ public class EventManager {
     public void deleteEvent(int index) throws SyncException {
         return;
     }
+    public void updateEvent(int index, Event updatedEvent) throws SyncException {
+        if (index < 0 || index >= events.size()) {
+            throw new SyncException(SyncException.invalidEventIndexErrorMessage());
+        }
 
+        // Update the event at the given index with the updated event
+        events.set(index, updatedEvent);
+
+        // Check for conflicts after editing the event
+        ArrayList<Event> collisions = checkCollision(
+                updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                events
+        );
+
+        // If collisions are detected, show the collision warning
+        if (!collisions.isEmpty()) {
+            ui.showCollisionWarning(updatedEvent, collisions);
+        } else {
+            ui.showEditedEvent(updatedEvent);
+        }
+    }
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
     }
+
 
     public ArrayList<Event> checkCollision (String startTime, String endTime, ArrayList<Event> events) throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
