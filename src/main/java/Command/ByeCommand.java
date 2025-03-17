@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Event.EventManager;
-import UI.UI;
-import Exception.SyncException;
+import event.EventManager;
+import ui.UI;
+import exception.SyncException;
 
 public class ByeCommand extends Command {
     public void execute(EventManager events, UI ui) throws SyncException {

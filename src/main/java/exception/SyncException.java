@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public class SyncException extends Exception {
     public SyncException(String message) {

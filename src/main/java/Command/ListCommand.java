@@ -1,7 +1,7 @@
-package Command;
+package command;
 
-import Event.EventManager;
-import UI.UI;
+import event.EventManager;
+import ui.UI;
 
 public class ListCommand extends Command {
     public void execute(EventManager events, UI ui) {

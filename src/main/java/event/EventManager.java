@@ -1,8 +1,8 @@
-package Event;
+package event;
 
 import java.util.ArrayList;
-import UI.UI;
-import Exception.SyncException;
+import ui.UI;
+import exception.SyncException;
 
 public class EventManager {
     public ArrayList<Event> events;

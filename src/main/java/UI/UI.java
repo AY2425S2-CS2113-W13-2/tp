@@ -1,9 +1,9 @@
-package UI;
+package ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Event.*;
+import event.Event;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -13,8 +13,8 @@ public class UI {
     }
 
     public void showEventWithIndex(Event event, int index) {
-            System.out.println("The " +  "event " + index + " is: \n " +
-                    event.toString() + "\n");
+        System.out.println("The " +  "event " + index + " is: \n " +
+                event.toString() + "\n");
     }
 
     public void showEmptyListMessage() {
@@ -34,7 +34,8 @@ public class UI {
     }
 
     public void showAddFormat() {
-        System.out.println("Enter event details (format: Event Name | Start Date | End Date | Location | Description): ");
+        System.out.println("Enter event details (format: Event Name | " +
+                "Start Date | End Date | Location | Description): ");
     }
 
     public void showAddedMessage(Event event) {
@@ -83,8 +84,5 @@ public class UI {
 
     public void showByeMessage() {
         System.out.println("Bye!");
-    }
-
-    public void showEventList(EventManager eventManager) {
     }
 }

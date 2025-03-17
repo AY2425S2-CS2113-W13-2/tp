@@ -1,16 +1,21 @@
-package Parser;
+package parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 
-import Event.Event;
-import Event.EventManager;
-import UI.UI;
-import Exception.SyncException;
-import Command.*;
+import event.Event;
+import event.EventManager;
+import ui.UI;
+import exception.SyncException;
+import command.Command;
+import command.DeleteCommand;
+import command.DuplicateCommand;
+import command.ByeCommand;
+import command.AddEventCommand;
+import command.EditEventCommand;
+import command.ListCommand;
 
 public class Parser {
     private final EventManager eventManager;
