@@ -1,8 +1,8 @@
-import Event.EventManager;
-import Parser.Parser;
-import UI.UI;
-import Exception.SyncException;
-import Command.Command;
+import event.EventManager;
+import parser.Parser;
+import ui.UI;
+import exception.SyncException;
+import command.Command;
 
 import java.util.Scanner;
 

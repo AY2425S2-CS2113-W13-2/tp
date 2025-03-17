@@ -1,7 +1,7 @@
-package Command;
-import Event.*;
-import UI.UI;
-import Exception.*;
+package command;
+import event.*;
+import ui.UI;
+import exception.*;
 
 public class DuplicateCommand extends Command {
     private final Event eventToDuplicate;
