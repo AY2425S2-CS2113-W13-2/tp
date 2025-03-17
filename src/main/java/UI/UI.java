@@ -17,6 +17,10 @@ public class UI {
                     event.toString() + "\n");
     }
 
+    public void showEmptyListMessage() {
+        System.out.println("There is nothing to view");
+    }
+
     public void printMatchingEvents(ArrayList<Event> events) {
         if (events.isEmpty()){
             System.out.println("No matching tasks found.");
