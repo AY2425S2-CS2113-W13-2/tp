@@ -33,7 +33,7 @@ public class EventSync {
     public void run() {
         ui.showMessage("Welcome to EventSync!");
         boolean isExit = false;
-        while (!isExit) {
+        while (!isExit && scanner.hasNextLine()) {
             String input = scanner.nextLine();
             try {
                 Command c = parser.parse(input);
