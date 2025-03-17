@@ -1,6 +1,7 @@
 package seedu;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import exception.SyncException;
@@ -23,7 +24,6 @@ class EventSyncTest {
     @Test
     void testAddEvent() throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        // 创建一个Event对象
         Event event = new Event("Team Meeting",
                 LocalDateTime.parse("2025/05/10 14:00", formatter),
                 LocalDateTime.parse("2025/05/10 16:00", formatter),
