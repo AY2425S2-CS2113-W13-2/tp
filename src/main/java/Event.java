@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class Event {
+public class    Event {
     private String name;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
