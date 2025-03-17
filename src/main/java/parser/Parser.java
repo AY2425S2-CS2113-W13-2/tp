@@ -155,7 +155,7 @@ public class Parser {
             int index = Integer.parseInt(scanner.nextLine()) - 1;
             return index;
         } catch (Exception e) {
-            throw new SyncException("Error in editing event: " + e.getMessage());
+            throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
 }
