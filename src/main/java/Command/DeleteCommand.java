@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Event.*;
-import UI.UI;
-import Exception.*;
+import event.EventManager;
+import ui.UI;
+import exception.SyncException;
 
 public class DeleteCommand extends Command {
     private final int index;

@@ -1,12 +1,13 @@
-package Command;
+package command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import Event.*;
-import Exception.SyncException;
-import UI.UI;
+import event.Event;
+import event.EventManager;
+import exception.SyncException;
+import ui.UI;
 
 public class EditEventCommand extends Command {
     private final int index;
@@ -57,15 +58,11 @@ public class EditEventCommand extends Command {
                     ui.showEditCommandStep5();
                     event.setDescription(scanner.nextLine().trim());
                     break;
-//                case 6:
-//                    editing = false;
-//                    System.out.println("Event editing completed.");
-//                    break;
                 default:
                     ui.showEditCommandCorrectFormat();
                 }
 
-               ui.showEditedEvent(event);
+                ui.showEditedEvent(event);
             }
         } catch (SyncException e) {
             throw new RuntimeException(e);

@@ -1,16 +1,21 @@
-package Parser;
+package parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 
-import Event.Event;
-import Event.EventManager;
-import UI.UI;
-import Exception.SyncException;
-import Command.*;
+import event.Event;
+import event.EventManager;
+import ui.UI;
+import exception.SyncException;
+import command.Command;
+import command.DeleteCommand;
+import command.DuplicateCommand;
+import command.ByeCommand;
+import command.AddEventCommand;
+import command.EditEventCommand;
+import command.ListCommand;
 
 public class Parser {
     private final EventManager eventManager;
@@ -36,7 +41,7 @@ public class Parser {
         case "edit":
             return createEditCommand();
         default:
-            throw new SyncException("Invalid command");
+            throw new SyncException(SyncException.invalidCommandErrorMessage(input));
         }
     }
 
@@ -61,7 +66,7 @@ public class Parser {
         String[] parts = input.split("\\|");
 
         if (parts.length != 5) {
-            throw new SyncException("Invalid add event command format. Use: add Event Name | Start Date | End Date | Location | Description");
+            throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
 
         try {
@@ -77,7 +82,7 @@ public class Parser {
             Event newEvent = new Event(name, startTime, endTime, location, description);
             return new AddEventCommand(newEvent);
         } catch (Exception e) {
-            throw new SyncException("Error in parsing event details: " + e.getMessage());
+            throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
 

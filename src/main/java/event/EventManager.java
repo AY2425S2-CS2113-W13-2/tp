@@ -1,8 +1,8 @@
-package Event;
+package event;
 
 import java.util.ArrayList;
-import UI.UI;
-import Exception.SyncException;
+import ui.UI;
+import exception.SyncException;
 
 public class EventManager {
     public ArrayList<Event> events;
@@ -26,7 +26,7 @@ public class EventManager {
         if (index >= 0 && index < events.size()) {
             return events.get(index);
         } else {
-            throw new SyncException("Give me a proper number!!!");
+            throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class EventManager {
                 ui.showEventWithIndex(event, i + 1);
             }
         } else {
-            System.out.println("There is nothing to view");
+            ui.showEmptyListMessage();
         }
 
     }

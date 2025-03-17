@@ -1,7 +1,8 @@
-package Command;
-import Event.*;
-import UI.UI;
-import Exception.*;
+package command;
+import event.Event;
+import event.EventManager;
+import ui.UI;
+import exception.SyncException;
 
 public class AddEventCommand extends Command {
     private final Event event;
