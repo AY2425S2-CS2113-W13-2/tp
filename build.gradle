@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.event.EventManager")
+    mainClass.set("seedu.EventSync")
 }
 
 shadowJar {

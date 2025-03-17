@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import seedu.event.Event;
-import seedu.event.EventManager;
+import event.Event;
+import event.EventManager;
 import ui.UI;
 import exception.SyncException;
 import command.Command;

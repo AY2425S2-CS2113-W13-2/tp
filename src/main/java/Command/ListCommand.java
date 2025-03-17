@@ -1,6 +1,6 @@
 package command;
 
-import seedu.event.EventManager;
+import event.EventManager;
 import ui.UI;
 
 public class ListCommand extends Command {

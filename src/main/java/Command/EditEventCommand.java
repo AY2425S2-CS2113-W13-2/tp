@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import seedu.event.Event;
-import seedu.event.EventManager;
+import event.Event;
+import event.EventManager;
 import exception.SyncException;
 import ui.UI;
 

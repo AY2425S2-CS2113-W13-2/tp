@@ -3,7 +3,7 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import seedu.event.Event;
+import event.Event;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);

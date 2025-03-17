@@ -1,6 +1,6 @@
 package command;
-import seedu.event.EventManager;
-import seedu.event.Event;
+import event.EventManager;
+import event.Event;
 import ui.UI;
 import exception.SyncException;
 

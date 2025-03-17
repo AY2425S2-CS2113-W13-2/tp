@@ -1,4 +1,4 @@
-package seedu.event;
+package event;
 
 import java.util.ArrayList;
 import ui.UI;
