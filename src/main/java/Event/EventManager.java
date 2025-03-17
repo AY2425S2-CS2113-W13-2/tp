@@ -26,7 +26,7 @@ public class EventManager {
         if (index >= 0 && index < events.size()) {
             return events.get(index);
         } else {
-            throw new SyncException("Give me a proper number!!!");
+            throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class EventManager {
                 ui.showEventWithIndex(event, i + 1);
             }
         } else {
-            System.out.println("There is nothing to view");
+            ui.showEmptyListMessage();
         }
 
     }
