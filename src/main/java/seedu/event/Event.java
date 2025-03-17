@@ -1,4 +1,4 @@
-package event;
+package seedu.event;
 
 import java.time.LocalDateTime;
 

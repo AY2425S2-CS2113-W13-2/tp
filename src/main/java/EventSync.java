@@ -1,4 +1,4 @@
-import event.EventManager;
+import seedu.event.EventManager;
 import parser.Parser;
 import ui.UI;
 import exception.SyncException;
