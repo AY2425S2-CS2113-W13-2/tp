@@ -20,10 +20,18 @@ import command.ListCommand;
 public class Parser {
     private final EventManager eventManager;
     private final UI ui;
+    private final Scanner scanner;
 
     public Parser(EventManager eventManager, UI ui) {
         this.eventManager = eventManager;
         this.ui = ui;
+        this.scanner = new Scanner(System.in);
+    }
+
+    public Parser(EventManager eventManager, UI ui, Scanner scanner) {
+        this.eventManager = eventManager;
+        this.ui = ui;
+        this.scanner = scanner;
     }
 
     public Command parse(String input) throws SyncException {
@@ -87,7 +95,6 @@ public class Parser {
     }
 
     private String readAddEventInput() {
-        Scanner scanner = new Scanner(System.in);
         ui.showAddFormat();
         return scanner.nextLine();
     }
