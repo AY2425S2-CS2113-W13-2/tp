@@ -20,7 +20,7 @@ public class EventSync {
         this.scanner = new Scanner(System.in);
         ui = new UI();
         eventManager = new EventManager();
-        parser = new Parser(eventManager, ui);
+        parser = new Parser(eventManager, ui, scanner);
     }
 
     public EventSync(InputStream inputStream) throws SyncException {
