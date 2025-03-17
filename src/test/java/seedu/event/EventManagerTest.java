@@ -14,7 +14,7 @@ import java.util.ArrayList;
 class EventManagerTest {
     private EventManager eventManager;
     private UI mockUI;
-    DateTimeFormatter formatter;
+    private DateTimeFormatter formatter;
 
     @BeforeEach
     void setUp() {
