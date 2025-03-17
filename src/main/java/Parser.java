@@ -3,23 +3,27 @@ import java.util.ArrayList;
 public class Parser {
     private final EventManager eventManager;
     private final UI ui;
+    private final EditEvent editEvent;
 //    private final Storage storage;
 
     public Parser(EventManager eventManager, UI ui) {
         this.eventManager = eventManager;
         this.ui = ui;
+        this.editEvent = new EditEvent(eventManager);
 //        this.storage = storage;
     }
 
     public void parse(String input) throws SyncException {
 
-        if (!input.equalsIgnoreCase("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             return;
         }
         if (input.toLowerCase().startsWith("find ")) {
             find(input);
         } else if (input.toLowerCase().startsWith("duplicate ")) {
             duplicate(input);
+        } else if (input.toLowerCase().startsWith("edit ")) {
+            edit(input);
         } else {
             throw new SyncException("Unknown command ");
         }
@@ -60,4 +64,24 @@ public class Parser {
             throw new SyncException("Invalid index format. Use a number.");
         }
     }
-}
+    private void edit(String input) throws SyncException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            throw new SyncException("Invalid edit command format. Input the number of event");
+        }
+        else if (eventManager.getEvents().isEmpty()) {
+            throw new SyncException("No events");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            if (index >= 0 && index < eventManager.getEvents().size()) {
+                editEvent.editEvent(index); // Call the editing method with the event index
+            } else {
+                throw new SyncException("Invalid event index.");
+            }
+        } catch (NumberFormatException e) {
+            throw new SyncException("Invalid index format. Use a number.");
+        }
+
+        }
+    }

@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class EventSync {
     private final EventManager eventManager;
     private final Parser parser;
