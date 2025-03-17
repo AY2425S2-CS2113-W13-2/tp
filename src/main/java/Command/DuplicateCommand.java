@@ -1,7 +1,8 @@
 package command;
-import event.*;
+import event.EventManager;
+import event.Event;
 import ui.UI;
-import exception.*;
+import exception.SyncException;
 
 public class DuplicateCommand extends Command {
     private final Event eventToDuplicate;

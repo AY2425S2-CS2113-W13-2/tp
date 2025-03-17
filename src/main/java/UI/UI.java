@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import event.Event;
-import event.EventManager;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
