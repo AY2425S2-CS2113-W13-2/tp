@@ -25,4 +25,16 @@ public class UI {
             }
         }
     }
+
+    public void showCollisionWarning(Event newEvent, ArrayList<Event> collisions) {
+        System.out.println("Warning: Scheduling Conflict");
+        System.out.println("Time of the new event overlaps with the following event(s):");
+        for (Event collision : collisions) {
+            System.out.println(collision.getName());
+            System.out.println("   Date: " + collision.getStartTime() + " - " + collision.getEndTime());
+            System.out.println("   Location: " + collision.getLocation());
+            System.out.println("   Description: " + collision.getDescription());
+        }
+        System.out.println("Please edit your events to resolve the conflict.");
+    }
 }
