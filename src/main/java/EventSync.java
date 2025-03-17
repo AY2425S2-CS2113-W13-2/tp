@@ -1,11 +1,17 @@
+import Event.EventManager;
+import Parser.Parser;
+import UI.UI;
+import Exception.SyncException;
+import Command.Command;
+
 import java.util.Scanner;
 
 public class EventSync {
+    private final UI ui;
     private final EventManager eventManager;
     private final Parser parser;
-    private final UI ui;
 
-    public EventSync() {
+    public EventSync() throws SyncException {
         ui = new UI();
         eventManager = new EventManager();
         parser = new Parser(eventManager, ui);
@@ -13,22 +19,19 @@ public class EventSync {
 
     public void run() {
         ui.showMessage("Welcome to EventSync!");
-        if (!eventManager.getEvents().isEmpty()) {
-            ui.showEventList(eventManager);
-        }
-
+        boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
 
-        while (scanner.hasNextLine()) {
+        while (!isExit) {
             String input = scanner.nextLine();
 
             try {
-                parser.parse(input);
-                if (input.equalsIgnoreCase("bye")) {
-                    break;
-                }
+                Command c = parser.parse(input);
+                c.execute(eventManager, ui);
+                isExit = c.isExit();
             } catch (SyncException e) {
                 ui.showMessage(e.getMessage());
+            } finally {
             }
         }
 
@@ -36,7 +39,7 @@ public class EventSync {
         ui.showMessage("Goodbye!");
     }
 
-    public static void main(String[] args) {
-        (new EventSync()).run();
+    public static void main(String[] args) throws SyncException {
+        new EventSync().run();
     }
 }

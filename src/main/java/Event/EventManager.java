@@ -1,14 +1,21 @@
+package Event;
+
 import java.util.ArrayList;
+import UI.UI;
+import Exception.SyncException;
 
 public class EventManager {
     public ArrayList<Event> events;
+    private UI ui;
 
-    public EventManager(ArrayList<Event> events) {
+    public EventManager(ArrayList<Event> events, UI ui) {
         this.events = events;
+        this.ui = ui;
     }
 
     public EventManager() {
         this.events = new ArrayList<>();
+        this.ui = new UI();
     }
 
     public ArrayList<Event> getEvents() {
@@ -29,6 +36,23 @@ public class EventManager {
 
     public void addEvent(Event event) {
         events.add(event);
+        ui.showAddedMessage(event);
+    }
+
+    public void viewAllEvents() {
+        if (events.size() > 0) {
+            for (int i = 0; i < events.size(); i++) {
+                Event event = events.get(i);
+                ui.showEventWithIndex(event, i + 1);
+            }
+        } else {
+            System.out.println("There is nothing to view");
+        }
+
+    }
+
+    public void deleteEvent(int index) throws SyncException {
+        return;
     }
 
     public void duplicateEvent(Event eventToDuplicate, String newName) {
