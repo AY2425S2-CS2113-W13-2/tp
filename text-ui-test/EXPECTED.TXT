@@ -1,9 +1,12 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-What is your name?
-Hello James Gosling
+Welcome to EventSync!
+Enter event details (format: Event Name | Start Date | End Date | Location | Description):
+The event
++----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2020-05-10T14:00
+| End Time             | 2025-05-10T16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
++----------------------+--------------------------------+
+has been added to the list.
+Bye!

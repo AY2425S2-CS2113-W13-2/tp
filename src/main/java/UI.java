@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import event.*;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -24,5 +25,14 @@ public class UI {
                 System.out.println(" " + (i + 1) + ". " + events.get(i).toString());
             }
         }
+    }
+
+    public void showCollisionWarning(Event newEvent, ArrayList<Event> collisions) {
+        System.out.println("Warning: Scheduling Conflict");
+        System.out.println("Time of the new event overlaps with the following event(s):");
+        for (Event collision : collisions) {
+            System.out.println(collision.toString());
+        }
+        System.out.println("Please edit your events to resolve the conflict.");
     }
 }

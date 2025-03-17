@@ -1,3 +1,5 @@
+package event;
+
 import java.time.LocalDateTime;
 
 public class Event {
@@ -62,14 +64,19 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "name='" + name + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return String.format(
+                "+----------------------+--------------------------------+\n" +
+                "| Name                 | %s\n" +
+                "| Start Time           | %s\n" +
+                "| End Time             | %s\n" +
+                "| Location             | %s\n" +
+                "| Description          | %s\n" +
+                "+----------------------+--------------------------------+",
+                name,
+                startTime,
+                endTime,
+                location,
+                description
+        );
     }
 }
-
-
