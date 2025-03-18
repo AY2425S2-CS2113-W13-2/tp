@@ -1,5 +1,6 @@
 package command;
 
+import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
@@ -22,14 +23,12 @@ public class DeleteCommand extends Command {
             throw new SyncException("Invalid event index. Please enter a valid index.");
         }
 
-        String eventName = eventManager.getEvents().get(index).getName();
+        Event eventToDelete = eventManager.getEvents().get(index);
 
-        if (ui.confirmDeletion(eventName)) {
+        if (ui.confirmDeletion(eventToDelete.getName())) {
             eventManager.deleteEvent(index);
-            ui.showDeletedMessage(eventManager.getEvents().get(index));
         } else {
             ui.showDeletionCancelledMessage();
         }
     }
 }
-

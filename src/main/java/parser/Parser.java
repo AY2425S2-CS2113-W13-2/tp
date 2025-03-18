@@ -53,35 +53,35 @@ public class Parser {
             String commandWord = parts[0];
 
             switch (commandWord.toLowerCase()) {
-            case "bye":
-                logger.info("Bye command received.");
-                return new ByeCommand();
-            case "list":
-                logger.info("List command received.");
-                return new ListCommand();
-            case "add":
-                logger.info("Add command received.");
-                return createAddEventCommand();
-            case "delete":
-                logger.info("Delete command received.");
-                return createDeleteCommand();
-            case "duplicate":
-                logger.info("Duplicate command received.");
-                return createDuplicateCommand();
-            case "edit":
-                logger.info("Edit command received.");
-                return createEditCommand();
-            case "find":
-                if (parts.length > 1) {
-                    logger.info("Find command received with keyword: " + parts[1]);
-                    return createFindCommand(parts[1]);
-                } else {
-                    logger.warning("Find command received without keyword.");
-                    throw new SyncException("Please provide a keyword");
-                }
-            default:
-                logger.warning("Invalid command received: " + input);
-                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
+                case "bye":
+                    logger.info("Bye command received.");
+                    return new ByeCommand();
+                case "list":
+                    logger.info("List command received.");
+                    return new ListCommand();
+                case "add":
+                    logger.info("Add command received.");
+                    return createAddEventCommand();
+                case "delete":
+                    logger.info("Delete command received.");
+                    return createDeleteCommand();
+                case "duplicate":
+                    logger.info("Duplicate command received.");
+                    return createDuplicateCommand();
+                case "edit":
+                    logger.info("Edit command received.");
+                    return createEditCommand();
+                case "find":
+                    if (parts.length > 1) {
+                        logger.info("Find command received with keyword: " + parts[1]);
+                        return createFindCommand(parts[1]);
+                    } else {
+                        logger.warning("Find command received without keyword.");
+                        throw new SyncException("Please provide a keyword");
+                    }
+                default:
+                    logger.warning("Invalid command received: " + input);
+                    throw new SyncException(SyncException.invalidCommandErrorMessage(input));
 
             }
         } else {
@@ -157,19 +157,22 @@ public class Parser {
 
         if (matchingEvents.isEmpty()) {
             throw new SyncException("No events found with the name: " + name);
-        } else if (matchingEvents.size() == 1) {
-            Event eventToDelete = matchingEvents.get(0);
-            if (ui.confirmDeletion(eventToDelete.getName())) {
-                int eventIndex = eventManager.getEvents().indexOf(eventToDelete);
-                return new DeleteCommand(eventIndex);
-            } else {
-                ui.showMessage("Deletion cancelled.");
-                return null;
-            }
+        }
+
+        Event eventToDelete;
+        if (matchingEvents.size() == 1) {
+            eventToDelete = matchingEvents.get(0);
         } else {
             ui.showMatchingEventsWithIndices(matchingEvents, eventManager);
             int eventIndex = readDeleteEventIndex(matchingEvents);
-            return new DeleteCommand(eventManager.getEvents().indexOf(matchingEvents.get(eventIndex)));
+            eventToDelete = matchingEvents.get(eventIndex);
+        }
+
+        int actualIndex = eventManager.getEvents().indexOf(eventToDelete);
+        if (actualIndex == -1) {
+            throw new SyncException("Event no longer exists.");
+        } else {
+            return new DeleteCommand(actualIndex);
         }
     }
 
