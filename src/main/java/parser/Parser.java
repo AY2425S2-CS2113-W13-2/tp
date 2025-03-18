@@ -1,5 +1,6 @@
 package parser;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -71,7 +72,12 @@ public class Parser {
     private Command createAddEventCommand() throws SyncException {
         String input = readAddEventInput();
 
+        assert input != null : "Input string should not be null";
+        assert !input.trim().isEmpty() : "Input string should not be empty";
+
         String[] parts = input.split("\\|");
+
+        assert parts.length > 0 : "Split result should not be empty";
 
         if (parts.length != 5) {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
@@ -84,11 +90,21 @@ public class Parser {
             LocalDateTime startTime = LocalDateTime.parse(parts[1].trim(), formatter);
             LocalDateTime endTime = LocalDateTime.parse(parts[2].trim(), formatter);
 
+            assert startTime != null : "Start time should not be null";
+            assert endTime != null : "End time should not be null";
+            assert !endTime.isBefore(startTime) : "End time should not be before start time";
+
             String location = parts[3].trim();
             String description = parts[4].trim();
 
+            assert !name.isEmpty() : "Event name should not be empty";
+            assert !location.isEmpty() : "Event location should not be empty";
+            assert !description.isEmpty() : "Event description should not be empty";
+
             Event newEvent = new Event(name, startTime, endTime, location, description);
             return new AddEventCommand(newEvent);
+        } catch (DateTimeException e) {
+            throw new SyncException("Invalid date-time format. Please use yyyy/MM/dd HH:mm");
         } catch (Exception e) {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }

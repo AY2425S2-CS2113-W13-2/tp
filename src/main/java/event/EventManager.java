@@ -39,8 +39,11 @@ public class EventManager {
     }
 
     public void addEvent(Event event) throws SyncException{
+        assert event != null : "Event cannot be null";
+
         events.add(event);
         ui.showAddedMessage(event);
+
         ArrayList<Event> collisions = checkCollision(
                 event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -54,15 +57,17 @@ public class EventManager {
     }
 
     public void viewAllEvents() {
+        assert events != null : "Events list should not be null";
+
         if (events.size() > 0) {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
+                assert event != null : "Event at index " + i + " should not be null";
                 ui.showEventWithIndex(event, i + 1);
             }
         } else {
             ui.showEmptyListMessage();
         }
-
     }
 
     public void deleteEvent(int index) throws SyncException {
