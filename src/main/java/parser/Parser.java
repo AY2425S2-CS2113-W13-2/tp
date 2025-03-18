@@ -82,7 +82,6 @@ public class Parser {
                 default:
                     logger.warning("Invalid command received: " + input);
                     throw new SyncException(SyncException.invalidCommandErrorMessage(input));
-
             }
         } else {
             logger.warning("Empty input received: " + input);
