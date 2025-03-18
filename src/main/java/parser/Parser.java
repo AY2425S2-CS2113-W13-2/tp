@@ -159,7 +159,8 @@ public class Parser {
             if (index < 0 || index >= matchingEvents.size()) {
                 throw new SyncException("Invalid event index. Please enter a valid index.");
             }
-            return eventManager.getEvents().indexOf(matchingEvents.get(index));  // 🔹 Convert matching event index to actual event index
+            return eventManager.getEvents().indexOf(matchingEvents.get(index));
+            // Convert matching event index to actual event index
         } catch (NumberFormatException e) {
             throw new SyncException("Invalid index format. Please enter a number.");
         }
