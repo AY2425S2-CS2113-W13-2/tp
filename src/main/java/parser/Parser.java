@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import command.*;
 import command.AddEventCommand;
@@ -15,12 +16,11 @@ import command.DuplicateCommand;
 import command.EditEventCommand;
 import command.ListCommand;
 import command.FindCommand;
-import event.Event;
-import event.EventManager;
-import ui.UI;
-import exception.SyncException;
+import logger.EventSyncLogger;
+
 
 public class Parser {
+    private static final Logger logger = EventSyncLogger.getLogger();
     private final EventManager eventManager;
     private final UI ui;
     private final Scanner scanner;
@@ -29,44 +29,57 @@ public class Parser {
         this.eventManager = eventManager;
         this.ui = ui;
         this.scanner = new Scanner(System.in);
+        logger.info("Parser initialized with default scanner.");
     }
 
     public Parser(EventManager eventManager, UI ui, Scanner scanner) {
         this.eventManager = eventManager;
         this.ui = ui;
         this.scanner = scanner;
+        logger.info("Parser initialized with custom scanner.");
     }
 
     public Command parse(String input) throws SyncException {
+
+            
+        logger.info("Parsing command: " + input);
+        
         String[] parts = input.trim().toLowerCase().split(" ", 2); // Split input
 
         if (parts.length > 0) {
             String commandWord = parts[0];
 
-            switch (commandWord.toLowerCase()) {
-            case "bye":
-                return new ByeCommand();
-            case "list":
-                return new ListCommand();
-            case "add":
-                return createAddEventCommand();
-            case "delete":
-                return createDeleteCommand();
-            case "duplicate":
-                return createDuplicateCommand();
-            case "edit":
-                return createEditCommand();
-            case "find":
-                if (parts.length > 1) {
-                    return createFindCommand(parts[1]);
-                } else {
-                    throw new SyncException("Please provide a keyword");
-                }
-            default:
-                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
-            }
-        } else {
-            throw new SyncException("Please provide a command");
+        switch (commandWord.toLowerCase()) {
+        case "bye":
+            logger.info("Bye command received.");
+            return new ByeCommand();
+        case "list":
+            logger.info("List command received.");
+            return new ListCommand();
+        case "add":
+            logger.info("Add command received.");
+            return createAddEventCommand();
+        case "delete":
+            logger.info("Delete command received.");
+            return createDeleteCommand();
+        case "duplicate":
+            logger.info("Duplicate command received.");
+            return createDuplicateCommand();
+        case "edit":
+            logger.info("Edit command received.");
+            return createEditCommand();
+        case "find":
+            if (parts.length > 1) {
+                logger.info("Find command received with keyword: " + parts[1]);
+                return createFindCommand(parts[1]);
+            } else {
+                logger.warning("Find command received without keyword.");
+                throw new SyncException("Please provide a keyword");
+        }
+        default:
+            logger.warning("Invalid command received: " + input);
+            throw new SyncException(SyncException.invalidCommandErrorMessage(input));
+
         }
     }
 
@@ -79,7 +92,9 @@ public class Parser {
 
 
     private Command createAddEventCommand() throws SyncException {
+        logger.info("Creating add event command.");
         String input = readAddEventInput();
+        logger.fine("Input for add event: " + input);
 
         assert input != null : "Input string should not be null";
         assert !input.trim().isEmpty() : "Input string should not be empty";
@@ -89,6 +104,7 @@ public class Parser {
         assert parts.length > 0 : "Split result should not be empty";
 
         if (parts.length != 5) {
+            logger.warning("Invalid number of parts in input: " + parts.length);
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
 
@@ -111,10 +127,13 @@ public class Parser {
             assert !description.isEmpty() : "Event description should not be empty";
 
             Event newEvent = new Event(name, startTime, endTime, location, description);
+            logger.info("New event created: " + newEvent);
             return new AddEventCommand(newEvent);
         } catch (DateTimeException e) {
+            logger.severe("DateTimeException occurred: " + e.getMessage());
             throw new SyncException("Invalid date-time format. Please use yyyy/MM/dd HH:mm");
         } catch (Exception e) {
+            logger.severe("Unexpected exception occurred: " + e.getMessage());
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
