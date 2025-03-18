@@ -18,6 +18,7 @@ public class EditEventCommand extends Command {
         this.index = index;
     }
 
+
     public void execute(EventManager events, UI ui) {
         try {
             Event event = events.getEvent(index);
@@ -85,4 +86,8 @@ public class EditEventCommand extends Command {
             }
         }
     }
-}
+
+
+    }
+
+

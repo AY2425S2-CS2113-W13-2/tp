@@ -1,4 +1,5 @@
 package seedu;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,20 +22,25 @@ class EditEventTest {
         ui = new UI();  // Real UI object (no mocking)
         eventManager = new EventManager();
         event = new Event("Team Meeting",
-                LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
-                LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
-                "Conference Room", "Discuss project updates");
+            LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
+            LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
+            "Conference Room", "Discuss project updates");
         eventManager.addEvent(event);
     }
 
     @Test
     void testEditEventName() throws SyncException {
+        // Simulate editing the event name
         Event updatedEvent = new Event("Updated Meeting",
-                event.getStartTime(),
-                event.getEndTime(),
-                event.getLocation(),
-                event.getDescription());
+            event.getStartTime(),
+            event.getEndTime(),
+            event.getLocation(),
+            event.getDescription());
+
+        // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
+
+        // Verify that the event's name was updated
         assertEquals("Updated Meeting", eventManager.getEvent(0).getName());
     }
 
@@ -66,6 +72,7 @@ class EditEventTest {
 
     @Test
     void testEditEventLocation() throws SyncException {
+        // Simulate editing the location of the event
         Event updatedEvent = new Event(
                 event.getName(),
                 event.getStartTime(),
