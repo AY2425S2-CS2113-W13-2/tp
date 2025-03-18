@@ -1,8 +1,10 @@
 package command;
+
 import event.EventManager;
 import event.Event;
 import ui.UI;
 import exception.SyncException;
+
 
 public class DuplicateCommand extends Command {
     private final Event eventToDuplicate;
@@ -19,3 +21,4 @@ public class DuplicateCommand extends Command {
         ui.showMessage("Event duplicated: " + duplicatedEvent.toString());
     }
 }
+
