@@ -66,8 +66,13 @@ public class EventManager {
     }
 
     public void deleteEvent(int index) throws SyncException {
-        return;
+        if (index < 0 || index >= events.size()) {
+            throw new SyncException(SyncException.invalidEventIndexErrorMessage());
+        }
+        Event deletedEvent = events.remove(index);
+        ui.showDeletedMessage(deletedEvent);
     }
+
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());

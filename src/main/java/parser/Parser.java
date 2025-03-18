@@ -9,8 +9,8 @@ import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
-import command.Command;
-import command.DeleteCommand;
+import Command.Command;
+import Command.DeleteCommand;
 import command.DuplicateCommand;
 import command.ByeCommand;
 import command.AddEventCommand;
@@ -100,18 +100,52 @@ public class Parser {
     }
 
     private Command createDeleteCommand() throws SyncException {
-        int index = readDeleteEventIndex();
-        return new DeleteCommand(index);
+        String name = readDeleteName();
+        ArrayList<Event> matchingEvents = findMatchingEvents(name);
+
+        if (matchingEvents.isEmpty()) {
+            throw new SyncException("No events found with the name: " + name);
+        } else if (matchingEvents.size() == 1) {
+            Event eventToDelete = matchingEvents.get(0);
+            if (ui.confirmDeletion(eventToDelete.getName())) {
+                int eventIndex = eventManager.getEvents().indexOf(eventToDelete);
+                return new DeleteCommand(eventIndex);
+            } else {
+                ui.showMessage("Deletion cancelled.");
+                return null;
+            }
+        } else {
+            ui.showMatchingEventsWithIndices(matchingEvents, eventManager);
+            int eventIndex = readDeleteEventIndex(matchingEvents);
+            return new DeleteCommand(eventManager.getEvents().indexOf(matchingEvents.get(eventIndex)));
+        }
     }
 
-    private int readDeleteEventIndex() throws SyncException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter event index to delete: ");
+    private String readDeleteName() {
+        System.out.print("Enter name to search for events to delete: ");
+        return scanner.nextLine().trim();
+    }
+
+    private ArrayList<Event> findMatchingEvents(String name) {
+        ArrayList<Event> matchingEvents = new ArrayList<>();
+        for (Event event : eventManager.getEvents()) {
+            if (event.getName().toLowerCase().contains(name.toLowerCase())) {
+                matchingEvents.add(event);
+            }
+        }
+        return matchingEvents;
+    }
+
+    private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {  // 🔹 Ask for event index
+        System.out.print("Enter the index of the event you want to delete: ");
         try {
             int index = Integer.parseInt(scanner.nextLine()) - 1;
-            return index;
+            if (index < 0 || index >= matchingEvents.size()) {
+                throw new SyncException("Invalid event index. Please enter a valid index.");
+            }
+            return eventManager.getEvents().indexOf(matchingEvents.get(index));  // 🔹 Convert matching event index to actual event index
         } catch (NumberFormatException e) {
-            throw new SyncException("Invalid index format. Use a number.");
+            throw new SyncException("Invalid index format. Please enter a number.");
         }
     }
 
