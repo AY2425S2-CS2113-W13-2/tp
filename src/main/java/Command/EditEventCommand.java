@@ -62,13 +62,14 @@ public class EditEventCommand extends Command {
                     editing = false;
                     System.out.println("Event editing completed.");
                     break;
-
                 default:
                     ui.showEditCommandCorrectFormat();
                 }
-                events.updateEvent(index, event);
-
             }
+
+            // Update the event only once after all edits are made
+            events.updateEvent(index, event);
+
         } catch (SyncException e) {
             ui.showMessage(e.getMessage());
         }
