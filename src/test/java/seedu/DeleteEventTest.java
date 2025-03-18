@@ -25,7 +25,7 @@ public class DeleteEventTest {
     }
 
     @Test
-    void testDeleteEvent_SuccessfulDeletion() throws SyncException {
+    void testDeleteEventSuccessfulDeletion() throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         Event event1 = new Event("Workshop",
@@ -46,7 +46,7 @@ public class DeleteEventTest {
     }
 
     @Test
-    void testDeleteEvent_InvalidIndex() {
+    void testDeleteEventInvalidIndex() {
         Exception exception = assertThrows(SyncException.class, () -> {
             eventManager.deleteEvent(0);
         });
