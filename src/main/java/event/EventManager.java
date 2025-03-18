@@ -3,6 +3,10 @@ package event;
 import java.util.ArrayList;
 import ui.UI;
 import exception.SyncException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class EventManager {
     public ArrayList<Event> events;
@@ -34,9 +38,19 @@ public class EventManager {
         return events.size();
     }
 
-    public void addEvent(Event event) {
+    public void addEvent(Event event) throws SyncException{
         events.add(event);
         ui.showAddedMessage(event);
+        ArrayList<Event> collisions = checkCollision(
+                event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                events
+        );
+
+        // If collisions are detected, show the collision warning
+        if (!collisions.isEmpty()) {
+            ui.showCollisionWarning(event, collisions);
+        }
     }
 
     public void viewAllEvents() {
@@ -58,5 +72,20 @@ public class EventManager {
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
+    }
+
+    public ArrayList<Event> checkCollision (String startTime, String endTime, ArrayList<Event> events) throws SyncException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime start = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime end = LocalDateTime.parse(endTime, formatter);
+        ArrayList<Event> collisions = new ArrayList<>();
+
+        for (int i = 0; i < events.size() - 1; i++) {
+            Event event = events.get(i);
+            if (!(event.getEndTime().isBefore(start) || event.getStartTime().isAfter(end))) {
+                collisions.add(event);
+            }
+        }
+        return collisions;
     }
 }
