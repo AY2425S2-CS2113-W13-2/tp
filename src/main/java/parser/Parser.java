@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import event.Event;
 import event.EventManager;
@@ -17,39 +18,52 @@ import command.ByeCommand;
 import command.AddEventCommand;
 import command.EditEventCommand;
 import command.ListCommand;
+import logger.EventSyncLogger;  // 导入自定义的日志记录器
 
 public class Parser {
     private final EventManager eventManager;
     private final UI ui;
     private final Scanner scanner;
+    private static final Logger logger = EventSyncLogger.getLogger();  // 使用你的自定义日志记录器
 
     public Parser(EventManager eventManager, UI ui) {
         this.eventManager = eventManager;
         this.ui = ui;
         this.scanner = new Scanner(System.in);
+        logger.info("Parser initialized with default scanner.");
     }
 
     public Parser(EventManager eventManager, UI ui, Scanner scanner) {
         this.eventManager = eventManager;
         this.ui = ui;
         this.scanner = scanner;
+        logger.info("Parser initialized with custom scanner.");
     }
 
     public Command parse(String input) throws SyncException {
+        logger.info("Parsing command: " + input);
+
         switch (input.toLowerCase()) {
         case "bye":
+            logger.info("Bye command received.");
             return new ByeCommand();
         case "list":
+            logger.info("List command received.");
             return new ListCommand();
         case "add":
+            logger.info("Add command received.");
             return createAddEventCommand();
         case "delete":
+            logger.info("Delete command received.");
             return createDeleteCommand();
         case "duplicate":
+            logger.info("Duplicate command received.");
             return createDuplicateCommand();
         case "edit":
+            logger.info("Edit command received.");
             return createEditCommand();
         default:
+            logger.warning("Invalid command received: " + input);
             throw new SyncException(SyncException.invalidCommandErrorMessage(input));
         }
     }
@@ -70,7 +84,9 @@ public class Parser {
     }
 
     private Command createAddEventCommand() throws SyncException {
+        logger.info("Creating add event command.");
         String input = readAddEventInput();
+        logger.fine("Input for add event: " + input);
 
         assert input != null : "Input string should not be null";
         assert !input.trim().isEmpty() : "Input string should not be empty";
@@ -80,6 +96,7 @@ public class Parser {
         assert parts.length > 0 : "Split result should not be empty";
 
         if (parts.length != 5) {
+            logger.warning("Invalid number of parts in input: " + parts.length);
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
 
@@ -102,10 +119,13 @@ public class Parser {
             assert !description.isEmpty() : "Event description should not be empty";
 
             Event newEvent = new Event(name, startTime, endTime, location, description);
+            logger.info("New event created: " + newEvent);
             return new AddEventCommand(newEvent);
         } catch (DateTimeException e) {
+            logger.severe("DateTimeException occurred: " + e.getMessage());
             throw new SyncException("Invalid date-time format. Please use yyyy/MM/dd HH:mm");
         } catch (Exception e) {
+            logger.severe("Unexpected exception occurred: " + e.getMessage());
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
