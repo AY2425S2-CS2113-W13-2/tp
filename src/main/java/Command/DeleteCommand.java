@@ -1,4 +1,4 @@
-package Command;
+package command;
 
 import event.EventManager;
 import ui.UI;
