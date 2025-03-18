@@ -17,6 +17,10 @@ import command.EditEventCommand;
 import command.ListCommand;
 import command.FindCommand;
 import logger.EventSyncLogger;
+import event.EventManager;
+import event.Event;
+import ui.UI;
+import exception.SyncException;
 
 
 public class Parser {
@@ -41,47 +45,52 @@ public class Parser {
 
     public Command parse(String input) throws SyncException {
 
-            
+
         logger.info("Parsing command: " + input);
-        
+
         String[] parts = input.trim().toLowerCase().split(" ", 2); // Split input
 
         if (parts.length > 0) {
             String commandWord = parts[0];
 
-        switch (commandWord.toLowerCase()) {
-        case "bye":
-            logger.info("Bye command received.");
-            return new ByeCommand();
-        case "list":
-            logger.info("List command received.");
-            return new ListCommand();
-        case "add":
-            logger.info("Add command received.");
-            return createAddEventCommand();
-        case "delete":
-            logger.info("Delete command received.");
-            return createDeleteCommand();
-        case "duplicate":
-            logger.info("Duplicate command received.");
-            return createDuplicateCommand();
-        case "edit":
-            logger.info("Edit command received.");
-            return createEditCommand();
-        case "find":
-            if (parts.length > 1) {
-                logger.info("Find command received with keyword: " + parts[1]);
-                return createFindCommand(parts[1]);
-            } else {
-                logger.warning("Find command received without keyword.");
-                throw new SyncException("Please provide a keyword");
-        }
-        default:
-            logger.warning("Invalid command received: " + input);
-            throw new SyncException(SyncException.invalidCommandErrorMessage(input));
+            switch (commandWord.toLowerCase()) {
+            case "bye":
+                logger.info("Bye command received.");
+                return new ByeCommand();
+            case "list":
+                logger.info("List command received.");
+                return new ListCommand();
+            case "add":
+                logger.info("Add command received.");
+                return createAddEventCommand();
+            case "delete":
+                logger.info("Delete command received.");
+                return createDeleteCommand();
+            case "duplicate":
+                logger.info("Duplicate command received.");
+                return createDuplicateCommand();
+            case "edit":
+                logger.info("Edit command received.");
+                return createEditCommand();
+            case "find":
+                if (parts.length > 1) {
+                    logger.info("Find command received with keyword: " + parts[1]);
+                    return createFindCommand(parts[1]);
+                } else {
+                    logger.warning("Find command received without keyword.");
+                    throw new SyncException("Please provide a keyword");
+                }
+            default:
+                logger.warning("Invalid command received: " + input);
+                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
 
+            }
+        } else {
+            logger.warning("Empty input received: " + input);
+            throw new SyncException("Please provide a command");
         }
     }
+
 
     private Command createFindCommand(String keyword) throws SyncException {
         assert keyword != null : "Keyword should not be null";
