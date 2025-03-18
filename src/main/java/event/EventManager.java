@@ -3,7 +3,7 @@ package event;
 import java.util.ArrayList;
 import ui.UI;
 import exception.SyncException;
-import java.time.DateTimeException;
+//import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -96,7 +96,8 @@ public class EventManager {
     }
 
 
-    public ArrayList<Event> checkCollision (String startTime, String endTime, ArrayList<Event> events) throws SyncException {
+    public ArrayList<Event> checkCollision (String startTime, String endTime, ArrayList<Event> events)
+            throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime start = LocalDateTime.parse(startTime, formatter);
         LocalDateTime end = LocalDateTime.parse(endTime, formatter);
