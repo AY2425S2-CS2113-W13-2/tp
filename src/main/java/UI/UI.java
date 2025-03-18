@@ -13,7 +13,7 @@ public class UI {
     }
 
     public void showEventWithIndex(Event event, int index) {
-        System.out.println("The " +  "event " + index + " is: \n " +
+        System.out.println("The " + "seedu/event " + index + " is: \n " +
                 event.toString() + "\n");
     }
 
@@ -35,11 +35,11 @@ public class UI {
 
     public void showAddFormat() {
         System.out.println("Enter event details (format: Event Name | " +
-                "Start Date | End Date | Location | Description): ");
+                "Start Date | End Date | Location | Description):");
     }
 
     public void showAddedMessage(Event event) {
-        System.out.println("The event \n" + event.toString() + " \nhas been added to the list.");
+        System.out.println("The event\n" + event.toString() + "\nhas been added to the list.");
     }
 
     public void showEditCommandMessage(Event event) {

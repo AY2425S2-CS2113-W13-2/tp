@@ -38,43 +38,55 @@ public class EditEventCommand extends Command {
                 scanner.nextLine(); // Consume newline after nextInt()
 
                 switch (choice) {
-                case 1:
-                    ui.showEditCommandStep1();
-                    event.setName(scanner.nextLine().trim());
-                    break;
-                case 2:
-                    ui.showEditCommandStep2();
-                    event.setStartTime(validateDateTime(scanner.nextLine().trim()));
-                    break;
-                case 3:
-                    ui.showEditCommandStep3();
-                    event.setEndTime(validateDateTime(scanner.nextLine().trim()));
-                    break;
-                case 4:
-                    ui.showEditCommandStep4();
-                    event.setLocation(scanner.nextLine().trim());
-                    break;
-                case 5:
-                    ui.showEditCommandStep5();
-                    event.setDescription(scanner.nextLine().trim());
-                    break;
-                default:
-                    ui.showEditCommandCorrectFormat();
-                }
+                    case 1:
+                        ui.showEditCommandStep1();
+                        event.setName(scanner.nextLine().trim());
+                        break;
+                    case 2:
+                        ui.showEditCommandStep2();
+                        event.setStartTime(validateDateTime(scanner.nextLine().trim()));
+                        break;
+                    case 3:
+                        ui.showEditCommandStep3();
+                        event.setEndTime(validateDateTime(scanner.nextLine().trim()));
+                        break;
+                    case 4:
+                        ui.showEditCommandStep4();
+                        event.setLocation(scanner.nextLine().trim());
+                        break;
+                    case 5:
+                        ui.showEditCommandStep5();
+                        event.setDescription(scanner.nextLine().trim());
+                        break;
+                    case 6:
+                        editing = false;
+                        System.out.println("Event editing completed.");
+                        break;
 
-                ui.showEditedEvent(event);
+                    default:
+                        ui.showEditCommandCorrectFormat();
+                }
+                events.updateEvent(index, event);
+
             }
         } catch (SyncException e) {
-            throw new RuntimeException(e);
+            ui.showMessage(e.getMessage());
         }
     }
 
-    private LocalDateTime validateDateTime(String input){
-        try {
-            return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        } catch (Exception e) {
-            System.out.println("Invalid format! Please enter in YYYY-MM-DD HH:MM format.");
-            return null;
+    private LocalDateTime validateDateTime(String input) {
+        while (true) {
+            try {
+                return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            } catch (Exception e) {
+                System.out.println("❌ Invalid format! Please enter in YYYY-MM-DD HH:MM format.");
+                System.out.print("Enter again: ");
+                input = scanner.nextLine().trim(); // Prompt the user again for a valid input
+            }
         }
     }
-}
+
+
+    }
+
+
