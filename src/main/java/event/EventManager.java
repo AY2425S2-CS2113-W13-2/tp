@@ -108,6 +108,4 @@ public class EventManager {
         }
         return collisions;
     }
-
-
 }
