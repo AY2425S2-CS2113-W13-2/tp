@@ -86,8 +86,6 @@ public class EditEventCommand extends Command {
             }
         }
     }
-
-
-    }
+}
 
 
