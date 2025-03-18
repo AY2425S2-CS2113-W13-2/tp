@@ -18,13 +18,13 @@ import command.ByeCommand;
 import command.AddEventCommand;
 import command.EditEventCommand;
 import command.ListCommand;
-import logger.EventSyncLogger;  // 导入自定义的日志记录器
+import logger.EventSyncLogger;
 
 public class Parser {
+    private static final Logger logger = EventSyncLogger.getLogger();
     private final EventManager eventManager;
     private final UI ui;
     private final Scanner scanner;
-    private static final Logger logger = EventSyncLogger.getLogger();  // 使用你的自定义日志记录器
 
     public Parser(EventManager eventManager, UI ui) {
         this.eventManager = eventManager;
