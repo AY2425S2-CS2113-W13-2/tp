@@ -6,17 +6,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import command.*;
+import command.AddEventCommand;
+import command.ByeCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.DuplicateCommand;
+import command.EditEventCommand;
+import command.ListCommand;
+import command.FindCommand;
 import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
-import command.Command;
-import command.DeleteCommand;
-import command.DuplicateCommand;
-import command.ByeCommand;
-import command.AddEventCommand;
-import command.EditEventCommand;
-import command.ListCommand;
 
 public class Parser {
     private final EventManager eventManager;
@@ -36,38 +38,45 @@ public class Parser {
     }
 
     public Command parse(String input) throws SyncException {
-        switch (input.toLowerCase()) {
-        case "bye":
-            return new ByeCommand();
-        case "list":
-            return new ListCommand();
-        case "add":
-            return createAddEventCommand();
-        case "delete":
-            return createDeleteCommand();
-        case "duplicate":
-            return createDuplicateCommand();
-        case "edit":
-            return createEditCommand();
-        default:
-            throw new SyncException(SyncException.invalidCommandErrorMessage(input));
-        }
-    }
+        String[] parts = input.trim().toLowerCase().split(" ", 2); // Split input
 
-    private void find(String input) throws SyncException {
-        String keyword = input.substring(5).trim().toLowerCase();
-        if (keyword.isEmpty()) {
-            throw new SyncException("Keyword empty! Type properly.");
-        }
+        if (parts.length > 0) {
+            String commandWord = parts[0];
 
-        ArrayList<Event> matchingEvents = new ArrayList<>();
-        for (Event event : eventManager.getEvents()) {
-            if (event.getDescription().toLowerCase().contains(keyword)) {
-                matchingEvents.add(event);
+            switch (commandWord.toLowerCase()) {
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            case "add":
+                return createAddEventCommand();
+            case "delete":
+                return createDeleteCommand();
+            case "duplicate":
+                return createDuplicateCommand();
+            case "edit":
+                return createEditCommand();
+            case "find":
+                if (parts.length > 1) {
+                    return createFindCommand(parts[1]);
+                } else {
+                    throw new SyncException("Please provide a keyword");
+                }
+            default:
+                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
             }
+        } else {
+            throw new SyncException("Please provide a command");
         }
-        ui.printMatchingEvents(matchingEvents);
     }
+
+    private Command createFindCommand(String keyword) throws SyncException {
+        assert keyword != null : "Keyword should not be null";
+        assert !keyword.isEmpty() : "Keyword should not be empty";
+
+        return new FindCommand(keyword);
+    }
+
 
     private Command createAddEventCommand() throws SyncException {
         String input = readAddEventInput();
@@ -167,7 +176,7 @@ public class Parser {
     }
 
     private Command createDuplicateCommand() throws SyncException {
-        String input = readDuplicateEventInput();
+        String input = ui.readDuplicateEventInput();
         String[] parts = input.split(" ", 2);
 
         if (parts.length < 2) {
@@ -186,12 +195,6 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new SyncException("Invalid index format. Use a number.");
         }
-    }
-
-    private String readDuplicateEventInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter duplicate command (format: duplicate index New Event Name): ");
-        return scanner.nextLine();
     }
 
     private Command createEditCommand() throws SyncException {
