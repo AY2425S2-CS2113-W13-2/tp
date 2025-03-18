@@ -46,28 +46,38 @@ class EditEventTest {
 
     @Test
     void testEditEventStartTime() throws SyncException {
+        // Simulate editing the start time of the event
         Event updatedEvent = new Event(
-                event.getName(),
-                LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getEndTime(),
-                event.getLocation(),
-                event.getDescription());
+            event.getName(),
+            LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            event.getEndTime(),
+            event.getLocation(),
+            event.getDescription());
+
+        // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
+
+        // Verify that the event's start time was updated
         assertEquals(LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                eventManager.getEvent(0).getStartTime());
+            eventManager.getEvent(0).getStartTime());
     }
 
     @Test
     void testEditEventEndTime() throws SyncException {
+        // Simulate editing the end time of the event
         Event updatedEvent = new Event(
-                event.getName(),
-                event.getStartTime(),
-                LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getLocation(),
-                event.getDescription());
+            event.getName(),
+            event.getStartTime(),
+            LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            event.getLocation(),
+            event.getDescription());
+
+        // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
+
+        // Verify that the event's end time was updated
         assertEquals(LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                eventManager.getEvent(0).getEndTime());
+            eventManager.getEvent(0).getEndTime());
     }
 
     @Test
@@ -79,30 +89,42 @@ class EditEventTest {
                 event.getEndTime(),
                 "New Location",
                 event.getDescription());
+
+        // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
+
+        // Verify that the event's location was updated
         assertEquals("New Location", eventManager.getEvent(0).getLocation());
     }
 
     @Test
     void testEditEventDescription() throws SyncException {
+        // Simulate editing the description of the event
         Event updatedEvent = new Event(
                 event.getName(),
                 event.getStartTime(),
                 event.getEndTime(),
                 event.getLocation(),
                 "Updated description");
+
+        // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
+
+        // Verify that the event's description was updated
         assertEquals("Updated description", eventManager.getEvent(0).getDescription());
     }
 
     @Test
     void testInvalidEventIndex() {
+        // Try to update an event with an invalid index (out of bounds)
         Event updatedEvent = new Event(
                 "Invalid Event",
                 event.getStartTime(),
                 event.getEndTime(),
                 "Invalid Location",
                 "Invalid description");
+
+        // Verify that SyncException is thrown for an invalid index
         assertThrows(SyncException.class, () -> {
             eventManager.updateEvent(100, updatedEvent);  // index 100 is out of bounds
         });
