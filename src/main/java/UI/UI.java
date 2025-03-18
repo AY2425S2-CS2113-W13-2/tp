@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import event.Event;
+import event.EventManager;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -93,5 +94,27 @@ public class UI {
             System.out.println(collision.toString());
         }
         System.out.println("Please edit your events to resolve the conflict.");
+    }
+
+    public void showDeletedMessage(Event event) {
+        System.out.println("\"" + event.getName() + "\" has been deleted.");
+    }
+
+    public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
+        System.out.println("\nMatching Events:");
+        for (int i = 0; i < matchingEvents.size(); i++) {
+            int originalIndex = eventManager.getEvents().indexOf(matchingEvents.get(i)) + 1;
+            System.out.println(originalIndex + ". " + matchingEvents.get(i).getName());
+        }
+    }
+
+    public boolean confirmDeletion(String eventName) {
+        System.out.print("Confirm deletion of \"" + eventName + "\"? (yes/no): ");
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+        return confirmation.equals("yes");
+    }
+
+    public void showDeletionCancelledMessage() {
+        System.out.println("Deletion cancelled.");
     }
 }
