@@ -73,7 +73,7 @@ public class EditEventCommand extends Command {
             ui.showMessage(e.getMessage());
         }
     }
-
+// Ensure time and date inputs are correct
     private LocalDateTime validateDateTime(String input) {
         while (true) {
             try {
