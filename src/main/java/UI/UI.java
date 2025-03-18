@@ -14,7 +14,7 @@ public class UI {
     }
 
     public void showEventWithIndex(Event event, int index) {
-        System.out.println("The " + "seedu/event " + index + " is: \n " +
+        System.out.println("The " + "event " + index + " is: \n " +
                 event.toString() + "\n");
     }
 

@@ -2,7 +2,8 @@ package seedu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import event.Event;
 import event.EventManager;
 import ui.UI;
@@ -21,9 +22,9 @@ class EditEventTest {
         ui = new UI();  // Real UI object (no mocking)
         eventManager = new EventManager();
         event = new Event("Team Meeting",
-                LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
-                LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
-                "Conference Room", "Discuss project updates");
+            LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
+            LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
+            "Conference Room", "Discuss project updates");
         eventManager.addEvent(event);
     }
 
@@ -31,10 +32,10 @@ class EditEventTest {
     void testEditEventName() throws SyncException {
         // Simulate editing the event name
         Event updatedEvent = new Event("Updated Meeting",
-                event.getStartTime(),
-                event.getEndTime(),
-                event.getLocation(),
-                event.getDescription());
+            event.getStartTime(),
+            event.getEndTime(),
+            event.getLocation(),
+            event.getDescription());
 
         // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
@@ -47,34 +48,36 @@ class EditEventTest {
     void testEditEventStartTime() throws SyncException {
         // Simulate editing the start time of the event
         Event updatedEvent = new Event(
-                event.getName(),
-                LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getEndTime(),
-                event.getLocation(),
-                event.getDescription());
+            event.getName(),
+            LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            event.getEndTime(),
+            event.getLocation(),
+            event.getDescription());
 
         // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
 
         // Verify that the event's start time was updated
-        assertEquals(LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), eventManager.getEvent(0).getStartTime());
+        assertEquals(LocalDateTime.parse("2025-05-10 15:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            eventManager.getEvent(0).getStartTime());
     }
 
     @Test
     void testEditEventEndTime() throws SyncException {
         // Simulate editing the end time of the event
         Event updatedEvent = new Event(
-                event.getName(),
-                event.getStartTime(),
-                LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getLocation(),
-                event.getDescription());
+            event.getName(),
+            event.getStartTime(),
+            LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            event.getLocation(),
+            event.getDescription());
 
         // Update the event using the updateEvent method
         eventManager.updateEvent(0, updatedEvent);
 
         // Verify that the event's end time was updated
-        assertEquals(LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), eventManager.getEvent(0).getEndTime());
+        assertEquals(LocalDateTime.parse("2025-05-10 18:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+            eventManager.getEvent(0).getEndTime());
     }
 
     @Test

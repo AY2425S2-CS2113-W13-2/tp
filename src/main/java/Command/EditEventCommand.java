@@ -38,33 +38,33 @@ public class EditEventCommand extends Command {
                 scanner.nextLine(); // Consume newline after nextInt()
 
                 switch (choice) {
-                    case 1:
-                        ui.showEditCommandStep1();
-                        event.setName(scanner.nextLine().trim());
-                        break;
-                    case 2:
-                        ui.showEditCommandStep2();
-                        event.setStartTime(validateDateTime(scanner.nextLine().trim()));
-                        break;
-                    case 3:
-                        ui.showEditCommandStep3();
-                        event.setEndTime(validateDateTime(scanner.nextLine().trim()));
-                        break;
-                    case 4:
-                        ui.showEditCommandStep4();
-                        event.setLocation(scanner.nextLine().trim());
-                        break;
-                    case 5:
-                        ui.showEditCommandStep5();
-                        event.setDescription(scanner.nextLine().trim());
-                        break;
-                    case 6:
-                        editing = false;
-                        System.out.println("Event editing completed.");
-                        break;
+                case 1:
+                    ui.showEditCommandStep1();
+                    event.setName(scanner.nextLine().trim());
+                    break;
+                case 2:
+                    ui.showEditCommandStep2();
+                    event.setStartTime(validateDateTime(scanner.nextLine().trim()));
+                    break;
+                case 3:
+                    ui.showEditCommandStep3();
+                    event.setEndTime(validateDateTime(scanner.nextLine().trim()));
+                    break;
+                case 4:
+                    ui.showEditCommandStep4();
+                    event.setLocation(scanner.nextLine().trim());
+                    break;
+                case 5:
+                    ui.showEditCommandStep5();
+                    event.setDescription(scanner.nextLine().trim());
+                    break;
+                case 6:
+                    editing = false;
+                    System.out.println("Event editing completed.");
+                    break;
 
-                    default:
-                        ui.showEditCommandCorrectFormat();
+                default:
+                    ui.showEditCommandCorrectFormat();
                 }
                 events.updateEvent(index, event);
 
@@ -85,8 +85,6 @@ public class EditEventCommand extends Command {
             }
         }
     }
-
-
-    }
+}
 
 
