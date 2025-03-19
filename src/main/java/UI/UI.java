@@ -100,6 +100,11 @@ public class UI {
         System.out.println("\"" + event.getName() + "\" has been deleted.");
     }
 
+    public String readDuplicateEventInput() {
+        System.out.print("Enter duplicate command (format: <index> <New Event Name>): ");
+        return scanner.nextLine();
+    }
+
     public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
         System.out.println("\nMatching Events:");
         for (int i = 0; i < matchingEvents.size(); i++) {

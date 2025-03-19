@@ -7,18 +7,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import event.Event;
-import event.EventManager;
-import ui.UI;
-import exception.SyncException;
+import command.AddEventCommand;
+import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.DuplicateCommand;
-import command.ByeCommand;
-import command.AddEventCommand;
 import command.EditEventCommand;
 import command.ListCommand;
+import command.FindCommand;
 import logger.EventSyncLogger;
+import event.EventManager;
+import event.Event;
+import ui.UI;
+import exception.SyncException;
+
 
 public class Parser {
     private static final Logger logger = EventSyncLogger.getLogger();
@@ -41,47 +43,60 @@ public class Parser {
     }
 
     public Command parse(String input) throws SyncException {
+
+
         logger.info("Parsing command: " + input);
 
-        switch (input.toLowerCase()) {
-        case "bye":
-            logger.info("Bye command received.");
-            return new ByeCommand();
-        case "list":
-            logger.info("List command received.");
-            return new ListCommand();
-        case "add":
-            logger.info("Add command received.");
-            return createAddEventCommand();
-        case "delete":
-            logger.info("Delete command received.");
-            return createDeleteCommand();
-        case "duplicate":
-            logger.info("Duplicate command received.");
-            return createDuplicateCommand();
-        case "edit":
-            logger.info("Edit command received.");
-            return createEditCommand();
-        default:
-            logger.warning("Invalid command received: " + input);
-            throw new SyncException(SyncException.invalidCommandErrorMessage(input));
-        }
-    }
+        String[] parts = input.trim().toLowerCase().split(" ", 2); // Split input
 
-    private void find(String input) throws SyncException {
-        String keyword = input.substring(5).trim().toLowerCase();
-        if (keyword.isEmpty()) {
-            throw new SyncException("Keyword empty! Type properly.");
-        }
+        if (parts.length > 0) {
+            String commandWord = parts[0];
 
-        ArrayList<Event> matchingEvents = new ArrayList<>();
-        for (Event event : eventManager.getEvents()) {
-            if (event.getDescription().toLowerCase().contains(keyword)) {
-                matchingEvents.add(event);
+            switch (commandWord.toLowerCase()) {
+            case "bye":
+                logger.info("Bye command received.");
+                return new ByeCommand();
+            case "list":
+                logger.info("List command received.");
+                return new ListCommand();
+            case "add":
+                logger.info("Add command received.");
+                return createAddEventCommand();
+            case "delete":
+                logger.info("Delete command received.");
+                return createDeleteCommand();
+            case "duplicate":
+                logger.info("Duplicate command received.");
+                return createDuplicateCommand();
+            case "edit":
+                logger.info("Edit command received.");
+                return createEditCommand();
+            case "find":
+                if (parts.length > 1) {
+                    logger.info("Find command received with keyword: " + parts[1]);
+                    return createFindCommand(parts[1]);
+                } else {
+                    logger.warning("Find command received without keyword.");
+                    throw new SyncException("Please provide a keyword");
+                }
+            default:
+                logger.warning("Invalid command received: " + input);
+                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
             }
+        } else {
+            logger.warning("Empty input received: " + input);
+            throw new SyncException("Please provide a command");
         }
-        ui.printMatchingEvents(matchingEvents);
     }
+
+
+    private Command createFindCommand(String keyword) throws SyncException {
+        assert keyword != null : "Keyword should not be null";
+        assert !keyword.isEmpty() : "Keyword should not be empty";
+
+        return new FindCommand(keyword);
+    }
+
 
     private Command createAddEventCommand() throws SyncException {
         logger.info("Creating add event command.");
@@ -141,19 +156,22 @@ public class Parser {
 
         if (matchingEvents.isEmpty()) {
             throw new SyncException("No events found with the name: " + name);
-        } else if (matchingEvents.size() == 1) {
-            Event eventToDelete = matchingEvents.get(0);
-            if (ui.confirmDeletion(eventToDelete.getName())) {
-                int eventIndex = eventManager.getEvents().indexOf(eventToDelete);
-                return new DeleteCommand(eventIndex);
-            } else {
-                ui.showMessage("Deletion cancelled.");
-                return null;
-            }
+        }
+
+        Event eventToDelete;
+        if (matchingEvents.size() == 1) {
+            eventToDelete = matchingEvents.get(0);
         } else {
             ui.showMatchingEventsWithIndices(matchingEvents, eventManager);
             int eventIndex = readDeleteEventIndex(matchingEvents);
-            return new DeleteCommand(eventManager.getEvents().indexOf(matchingEvents.get(eventIndex)));
+            eventToDelete = matchingEvents.get(eventIndex);
+        }
+
+        int actualIndex = eventManager.getEvents().indexOf(eventToDelete);
+        if (actualIndex == -1) {
+            throw new SyncException("Event no longer exists.");
+        } else {
+            return new DeleteCommand(actualIndex);
         }
     }
 
@@ -187,7 +205,7 @@ public class Parser {
     }
 
     private Command createDuplicateCommand() throws SyncException {
-        String input = readDuplicateEventInput();
+        String input = ui.readDuplicateEventInput();
         String[] parts = input.split(" ", 2);
 
         if (parts.length < 2) {
@@ -206,12 +224,6 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new SyncException("Invalid index format. Use a number.");
         }
-    }
-
-    private String readDuplicateEventInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter duplicate command (format: duplicate index New Event Name): ");
-        return scanner.nextLine();
     }
 
     private Command createEditCommand() throws SyncException {

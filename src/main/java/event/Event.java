@@ -1,8 +1,10 @@
 package event;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event {
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String name;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -73,8 +75,8 @@ public class Event {
                 "| Description          | %s\n" +
                 "+----------------------+--------------------------------+",
                 name,
-                startTime,
-                endTime,
+                startTime.format(formatter),
+                endTime.format(formatter),
                 location,
                 description
         );
