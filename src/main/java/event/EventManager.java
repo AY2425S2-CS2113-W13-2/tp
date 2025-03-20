@@ -76,7 +76,7 @@ public class EventManager {
         Event deletedEvent = events.remove(index);
         ui.showDeletedMessage(deletedEvent);
     }
-
+    //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
