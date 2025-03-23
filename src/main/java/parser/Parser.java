@@ -133,9 +133,14 @@ public class Parser {
             assert !location.isEmpty() : "Event location should not be empty";
             assert !description.isEmpty() : "Event description should not be empty";
 
-            Event newEvent = new Event(name, startTime, endTime, location, description);
+            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+            String priority = scanner.nextLine().trim().toUpperCase();
+            assert !priority.isEmpty() : "Priority should not be empty";
+
+            Event newEvent = new Event(name, startTime, endTime, location, description, priority);
             logger.info("New event created: " + newEvent);
             return new AddEventCommand(newEvent);
+
         } catch (DateTimeException e) {
             logger.severe("DateTimeException occurred: " + e.getMessage());
             throw new SyncException("Invalid date-time format. Please use yyyy/MM/dd HH:mm");
