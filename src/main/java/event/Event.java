@@ -12,7 +12,8 @@ public class Event {
     private String description;
     private String priority;
 
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, String location, String description, String priority) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime,
+                 String location, String description, String priority) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -42,7 +43,7 @@ public class Event {
         return description;
     }
 
-    public String getPriority() { return priority;}
+    public String getPriority() { return priority; }
 
     public void setName(String name) {
         this.name = name;
