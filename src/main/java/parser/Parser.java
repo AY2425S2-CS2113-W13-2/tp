@@ -58,7 +58,7 @@ public class Parser {
                 return new ByeCommand();
             case "list":
                 logger.info("List command received.");
-                return new ListCommand();
+                return createListCommand();
             case "add":
                 logger.info("Add command received.");
                 return createAddEventCommand();
@@ -97,6 +97,21 @@ public class Parser {
         return new FindCommand(keyword);
     }
 
+    private Command createListCommand() throws SyncException {
+        System.out.print("Sort by (priority/start time/end time): ");
+        String primary = scanner.nextLine().trim().toLowerCase();
+        String secondary;
+        if (primary.equals("priority")) {
+            secondary = "end";
+        } else if (primary.startsWith("start") || primary.startsWith("end")) {
+            secondary = "priority";
+        } else {
+            System.out.println("Invalid sort option. Defaulting to start time.");
+            primary = "start";
+            secondary = "priority";
+        }
+        return new ListCommand(primary, secondary);
+    }
 
     private Command createAddEventCommand() throws SyncException {
         logger.info("Creating add event command.");
@@ -133,9 +148,18 @@ public class Parser {
             assert !location.isEmpty() : "Event location should not be empty";
             assert !description.isEmpty() : "Event description should not be empty";
 
-            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
-            String priority = scanner.nextLine().trim().toUpperCase();
-            assert !priority.isEmpty() : "Priority should not be empty";
+            String priority;
+
+            while (true) {
+                System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+                priority = scanner.nextLine().trim().toUpperCase();
+                if (priority.equals("LOW") || priority.equals("MEDIUM") || priority.equals("HIGH")) {
+                    break;
+                } else {
+                    System.out.println("Invalid priority! Please enter LOW, MEDIUM, or HIGH.");
+
+                }
+            }
 
             Event newEvent = new Event(name, startTime, endTime, location, description, priority);
             logger.info("New event created: " + newEvent);
@@ -195,7 +219,7 @@ public class Parser {
         return matchingEvents;
     }
 
-    private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {  // 🔹 Ask for event index
+    private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {
         System.out.print("Enter the index of the event you want to delete: ");
         try {
             int index = Integer.parseInt(scanner.nextLine()) - 1;
