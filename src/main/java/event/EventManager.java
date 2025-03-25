@@ -5,20 +5,24 @@ import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import storage.Storage;
 
 
 public class EventManager {
     public ArrayList<Event> events;
     private UI ui;
+    private Storage storage;
 
-    public EventManager(ArrayList<Event> events, UI ui) {
+    public EventManager(ArrayList<Event> events, UI ui, Storage storage) {
         this.events = events;
         this.ui = ui;
+        this.storage = storage;
     }
 
-    public EventManager() {
+    public EventManager(String filePath) {
         this.events = new ArrayList<>();
         this.ui = new UI();
+        this.storage = new Storage(filePath);
     }
 
     public ArrayList<Event> getEvents() {
@@ -53,6 +57,7 @@ public class EventManager {
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(event, collisions);
         }
+        storage.saveEvents(events);
     }
 
     public void viewAllEvents() {
@@ -76,7 +81,7 @@ public class EventManager {
         Event deletedEvent = events.remove(index);
         ui.showDeletedMessage(deletedEvent);
     }
-
+    //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
@@ -98,10 +103,12 @@ public class EventManager {
         } else {
             ui.showEditedEvent(updatedEvent);
         }
+        storage.saveEvents(events);
     }
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
+        storage.saveEvents(events);
     }
 
     public ArrayList<Event> checkCollision (String start, String end, ArrayList<Event> events) throws SyncException {
