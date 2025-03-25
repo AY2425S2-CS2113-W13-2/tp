@@ -79,6 +79,9 @@ public class Parser {
                     logger.warning("Find command received without keyword.");
                     throw new SyncException("Please provide a keyword");
                 }
+            case "filter":
+                logger.info("Filter command received.");
+                return createFilterCommand();
             default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));
@@ -89,6 +92,41 @@ public class Parser {
         }
     }
 
+    private Command createFilterCommand() throws SyncException {
+        logger.info("Creating filter command.");
+        String input = readFilterInput();
+        logger.fine("Input for filter event: " + input);
+
+        assert input != null : "Input string should not be null";
+        assert !input.trim().isEmpty() : "Input string should not be empty";
+
+        String[] stringParts = input.split(" ");
+        assert stringParts.length > 0 : "Split result should not be empty";
+
+        if (stringParts.length != 2) {
+            logger.warning("Invalid number of parts in input: " + stringParts.length);
+            throw new SyncException(SyncException.invalidFilterInputErrorMessage());
+        }
+
+        try {
+            int lower = Integer.parseInt(stringParts[0]);
+            int upper = Integer.parseInt(stringParts[1]);
+
+            assert !(lower > upper) : "Lower bound should not be greater than upper bound";
+            return new FilterCommand(lower, upper);
+        } catch (NumberFormatException e) {
+            logger.severe("Number format exception occurred: " + e.getMessage());
+            throw new SyncException(SyncException.invalidBoundErrorMessage());
+        } catch (Exception e) {
+            logger.severe("Unexpected exception occurred: " + e.getMessage());
+            throw new SyncException(SyncException.invalidFilterInputErrorMessage());
+        }
+    }
+
+    private String readFilterInput() {
+        System.out.print("Enter lower and upper bound (inclusive) of priority: ");
+        return scanner.nextLine();
+    }
 
     private Command createFindCommand(String keyword) throws SyncException {
         assert keyword != null : "Keyword should not be null";
