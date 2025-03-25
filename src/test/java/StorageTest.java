@@ -1,13 +1,18 @@
 import event.Event;
 import storage.Storage;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class StorageTest {
 
@@ -35,8 +40,10 @@ public class StorageTest {
 
     @Test
     public void testSaveEvents() {
-        Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
-        Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0), LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
+        Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
+        Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
+                LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
 
         storage.saveEvents(List.of(event1, event2));
 
@@ -58,8 +65,10 @@ public class StorageTest {
 
     @Test
     public void testLoadEvents() {
-        Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
-        Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0), LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
+        Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
+        Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
+                LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
         storage.saveEvents(List.of(event1, event2));
 
         List<Event> events = storage.loadEvents();
