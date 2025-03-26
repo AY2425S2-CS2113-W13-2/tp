@@ -21,6 +21,18 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
     - The `Command` pattern allows easy extension for future commands.
     - Using an `EventList` simplifies storage and retrieval.
 
+### Conflict Detector Feature
+#### Implementation
+
+The `ConflictDetector` feature checks for overlapping events in a user's schedule.
+1. **Conflict Check**: Compares the start and end times of all events in EventList.
+2. **Feedback to User**: If conflicts are detected, a warning message is displayed to the user.
+
+#### Design Considerations
+- **Why this design?**
+  - Ensures users are aware of scheduling conflicts, preventing double-booking.
+  - Improves event management by highlighting overlapping schedules.
+
 ### List Events Feature
 
 #### Implementation
@@ -34,6 +46,21 @@ The `ListCommand` feature retrieves and displays all stored events.
 
 - **Why this design?**
     - Sorting events ensures better readability, allowing users to easily track upcoming events.
+
+### Priority Filter Feature
+
+#### Implementation
+The `PriorityFilter` feature allows users to filter events by priority level (LOW, MEDIUM, HIGH). 
+
+1. **User Input Parsing**: The Parser class processes input in format {PRIORITY PRIORITY}.
+2. **Event Filtering**: Events with priority within the range are filtered.
+3. **Display**: Events are printed to the user.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Allows users to quickly find events with certain priorities.
+  - Enhances usability by enabling customized event views.
 
 ### Storage
 
