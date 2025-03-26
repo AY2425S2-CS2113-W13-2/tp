@@ -74,6 +74,83 @@ public class EventManager {
         }
     }
 
+    public void viewAllEventsSorted(String primary, String secondary) {
+        assert events != null : "Events list should not be null";
+
+        if (events.isEmpty()) {
+            ui.showEmptyListMessage();
+            return;
+        }
+
+        for (int i = 0; i < events.size() - 1; i++) {
+            for (int j = i + 1; j < events.size(); j++) {
+                Event e1 = events.get(i);
+                Event e2 = events.get(j);
+                boolean shouldSwap = false;
+
+                if (primary.equalsIgnoreCase("priority")) {
+                    if (comparePriority(e1.getPriority(), e2.getPriority()) > 0) {
+                        shouldSwap = true;
+                    } else if (e1.getPriority().equalsIgnoreCase(e2.getPriority())
+                            && secondary.equalsIgnoreCase("end")) {
+                        if (e1.getEndTime().isAfter(e2.getEndTime())) {
+                            shouldSwap = true;
+                        }
+                    }
+                } else if (primary.equalsIgnoreCase("start")) {
+                    if (e1.getStartTime().isAfter(e2.getStartTime())) {
+                        shouldSwap = true;
+                    } else if (e1.getStartTime().isEqual(e2.getStartTime())
+                            && secondary.equalsIgnoreCase("priority")) {
+                        if (comparePriority(e1.getPriority(), e2.getPriority()) > 0) {
+                            shouldSwap = true;
+                        }
+                    }
+                } else if (primary.equalsIgnoreCase("end")) {
+                    if (e1.getEndTime().isAfter(e2.getEndTime())) {
+                        shouldSwap = true;
+                    } else if (e1.getEndTime().isEqual(e2.getEndTime())
+                            && secondary.equalsIgnoreCase("priority")) {
+                        if (comparePriority(e1.getPriority(), e2.getPriority()) > 0) {
+                            shouldSwap = true;
+                        }
+                    }
+                }
+
+                if (shouldSwap) {
+                    events.set(i, e2);
+                    events.set(j, e1);
+                }
+            }
+        }
+
+        for (int i = 0; i < events.size(); i++) {
+            Event event = events.get(i);
+            assert event != null : "Event at index " + i + " should not be null";
+            ui.showEventWithIndex(event, i + 1);
+        }
+    }
+
+    private int comparePriority(String p1, String p2) {
+        int v1 = getPriorityValue(p1);
+        int v2 = getPriorityValue(p2);
+        return Integer.compare(v1, v2);
+    }
+
+    private int getPriorityValue(String priority) {
+        switch (priority.toLowerCase()) {
+            case "high":
+                return 1;
+            case "medium":
+                return 2;
+            case "low":
+                return 3;
+            default:
+                return 4;
+        }
+    }
+
+
     public void deleteEvent(int index) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
@@ -81,23 +158,20 @@ public class EventManager {
         Event deletedEvent = events.remove(index);
         ui.showDeletedMessage(deletedEvent);
     }
-    //Make sure the events are updated and checks for collisions
+
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
 
-        // Update the event at the given index with the updated event
         events.set(index, updatedEvent);
 
-        // Check for conflicts after editing the event
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 events
         );
 
-        // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(updatedEvent, collisions);
         } else {

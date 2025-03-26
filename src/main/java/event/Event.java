@@ -10,13 +10,16 @@ public class Event {
     private LocalDateTime endTime;
     private String location;
     private String description;
+    private String priority;
 
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, String location, String description) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime,
+                 String location, String description, String priority) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
         this.description = description;
+        this.priority = priority;
     }
 
     // Getters and setters (omitted for brevity)
@@ -40,6 +43,8 @@ public class Event {
         return description;
     }
 
+    public String getPriority() { return priority; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -60,21 +65,25 @@ public class Event {
         this.description = description;
     }
 
+    public void setPriority(String priority) { this.priority = priority; }
+
     public Event duplicate(String newName) {
-        return new Event(newName, this.startTime, this.endTime, this.location, this.description);
+        return new Event(newName, this.startTime, this.endTime, this.location, this.description, this.priority);
     }
 
     @Override
     public String toString() {
         return String.format(
                 "+----------------------+--------------------------------+\n" +
-                "| Name                 | %s\n" +
-                "| Start Time           | %s\n" +
-                "| End Time             | %s\n" +
-                "| Location             | %s\n" +
-                "| Description          | %s\n" +
-                "+----------------------+--------------------------------+",
+                        "| Name                 | %s\n" +
+                        "| Priority             | %s\n" +
+                        "| Start Time           | %s\n" +
+                        "| End Time             | %s\n" +
+                        "| Location             | %s\n" +
+                        "| Description          | %s\n" +
+                        "+----------------------+--------------------------------+",
                 name,
+                priority,
                 startTime.format(formatter),
                 endTime.format(formatter),
                 location,

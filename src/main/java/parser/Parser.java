@@ -53,35 +53,35 @@ public class Parser {
             String commandWord = parts[0];
 
             switch (commandWord.toLowerCase()) {
-            case "bye":
-                logger.info("Bye command received.");
-                return new ByeCommand();
-            case "list":
-                logger.info("List command received.");
-                return new ListCommand();
-            case "add":
-                logger.info("Add command received.");
-                return createAddEventCommand();
-            case "delete":
-                logger.info("Delete command received.");
-                return createDeleteCommand();
-            case "duplicate":
-                logger.info("Duplicate command received.");
-                return createDuplicateCommand();
-            case "edit":
-                logger.info("Edit command received.");
-                return createEditCommand();
-            case "find":
-                if (parts.length > 1) {
-                    logger.info("Find command received with keyword: " + parts[1]);
-                    return createFindCommand(parts[1]);
-                } else {
-                    logger.warning("Find command received without keyword.");
-                    throw new SyncException("Please provide a keyword");
-                }
-            default:
-                logger.warning("Invalid command received: " + input);
-                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
+                case "bye":
+                    logger.info("Bye command received.");
+                    return new ByeCommand();
+                case "list":
+                    logger.info("List command received.");
+                    return createListCommand();
+                case "add":
+                    logger.info("Add command received.");
+                    return createAddEventCommand();
+                case "delete":
+                    logger.info("Delete command received.");
+                    return createDeleteCommand();
+                case "duplicate":
+                    logger.info("Duplicate command received.");
+                    return createDuplicateCommand();
+                case "edit":
+                    logger.info("Edit command received.");
+                    return createEditCommand();
+                case "find":
+                    if (parts.length > 1) {
+                        logger.info("Find command received with keyword: " + parts[1]);
+                        return createFindCommand(parts[1]);
+                    } else {
+                        logger.warning("Find command received without keyword.");
+                        throw new SyncException("Please provide a keyword");
+                    }
+                default:
+                    logger.warning("Invalid command received: " + input);
+                    throw new SyncException(SyncException.invalidCommandErrorMessage(input));
             }
         } else {
             logger.warning("Empty input received: " + input);
@@ -97,6 +97,21 @@ public class Parser {
         return new FindCommand(keyword);
     }
 
+    private Command createListCommand() throws SyncException {
+        System.out.print("Sort by (priority/start time/end time): ");
+        String primary = scanner.nextLine().trim().toLowerCase();
+        String secondary;
+        if (primary.equals("priority")) {
+            secondary = "end";
+        } else if (primary.startsWith("start") || primary.startsWith("end")) {
+            secondary = "priority";
+        } else {
+            System.out.println("Invalid sort option. Defaulting to start time.");
+            primary = "start";
+            secondary = "priority";
+        }
+        return new ListCommand(primary, secondary);
+    }
 
     private Command createAddEventCommand() throws SyncException {
         logger.info("Creating add event command.");
@@ -133,9 +148,23 @@ public class Parser {
             assert !location.isEmpty() : "Event location should not be empty";
             assert !description.isEmpty() : "Event description should not be empty";
 
-            Event newEvent = new Event(name, startTime, endTime, location, description);
+            String priority;
+
+            while (true) {
+                System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+                priority = scanner.nextLine().trim().toUpperCase();
+                if (priority.equals("LOW") || priority.equals("MEDIUM") || priority.equals("HIGH")) {
+                    break;
+                } else {
+                    System.out.println("Invalid priority! Please enter LOW, MEDIUM, or HIGH.");
+
+                }
+            }
+
+            Event newEvent = new Event(name, startTime, endTime, location, description, priority);
             logger.info("New event created: " + newEvent);
             return new AddEventCommand(newEvent);
+
         } catch (DateTimeException e) {
             logger.severe("DateTimeException occurred: " + e.getMessage());
             throw new SyncException("Invalid date-time format. Please use yyyy/MM/dd HH:mm");
@@ -190,7 +219,7 @@ public class Parser {
         return matchingEvents;
     }
 
-    private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {  // 🔹 Ask for event index
+    private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {
         System.out.print("Enter the index of the event you want to delete: ");
         try {
             int index = Integer.parseInt(scanner.nextLine()) - 1;
