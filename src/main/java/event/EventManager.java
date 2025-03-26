@@ -1,11 +1,6 @@
 package event;
 
-import java.beans.beancontext.BeanContextServiceAvailableEvent;
-import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
-
-import participant.AvailabilitySlot;
-import participant.Participant;
 import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
@@ -45,11 +40,11 @@ public class EventManager {
         }
     }
 
-    public int size() {
+    public int size(){
         return events.size();
     }
 
-    public void addEvent(Event event) throws SyncException {
+    public void addEvent(Event event) throws SyncException{
         assert event != null : "Event cannot be null";
 
         events.add(event);
@@ -102,7 +97,6 @@ public class EventManager {
         ui.showDeletedMessage(deletedEvent);
         storage.saveEvents(events, Priority.getAllPriorities());
     }
-
     //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
@@ -127,7 +121,6 @@ public class EventManager {
         }
         storage.saveEvents(events, Priority.getAllPriorities());
     }
-
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
@@ -139,7 +132,7 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public ArrayList<Event> checkCollision(String start, String end, ArrayList<Event> events) throws SyncException {
+    public ArrayList<Event> checkCollision (String start, String end, ArrayList<Event> events) throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
@@ -153,24 +146,8 @@ public class EventManager {
         }
         return collisions;
     }
-
     public Storage getStorage() {
         return storage;
     }
 
-    public boolean checkParticipantAvailability(Event event, Participant participant) {
-
-        System.out.println("Checking participant availability");
-        for (AvailabilitySlot slot : participant.getAvailableTimes()) {
-            System.out.println("  -"+ slot.getStartTime() + " to " + slot.getEndTime());
-            LocalDateTime slotStart = slot.getStartTime();
-            LocalDateTime slotEnd = slot.getEndTime();
-
-            if (event.getStartTime().isAfter(slotEnd) && event.getEndTime().isBefore(slotStart)) {
-                ui.showParticipantSlotCollisionWarning(event, new ArrayList<>());
-                return true;
-            }
-        }
-        return false;
-    }
 }

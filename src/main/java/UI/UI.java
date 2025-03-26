@@ -100,15 +100,6 @@ public class UI {
         System.out.println("Please edit your events to resolve the conflict.");
     }
 
-    public void showParticipantSlotCollisionWarning(Event event, ArrayList<Event> collisions) {
-        System.out.println("Warning: Scheduling Conflict");
-        System.out.println("Participants are not able to attend");
-        for (Event collision : collisions) {
-            System.out.println(collision.toString());
-        }
-        System.out.println("Please find another participant");
-    }
-
     public void showDeletedMessage(Event event) {
         System.out.println("\"" + event.getName() + "\" has been deleted.");
     }
