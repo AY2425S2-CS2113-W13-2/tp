@@ -2,6 +2,7 @@ package label;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Priority {
@@ -34,8 +35,16 @@ public class Priority {
     }
 
     public static String priorityInput() {
-        System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
-        String input = scanner.nextLine().trim();
+        if (System.console() != null) {
+            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+        }
+
+        String input;
+        try {
+            input = scanner.nextLine().trim();
+        } catch (NoSuchElementException e) {
+            return LOW;
+        }
 
         while (!isValid(input)) {
             System.out.println("Invalid priority. Please enter LOW, MEDIUM, or HIGH.");
