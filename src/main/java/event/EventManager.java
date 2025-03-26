@@ -19,7 +19,7 @@ public class EventManager {
         this.storage = storage;
     }
 
-    public EventManager(String filePath) {
+    public EventManager(String filePath) throws SyncException {
         this.events = new ArrayList<>();
         this.ui = new UI();
         this.storage = new Storage(filePath);

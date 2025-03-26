@@ -1,21 +1,38 @@
 #!/usr/bin/env bash
 
-# change to script directory
-cd "${0%/*}"
+# change to the directory containing the script
+cd "$(dirname "$0")"
 
-cd ..
+# Store the project root directory
+PROJECT_ROOT="$(cd .. && pwd)"
+
+# Clean and build the project
+cd "$PROJECT_ROOT"
 ./gradlew clean shadowJar
 
+# Ensure data directory exists
+mkdir -p data
+
+# Create EventSync.txt if it doesn't exist
+touch data/EventSync.txt
+
+# Change to text-ui-test directory
 cd text-ui-test
 
-mkdir -p ../data
-touch ../data/EventSync.txt
+# Find the jar file (use full path)
+JAR_PATH=$(find "$PROJECT_ROOT/build/libs" -mindepth 1 -print -quit)
 
-java -jar $(find ../build/libs/ -mindepth 1 -print -quit) < input.txt > ACTUAL.TXT
+# Run the jar and compare outputs
+java -jar "$JAR_PATH" < input.txt > ACTUAL.TXT
 
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix EXPECTED-UNIX.TXT ACTUAL.TXT
-diff EXPECTED-UNIX.TXT ACTUAL.TXT
+# Normalize line endings (remove Windows-style line endings)
+tr -d '\r' < EXPECTED.TXT > EXPECTED-UNIX.TXT
+tr -d '\r' < ACTUAL.TXT > ACTUAL-UNIX.TXT
+
+# Compare files
+diff EXPECTED-UNIX.TXT ACTUAL-UNIX.TXT
+
+# Check the result
 if [ $? -eq 0 ]
 then
     echo "Test passed!"
@@ -24,5 +41,3 @@ else
     echo "Test failed!"
     exit 1
 fi
-
-

@@ -1,4 +1,5 @@
 import event.Event;
+import exception.SyncException;
 import storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class StorageTest {
 
-    private static final String TEST_FILE_PATH = "StorageTest.txt";
+    private static final String TEST_FILE_PATH = "./data/StorageTest.txt";
     private Storage storage;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SyncException, IOException {
         storage = new Storage(TEST_FILE_PATH);
         try {
             Files.deleteIfExists(Paths.get(TEST_FILE_PATH));

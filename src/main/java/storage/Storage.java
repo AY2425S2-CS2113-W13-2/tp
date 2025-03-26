@@ -1,6 +1,7 @@
 package storage;
 
 import event.Event;
+import exception.SyncException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,14 +28,15 @@ public class Storage {
      *
      * @param filePath The path to the file used for storage.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws SyncException {
         this.filePath = filePath;
+        ensureFileExists();
     }
 
     /**
      * Ensures that the storage file exists, creating it if necessary.
      */
-    private void ensureFileExists() {
+    private void ensureFileExists() throws SyncException {
         try {
             Path path = Paths.get(filePath);
             if (!Files.exists(path)) {
@@ -42,7 +44,7 @@ public class Storage {
                 Files.createFile(path);
             }
         } catch (IOException e) {
-            System.out.println("Error creating file: " + e.getMessage());
+            throw new SyncException("Cannot create storage file: " + filePath);
         }
     }
 

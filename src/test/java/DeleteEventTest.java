@@ -17,7 +17,7 @@ public class DeleteEventTest {
     private UI ui;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SyncException {
         ui = new UI();
         eventManager = new EventManager("./data/DeleteEventTest.txt");
     }
