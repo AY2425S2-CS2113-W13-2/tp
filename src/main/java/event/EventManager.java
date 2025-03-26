@@ -167,7 +167,7 @@ public class EventManager {
             LocalDateTime slotEnd = slot.getEndTime();
 
             if (event.getStartTime().isAfter(slotEnd) && event.getEndTime().isBefore(slotStart)) {
-//                ui.showParticipantSlotCollisionWarning(event, new ArrayList<>());
+                ui.showParticipantSlotCollisionWarning(event, new ArrayList<>());
                 return true;
             }
         }
