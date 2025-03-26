@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -21,11 +22,10 @@ import command.AddParticipantCommand;
 import logger.EventSyncLogger;
 import event.EventManager;
 import event.Event;
+import participant.AvailabilitySlot;
 import ui.UI;
 import exception.SyncException;
 import participant.Participant;
-
-
 import label.Priority;
 
 
@@ -89,12 +89,9 @@ public class Parser {
             case "addparticipant":
                 logger.info("AddParticipant command received.");
                 return createAddParticipantCommand();
-
-            case "listparticipants":
+            case "list participants":
                 logger.info("ListParticipants command received.");
                 return createListParticipantsCommand();
-
-                default:
             case "filter":
                 logger.info("Filter command received.");
                 return createFilterCommand();
@@ -306,30 +303,57 @@ public class Parser {
     }
 
     private Command createAddParticipantCommand() throws SyncException {
-        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | <AccessLevel [ADMIN/MEMBER]>):");
+        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | <AccessLevel [ADMIN/MEMBER]> | <Availability <start yyyy/MM/dd HH:mm - end yyyy/MM/dd HH:mm>>)):");
         String input = scanner.nextLine();
         String[] parts = input.split("\\|");
 
-        if (parts.length != 3) {
-            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | <AccessLevel>");
+        if (parts.length != 4) {
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability>");
         }
 
+        ArrayList<AvailabilitySlot> availabilitySlots = new ArrayList<>();
+
+        Participant.AccessLevel accessLevel;
+        String participantName;
+        int eventIndex;
         try {
-            int eventIndex = Integer.parseInt(parts[0].trim()) - 1;  // 1-based to 0-based
-            String participantName = parts[1].trim();
+            eventIndex = Integer.parseInt(parts[0].trim()) - 1;
+            participantName = parts[1].trim();
             String accessStr = parts[2].trim().toUpperCase();
 
-            Participant.AccessLevel accessLevel;
             try {
                 accessLevel = Participant.AccessLevel.valueOf(accessStr);
             } catch (IllegalArgumentException e) {
                 throw new SyncException("Access Level must be ADMIN or MEMBER");
             }
 
-            return new AddParticipantCommand(eventIndex, participantName, accessLevel);
+            String availabilityString = parts[3].trim();
+            String[] timeSlots = availabilityString.split(",");
+            for (String slot : timeSlots) {
+                String trimmedSlot = slot.trim();
+                if (!trimmedSlot.isEmpty()) {
+                    String[] startEnd = trimmedSlot.split("-");
+                    if (startEnd.length == 2) {
+                        try {
+                            LocalDateTime start = LocalDateTime.parse(startEnd[0].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            LocalDateTime end = LocalDateTime.parse(startEnd[1].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            availabilitySlots.add(new AvailabilitySlot(start, end));
+                        } catch (DateTimeException e) {
+                            throw new SyncException("Invalid time format. Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                        }
+                    } else {
+                        throw new SyncException("Invalid availability slot format. Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                    }
+                }
+            }
         } catch (NumberFormatException e) {
             throw new SyncException("Invalid event index. Must be a number.");
         }
+
+        Event event = null;
+        Participant newParticipant = new Participant(participantName, accessLevel);
+        newParticipant.getAvailableTimes().addAll(availabilitySlots);
+        return new AddParticipantCommand(eventIndex, participantName, accessLevel, availabilitySlots);
     }
 
     private Command createListParticipantsCommand() throws SyncException {
