@@ -30,7 +30,6 @@ public class FilterCommand extends Command {
                 Event event = eventManager.getEvent(i);
                 String priority = allPriorities.get(i);
                 int priorityValue = Priority.getValue(priority);
-
                 if (priorityValue >= lowerBound && priorityValue <= upperBound) {
                     matchingEvents.add(event);
                 }
