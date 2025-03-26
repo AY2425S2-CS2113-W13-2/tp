@@ -11,6 +11,7 @@ import command.AddEventCommand;
 import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
+import command.FilterCommand;
 import command.DuplicateCommand;
 import command.EditEventCommand;
 import command.ListCommand;
@@ -20,6 +21,7 @@ import event.EventManager;
 import event.Event;
 import ui.UI;
 import exception.SyncException;
+import label.Priority;
 
 
 public class Parser {
@@ -79,6 +81,9 @@ public class Parser {
                     logger.warning("Find command received without keyword.");
                     throw new SyncException("Please provide a keyword");
                 }
+            case "filter":
+                logger.info("Filter command received.");
+                return createFilterCommand();
             default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));
@@ -89,6 +94,50 @@ public class Parser {
         }
     }
 
+    private Command createFilterCommand() throws SyncException {
+        logger.info("Creating filter command.");
+        String input = readFilterInput();
+        logger.fine("Input for filter event: " + input);
+
+        assert input != null : "Input string should not be null";
+        assert !input.trim().isEmpty() : "Input string should not be empty";
+
+        String[] stringParts = input.split(" ");
+        assert stringParts.length > 0 : "Split result should not be empty";
+
+        if (stringParts.length != 2) {
+            logger.warning("Invalid number of parts in input: " + stringParts.length);
+            throw new SyncException("Please provide two priority levels (e.g., 'LOW MEDIUM')");
+        }
+
+        try {
+            String lowerPriority = stringParts[0].toUpperCase();
+            String upperPriority = stringParts[1].toUpperCase();
+
+            if (!Priority.isValid(lowerPriority) || !Priority.isValid(upperPriority)) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
+            int lower = Priority.getValue(lowerPriority);
+            int upper = Priority.getValue(upperPriority);
+
+            if (lower > upper) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
+            return new FilterCommand(lower, upper);
+        } catch (SyncException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.severe("Unexpected exception: " + e.getMessage());
+            throw new SyncException(SyncException.invalidBoundErrorMessage());
+        }
+    }
+
+    private String readFilterInput() {
+        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
+        return scanner.nextLine();
+    }
 
     private Command createFindCommand(String keyword) throws SyncException {
         assert keyword != null : "Keyword should not be null";
