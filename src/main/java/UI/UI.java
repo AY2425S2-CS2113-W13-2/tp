@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import event.Event;
 import event.EventManager;
+import label.Priority;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -14,8 +15,10 @@ public class UI {
     }
 
     public void showEventWithIndex(Event event, int index) {
-        System.out.println("The " + "event " + index + " is: \n " +
-                event.toString() + "\n");
+        System.out.println("The event " + index + " is: ");
+        System.out.println(event.toString());
+        System.out.println("Priority: " + Priority.getPriority(index - 1));
+        System.out.println();
     }
 
     public void showEmptyListMessage() {
@@ -108,8 +111,7 @@ public class UI {
     public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
         System.out.println("\nMatching Events:");
         for (int i = 0; i < matchingEvents.size(); i++) {
-            int originalIndex = eventManager.getEvents().indexOf(matchingEvents.get(i)) + 1;
-            System.out.println(originalIndex + ". " + matchingEvents.get(i).getName());
+            System.out.println((i + 1) + ". " + matchingEvents.get(i).getName());
         }
     }
 

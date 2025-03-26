@@ -6,6 +6,7 @@ import exception.SyncException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import storage.Storage;
+import label.Priority;
 
 
 public class EventManager {
@@ -45,6 +46,9 @@ public class EventManager {
         assert event != null : "Event cannot be null";
 
         events.add(event);
+        String priority = Priority.priorityInput();
+        Priority.addPriority(priority);
+
         ui.showAddedMessage(event);
 
         ArrayList<Event> collisions = checkCollision(
@@ -57,8 +61,10 @@ public class EventManager {
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(event, collisions);
         }
-        storage.saveEvents(events);
+
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
+
 
     public void viewAllEvents() {
         assert events != null : "Events list should not be null";
@@ -67,6 +73,7 @@ public class EventManager {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
+                String priority = Priority.getPriority(i);
                 ui.showEventWithIndex(event, i + 1);
             }
         } else {
@@ -79,7 +86,9 @@ public class EventManager {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
         Event deletedEvent = events.remove(index);
+        Priority.removePriority(index);
         ui.showDeletedMessage(deletedEvent);
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
     //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
@@ -103,12 +112,17 @@ public class EventManager {
         } else {
             ui.showEditedEvent(updatedEvent);
         }
-        storage.saveEvents(events);
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
-        storage.saveEvents(events);
+
+        int originalIndex = events.indexOf(eventToDuplicate);
+        String originalPriority = Priority.getPriority(originalIndex);
+        Priority.addPriority(originalPriority);
+
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
 
     public ArrayList<Event> checkCollision (String start, String end, ArrayList<Event> events) throws SyncException {
