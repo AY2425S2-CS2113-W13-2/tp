@@ -45,9 +45,8 @@ public class SyncException extends Exception {
 
     public static String invalidBoundErrorMessage() {
         return "   (╯°□°)╯︵ Invalid bound values for filtering!\n" +
-                "   Please provide integers as priority levels.\n" +
-                "   Low = 1; Medium = 2; High = 3.";
+                "   Please provide two priority levels as lower bound and upper bound.\n" +
+                "   Be careful that the lower priority cannot be higher than upper priority.\n" +
+                "   Example: filter LOW MEDIUM";
     }
-
-
 }

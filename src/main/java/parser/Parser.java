@@ -11,6 +11,7 @@ import command.AddEventCommand;
 import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
+import command.FilterCommand;
 import command.DuplicateCommand;
 import command.EditEventCommand;
 import command.ListCommand;
@@ -20,6 +21,7 @@ import event.EventManager;
 import event.Event;
 import ui.UI;
 import exception.SyncException;
+import label.Priority;
 
 
 public class Parser {
@@ -105,26 +107,35 @@ public class Parser {
 
         if (stringParts.length != 2) {
             logger.warning("Invalid number of parts in input: " + stringParts.length);
-            throw new SyncException(SyncException.invalidFilterInputErrorMessage());
+            throw new SyncException("Please provide two priority levels (e.g., 'LOW MEDIUM')");
         }
 
         try {
-            int lower = Integer.parseInt(stringParts[0]);
-            int upper = Integer.parseInt(stringParts[1]);
+            String lowerPriority = stringParts[0].toUpperCase();
+            String upperPriority = stringParts[1].toUpperCase();
 
-            assert !(lower > upper) : "Lower bound should not be greater than upper bound";
+            if (!Priority.isValid(lowerPriority) || !Priority.isValid(upperPriority)) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
+            int lower = Priority.getValue(lowerPriority);
+            int upper = Priority.getValue(upperPriority);
+
+            if (lower > upper) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
             return new FilterCommand(lower, upper);
-        } catch (NumberFormatException e) {
-            logger.severe("Number format exception occurred: " + e.getMessage());
-            throw new SyncException(SyncException.invalidBoundErrorMessage());
+        } catch (SyncException e) {
+            throw e;
         } catch (Exception e) {
-            logger.severe("Unexpected exception occurred: " + e.getMessage());
-            throw new SyncException(SyncException.invalidFilterInputErrorMessage());
+            logger.severe("Unexpected exception: " + e.getMessage());
+            throw new SyncException(SyncException.invalidBoundErrorMessage());
         }
     }
 
     private String readFilterInput() {
-        System.out.print("Enter lower and upper bound (inclusive) of priority: ");
+        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
         return scanner.nextLine();
     }
 
