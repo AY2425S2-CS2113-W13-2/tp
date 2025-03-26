@@ -1,5 +1,6 @@
 import event.Event;
 import exception.SyncException;
+import label.Priority;
 import storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +51,7 @@ public class StorageTest {
         Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
                 LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
 
-        storage.saveEvents(List.of(event1, event2));
+        storage.saveEvents(List.of(event1, event2), Priority.getAllPriorities());
 
         Path filePath = Paths.get(TEST_FILE_PATH);
         assertTrue(Files.exists(filePath), "File should be created");
@@ -74,7 +75,7 @@ public class StorageTest {
                 LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
         Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
                 LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
-        storage.saveEvents(List.of(event1, event2));
+        storage.saveEvents(List.of(event1, event2), Priority.getAllPriorities());
 
         List<Event> events = storage.loadEvents();
 
