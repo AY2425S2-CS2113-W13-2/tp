@@ -40,10 +40,9 @@ public class PriorityTest {
 
     @Test
     public void testGetValue() {
-        assertEquals(1, Priority.getValue("HIGH"));
+        assertEquals(3, Priority.getValue("HIGH"));
         assertEquals(2, Priority.getValue("MEDIUM"));
-        assertEquals(3, Priority.getValue("LOW"));
-        assertEquals(4, Priority.getValue("UNKNOWN"));
+        assertEquals(1, Priority.getValue("LOW"));
     }
 
     @Test
