@@ -1,4 +1,3 @@
-import label.Priority;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import event.Event;
 import event.EventManager;
 import ui.UI;
-import label.Priority;
 import exception.SyncException;
 
-import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
