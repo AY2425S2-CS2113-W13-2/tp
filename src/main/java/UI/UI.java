@@ -111,8 +111,7 @@ public class UI {
     public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
         System.out.println("\nMatching Events:");
         for (int i = 0; i < matchingEvents.size(); i++) {
-            int originalIndex = eventManager.getEvents().indexOf(matchingEvents.get(i)) + 1;
-            System.out.println(originalIndex + ". " + matchingEvents.get(i).getName());
+            System.out.println((i + 1) + ". " + matchingEvents.get(i).getName());
         }
     }
 
