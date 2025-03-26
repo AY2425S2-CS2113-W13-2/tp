@@ -2,6 +2,8 @@ package participant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.time.LocalDateTime;
 
 
 public class Participant {
@@ -18,10 +20,8 @@ public class Participant {
         this.availableTimes = new ArrayList<>();
     }
 
-    public String getName() {
-        return name; }
-    public AccessLevel getAccessLevel() {
-        return accessLevel; }
+    public String getName() { return name; }
+    public AccessLevel getAccessLevel() { return accessLevel; }
 
     public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
