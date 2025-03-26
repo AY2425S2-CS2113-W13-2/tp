@@ -3,6 +3,10 @@ package event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import command.Command;
+import participant.Participant;
+import java.util.ArrayList;
+
 public class Event {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String name;
@@ -10,6 +14,7 @@ public class Event {
     private LocalDateTime endTime;
     private String location;
     private String description;
+    private ArrayList<Participant> participants;
 
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime, String location, String description) {
         this.name = name;
@@ -17,6 +22,7 @@ public class Event {
         this.endTime = endTime;
         this.location = location;
         this.description = description;
+        this.participants = new ArrayList<>();
     }
 
     // Getters and setters (omitted for brevity)
@@ -62,6 +68,31 @@ public class Event {
 
     public Event duplicate(String newName) {
         return new Event(newName, this.startTime, this.endTime, this.location, this.description);
+    }
+
+    public ArrayList<Participant> getParticipants() {
+        return participants;
+    }
+    //Add a participant
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
+    }
+
+    //Remove a participant by name
+    public boolean removeParticipant(String participantName) {
+        return participants.removeIf(p -> p.getName().equalsIgnoreCase(participantName));
+    }
+
+    // List all participants
+    public void listParticipants() {
+        if (participants.isEmpty()) {
+            System.out.println("No participants assigned to this event.");
+        } else {
+            System.out.println("Participants for event \"" + name + "\":");
+            for (Participant p : participants) {
+                System.out.println("- " + p);
+            }
+        }
     }
 
     @Override

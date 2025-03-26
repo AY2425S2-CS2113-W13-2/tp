@@ -3,7 +3,7 @@ package storage;
 import event.Event;
 import exception.SyncException;
 import label.Priority;
-
+import participant.Participant;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -102,39 +102,73 @@ public class Storage {
      * Converts an Event object into a formatted string for file storage.
      */
     private String formatEvent(Event event, String priority) {
-        return String.format("%s | %s | %s | %s | %s | %s",
+        StringBuilder participantsBuilder = new StringBuilder();
+        for (Participant p : event.getParticipants()) {
+            participantsBuilder.append(p.getName()).append(":").append(p.getAccessLevel()).append(",");
+        }
+        // Remove trailing comma if present
+        String participantsString = participantsBuilder.length() > 0
+                ? participantsBuilder.substring(0, participantsBuilder.length() - 1)
+                : "";
+
+        return String.format("%s | %s | %s | %s | %s | %s | %s",
                 event.getName(),
                 event.getStartTime().format(formatter),
                 event.getEndTime().format(formatter),
                 event.getLocation(),
                 event.getDescription(),
-                priority);
+                priority,
+                participantsString);  // ✅ Save participants
     }
 
+
     private String[] parseEventWithPriority(String line) {
-        String[] parts = line.split(" \\| ");
+        String[] parts = line.split(" \\| ", -1);  // -1 to keep trailing empty participant field
         if (parts.length == 5) {
-            // Legacy line without priority → add default LOW priority
-            String[] extended = new String[6];
+            // Old format without priority and participants
+            String[] extended = new String[7];
             System.arraycopy(parts, 0, extended, 0, 5);
-            extended[5] = "LOW"; // default priority
+            extended[5] = "LOW";
+            extended[6] = "";
             return extended;
         } else if (parts.length == 6) {
+            // Old format with priority but no participants
+            String[] extended = new String[7];
+            System.arraycopy(parts, 0, extended, 0, 6);
+            extended[6] = "";
+            return extended;
+        } else if (parts.length == 7) {
             return parts;
         } else {
             throw new IllegalArgumentException("Invalid event format: " + line);
         }
     }
+
     /**
      * Creates an Event object from parsed parts (excluding priority).
      */
     private Event parseEvent(String[] parts) {
-        return new Event(
+        Event event = new Event(
                 parts[0],
                 LocalDateTime.parse(parts[1], formatter),
                 LocalDateTime.parse(parts[2], formatter),
                 parts[3],
                 parts[4]
         );
+
+        // Load participants if present
+        if (parts.length == 7 && !parts[6].isEmpty()) {
+            String[] participantEntries = parts[6].split(",");
+            for (String entry : participantEntries) {
+                String[] participantData = entry.split(":");
+                if (participantData.length == 2) {
+                    String name = participantData[0];
+                    Participant.AccessLevel accessLevel = Participant.AccessLevel.valueOf(participantData[1]);
+                    event.addParticipant(new Participant(name, accessLevel));
+                }
+            }
+        }
+        return event;
     }
+
 }
