@@ -35,14 +35,15 @@ public class Priority {
     }
 
     public static String priorityInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+        if (System.console() != null) {
+            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+        }
 
         String input;
         try {
             input = scanner.nextLine().trim();
         } catch (NoSuchElementException e) {
-            return LOW; // fallback in tests
+            return LOW;
         }
 
         while (!isValid(input)) {
