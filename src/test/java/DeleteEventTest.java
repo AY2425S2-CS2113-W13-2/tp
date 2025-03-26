@@ -26,10 +26,6 @@ public class DeleteEventTest {
 
     @Test
     void testDeleteEventSuccessfulDeletion() throws SyncException {
-        // Provide priority inputs for 2 events
-        String fakeInput = "HIGH\nLOW\n";  // First for event1, second for event2
-        System.setIn(new ByteArrayInputStream(fakeInput.getBytes()));
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
         Event event1 = new Event("Workshop",
