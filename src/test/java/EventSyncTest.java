@@ -1,5 +1,3 @@
-package seedu;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,8 +23,8 @@ class EventSyncTest {
 
     @BeforeEach
     void setUp() throws SyncException {
-        eventSync = new EventSync();
-        eventManager = new EventManager();
+        eventSync = new EventSync("./data/EventSyncTest.txt");
+        eventManager = new EventManager("./data/EventSyncTest.txt");
     }
 
     @Test
@@ -70,7 +68,7 @@ class EventSyncTest {
 
         InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
 
-        EventSync eventSync = new EventSync(in);
+        EventSync eventSync = new EventSync(in,"./data/EventSyncTest.txt" );
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalSystemOut = System.out;

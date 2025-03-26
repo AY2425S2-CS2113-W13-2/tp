@@ -14,4 +14,8 @@ public class AddEventCommand extends Command {
     public void execute(EventManager events, UI ui) throws SyncException {
         events.addEvent(event);
     }
+
+    public Event getEvent() {
+        return this.event;
+    }
 }

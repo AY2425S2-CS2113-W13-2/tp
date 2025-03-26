@@ -1,5 +1,3 @@
-package seedu;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,9 +17,9 @@ public class DeleteEventTest {
     private UI ui;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SyncException {
         ui = new UI();
-        eventManager = new EventManager();
+        eventManager = new EventManager("./data/DeleteEventTest.txt");
     }
 
     @Test
