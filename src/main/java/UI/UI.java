@@ -6,6 +6,7 @@ import java.util.Scanner;
 import event.Event;
 import event.EventManager;
 import label.Priority;
+import participant.Participant;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -123,5 +124,13 @@ public class UI {
 
     public void showDeletionCancelledMessage() {
         System.out.println("Deletion cancelled.");
+    }
+
+    public void showAddParticipantFormat() {
+        System.out.println("Enter participant details (format: Name | Email | AccessLevel[ADMIN/MEMBER]):");
+    }
+
+    public void showParticipantAdded(Participant p) {
+        System.out.println("Participant added: " + p);
     }
 }

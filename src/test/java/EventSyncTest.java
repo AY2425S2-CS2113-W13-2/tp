@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import exception.SyncException;
 import event.Event;
 import event.EventManager;
+import seedu.EventSync;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

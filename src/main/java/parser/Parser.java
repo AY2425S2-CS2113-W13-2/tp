@@ -15,11 +15,15 @@ import command.DuplicateCommand;
 import command.EditEventCommand;
 import command.ListCommand;
 import command.FindCommand;
+import command.ListParticipantsCommand;
+import command.AddParticipantCommand;
 import logger.EventSyncLogger;
 import event.EventManager;
 import event.Event;
 import ui.UI;
 import exception.SyncException;
+import participant.Participant;
+
 
 
 public class Parser {
@@ -79,7 +83,15 @@ public class Parser {
                     logger.warning("Find command received without keyword.");
                     throw new SyncException("Please provide a keyword");
                 }
-            default:
+            case "addparticipant":
+                logger.info("AddParticipant command received.");
+                return createAddParticipantCommand();
+
+            case "listparticipants":
+                logger.info("ListParticipants command received.");
+                return createListParticipantsCommand();
+
+                default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));
             }
@@ -241,4 +253,45 @@ public class Parser {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
+
+    private Command createAddParticipantCommand() throws SyncException {
+        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | <AccessLevel [ADMIN/MEMBER]>):");
+        String input = scanner.nextLine();
+        String[] parts = input.split("\\|");
+
+        if (parts.length != 3) {
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | <AccessLevel>");
+        }
+
+        try {
+            int eventIndex = Integer.parseInt(parts[0].trim()) - 1;  // 1-based to 0-based
+            String participantName = parts[1].trim();
+            String accessStr = parts[2].trim().toUpperCase();
+
+            Participant.AccessLevel accessLevel;
+            try {
+                accessLevel = Participant.AccessLevel.valueOf(accessStr);
+            } catch (IllegalArgumentException e) {
+                throw new SyncException("Access Level must be ADMIN or MEMBER");
+            }
+
+            return new AddParticipantCommand(eventIndex, participantName, accessLevel);
+        } catch (NumberFormatException e) {
+            throw new SyncException("Invalid event index. Must be a number.");
+        }
+    }
+
+    private Command createListParticipantsCommand() throws SyncException {
+        ui.showMessage("Enter event index to list participants:");
+        String input = scanner.nextLine();
+
+        try {
+            int eventIndex = Integer.parseInt(input.trim()) - 1;
+            return new ListParticipantsCommand(eventIndex);
+        } catch (NumberFormatException e) {
+            throw new SyncException("Invalid event index. Please enter a number.");
+        }
+    }
+
+
 }
