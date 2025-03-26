@@ -52,7 +52,7 @@ public class EventManager {
         try {
             priority = Priority.priorityInput(); // tries to read from input
         } catch (NoSuchElementException e) {
-            priority = null; // fallback if no input is provided
+            priority = Priority.LOW; // fallback if no input is provided
         }
         Priority.addPriority(priority);
 
