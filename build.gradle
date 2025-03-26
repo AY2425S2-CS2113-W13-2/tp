@@ -16,7 +16,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
+    jvmArgs '-ea'
+    
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -29,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.EventSync")
+    mainClass.set("EventSync")
 }
 
 shadowJar {

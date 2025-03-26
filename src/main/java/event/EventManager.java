@@ -5,20 +5,27 @@ import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+
+import storage.Storage;
+import label.Priority;
 
 
 public class EventManager {
     public ArrayList<Event> events;
     private UI ui;
+    private Storage storage;
 
-    public EventManager(ArrayList<Event> events, UI ui) {
+    public EventManager(ArrayList<Event> events, UI ui, Storage storage) {
         this.events = events;
         this.ui = ui;
+        this.storage = storage;
     }
 
-    public EventManager() {
+    public EventManager(String filePath) throws SyncException {
         this.events = new ArrayList<>();
         this.ui = new UI();
+        this.storage = new Storage(filePath);
     }
 
     public ArrayList<Event> getEvents() {
@@ -41,6 +48,14 @@ public class EventManager {
         assert event != null : "Event cannot be null";
 
         events.add(event);
+        String priority;
+        try {
+            priority = Priority.priorityInput();
+        } catch (NoSuchElementException e) {
+            priority = "NULL";
+        }
+        Priority.addPriority(priority);
+
         ui.showAddedMessage(event);
 
         ArrayList<Event> collisions = checkCollision(
@@ -53,7 +68,10 @@ public class EventManager {
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(event, collisions);
         }
+
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
+
 
     public void viewAllEvents() {
         assert events != null : "Events list should not be null";
@@ -62,6 +80,7 @@ public class EventManager {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
+                String priority = Priority.getPriority(i);
                 ui.showEventWithIndex(event, i + 1);
             }
         } else {
@@ -74,7 +93,9 @@ public class EventManager {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
         Event deletedEvent = events.remove(index);
+        Priority.removePriority(index);
         ui.showDeletedMessage(deletedEvent);
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
     //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
@@ -98,10 +119,17 @@ public class EventManager {
         } else {
             ui.showEditedEvent(updatedEvent);
         }
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
+
+        int originalIndex = events.indexOf(eventToDuplicate);
+        String originalPriority = Priority.getPriority(originalIndex);
+        Priority.addPriority(originalPriority);
+
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
 
     public ArrayList<Event> checkCollision (String start, String end, ArrayList<Event> events) throws SyncException {

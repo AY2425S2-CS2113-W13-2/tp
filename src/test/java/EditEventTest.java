@@ -1,5 +1,3 @@
-package seedu;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,6 +6,7 @@ import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,8 +18,9 @@ class EditEventTest {
 
     @BeforeEach
     void setUp() throws SyncException {
-        ui = new UI();  // Real UI object (no mocking)
-        eventManager = new EventManager();
+
+        ui = new UI();
+        eventManager = new EventManager("./data/EditEventTest.txt");
         event = new Event("Team Meeting",
             LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
             LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
@@ -30,7 +30,6 @@ class EditEventTest {
 
     @Test
     void testEditEventName() throws SyncException {
-        // Simulate editing the event name
         Event updatedEvent = new Event("Updated Meeting",
             event.getStartTime(),
             event.getEndTime(),

@@ -1,7 +1,9 @@
-package seedu;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,18 +12,15 @@ import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 public class DeleteEventTest {
     private EventManager eventManager;
     private UI ui;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SyncException {
         ui = new UI();
-        eventManager = new EventManager();
+        eventManager = new EventManager("./data/DeleteEventTest.txt");
     }
 
     @Test
@@ -40,7 +39,9 @@ public class DeleteEventTest {
 
         eventManager.addEvent(event1);
         eventManager.addEvent(event2);
-        eventManager.deleteEvent(0);
+
+        eventManager.deleteEvent(0); // delete "Workshop"
+
         assertEquals(1, eventManager.getEvents().size());
         assertEquals("Meeting", eventManager.getEvents().get(0).getName());
     }
@@ -52,6 +53,4 @@ public class DeleteEventTest {
         });
         assertTrue(exception.getMessage().contains("Invalid event index"));
     }
-
 }
-

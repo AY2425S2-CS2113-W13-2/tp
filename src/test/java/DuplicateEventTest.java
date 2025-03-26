@@ -1,5 +1,3 @@
-package seedu;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +7,7 @@ import event.Event;
 import event.EventManager;
 import ui.UI;
 import exception.SyncException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ class DuplicateEventTest {
     @BeforeEach
     void setUp() throws SyncException {
         ui = new UI();
-        eventManager = new EventManager();
+        eventManager = new EventManager("./data/DuplicateEventTest.txt");
         event = new Event("Team Meeting",
                 LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
                 LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
