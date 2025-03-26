@@ -22,19 +22,19 @@ public class ListCommand extends Command {
         Sort sequence;
 
         switch (input) {
-            case "priority":
-                sequence = new SortByPriority();
-                break;
-            case "start":
-                sequence = new SortByStartTime();
-                break;
-            case "end":
-                sequence = new SortByEndTime();
-                break;
-            default:
-                ui.showMessage("Unknown sort type. Showing unsorted list.");
-                events.viewAllEvents();
-                return;
+        case "priority":
+            sequence = new SortByPriority();
+            break;
+        case "start":
+            sequence = new SortByStartTime();
+            break;
+        case "end":
+            sequence = new SortByEndTime();
+            break;
+        default:
+            ui.showMessage("Unknown sort type. Showing unsorted list.");
+            events.viewAllEvents();
+            return;
         }
 
         sequence.sort(events.getEvents(), Priority.getAllPriorities());

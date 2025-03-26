@@ -1,7 +1,6 @@
 package sort;
 
 import event.Event;
-import label.Priority;
 
 import java.util.ArrayList;
 
