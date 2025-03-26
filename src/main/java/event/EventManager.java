@@ -50,9 +50,9 @@ public class EventManager {
         events.add(event);
         String priority;
         try {
-            priority = Priority.priorityInput(); // tries to read from input
+            priority = Priority.priorityInput();
         } catch (NoSuchElementException e) {
-            priority = null; // fallback if no input is provided
+            priority = "NULL";
         }
         Priority.addPriority(priority);
 

@@ -7,7 +7,6 @@ import event.EventManager;
 import ui.UI;
 import exception.SyncException;
 
-import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
