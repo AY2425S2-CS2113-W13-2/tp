@@ -28,7 +28,7 @@ public class SyncException extends Exception {
         return "   (╯°□°)╯︵ Invalid filter input!\n" +
                 "   Please provide valid filter inputs in the format: \n" +
                 "   `filter {lower priority bound} {upper priority bound}`.\n" +
-                "   Example: `filter 2 5`.";
+                "   Example: `filter 1 2`.";
     }
 
     public static String eventNotFoundErrorMessage() {
@@ -45,7 +45,8 @@ public class SyncException extends Exception {
 
     public static String invalidBoundErrorMessage() {
         return "   (╯°□°)╯︵ Invalid bound values for filtering!\n" +
-                "   Please provide integers as priority levels.";
+                "   Please provide integers as priority levels.\n" +
+                "   Low = 1; Medium = 2; High = 3.";
     }
 
 
