@@ -4,7 +4,6 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -303,12 +302,14 @@ public class Parser {
     }
 
     private Command createAddParticipantCommand() throws SyncException {
-        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | <AccessLevel [ADMIN/MEMBER]> | <Availability <start yyyy/MM/dd HH:mm - end yyyy/MM/dd HH:mm>>)):");
+        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | " +
+                "<AccessLevel [ADMIN/MEMBER]> | <Availability <start yyyy/MM/dd HH:mm - end yyyy/MM/dd HH:mm>>)):");
         String input = scanner.nextLine();
         String[] parts = input.split("\\|");
 
         if (parts.length != 4) {
-            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability>");
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | " +
+                    "<AccessLevel> | <Availability>");
         }
 
         ArrayList<AvailabilitySlot> availabilitySlots = new ArrayList<>();
@@ -335,14 +336,18 @@ public class Parser {
                     String[] startEnd = trimmedSlot.split("-");
                     if (startEnd.length == 2) {
                         try {
-                            LocalDateTime start = LocalDateTime.parse(startEnd[0].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-                            LocalDateTime end = LocalDateTime.parse(startEnd[1].trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            LocalDateTime start = LocalDateTime.parse(startEnd[0].trim(),
+                                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            LocalDateTime end = LocalDateTime.parse(startEnd[1].trim(),
+                                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
                             availabilitySlots.add(new AvailabilitySlot(start, end));
                         } catch (DateTimeException e) {
-                            throw new SyncException("Invalid time format. Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                            throw new SyncException("Invalid time format. " +
+                                    "Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
                         }
                     } else {
-                        throw new SyncException("Invalid availability slot format. Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                        throw new SyncException("Invalid availability slot format. " +
+                                "Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
                     }
                 }
             }
