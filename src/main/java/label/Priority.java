@@ -14,15 +14,17 @@ public class Priority {
 
     public static int getValue(String priority) {
         switch (priority.toUpperCase()) {
-            case HIGH: return 1;
-            case MEDIUM: return 2;
-            case LOW: return 3;
-            default: return 4;
+        case HIGH: return 1;
+        case MEDIUM: return 2;
+        case LOW: return 3;
+        default: return 4;
         }
     }
 
     public static boolean isValid(String input) {
-        if (input == null) return false;
+        if (input == null){
+            return false;
+        }
         String allUpper = input.trim().toUpperCase();
         return allUpper.equals(HIGH) || allUpper.equals(MEDIUM) || allUpper.equals(LOW);
     }
