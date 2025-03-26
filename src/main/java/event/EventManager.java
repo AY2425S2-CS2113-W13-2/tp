@@ -5,6 +5,8 @@ import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+
 import storage.Storage;
 import label.Priority;
 
@@ -46,7 +48,12 @@ public class EventManager {
         assert event != null : "Event cannot be null";
 
         events.add(event);
-        String priority = Priority.priorityInput();
+        String priority;
+        try {
+            priority = Priority.priorityInput(); // tries to read from input
+        } catch (NoSuchElementException e) {
+            priority = null; // fallback if no input is provided
+        }
         Priority.addPriority(priority);
 
         ui.showAddedMessage(event);
