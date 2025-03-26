@@ -146,4 +146,8 @@ public class EventManager {
         }
         return collisions;
     }
+    public Storage getStorage() {
+        return storage;
+    }
+
 }
