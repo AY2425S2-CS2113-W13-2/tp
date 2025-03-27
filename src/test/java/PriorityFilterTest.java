@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import event.Event;
@@ -9,12 +9,15 @@ import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 class PriorityFilterTest {
 
     private EventManager eventManager;
     private UI ui;
     private ArrayList<Event> testEvents;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     void setUp() throws SyncException {
@@ -45,26 +48,38 @@ class PriorityFilterTest {
         testEvents.add(event3);
         Priority.addPriority("HIGH");
         eventManager.getEvents().addAll(testEvents);
+
+        // Set up capturing output
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
     void testFilterLowToMedium() throws SyncException {
         FilterCommand command = new FilterCommand(1, 2); // LOW=1, MEDIUM=2
         command.execute(eventManager, ui);
-        assertTrue(true);
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("Low Priority Task"));
+        assertTrue(output.contains("Medium Priority Meeting"));
+        assertTrue(!output.contains("High Priority Deadline"));
     }
 
     @Test
     void testFilterHighOnly() throws SyncException {
         FilterCommand command = new FilterCommand(3, 3); // HIGH=3
         command.execute(eventManager, ui);
-        assertTrue(true);
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("High Priority Deadline"));
+        assertTrue(!output.contains("Low Priority Task"));
+        assertTrue(!output.contains("Medium Priority Meeting"));
     }
 
     @Test
-    void testNoMatchingEvents() throws SyncException {
-        FilterCommand command = new FilterCommand(4, 4); // Invalid range
+    void testFilterLowOnly() throws SyncException {
+        FilterCommand command = new FilterCommand(1, 1); // LOW=1
         command.execute(eventManager, ui);
-        assertTrue(true);
+        String output = outputStreamCaptor.toString();
+        assertTrue(output.contains("Low Priority Task"));
+        assertTrue(!output.contains("Medium Priority Meeting"));
+        assertTrue(!output.contains("High Priority Deadline"));
     }
 }
