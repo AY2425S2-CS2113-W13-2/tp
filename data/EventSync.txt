@@ -1,5 +1,5 @@
-Client Call | 2025-06-12 13:00 | 2025-06-12 14:00 | Online | Call with client | LOW
-Team Sync | 2025-06-01 10:00 | 2025-06-01 11:00 | Zoom | Weekly team sync | HIGH
+Team Meeting | 2025-05-10 14:00 | 2025-05-10 16:00 | Conference Room | Discuss project updates | LOW
+Team Sync | 2025-05-31 15:00 | 2025-06-01 11:00 | Zoom | Weekly team sync | LOW
 Budget Review | 2025-06-02 09:00 | 2025-06-02 10:00 | Room 301 | Review Q3 budget | LOW
-team meeting | 2020-05-10 14:00 | 2025-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW
-team meeting | 2020-05-10 14:00 | 2025-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW
+Client Call | 2025-06-12 13:00 | 2025-06-12 14:00 | Online | Call with client | LOW
+Client Call | 2025-05-10 13:00 | 2025-05-10 14:00 | Zoom | Discuss client feedback | MEDIUM

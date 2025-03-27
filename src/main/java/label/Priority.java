@@ -15,10 +15,10 @@ public class Priority {
 
     public static int getValue(String priority) {
         switch (priority.toUpperCase()) {
-        case HIGH: return 1;
+        case HIGH: return 3;
         case MEDIUM: return 2;
-        case LOW: return 3;
-        default: return 4;
+        case LOW: return 1;
+        default: return 0;
         }
     }
 
@@ -35,10 +35,7 @@ public class Priority {
     }
 
     public static String priorityInput() {
-        if (System.console() != null) {
-            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
-        }
-
+        System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
         String input;
         try {
             input = scanner.nextLine().trim();
@@ -79,7 +76,7 @@ public class Priority {
     }
 
     public static ArrayList<String> getAllPriorities() {
-        return new ArrayList<>(priorityList);
+        return priorityList;
     }
 
     public static void clearPriorities() {
