@@ -3,7 +3,6 @@ package event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import command.Command;
 import participant.Participant;
 import java.util.ArrayList;
 

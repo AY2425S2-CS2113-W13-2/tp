@@ -9,7 +9,7 @@ import ui.UI;
 import label.Priority;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class AddParticipantCommand extends Command {
     private final int eventIndex;
@@ -17,7 +17,8 @@ public class AddParticipantCommand extends Command {
     private final Participant.AccessLevel accessLevel;
     private final ArrayList<AvailabilitySlot> availabilitySlots;
 
-    public AddParticipantCommand(int eventIndex, String participantName, Participant.AccessLevel accessLevel, ArrayList<AvailabilitySlot> availabilitySlots) {
+    public AddParticipantCommand(int eventIndex, String participantName, Participant.AccessLevel accessLevel,
+                                 ArrayList<AvailabilitySlot> availabilitySlots) {
         this.eventIndex = eventIndex;
         this.participantName = participantName;
         this.accessLevel = accessLevel;
@@ -38,7 +39,8 @@ public class AddParticipantCommand extends Command {
             boolean isAvailable = eventManager.checkParticipantAvailability(event, newParticipant);
             if(isAvailable == true){
                 event.addParticipant(newParticipant);
-                ui.showMessage("Participant " + newParticipant.getName() + "[" + accessLevel + "]" + " has been added" );
+                ui.showMessage("Participant " + newParticipant.getName() + "[" + accessLevel + "]" +
+                        " has been added" );
             } else {
                 ui.showMessage("Participant " + newParticipant.getName() + " is unavailable during the event");
             }

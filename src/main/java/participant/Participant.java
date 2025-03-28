@@ -2,9 +2,6 @@ package participant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.time.LocalDateTime;
-
 
 public class Participant {
     private final String name;
@@ -24,6 +21,7 @@ public class Participant {
     public AccessLevel getAccessLevel() { return accessLevel; }
 
     public void setAccessLevel(AccessLevel accessLevel) {
+
         this.accessLevel = accessLevel;
     }
 
@@ -40,3 +38,4 @@ public class Participant {
         return "Name:" + name + ", Access: "+ accessLevel + ", Availability: " + availableTimes;
     }
 }
+
