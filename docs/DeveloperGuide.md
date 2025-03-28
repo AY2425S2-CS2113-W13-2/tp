@@ -62,6 +62,21 @@ The `PriorityFilter` feature allows users to filter events by priority level (LO
   - Allows users to quickly find events with certain priorities.
   - Enhances usability by enabling customized event views.
 
+### Duplicate Event Feature
+
+#### Implementation
+The `DuplicateEventCommand` feature allows users to duplicate an existing event to their schedule. It is implemented using the `Command` pattern, where `DuplicateEventCommand` extends `Command`.
+
+1. **User Input Parsing**: The `Parser` class processes user input and creates an `DuplicateEventCommand` instance.
+2. **Event Storage**: The duplicated event details are stored in an `Event` object, which is added to an `EventList`.
+4. **Feedback to User**: The user is asked to input the index that they wish to duplicate and the new name of the event. Duplicated event is displayed to inform the user of successful event duplication.
+
+#### Design Considerations
+
+- **Why this design?**
+    - The `Command` pattern allows easy extension for future commands.
+    - Using an `EventList` simplifies storage and retrieval.
+
 ### Storage
 
 #### Implementation
