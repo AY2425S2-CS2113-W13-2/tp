@@ -1,7 +1,5 @@
 package event;
 
-import java.beans.beancontext.BeanContextServiceAvailableEvent;
-import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 
 import participant.AvailabilitySlot;
