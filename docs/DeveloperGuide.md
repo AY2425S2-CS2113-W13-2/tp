@@ -110,7 +110,6 @@ The `AddParticipantCommand` feature enables users to add a participant to a spec
   - Facilitates collaboration by assigning roles to users in events.
   - Enhances event detail and accountability.
 
----
 
 ### List Participants Feature
 
