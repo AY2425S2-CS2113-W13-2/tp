@@ -21,6 +21,23 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
     - The `Command` pattern allows easy extension for future commands.
     - Using an `EventList` simplifies storage and retrieval.
 
+### Edit Event Feature
+
+#### Implementation
+
+The `EditEventCommand` feature allows users to modify an existing event.
+
+1. **User Input Parsing**: The `Parser` prompts the user for the index of the event they want to edit.
+2. **Modification Flow**: The user is guided through inputs to edit event fields (e.g., name, time, location, etc.).
+3. **Update Storage**: The original event is updated in the `EventList`.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Enables users to fix or update event details without needing to delete and recreate them.
+  - Reuses existing input and validation logic, keeping the system modular.
+
+
 ### Conflict Detector Feature
 #### Implementation
 
@@ -76,6 +93,39 @@ The `DuplicateEventCommand` feature allows users to duplicate an existing event 
 - **Why this design?**
     - The `Command` pattern allows easy extension for future commands.
     - Using an `EventList` simplifies storage and retrieval.
+
+### Add Participant Feature
+
+#### Implementation
+
+The `AddParticipantCommand` feature enables users to add a participant to a specific event.
+
+1. **User Input Parsing**: The `Parser` reads the event index, participant name, and access level (ADMIN or MEMBER).
+2. **Validation**: Ensures valid access level and event index.
+3. **Participant Assignment**: Adds the participant to the event.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Facilitates collaboration by assigning roles to users in events.
+  - Enhances event detail and accountability.
+
+---
+
+### List Participants Feature
+
+#### Implementation
+
+The `ListParticipantsCommand` feature lists all participants assigned to a specific event.
+
+1. **User Input Parsing**: The user inputs the index of the event.
+2. **Retrieval**: Fetches and displays the participants for that event.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Allows users to view who's involved in an event.
+  - Useful for managing group tasks or meetings.
 
 ### Storage
 
