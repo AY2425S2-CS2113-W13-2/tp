@@ -1,4 +1,3 @@
 fdfd | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | fsdsf | HIGH | 
-event a | 2020-10-10 19:00 | 2020-10-11 19:00 | gym | 2113 | LOW | gee:MEMBER,gee:MEMBER,gee:MEMBER,genius:MEMBER,gege:MEMBER,gege:MEMBER,gege:MEMBER,eugene:MEMBER
+event a | 2020-10-10 19:00 | 2020-10-11 19:00 | gym | 2113 | LOW | gee:MEMBER,gee:MEMBER,gee:MEMBER,genius:MEMBER,gege:MEMBER,gege:MEMBER,gege:MEMBER,eugene:MEMBER,jj:MEMBER,jj:MEMBER,gg:MEMBER,gg:MEMBER
 sfdfd | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | fsdsf | LOW | das:ADMIN
-new a  | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | fsdsf | HIGH | 
