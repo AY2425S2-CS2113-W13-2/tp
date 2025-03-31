@@ -1,6 +1,7 @@
 package command;
 import event.Event;
 import event.EventManager;
+import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 
@@ -11,7 +12,7 @@ public class AddEventCommand extends Command {
         this.event = event;
     }
 
-    public void execute(EventManager events, UI ui) throws SyncException {
+    public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         events.addEvent(event);
     }
 

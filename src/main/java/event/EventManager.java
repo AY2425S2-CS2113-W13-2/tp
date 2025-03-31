@@ -2,10 +2,12 @@ package event;
 
 import java.util.ArrayList;
 
+import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import storage.Storage;
@@ -16,17 +18,20 @@ public class EventManager {
     public ArrayList<Event> events;
     private final UI ui;
     private final Storage storage;
+    private final UserStorage userStorage;
 
-    public EventManager(ArrayList<Event> events, UI ui, Storage storage) {
+    public EventManager(ArrayList<Event> events, UI ui, Storage storage, UserStorage userStorage) {
         this.events = events;
         this.ui = ui;
         this.storage = storage;
+        this.userStorage = userStorage;
     }
 
-    public EventManager(String filePath) throws SyncException {
+    public EventManager(String filePath, UserStorage userStorage) throws SyncException {
+        this.userStorage = userStorage;
         this.events = new ArrayList<>();
         this.ui = new UI();
-        this.storage = new Storage(filePath);
+        this.storage = new Storage(filePath, userStorage);
     }
 
     public ArrayList<Event> getEvents() {
@@ -75,6 +80,21 @@ public class EventManager {
 
 
     public void viewAllEvents() {
+        assert events != null : "Events list should not be null";
+
+        if (!events.isEmpty()) {
+            for (int i = 0; i < events.size(); i++) {
+                Event event = events.get(i);
+                assert event != null : "Event at index " + i + " should not be null";
+                String priority = Priority.getPriority(i);
+                ui.showEventWithIndex(event, i + 1);
+            }
+        } else {
+            ui.showEmptyListMessage();
+        }
+    }
+
+    public void viewEvents(List<Event> events) throws SyncException {
         assert events != null : "Events list should not be null";
 
         if (!events.isEmpty()) {
@@ -153,5 +173,4 @@ public class EventManager {
     public Storage getStorage() {
         return storage;
     }
-
 }

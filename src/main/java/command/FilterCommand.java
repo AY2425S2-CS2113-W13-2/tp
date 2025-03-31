@@ -1,6 +1,7 @@
 package command;
 
 import event.EventManager;
+import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 import event.Event;
@@ -17,7 +18,7 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public void execute(EventManager eventManager, UI ui) throws SyncException {
+    public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
             ArrayList<Event> matchingEvents = new ArrayList<>();
             ArrayList<String> allPriorities = Priority.getAllPriorities();

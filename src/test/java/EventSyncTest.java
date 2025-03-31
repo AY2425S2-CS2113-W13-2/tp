@@ -24,7 +24,7 @@ class EventSyncTest {
 
     @BeforeEach
     void setUp() throws SyncException {
-        eventSync = new EventSync("./data/EventSyncTest.txt");
+        eventSync = new EventSync("./data/EventSyncTest.txt", "./data/UserSyncTest.txt");
         eventManager = new EventManager("./data/EventSyncTest.txt");
     }
 
@@ -69,7 +69,7 @@ class EventSyncTest {
 
         InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
 
-        EventSync eventSync = new EventSync(in,"./data/EventSyncTest.txt" );
+        EventSync eventSync = new EventSync(in,"./data/EventSyncTest.txt", "./data/UserSyncTest.txt" );
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalSystemOut = System.out;

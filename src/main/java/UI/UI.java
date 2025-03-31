@@ -7,12 +7,41 @@ import event.Event;
 import event.EventManager;
 import label.Priority;
 import participant.Participant;
+import participant.ParticipantManager;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
 
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    public void showMenu() {
+        System.out.println("╔═════════════════════════════════════════╗");
+        System.out.println("║          EVENT SYNC COMMAND MENU        ║");
+        System.out.println("╠═════════════════════════════════════════╣");
+        System.out.println("║  === Event Management Commands ===      ║");
+        System.out.println("║  add            - Add new event         ║");
+        System.out.println("║  list           - List all events       ║");
+        System.out.println("║  delete [INDEX] - Delete an event       ║");
+        System.out.println("║  edit [INDEX]   - Edit an event         ║");
+        System.out.println("║  duplicate [ID] - Duplicate an event    ║");
+        System.out.println("║  find [KEYWORD] - Search events         ║");
+        System.out.println("║  filter         - Filter events         ║");
+        System.out.println("║                                         ║");
+        System.out.println("║  === Participant Commands ===           ║");
+        System.out.println("║  addparticipant - Add to event          ║");
+        System.out.println("║  listparticipants- List participants    ║");
+        System.out.println("║  create         - Create new user       ║");
+        System.out.println("║                                         ║");
+        System.out.println("║  === Session Commands ===               ║");
+        System.out.println("║  login          - Login to system       ║");
+        System.out.println("║  logout         - Logout                ║");
+        System.out.println("║                                         ║");
+        System.out.println("║  === System Commands ===                ║");
+        System.out.println("║  bye            - Exit program          ║");
+        System.out.println("║  help           - Show this menu        ║");
+        System.out.println("╚════════════════════════════════════════╝");
     }
 
     public void showEventWithIndex(Event event, int index) {
@@ -141,5 +170,24 @@ public class UI {
 
     public void showParticipantAdded(Participant p) {
         System.out.println("Participant added: " + p);
+    }
+
+    public void showLogOutMessage(ParticipantManager participants) {
+        System.out.println("Bye! User: " + participants.getCurrentUser() + " has logged out.");
+    }
+    public boolean askConfirmation(String message) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        String input = scanner.nextLine().trim().toLowerCase();
+
+        return input.equals("y");
+    }
+
+    public void showSuccessLoginMessage() {
+        System.out.println("Successfully logged in.");
+    }
+
+    public void showSuccessCreateMessage(Participant participant) {
+        System.out.println("Successfully created: " + participant.getName());
     }
 }

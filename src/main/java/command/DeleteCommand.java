@@ -2,6 +2,7 @@ package command;
 
 import event.Event;
 import event.EventManager;
+import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 
@@ -13,7 +14,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(EventManager eventManager, UI ui) throws SyncException {
+    public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         if (eventManager.getEvents().isEmpty()) {
             ui.showMessage("No events available.");
             return;
