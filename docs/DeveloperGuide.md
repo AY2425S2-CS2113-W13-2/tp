@@ -53,16 +53,38 @@ The `ConflictDetector` feature checks for overlapping events in a user's schedul
 ### List Events Feature
 
 #### Implementation
-The `ListCommand` feature retrieves and displays all stored events.
+The `ListCommand` allows users to list events with custom sorting options.
 
-1. **Retrieval**: Fetches events from `EventList`.
-2. **Sorting**: Events are sorted chronologically.
-3. **Display**: Events are printed to the user.
+1. **User Prompt**: When the user types `list`, they are asked how they want to sort the events.
+2. **Sort Strategies**: 
+- Implemented using the Strategy Pattern:
+  - `SortByPriority`: sorts from HIGH to LOW, with a subsort by end time (earlier first).
+  - `SortByStartTime`: sorts by earliest start time, then by priority (HIGH first).
+  - `SortByEndTime`: sorts by earliest end time, then by priority (HIGH first).
+3. **Modularity**: The `Sort` abstract class defines the contract for sorting. Each strategy class overrides it with specific logic.
+4. **Non-destructive Sorting**: Events and priorities are copied into temporary lists, sorted, and displayed without altering the original list.
 
 #### Design Considerations
 
 - **Why this design?**
-    - Sorting events ensures better readability, allowing users to easily track upcoming events.
+  - It enables flexibility and clean extension of new sort types.
+  - Keeps the original data intact.
+  - Allows consistent behavior across commands.
+
+### Delete Event Feature
+
+#### Implementation
+The `DeleteCommand` feature users to remove an event from their schedule by keyword. If multiple events share the same name, users are prompted to select the correct one based on the list shown.
+1. **User Input Parsing**: 
+The `Parser` reads the event keyword from user input using `readDeleteName()`. `findMatchingEvents(name)` is used to gather all matching events. 
+If more than one match is found, the UI shows them with indices for disambiguation.
+2. **Event Deletion Flow**: The selected event is passed to `DeleteCommand` with the correct index. In `execute()`, the user is asked to confirm the deletion via `ui.confirmDeletion()`.
+3. **Data Synchronization**: If confirmed, the event and its corresponding priority are removed.
+
+#### Design Considerations
+- **Why this design?**
+  - Maintains consistency between the events list and the priority list.
+  - Ensures safe deletion by confirming with the user.
 
 ### Priority Filter Feature
 

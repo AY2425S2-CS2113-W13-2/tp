@@ -63,5 +63,19 @@ public class ListCommand extends Command {
 
         sequence.sort(userEvents, Priority.getAllPriorities());
         events.viewEvents(userEvents);
+        ArrayList<Event> eventCopies = new ArrayList<>(events.getEvents());
+        ArrayList<String> priorityCopies = new ArrayList<>(Priority.getAllPriorities());
+
+        sortStrategy.sort(eventCopies, priorityCopies);
+
+        if (eventCopies.isEmpty()) {
+            ui.showMessage("No events to display.");
+        } else {
+            for (int i = 0; i < eventCopies.size(); i++) {
+                Event event = eventCopies.get(i);
+                String priority = priorityCopies.get(i);
+                ui.showEventWithIndex(event, i + 1, priority);
+            }
+        }
     }
 }

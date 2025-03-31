@@ -40,7 +40,7 @@ public class DeleteEventTest {
         eventManager.addEvent(event1);
         eventManager.addEvent(event2);
 
-        eventManager.deleteEvent(0); // delete "Workshop"
+        eventManager.deleteEvent(0);
 
         assertEquals(1, eventManager.getEvents().size());
         assertEquals("Meeting", eventManager.getEvents().get(0).getName());
