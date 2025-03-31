@@ -4,6 +4,7 @@ import event.Event;
 import event.EventManager;
 import participant.Participant;
 import participant.AvailabilitySlot;
+import participant.ParticipantManager;
 import exception.SyncException;
 import ui.UI;
 import label.Priority;
@@ -34,18 +35,15 @@ public class AddParticipantCommand extends Command {
 
         Participant newParticipant = new Participant(participantName, accessLevel);
         newParticipant.getAvailableTimes().addAll(availabilitySlots);
+        ParticipantManager participantManager = new ParticipantManager(ui);
 
-        if(event != null){
-            boolean isAvailable = eventManager.checkParticipantAvailability(event, newParticipant);
-            if(isAvailable == true){
-                event.addParticipant(newParticipant);
-                ui.showMessage("Participant " + newParticipant.getName() + "[" + accessLevel + "]" +
-                        " has been added" );
-            } else {
-                ui.showMessage("Participant " + newParticipant.getName() + " is unavailable during the event");
-            }
+        boolean isAvailable = participantManager.checkParticipantAvailability(event, newParticipant);
+        if(isAvailable){
+            event.addParticipant(newParticipant);
+            ui.showMessage("Participant " + newParticipant.getName() + "[" + accessLevel + "]" +
+                    " has been added" );
         } else {
-            throw new SyncException("Could not find the event with the provided index");
+            ui.showMessage("Participant " + newParticipant.getName() + " is unavailable during the event");
         }
 
         // Persist updated event list to storage
