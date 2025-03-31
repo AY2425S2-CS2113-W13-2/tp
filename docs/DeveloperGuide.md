@@ -21,6 +21,35 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
     - The `Command` pattern allows easy extension for future commands.
     - Using an `EventList` simplifies storage and retrieval.
 
+### Edit Event Feature
+
+#### Implementation
+
+The `EditEventCommand` feature allows users to modify an existing event.
+
+1. **User Input Parsing**: The `Parser` prompts the user for the index of the event they want to edit.
+2. **Modification Flow**: The user is guided through inputs to edit event fields (e.g., name, time, location, etc.).
+3. **Update Storage**: The original event is updated in the `EventList`.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Enables users to fix or update event details without needing to delete and recreate them.
+  - Reuses existing input and validation logic, keeping the system modular.
+
+
+### Conflict Detector Feature
+#### Implementation
+
+The `ConflictDetector` feature checks for overlapping events in a user's schedule.
+1. **Conflict Check**: Compares the start and end times of all events in EventList.
+2. **Feedback to User**: If conflicts are detected, a warning message is displayed to the user.
+
+#### Design Considerations
+- **Why this design?**
+  - Ensures users are aware of scheduling conflicts, preventing double-booking.
+  - Improves event management by highlighting overlapping schedules.
+
 ### List Events Feature
 
 #### Implementation
@@ -34,6 +63,68 @@ The `ListCommand` feature retrieves and displays all stored events.
 
 - **Why this design?**
     - Sorting events ensures better readability, allowing users to easily track upcoming events.
+
+### Priority Filter Feature
+
+#### Implementation
+The `PriorityFilter` feature allows users to filter events by priority level (LOW, MEDIUM, HIGH). 
+
+1. **User Input Parsing**: The Parser class processes input in format {PRIORITY PRIORITY}.
+2. **Event Filtering**: Events with priority within the range are filtered.
+3. **Display**: Events are printed to the user.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Allows users to quickly find events with certain priorities.
+  - Enhances usability by enabling customized event views.
+
+### Duplicate Event Feature
+
+#### Implementation
+The `DuplicateEventCommand` feature allows users to duplicate an existing event to their schedule. It is implemented using the `Command` pattern, where `DuplicateEventCommand` extends `Command`.
+
+1. **User Input Parsing**: The `Parser` class processes user input and creates an `DuplicateEventCommand` instance.
+2. **Event Storage**: The duplicated event details are stored in an `Event` object, which is added to an `EventList`.
+4. **Feedback to User**: The user is asked to input the index that they wish to duplicate and the new name of the event. Duplicated event is displayed to inform the user of successful event duplication.
+
+#### Design Considerations
+
+- **Why this design?**
+    - The `Command` pattern allows easy extension for future commands.
+    - Using an `EventList` simplifies storage and retrieval.
+
+### Add Participant Feature
+
+#### Implementation
+
+The `AddParticipantCommand` feature enables users to add a participant to a specific event.
+
+1. **User Input Parsing**: The `Parser` reads the event index, participant name, and access level (ADMIN or MEMBER).
+2. **Validation**: Ensures valid access level and event index.
+3. **Participant Assignment**: Adds the participant to the event.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Facilitates collaboration by assigning roles to users in events.
+  - Enhances event detail and accountability.
+
+
+### List Participants Feature
+
+#### Implementation
+
+The `ListParticipantsCommand` feature lists all participants assigned to a specific event.
+
+1. **User Input Parsing**: The user inputs the index of the event.
+2. **Retrieval**: Fetches and displays the participants for that event.
+
+#### Design Considerations
+
+- **Why this design?**
+  - Allows users to view who's involved in an event.
+  - Useful for managing group tasks or meetings.
 
 ### Storage
 

@@ -1,3 +1,5 @@
+package seedu;
+
 import event.EventManager;
 import parser.Parser;
 import storage.Storage;
@@ -32,7 +34,7 @@ public class EventSync {
     }
 
     public void run() {
-        ui.showMessage("Welcome to EventSync!");
+        ui.showMessage("Welcome to seedu.EventSync!");
         boolean isExit = false;
         while (!isExit && scanner.hasNextLine()) {
             String input = scanner.nextLine();
@@ -48,6 +50,6 @@ public class EventSync {
     }
 
     public static void main(String[] args) throws SyncException {
-        new EventSync("./data/EventSync.txt").run();
+        new EventSync("./data/seedu.EventSync.txt").run();
     }
 }

@@ -24,6 +24,13 @@ public class SyncException extends Exception {
                 "   Example: `add Meeting | 2025/05/10 14:00 | 2025/05/10 15:00 | Room 101 | Discuss project`.";
     }
 
+    public static String invalidFilterInputErrorMessage() {
+        return "   (╯°□°)╯︵ Invalid filter input!\n" +
+                "   Please provide valid filter inputs in the format: \n" +
+                "   `filter {lower priority bound} {upper priority bound}`.\n" +
+                "   Example: `filter 1 2`.";
+    }
+
     public static String eventNotFoundErrorMessage() {
         return "   (╯°□°)╯︵ Event not found!\n" +
                 "   The event you are trying to delete or edit does not exist.\n" +
@@ -36,5 +43,10 @@ public class SyncException extends Exception {
                 "   Example: `duplicate 2 New Event Name`.";
     }
 
-
+    public static String invalidBoundErrorMessage() {
+        return "   (╯°□°)╯︵ Invalid bound values for filtering!\n" +
+                "   Please provide two priority levels as lower bound and upper bound.\n" +
+                "   Be careful that the lower priority cannot be higher than upper priority.\n" +
+                "   Example: filter LOW MEDIUM";
+    }
 }

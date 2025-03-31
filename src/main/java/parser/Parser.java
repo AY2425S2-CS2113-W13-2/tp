@@ -11,15 +11,21 @@ import command.AddEventCommand;
 import command.ByeCommand;
 import command.Command;
 import command.DeleteCommand;
+import command.FilterCommand;
 import command.DuplicateCommand;
 import command.EditEventCommand;
 import command.ListCommand;
 import command.FindCommand;
+import command.ListParticipantsCommand;
+import command.AddParticipantCommand;
 import logger.EventSyncLogger;
 import event.EventManager;
 import event.Event;
+import participant.AvailabilitySlot;
 import ui.UI;
 import exception.SyncException;
+import participant.Participant;
+import label.Priority;
 
 
 public class Parser {
@@ -79,6 +85,15 @@ public class Parser {
                     logger.warning("Find command received without keyword.");
                     throw new SyncException("Please provide a keyword");
                 }
+            case "addparticipant":
+                logger.info("AddParticipant command received.");
+                return createAddParticipantCommand();
+            case "list participants":
+                logger.info("ListParticipants command received.");
+                return createListParticipantsCommand();
+            case "filter":
+                logger.info("Filter command received.");
+                return createFilterCommand();
             default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));
@@ -89,6 +104,50 @@ public class Parser {
         }
     }
 
+    private Command createFilterCommand() throws SyncException {
+        logger.info("Creating filter command.");
+        String input = readFilterInput();
+        logger.fine("Input for filter event: " + input);
+
+        assert input != null : "Input string should not be null";
+        assert !input.trim().isEmpty() : "Input string should not be empty";
+
+        String[] stringParts = input.split(" ");
+        assert stringParts.length > 0 : "Split result should not be empty";
+
+        if (stringParts.length != 2) {
+            logger.warning("Invalid number of parts in input: " + stringParts.length);
+            throw new SyncException("Please provide two priority levels (e.g., 'LOW MEDIUM')");
+        }
+
+        try {
+            String lowerPriority = stringParts[0].toUpperCase();
+            String upperPriority = stringParts[1].toUpperCase();
+
+            if (!Priority.isValid(lowerPriority) || !Priority.isValid(upperPriority)) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
+            int lower = Priority.getValue(lowerPriority);
+            int upper = Priority.getValue(upperPriority);
+
+            if (lower > upper) {
+                throw new SyncException(SyncException.invalidBoundErrorMessage());
+            }
+
+            return new FilterCommand(lower, upper);
+        } catch (SyncException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.severe("Unexpected exception: " + e.getMessage());
+            throw new SyncException(SyncException.invalidBoundErrorMessage());
+        }
+    }
+
+    private String readFilterInput() {
+        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
+        return scanner.nextLine();
+    }
 
     private Command createFindCommand(String keyword) throws SyncException {
         assert keyword != null : "Keyword should not be null";
@@ -241,4 +300,78 @@ public class Parser {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
     }
+
+    private Command createAddParticipantCommand() throws SyncException {
+        ui.showMessage("Enter participant details (format: <EventIndex> | <Participant Name> | " +
+                "<AccessLevel [ADMIN/MEMBER]> | <Availability <start yyyy/MM/dd HH:mm - end yyyy/MM/dd HH:mm>>)):");
+        String input = scanner.nextLine();
+        String[] parts = input.split("\\|");
+
+        if (parts.length != 4) {
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name> | <AccessLevel> " +
+                    "| <Availability>");
+        }
+
+        ArrayList<AvailabilitySlot> availabilitySlots = new ArrayList<>();
+
+        Participant.AccessLevel accessLevel;
+        String participantName;
+        int eventIndex;
+        try {
+            eventIndex = Integer.parseInt(parts[0].trim()) - 1;
+            participantName = parts[1].trim();
+            String accessStr = parts[2].trim().toUpperCase();
+
+            try {
+                accessLevel = Participant.AccessLevel.valueOf(accessStr);
+            } catch (IllegalArgumentException e) {
+                throw new SyncException("Access Level must be ADMIN or MEMBER");
+            }
+
+            String availabilityString = parts[3].trim();
+            String[] timeSlots = availabilityString.split(",");
+            for (String slot : timeSlots) {
+                String trimmedSlot = slot.trim();
+                if (!trimmedSlot.isEmpty()) {
+                    String[] startEnd = trimmedSlot.split("-");
+                    if (startEnd.length == 2) {
+                        try {
+                            LocalDateTime start = LocalDateTime.parse(startEnd[0].trim(),
+                                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            LocalDateTime end = LocalDateTime.parse(startEnd[1].trim(),
+                                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+                            availabilitySlots.add(new AvailabilitySlot(start, end));
+                        } catch (DateTimeException e) {
+                            throw new SyncException("Invalid time format. " +
+                                    "Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                        }
+                    } else {
+                        throw new SyncException("Invalid availability slot format. " +
+                                "Please use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
+                    }
+                }
+            }
+        } catch (NumberFormatException e) {
+            throw new SyncException("Invalid event index. Must be a number.");
+        }
+
+        Event event = null;
+        Participant newParticipant = new Participant(participantName, accessLevel);
+        newParticipant.getAvailableTimes().addAll(availabilitySlots);
+        return new AddParticipantCommand(eventIndex, participantName, accessLevel, availabilitySlots);
+    }
+
+    private Command createListParticipantsCommand() throws SyncException {
+        ui.showMessage("Enter event index to list participants:");
+        String input = scanner.nextLine();
+
+        try {
+            int eventIndex = Integer.parseInt(input.trim()) - 1;
+            return new ListParticipantsCommand(eventIndex);
+        } catch (NumberFormatException e) {
+            throw new SyncException("Invalid event index. Please enter a number.");
+        }
+    }
+
+
 }

@@ -34,4 +34,3 @@ public class SortByEndTime extends Sort {
         priorities.set(j, tempPrio);
     }
 }
-

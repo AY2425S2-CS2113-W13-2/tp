@@ -1,6 +1,7 @@
 package event;
 
 import java.util.ArrayList;
+
 import ui.UI;
 import exception.SyncException;
 import java.time.LocalDateTime;
@@ -13,8 +14,8 @@ import label.Priority;
 
 public class EventManager {
     public ArrayList<Event> events;
-    private UI ui;
-    private Storage storage;
+    private final UI ui;
+    private final Storage storage;
 
     public EventManager(ArrayList<Event> events, UI ui, Storage storage) {
         this.events = events;
@@ -40,11 +41,11 @@ public class EventManager {
         }
     }
 
-    public int size(){
+    public int size() {
         return events.size();
     }
 
-    public void addEvent(Event event) throws SyncException{
+    public void addEvent(Event event) {
         assert event != null : "Event cannot be null";
 
         events.add(event);
@@ -76,7 +77,7 @@ public class EventManager {
     public void viewAllEvents() {
         assert events != null : "Events list should not be null";
 
-        if (events.size() > 0) {
+        if (!events.isEmpty()) {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
@@ -96,6 +97,7 @@ public class EventManager {
         ui.showDeletedMessage(deletedEvent);
         storage.saveEvents(events, Priority.getAllPriorities());
     }
+
     //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
@@ -120,6 +122,7 @@ public class EventManager {
         }
         storage.saveEvents(events, Priority.getAllPriorities());
     }
+
     public void duplicateEvent(Event eventToDuplicate, String newName) {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
@@ -131,7 +134,7 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public ArrayList<Event> checkCollision (String start, String end, ArrayList<Event> events) throws SyncException {
+    public ArrayList<Event> checkCollision(String start, String end, ArrayList<Event> events) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
@@ -146,5 +149,9 @@ public class EventManager {
         return collisions;
     }
 
-}
+    public Storage getStorage() {
+        return storage;
+    }
 
+
+}

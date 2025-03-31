@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import event.Event;
 import event.EventManager;
+import participant.Participant;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -98,6 +99,15 @@ public class UI {
         System.out.println("Please edit your events to resolve the conflict.");
     }
 
+    public void showParticipantSlotCollisionWarning(Event event, ArrayList<Event> collisions) {
+        System.out.println("Warning: Scheduling Conflict");
+        System.out.println("Participants are not able to attend");
+        for (Event collision : collisions) {
+            System.out.println(collision.toString());
+        }
+        System.out.println("Please find another participant");
+    }
+
     public void showDeletedMessage(Event event) {
         System.out.println("\"" + event.getName() + "\" has been deleted.");
     }
@@ -122,5 +132,13 @@ public class UI {
 
     public void showDeletionCancelledMessage() {
         System.out.println("Deletion cancelled.");
+    }
+
+    public void showAddParticipantFormat() {
+        System.out.println("Enter participant details (format: Name | Email | AccessLevel[ADMIN/MEMBER]):");
+    }
+
+    public void showParticipantAdded(Participant p) {
+        System.out.println("Participant added: " + p);
     }
 }
