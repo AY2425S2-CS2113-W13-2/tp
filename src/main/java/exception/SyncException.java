@@ -7,7 +7,7 @@ public class SyncException extends Exception {
 
     public static String invalidCommandErrorMessage(String command) {
         return "   (╯°□°)╯︵ OOPS!!! Invalid command: " + command + "\n" +
-                "   Please enter a valid command. \n" +
+                "   Please enter a valid command or login first. \n" +
                 "   Example: `add` or `list` or `edit`.";
     }
 

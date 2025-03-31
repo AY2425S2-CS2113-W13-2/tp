@@ -17,7 +17,7 @@ class ParticipantTest {
 
     @BeforeEach
     void setUp() {
-        participant = new Participant("Alice", Participant.AccessLevel.ADMIN);
+        participant = new Participant("Alice", "1234",  Participant.AccessLevel.ADMIN);
 
         slot1 = new AvailabilitySlot(
                 LocalDateTime.of(2025, 5, 1, 9, 0),

@@ -1,6 +1,7 @@
 package command;
 
 import event.EventManager;
+import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 import event.Event;
@@ -14,7 +15,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(EventManager events, UI ui) throws SyncException {
+    public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
             ArrayList<Event> matchingEvents = new ArrayList<>();
             for (Event event : events.getEvents()) {

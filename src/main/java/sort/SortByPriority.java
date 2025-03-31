@@ -2,12 +2,12 @@ package sort;
 
 import event.Event;
 import label.Priority;
-import java.util.ArrayList;
+import java.util.List;
 
 public class SortByPriority extends Sort {
 
     @Override
-    public void sort(ArrayList<Event> events, ArrayList<String> priorities) {
+    public void sort(List<Event> events, List<String> priorities) {
         int n = events.size();
         for (int i = 0; i < n - 1; i++) {
             int bestIdx = i;
@@ -26,6 +26,7 @@ public class SortByPriority extends Sort {
             swap(events, priorities, i, bestIdx);
         }
     }
+
 
     private void swap(ArrayList<Event> events, ArrayList<String> priorities, int i, int j) {
         Event tempEvent = events.get(i);

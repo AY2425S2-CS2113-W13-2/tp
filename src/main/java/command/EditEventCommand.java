@@ -7,6 +7,7 @@ import java.util.Scanner;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
+import participant.ParticipantManager;
 import ui.UI;
 
 public class EditEventCommand extends Command {
@@ -18,59 +19,61 @@ public class EditEventCommand extends Command {
         this.index = index;
     }
 
-
-    public void execute(EventManager events, UI ui) {
+    public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
-            Event event = events.getEvent(index);
-            boolean editing = true;
+            if(participantManager.isCurrentUserAdmin()) {
+                Event event = events.getEvent(index);
+                boolean editing = true;
 
-            while (editing) {
-                ui.showEditCommandMessage(event);
+                while (editing) {
+                    ui.showEditCommandMessage(event);
 
-                // Fix: Properly consume input
-                if (!scanner.hasNextInt()) {
-                    ui.showEditCommandCorrectFormat();
-                    scanner.next(); // Clear invalid input
-                    continue;
+                    // Fix: Properly consume input
+                    if (!scanner.hasNextInt()) {
+                        ui.showEditCommandCorrectFormat();
+                        scanner.next(); // Clear invalid input
+                        continue;
+                    }
+
+                    int choice = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline after nextInt()
+
+                    switch (choice) {
+                    case 1:
+                        ui.showEditCommandStep1();
+                        event.setName(scanner.nextLine().trim());
+                        break;
+                    case 2:
+                        ui.showEditCommandStep2();
+                        event.setStartTime(validateDateTime(scanner.nextLine().trim()));
+                        break;
+                    case 3:
+                        ui.showEditCommandStep3();
+                        event.setEndTime(validateDateTime(scanner.nextLine().trim()));
+                        break;
+                    case 4:
+                        ui.showEditCommandStep4();
+                        event.setLocation(scanner.nextLine().trim());
+                        break;
+                    case 5:
+                        ui.showEditCommandStep5();
+                        event.setDescription(scanner.nextLine().trim());
+                        break;
+                    case 6:
+                        editing = false;
+                        System.out.println("Event editing completed.");
+                        break;
+
+                    default:
+                        ui.showEditCommandCorrectFormat();
+                    }
+                    events.updateEvent(index, event);
                 }
-
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline after nextInt()
-
-                switch (choice) {
-                case 1:
-                    ui.showEditCommandStep1();
-                    event.setName(scanner.nextLine().trim());
-                    break;
-                case 2:
-                    ui.showEditCommandStep2();
-                    event.setStartTime(validateDateTime(scanner.nextLine().trim()));
-                    break;
-                case 3:
-                    ui.showEditCommandStep3();
-                    event.setEndTime(validateDateTime(scanner.nextLine().trim()));
-                    break;
-                case 4:
-                    ui.showEditCommandStep4();
-                    event.setLocation(scanner.nextLine().trim());
-                    break;
-                case 5:
-                    ui.showEditCommandStep5();
-                    event.setDescription(scanner.nextLine().trim());
-                    break;
-                case 6:
-                    editing = false;
-                    System.out.println("Event editing completed.");
-                    break;
-
-                default:
-                    ui.showEditCommandCorrectFormat();
-                }
-                events.updateEvent(index, event);
-
+            } else {
+                throw new SyncException("You are not currently administrator.");
             }
         } catch (SyncException e) {
-            ui.showMessage(e.getMessage());
+            throw new SyncException(e.getMessage());
         }
     }
     // Ensure time and date inputs are correct
