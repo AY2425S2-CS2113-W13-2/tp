@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import event.Event;
 import event.EventManager;
-import label.Priority;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);
@@ -14,10 +13,10 @@ public class UI {
         System.out.println(message);
     }
 
-    public void showEventWithIndex(Event event, int index) {
+    public void showEventWithIndex(Event event, int index, String priority) {
         System.out.println("The event " + index + " is: ");
         System.out.println(event.toString());
-        System.out.println("Priority: " + Priority.getPriority(index - 1));
+        System.out.println("Priority: " + priority);
         System.out.println();
     }
 

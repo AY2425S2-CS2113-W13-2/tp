@@ -80,8 +80,7 @@ public class EventManager {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
-                String priority = Priority.getPriority(i);
-                ui.showEventWithIndex(event, i + 1);
+                ui.showEventWithIndex(event, i + 1, Priority.getPriority(i));
             }
         } else {
             ui.showEmptyListMessage();
@@ -146,4 +145,6 @@ public class EventManager {
         }
         return collisions;
     }
+
 }
+
