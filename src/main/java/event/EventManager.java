@@ -101,7 +101,7 @@ public class EventManager {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
                 String priority = Priority.getPriority(i);
-                ui.showEventWithIndex(event, i + 1);
+                ui.showEventWithIndex(event, i + 1,priority);
             }
         } else {
             ui.showEmptyListMessage();

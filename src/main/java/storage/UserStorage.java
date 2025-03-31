@@ -91,7 +91,7 @@ public class UserStorage {
     }
 
     private Participant parseParticipant(String line) {
-        String[] parts = line.split(" \\| ", -1);
+        String[] parts = line.split("\\s*\\|\\s*", -1); // handles spaces around `|`
         if (parts.length < 3) {
             throw new IllegalArgumentException("Missing required fields");
         }

@@ -16,7 +16,7 @@ public final class CommandParser {
     private static final Scanner scanner = new Scanner(System.in);
 
     private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static String readInput() throws SyncException {
         String input = scanner.nextLine();
@@ -26,7 +26,7 @@ public final class CommandParser {
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);
         } catch (DateTimeException e) {
-            throw new SyncException("Invalid date-time format. Use yyyy/MM/dd HH:mm");
+            throw new SyncException("Invalid date-time format. Use yyyy-MM-dd HH:mm");
         }
     }
 
