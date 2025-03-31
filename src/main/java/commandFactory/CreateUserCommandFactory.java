@@ -4,7 +4,6 @@ import command.Command;
 import command.CreateUserCommand;
 import parser.CommandParser;
 import participant.Participant;
-import participant.ParticipantManager;
 import participant.AvailabilitySlot;
 import ui.UI;
 import exception.SyncException;
@@ -22,34 +21,39 @@ public class CreateUserCommandFactory implements CommandFactory {
         ArrayList<AvailabilitySlot> availabilitySlots = askAvailability();
 
         Participant participant = new Participant(participantName, password, accessLevel);
-        participant.getAvailableTimes().addAll(availabilitySlots);
+        participant.setAvailableTimes(availabilitySlots);
         return new CreateUserCommand(participant);
     }
-
 
     private ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
         ArrayList<AvailabilitySlot> slots = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter number of availability slots: ");
         int numSlots = Integer.parseInt(scanner.nextLine().trim());
 
         for (int i = 0; i < numSlots; i++) {
-            System.out.print("Enter start time for availability slot " + (i + 1) + " (in format YYYY-MM-DD HH:mm): ");
-            String startTime = scanner.nextLine().trim();
+            try {
+                System.out.print("Enter start time for availability slot " + (i + 1) + " (in format yyyy-MM-dd HH:mm): ");
+                String startTimeStr = scanner.nextLine().trim();
 
-            System.out.print("Enter end time for availability slot " + (i + 1) + " (in format YYYY-MM-DD HH:mm): ");
-            String endTime = scanner.nextLine().trim();
+                System.out.print("Enter end time for availability slot " + (i + 1) + " (in format yyyy-MM-dd HH:mm): ");
+                String endTimeStr = scanner.nextLine().trim();
 
-            LocalDateTime start = CommandParser.parseDateTime(startTime);
-            LocalDateTime end = CommandParser.parseDateTime(endTime);
+                LocalDateTime start = CommandParser.parseDateTime(startTimeStr);
+                LocalDateTime end = CommandParser.parseDateTime(endTimeStr);
 
-            if (start == null || end == null) {
-                System.out.println("❌ Invalid date format, skipping this slot.");
-                continue;
+                if (end.isBefore(start)) {
+                    System.out.println("❌ End time must be after start time. Skipping this slot.");
+                    continue;
+                }
+
+                slots.add(new AvailabilitySlot(start, end));
+            } catch (SyncException e) {
+                System.out.println("❌ " + e.getMessage() + " Skipping this slot.");
+            } catch (Exception e) {
+                System.out.println("❌ Unexpected error: " + e.getMessage());
             }
-
-            AvailabilitySlot availabilitySlot = new AvailabilitySlot(start, end);
-            slots.add(availabilitySlot);
         }
 
         return slots;

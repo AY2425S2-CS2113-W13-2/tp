@@ -12,7 +12,7 @@ import sort.Sort;
 import sort.SortByPriority;
 import sort.SortByStartTime;
 import sort.SortByEndTime;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,7 +66,7 @@ public class ListCommand extends Command {
         ArrayList<Event> eventCopies = new ArrayList<>(events.getEvents());
         ArrayList<String> priorityCopies = new ArrayList<>(Priority.getAllPriorities());
 
-        sortStrategy.sort(eventCopies, priorityCopies);
+        sequence.sort(eventCopies, priorityCopies);
 
         if (eventCopies.isEmpty()) {
             ui.showMessage("No events to display.");

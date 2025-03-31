@@ -24,7 +24,7 @@ public class SortByEndTime extends Sort {
         }
     }
 
-    private void swap(ArrayList<Event> events, ArrayList<String> priorities, int i, int j) {
+    private void swap(List<Event> events, List<String> priorities, int i, int j) {
         Event temp = events.get(i);
         events.set(i, events.get(j));
         events.set(j, temp);

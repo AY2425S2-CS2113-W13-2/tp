@@ -4,6 +4,8 @@ import event.Event;
 import label.Priority;
 import java.util.List;
 
+
+
 public class SortByPriority extends Sort {
 
     @Override
@@ -28,7 +30,7 @@ public class SortByPriority extends Sort {
     }
 
 
-    private void swap(ArrayList<Event> events, ArrayList<String> priorities, int i, int j) {
+    private void swap(List<Event> events, List<String> priorities, int i, int j) {
         Event tempEvent = events.get(i);
         events.set(i, events.get(j));
         events.set(j, tempEvent);
