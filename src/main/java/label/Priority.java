@@ -35,10 +35,7 @@ public class Priority {
     }
 
     public static String priorityInput() {
-        if (System.console() != null) {
-            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
-        }
-
+        System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
         String input;
         try {
             input = scanner.nextLine().trim();
