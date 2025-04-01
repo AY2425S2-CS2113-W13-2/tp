@@ -12,6 +12,7 @@ import commandFactory.DuplicateCommandFactory;
 import commandFactory.EditCommandFactory;
 import commandFactory.FilterCommandFactory;
 import commandFactory.FindCommandFactory;
+import commandFactory.ListAllCommandFactory;
 import commandFactory.ListCommandFactory;
 import commandFactory.ListParticipantsCommandFactory;
 import commandFactory.LoginCommandFactory;
@@ -57,6 +58,9 @@ public class Parser {
             case "bye":
                 logger.info("Bye command received.");
                 return new ByeCommandFactory(this.participantManager, this.ui);
+            case "listall":
+                logger.info("List all command received.");
+                return new ListAllCommandFactory(this.participantManager, this.ui);
             case "list":
                 logger.info("List command received.");
                 return new ListCommandFactory(this.participantManager, this.ui);

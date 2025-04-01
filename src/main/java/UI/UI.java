@@ -21,7 +21,8 @@ public class UI {
         System.out.println("╠═════════════════════════════════════════╣");
         System.out.println("║  === Event Management Commands ===      ║");
         System.out.println("║  add            - Add new event         ║");
-        System.out.println("║  list           - List all events       ║");
+        System.out.println("║  list           - List your events      ║");
+        System.out.println("║  listall        - List all events       ║");
         System.out.println("║  delete [INDEX] - Delete an event       ║");
         System.out.println("║  edit [INDEX]   - Edit an event         ║");
         System.out.println("║  duplicate [ID] - Duplicate an event    ║");
