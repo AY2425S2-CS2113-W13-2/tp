@@ -1,9 +1,88 @@
-# Developer Guide
+# Event Manager Developer Guide
 
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
+## Introduction
+
+This project is a CLI-based Event Manager designed to help users organize their schedules effectively. In addition to 
+creating, editing, deleting, and sorting events, the application supports participant management with access levels and 
+availability. This Developer Guide documents the architecture, features, design considerations, and implementation 
+details to help contributors understand the codebase and make meaningful contributions.
+
+## Setting Up the Development Environment
+
+### Prerequisites
+
+- `JDK 17`
+- `Gradle 7.6.2` or higher
+- `IntelliJ IDEA` (recommended IDE for Java development)
+
+### Getting Started
+
+#### 1. Clone the Repository
+
+Clone the repository to your local machine:
+```
+git clone https://github.com/AY2425S2-CS2113-W13-2/tp.git
+```
+#### 2. Import the Project into IntelliJ IDEA
+
+To import the project:
+
+- Open `IntelliJ IDEA`
+- Click on `File → Open`
+- Select the `tp` directory
+- Choose the `build.gradle` file and open it
+- Select `Open as Project` when prompted
+- Ensure the JDK is set to `JDK 17`
+- Wait for Gradle to finish syncing
+
+#### 3. Verify the Setup
+
+To ensure everything is working correctly, you can:
+
+- Run all tests:
+```
+  ./gradlew test
+```
+- Launch the application:
+```
+./gradlew run
+```
+---
+
+## Component Overview
+
+The architecture of Event Manager is structured into clearly defined components to ensure modularity and 
+maintainability. The core components are outlined below:
+
+### 1. Main Component (Main.java)
+- Serves as the entry point of the application.
+- Initializes and connects all components (UI, Parser, Managers).
+- Manages the main execution loop and system shutdown.
+
+### 2. UI Component (UI.java)
+- Handles all user interaction through the command line.
+- Displays menus, messages, prompts, and results.
+- Reads user input and forwards it to the Parser.
+
+### 3. Logic Component
+- Parser (Parser.java): Parses and processes user commands.
+- Command Classes (e.g., AddEventCommand.java): Implement specific command logic based on the Command pattern.
+- CommandFactory: Creates command instances based on input.
+
+### 4. Model Component
+- Event, Participant: Core data structures representing scheduled activities and users.
+- EventManager: Manages all event-related operations (add/edit/delete/conflict detection).
+- ParticipantManager: Handles login, logout, participant roles, and availability.
+
+### 5. Storage Component (Storage.java)
+- Manages data persistence across sessions.
+- Reads/writes events.txt, participants.txt, and other files.
+- Ensures data is serialized and deserialized in a consistent format.
+---
 ## Design & Implementation
 
 ### Add Event Feature
@@ -191,6 +270,7 @@ By providing these features, the application allows users to focus on their task
 | v1.0    | user           | add an event with a description and date/time | keep track of important events and deadlines |
 | v1.0    | user           | list all my events                    | see all my events organized by date/time |
 | v2.0    | user           | store events persistently             | ensure my events remain even after restarting the application |
+| v2.0    | admin          | edit event details                    | fix errors or update times                        |
 
 ## Non-Functional Requirements
 
