@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This is a CLI-based Event Manager for organizing events, participants, and schedules. It supports priority levels, conflict detection, event filtering, user roles (admin/member), and participant availability. Each participant can log in and see or manage only their assigned events. Data is saved automatically between sessions.
+This is a CLI-based Event Manager for organizing events, participants, and schedules. It supports priority levels, 
+conflict detection, event filtering, user roles (admin/member), and participant availability. Each participant can log 
+in and see or manage only their assigned events. Data is saved automatically between sessions.
 
 ---
 
