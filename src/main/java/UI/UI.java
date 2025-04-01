@@ -172,8 +172,8 @@ public class UI {
         System.out.println("Participant added: " + p);
     }
 
-    public void showLogOutMessage(ParticipantManager participants) {
-        System.out.println("Bye! User: " + participants.getCurrentUser() + " has logged out.");
+    public void showLogOutMessage() {
+        System.out.println("Bye! Press 'login' to log in or 'create' to create a new user." );
     }
     public boolean askConfirmation(String message) {
         Scanner scanner = new Scanner(System.in);
@@ -189,5 +189,10 @@ public class UI {
 
     public void showSuccessCreateMessage(Participant participant) {
         System.out.println("Successfully created: " + participant.getName());
+    }
+
+    public void showWelcomeMessage() {
+        System.out.println("Welcome to EventSync!");
+        System.out.println("Press 'login' to log in or 'create' to create a new user." );
     }
 }

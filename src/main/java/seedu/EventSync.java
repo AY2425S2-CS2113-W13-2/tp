@@ -44,8 +44,7 @@ public class EventSync {
     }
 
     public void run() {
-        ui.showMessage("Welcome to seedu.EventSync!");
-        ui.showMessage("Please log in.");
+        ui.showWelcomeMessage();
         boolean isExit = false;
         while (!isExit && scanner.hasNextLine()) {
             String input = scanner.nextLine();

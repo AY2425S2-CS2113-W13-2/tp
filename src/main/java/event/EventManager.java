@@ -2,6 +2,7 @@ package event;
 
 import java.util.ArrayList;
 
+import participant.Participant;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
@@ -67,6 +68,7 @@ public class EventManager {
         ArrayList<Event> collisions = checkCollision(
                 event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getLocation(),
                 events
         );
 
@@ -75,6 +77,43 @@ public class EventManager {
             ui.showCollisionWarning(event, collisions);
         }
 
+        storage.saveEvents(events, Priority.getAllPriorities());
+    }
+
+    public void addEvent(Event event, Participant participant) throws SyncException {
+        assert event != null : "Event cannot be null";
+
+        ArrayList<Event> collisions = checkCollision(
+                event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getLocation(),
+                events
+        );
+
+        if (!collisions.isEmpty()) {
+            throw new SyncException("Event conflicts with existing events.");
+        }
+
+        if (participant == null) {
+            throw new SyncException("No user is currently selected.");
+        }
+
+        if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime()) ) {
+            throw new SyncException("Participant is not available at the given time.");
+        }
+
+        event.addParticipant(participant);
+        events.add(event);
+
+        String priority;
+        try {
+            priority = Priority.priorityInput();
+        } catch (NoSuchElementException e) {
+            priority = "NULL";
+        }
+        Priority.addPriority(priority);
+
+        ui.showAddedMessage(event);
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
@@ -131,6 +170,7 @@ public class EventManager {
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                updatedEvent.getLocation(),
                 events
         );
 
@@ -154,7 +194,7 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public ArrayList<Event> checkCollision(String start, String end, ArrayList<Event> events) {
+    public ArrayList<Event> checkCollision(String start, String end, String location, ArrayList<Event> events) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
@@ -162,7 +202,9 @@ public class EventManager {
 
         for (int i = 0; i < events.size() - 1; i++) {
             Event event = events.get(i);
-            if (!(event.getEndTime().isBefore(startTime) || event.getStartTime().isAfter(endTime))) {
+            boolean timeOverlap = !(event.getEndTime().isBefore(startTime) || event.getStartTime().isAfter(endTime));
+            boolean sameLocation = event.getLocation().equals(location);
+            if (timeOverlap && sameLocation) {
                 collisions.add(event);
             }
         }

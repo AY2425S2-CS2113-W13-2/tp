@@ -10,6 +10,6 @@ public class LogOutCommand extends Command {
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
         participants.logout();
-        ui.showLogOutMessage(participants);
+        ui.showLogOutMessage();
     }
 }

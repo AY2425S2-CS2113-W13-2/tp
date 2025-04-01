@@ -36,23 +36,17 @@ public class Participant {
         boolean assigned = false;
 
         for (AvailabilitySlot slot : availableTimes) {
-            if (slot.getStartTime().isAfter(eventEnd) || slot.getEndTime().isBefore(eventStart)) {
+            if (slot.getEndTime().isBefore(eventStart) || slot.getStartTime().isAfter(eventEnd)) {
                 newSlots.add(slot);
             } else {
                 assigned = true;
 
                 if (slot.getStartTime().isBefore(eventStart)) {
-                    newSlots.add(new AvailabilitySlot(
-                            slot.getStartTime(),
-                            eventStart.minusMinutes(1)
-                    ));
+                    newSlots.add(new AvailabilitySlot(slot.getStartTime(), eventStart.minusMinutes(1)));
                 }
 
                 if (slot.getEndTime().isAfter(eventEnd)) {
-                    newSlots.add(new AvailabilitySlot(
-                            eventEnd.plusMinutes(1),
-                            slot.getEndTime()
-                    ));
+                    newSlots.add(new AvailabilitySlot(eventEnd.plusMinutes(1), slot.getEndTime()));
                 }
             }
         }
@@ -63,6 +57,7 @@ public class Participant {
         }
         return false;
     }
+
 
     public boolean isAvailableDuring(LocalDateTime start, LocalDateTime end) {
         return availableTimes.stream().anyMatch(slot ->

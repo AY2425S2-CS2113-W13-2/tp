@@ -93,14 +93,14 @@ public final class CommandParser {
 
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
         System.out.print("Enter participant's access level (1 for Admin, 2 for Member): ");
-        int choice = Integer.parseInt(scanner.nextLine().trim());
         try {
+            int choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 1) {
                 return Participant.AccessLevel.ADMIN;
             } else if (choice == 2) {
                 return Participant.AccessLevel.MEMBER;
             } else {
-                System.out.println("Invalid choice. Defaulting to PARTICIPANT.");
+                System.out.println("Invalid choice. Defaulting to MEMBER.");
                 return Participant.AccessLevel.MEMBER;
             }
         } catch (NumberFormatException e) {
