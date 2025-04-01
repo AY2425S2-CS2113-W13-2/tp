@@ -55,7 +55,7 @@ To ensure everything is working correctly, you can:
 
 ## Component Overview
 
-[Click here to view the UML class diagram](./docs/UMLClassDiagram.pdf)
+[Click here to view the UML class diagram](UMLClassDiagram.pdf)
 
 The architecture of Event Manager is structured into clearly defined components to ensure modularity and 
 maintainability. The core components are outlined below:
