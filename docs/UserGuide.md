@@ -22,19 +22,110 @@ java -jar EventManager.jar
 
 ---
 
-## Features
+## Features(command you need to enter - description)
 
 ### ✅ `login` — Log in as an existing participant
 
-You must log in to manage or view events.
+#### Command: `login`
 
+#### Example
+
+```plaintext
+Welcome to EventSync!
+Press 'login' to log in or 'create' to create a new user.
+>login
+
+Please enter your Username
+>alice
+
+User not found. Please create user first!
+>login
+
+Please enter your Username
+>Terry
+
+Please enter your password
+>123
+
+Wrong password. Do you want to login again? (yes/no)
+>yes
+
+Please enter your Username
+>hii
+
+Please enter your password
+>123
+
+Successfully logged in.
+╔═════════════════════════════════════════╗
+║          EVENT SYNC COMMAND MENU        ║
+╠═════════════════════════════════════════╣
+║  === Event Management Commands ===      ║
+║  add            - Add new event         ║
+║  list           - List your events      ║
+║  listall        - List all events       ║
+║  delete [INDEX] - Delete an event       ║
+║  edit [INDEX]   - Edit an event         ║
+║  duplicate [ID] - Duplicate an event    ║
+║  find [KEYWORD] - Search events         ║
+║  filter         - Filter events         ║
+║                                         ║
+║  === Participant Commands ===           ║
+║  addparticipant - Add to event          ║
+║  listparticipants- List participants    ║
+║  create         - Create new user       ║
+║                                         ║
+║  === Session Commands ===               ║
+║  login          - Login to system       ║
+║  logout         - Logout                ║
+║                                         ║
+║  === System Commands ===                ║
+║  bye            - Exit program          ║
+║  help           - Show this menu        ║
+╚════════════════════════════════════════╝
+```
+
+#### Notes: `login`
+- You must log in to manage or view events.
 - Prompts for your name and password.
+- You will be asked to provide:
+- Username
+- Password
 - Required before accessing most features.
-
 ---
 
 ### 👤 `create` — Create a new participant
 
+#### Command: `create`
+
+#### Example
+
+```plaintext
+User not found. Please create user first!
+>create
+
+Enter participant's name: 
+>Alice
+
+Enter participant's password: 
+>123
+
+Enter participant's access level (1 for Admin, 2 for Member): 
+>2
+
+Enter number of availability slots (maximum 10): 
+>1
+
+Enter start time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
+>2025-03-31 12:00
+
+Enter end time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
+>2025-05-31 12:00
+
+Successfully created: Alice
+```
+
+#### Notes: `create`
 Creates a user (admin or member) and sets availability.
 
 **Input format:**  
@@ -42,12 +133,25 @@ You will be asked to provide:
 - Name
 - Password
 - Access level (`ADMIN` or `MEMBER`)
+- Number of available slots
 - Availability slots (`yyyy-MM-dd HH:mm - yyyy-MM-dd HH:mm`)
 
 ---
 
 ### 🔒 `logout` — Log out of your session
 
+#### Command: `logout`
+
+#### Example
+
+```plaintext
+>logout
+Terry has logged out.
+Bye! Press 'login' to log in or 'create' to create a new user.
+```
+
+#### Notes: `logout`
+Need to log in first.
 Ends the current user session.  
 Another participant can log in afterward.
 
@@ -55,7 +159,34 @@ Another participant can log in afterward.
 
 ### 📅 `add` — Add a new event
 
-Adds an event to the system.
+#### Command: `add`
+
+#### Example
+
+```plaintext
+>add
+
+Enter event details (format: Event Name | Start Date | End Date | Location | Description): 
+>Team Meeting | 2020-05-10 14:00 | 2020-05-10 16:00 | Conference Room | A team meeting to discuss project updates
+
+Enter event priority (LOW, MEDIUM, HIGH): 
+>Low
+
+The event
++----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2020-05-10 14:00
+| End Time             | 2020-05-10 16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry (Available: 2 slots)]
++----------------------+--------------------------------+
+has been added to the list.
+```
+
+#### Notes: `add`
+You need to log in to an ADMIN account first.
+Adds an event to the system. Only ADMIN can add an event. The creator will be automatically added to the event.
 
 **Input format:**
 ```
@@ -69,7 +200,7 @@ You will then be prompted to set the event’s priority (`HIGH`, `MEDIUM`, `LOW`
 
 ### ✏️ `edit` — Edit an existing event (admin only)
 
-Allows an admin to change event fields.  
+Allows an admin to change event fields. Only ADMIN can edit an event.
 You will be shown options to modify:
 1. Name
 2. Start time
@@ -81,7 +212,7 @@ You will be shown options to modify:
 
 ### 🗑️ `delete` — Delete an event
 
-Removes an event from the system.
+Removes an event from the system. Only ADMIN can delete an event.
 
 - Prompts you to search by name.
 - If multiple matches are found, you can select by index.
@@ -91,6 +222,40 @@ Removes an event from the system.
 
 ### 📋 `list` — List events assigned to you
 
+#### Command: `list`
+
+#### Example
+
+```plaintext
+>list
+
+Enter your sort type: Now we have a list of available sort types: priority, start, end 
+>end
+
+The event 1 is: 
++----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2020-05-10 14:00
+| End Time             | 2020-05-10 16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry (Available: 2 slots)]
++----------------------+--------------------------------+
+Priority: LOW
+
+The event 2 is: 
++----------------------+--------------------------------+
+| Name                 | event a
+| Start Time           | 2023-05-23 16:00
+| End Time             | 2023-05-24 17:00
+| Location             | sdfsf
+| Description          | sdfsf
+| Participants         | [Participant: Terry (Available: 2 slots)]
++----------------------+--------------------------------+
+Priority: LOW
+```
+
+#### Notes: `list`
 Displays all events for the logged-in participant.
 
 You’ll be prompted to choose a sort order:
@@ -122,7 +287,7 @@ Valid values: `HIGH`, `MEDIUM`, `LOW`.
 
 ### 📎 `duplicate` — Duplicate an event
 
-Clones an existing event and gives it a new name.
+Clones an existing event and gives it a new name. Only ADMIN can duplicate an event.
 
 You will be prompted to enter:
 - Event index
@@ -134,7 +299,8 @@ The copy retains all original details and priority.
 
 ### 🙋 `addparticipant` — Assign participant to event
 
-Adds a participant to an event if available.
+Adds a participant to an event if available. Only ADMIN can add a participant. 
+The list of events and users will be shown.
 
 **Input format:**
 ```
@@ -156,12 +322,6 @@ You will be prompted to enter the index of the event.
 ### 👋 `bye` — Exit the application
 
 Saves all data and exits the program safely.
-
----
-
-### ❓ `help` — Display the command menu
-
-Shows a command summary with descriptions for each.
 
 ---
 
@@ -195,7 +355,6 @@ Shows a command summary with descriptions for each.
 | `addparticipant`        | Add a participant to an event               |
 | `listparticipants`      | List all participants for an event          |
 | `bye`                   | Exit the program                            |
-| `help`                  | Show command summary                        |
 
 ---
 

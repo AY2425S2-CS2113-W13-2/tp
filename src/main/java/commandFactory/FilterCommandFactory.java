@@ -5,8 +5,15 @@ import command.FilterCommand;
 import exception.SyncException;
 import label.Priority;
 import parser.CommandParser;
+import participant.ParticipantManager;
 
 public class FilterCommandFactory implements CommandFactory{
+    private final ParticipantManager participantManager;
+
+    public FilterCommandFactory(ParticipantManager participantManager) {
+        this.participantManager = participantManager;
+    }
+
     public Command createCommand() throws SyncException {
         //logger.info("Creating filter command.");
         String input = CommandParser.readFilterInput();

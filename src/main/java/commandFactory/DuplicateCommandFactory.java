@@ -19,24 +19,30 @@ public class DuplicateCommandFactory implements CommandFactory {
     }
 
     public Command createCommand() throws SyncException {
-        String input = ui.readDuplicateEventInput();
-        String[] parts = input.split(" ", 2);
+        if (participantManager.getCurrentUser() == null) {
+            throw new SyncException("You are not logged in. Please enter 'login' to login.");
+        } else if (!participantManager.isCurrentUserAdmin()) {
+            throw new SyncException("Only admin can duplicate events!");
+        } else {
+            String input = ui.readDuplicateEventInput();
+            String[] parts = input.split(" ", 2);
 
-        if (parts.length < 2) {
-            throw new SyncException("Invalid duplicate command format. Use: duplicate index New Event Name");
-        }
-
-        try {
-            int index = Integer.parseInt(parts[0]) - 1;
-            if (index >= 0 && index < eventManager.getEvents().size()) {
-                Event eventToDuplicate = eventManager.getEvents().get(index);
-                String newName = parts[1];
-                return new DuplicateCommand(eventToDuplicate, newName);
-            } else {
-                throw new SyncException("Invalid event index.");
+            if (parts.length < 2) {
+                throw new SyncException("Invalid duplicate command format. Use: duplicate index New Event Name");
             }
-        } catch (NumberFormatException e) {
-            throw new SyncException("Invalid index format. Use a number.");
+
+            try {
+                int index = Integer.parseInt(parts[0]) - 1;
+                if (index >= 0 && index < eventManager.getEvents().size()) {
+                    Event eventToDuplicate = eventManager.getEvents().get(index);
+                    String newName = parts[1];
+                    return new DuplicateCommand(eventToDuplicate, newName);
+                } else {
+                    throw new SyncException("Invalid event index.");
+                }
+            } catch (NumberFormatException e) {
+                throw new SyncException("Invalid index format. Use a number.");
+            }
         }
     }
 }

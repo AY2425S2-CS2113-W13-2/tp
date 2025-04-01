@@ -58,7 +58,7 @@ To ensure everything is working correctly, you can:
 The architecture of Event Manager is structured into clearly defined components to ensure modularity and 
 maintainability. The core components are outlined below:
 
-### 1. Main Component (Main.java)
+### 1. Main Component (EventSync.java)
 - Serves as the entry point of the application.
 - Initializes and connects all components (UI, Parser, Managers).
 - Manages the main execution loop and system shutdown.
@@ -69,20 +69,55 @@ maintainability. The core components are outlined below:
 - Reads user input and forwards it to the Parser.
 
 ### 3. Logic Component
-- Parser (Parser.java): Parses and processes user commands.
-- Command Classes (e.g., AddEventCommand.java): Implement specific command logic based on the Command pattern.
-- CommandFactory: Creates command instances based on input.
+- **Parser Component**:
+  - Parser.java: Main parsing interface
+  - CommandParser.java: Specialized parser for command inputs
+- **Command Component**: Implements Command pattern with classes like:
+  - Command.java: Abstract base class for all commands
+  - AddEventCommand.java: Handles event creation
+  - EditEventCommand.java: Allows event modification
+  - DeleteCommand.java: Removes events
+  - DuplicateCommand.java: Creates copies of events
+  - ListCommand.java: Shows events with sort options
+  - ListAllCommand.java: Displays all events
+  - ListParticipantsCommand.java: Shows event participants
+  - FindCommand.java: Searches for specific events
+  - FilterCommand.java: Filters events by criteria
+  - LoginCommand.java: Handles user authentication
+  - LogOutCommand.java: Manages user logout
+  - ByeCommand.java: Exits the application
+  - CreateUserCommand.java: Creates new user profiles
+  - AddParticipantCommand.java: Adds users to events
+- **CommandFactory Component**: Factory pattern implementation for command creation:
+  - CommandFactory.java: Base factory interface
+  - Specialized factories for each command type (e.g., AddEventCommandFactory, DeleteCommandFactory)
 
 ### 4. Model Component
-- Event, Participant: Core data structures representing scheduled activities and users.
-- EventManager: Manages all event-related operations (add/edit/delete/conflict detection).
-- ParticipantManager: Handles login, logout, participant roles, and availability.
+- **Event Component**:
+  - Event.java: Core data structure for scheduled activities
+  - EventManager.java: Manages events collection and operations
+- **Participant Component**:
+  - Participant.java: Represents users in the system
+  - ParticipantManager.java: Handles user management
+  - AvailabilitySlot.java: Tracks user availability periods
+- **Label Component**:
+  - Priority.java: Enum for event priority levels
+- **Sort Component**: Strategy pattern for event sorting:
+  - Sort.java: Abstract sorting strategy
+  - SortByStartTime.java: Sorts by event start time
+  - SortByEndTime.java: Sorts by event end time
+  - SortByPriority.java: Sorts by priority level
+- **Exception Component**:
+  - SyncException.java: Custom exception for synchronization issues
 
-### 5. Storage Component (Storage.java)
-- Manages data persistence across sessions.
-- Reads/writes events.txt, participants.txt, and other files.
-- Ensures data is serialized and deserialized in a consistent format.
----
+### 5. Storage Component
+- Storage.java: Base class for data persistence
+- UserStorage.java: Handles user data storage
+- Uses file I/O to save and load events and user data
+
+### 6. Logger Component
+- EventSyncLogger.java: Handles logging for debugging and tracking
+
 ## Design & Implementation
 
 ### Add Event Feature
@@ -263,14 +298,19 @@ By providing these features, the application allows users to focus on their task
 
 ## User Stories
 
-## User Stories
-
 | Version | As a ...       | I want to ...                          | So that I can ...                                |
 |---------|----------------|----------------------------------------|--------------------------------------------------|
 | v1.0    | user           | add an event with a description and date/time | keep track of important events and deadlines |
 | v1.0    | user           | list all my events                    | see all my events organized by date/time |
 | v2.0    | user           | store events persistently             | ensure my events remain even after restarting the application |
 | v2.0    | admin          | edit event details                    | fix errors or update times                        |
+| v2.0    | user           | filter events by priority             | focus on high-priority tasks when needed          |
+| v2.0    | team leader    | add participants to events            | track who is involved in each activity            |
+| v2.0    | user           | detect scheduling conflicts           | avoid double-booking myself                       |
+| v2.0    | user           | duplicate existing events             | quickly create similar events without re-entering all details |
+| v2.0    | user           | sort events in different ways         | view my schedule according to my current needs    |
+| v2.0    | user           | create a user profile                 | have personalized access to the system            |
+| v2.0    | user           | log in and out of the system          | keep my schedule information secure               |
 
 ## Non-Functional Requirements
 
@@ -284,9 +324,13 @@ By providing these features, the application allows users to focus on their task
 ## Glossary
 
 * **Event** - A scheduled activity with a description and a specific date/time.
-* **EventList** - A collection or list of all events, used to store and manage events.
+* **EventManager** - Component that manages the collection of events and operations on them.
 * **Command Pattern** - A design pattern that encapsulates a request as an object, allowing for parameterization of clients with different requests.
+* **Factory Pattern** - A creational pattern that uses factory methods to create objects without specifying the exact class.
+* **Strategy Pattern** - A behavioral design pattern that enables selecting an algorithm at runtime.
 * **Serialization** - The process of converting an object into a format (such as text) that can be stored or transmitted, and later reconstructed.
+* **Participant** - A user who is assigned to an event with a specific access level.
+* **Priority** - A label indicating the importance level of an event (LOW, MEDIUM, HIGH).
 
 ## Instructions for manual testing
 
