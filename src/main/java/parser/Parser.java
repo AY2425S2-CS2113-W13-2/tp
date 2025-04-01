@@ -75,7 +75,7 @@ public class Parser {
                 return new DuplicateCommandFactory(this.participantManager, this.ui, this.eventManager);
             case "edit":
                 logger.info("Edit command received.");
-                return new EditCommandFactory();
+                return new EditCommandFactory(this.participantManager);
             case "find":
                 if (parts.length > 1) {
                     logger.info("Find command received with keyword: " + parts[1]);
@@ -92,7 +92,7 @@ public class Parser {
                 return new ListParticipantsCommandFactory(this.ui);
             case "filter":
                 logger.info("Filter command received.");
-                return new FilterCommandFactory();
+                return new FilterCommandFactory(this.participantManager);
             case "login":
                 logger.info("Login command received.");
                 return new LoginCommandFactory();

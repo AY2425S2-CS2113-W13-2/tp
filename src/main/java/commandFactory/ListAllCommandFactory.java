@@ -17,7 +17,13 @@ public class ListAllCommandFactory implements CommandFactory{
 
     @Override
     public Command createCommand() throws SyncException {
-        String sortType = CommandParser.readListCommandInput();
-        return new ListAllCommand(sortType);
+        if (participantManager.getCurrentUser() == null) {
+            throw new SyncException("You are not logged in. Please enter 'login' to login.");
+        } else if (!participantManager.isCurrentUserAdmin()) {
+            throw new SyncException("Only admin can list all events!");
+        } else {
+            String sortType = CommandParser.readListCommandInput();
+            return new ListAllCommand(sortType);
+        }
     }
 }

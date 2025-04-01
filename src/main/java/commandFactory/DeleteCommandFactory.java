@@ -25,27 +25,33 @@ public class DeleteCommandFactory implements CommandFactory{
     }
 
     public Command createCommand() throws SyncException {
-        String name = CommandParser.readDeleteName();
-        ArrayList<Event> matchingEvents = findMatchingEvents(name);
-
-        if (matchingEvents.isEmpty()) {
-            throw new SyncException("No events found with the name: " + name);
-        }
-
-        Event eventToDelete;
-        if (matchingEvents.size() == 1) {
-            eventToDelete = matchingEvents.get(0);
+        if (participantManager.getCurrentUser() == null) {
+            throw new SyncException("You are not logged in. Please enter 'login' to login.");
+        } else if (!participantManager.isCurrentUserAdmin()) {
+            throw new SyncException("Only admin can delete events!");
         } else {
-            ui.showMatchingEventsWithIndices(matchingEvents, eventManager);
-            int eventIndex = readDeleteEventIndex(matchingEvents);
-            eventToDelete = matchingEvents.get(eventIndex);
-        }
+            String name = CommandParser.readDeleteName();
+            ArrayList<Event> matchingEvents = findMatchingEvents(name);
 
-        int actualIndex = eventManager.getEvents().indexOf(eventToDelete);
-        if (actualIndex == -1) {
-            throw new SyncException("Event no longer exists.");
-        } else {
-            return new DeleteCommand(actualIndex);
+            if (matchingEvents.isEmpty()) {
+                throw new SyncException("No events found with the name: " + name);
+            }
+
+            Event eventToDelete;
+            if (matchingEvents.size() == 1) {
+                eventToDelete = matchingEvents.get(0);
+            } else {
+                ui.showMatchingEventsWithIndices(matchingEvents, eventManager);
+                int eventIndex = readDeleteEventIndex(matchingEvents);
+                eventToDelete = matchingEvents.get(eventIndex);
+            }
+
+            int actualIndex = eventManager.getEvents().indexOf(eventToDelete);
+            if (actualIndex == -1) {
+                throw new SyncException("Event no longer exists.");
+            } else {
+                return new DeleteCommand(actualIndex);
+            }
         }
     }
 
