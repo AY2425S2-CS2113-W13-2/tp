@@ -70,7 +70,7 @@ I focused on implementing key functionalities for event management, optimizing p
     - Updated **text-ui-test**
 
 ## Contributions to the User Guide
-- Documented:
+- **Documented:**:
     - Interactive usage of `addEvent`, `listEvent`, `login`, `logout` and `addParticipant`
     - Provided detailed examples and common user scenarios
 
