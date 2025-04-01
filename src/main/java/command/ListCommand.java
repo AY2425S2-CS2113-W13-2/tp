@@ -61,9 +61,7 @@ public class ListCommand extends Command {
             return;
         }
 
-        sequence.sort(userEvents, Priority.getAllPriorities());
-        events.viewEvents(userEvents);
-        ArrayList<Event> eventCopies = new ArrayList<>(events.getEvents());
+        ArrayList<Event> eventCopies = new ArrayList<>(userEvents);
         ArrayList<String> priorityCopies = new ArrayList<>(Priority.getAllPriorities());
 
         sequence.sort(eventCopies, priorityCopies);

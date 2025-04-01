@@ -86,7 +86,7 @@ public class Parser {
                 }
             case "addparticipant":
                 logger.info("AddParticipant command received.");
-                return new AddParticipantCommandFactory(this.participantManager, this.ui);
+                return new AddParticipantCommandFactory(this.eventManager, this.participantManager, this.ui);
             case "listparticipants":
                 logger.info("ListParticipants command received.");
                 return new ListParticipantsCommandFactory(this.ui);

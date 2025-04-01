@@ -19,6 +19,9 @@ public class CreateUserCommandFactory implements CommandFactory {
         String password = CommandParser.askPassword();
         Participant.AccessLevel accessLevel = CommandParser.askAccessLevel();
         ArrayList<AvailabilitySlot> availabilitySlots = askAvailability();
+        if (availabilitySlots.isEmpty()) {
+            throw new SyncException("❌ No valid availability slots provided. Cannot create participant.");
+        }
 
         Participant participant = new Participant(participantName, password, accessLevel);
         participant.setAvailableTimes(availabilitySlots);
@@ -28,9 +31,18 @@ public class CreateUserCommandFactory implements CommandFactory {
     private ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
         ArrayList<AvailabilitySlot> slots = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+        int numSlots;
+        System.out.print("Enter number of availability slots (maximum 10): ");
+        try {
+            numSlots = Integer.parseInt(scanner.nextLine().trim());
+            if (numSlots <= 0) {
+                throw new SyncException("❌ Number of availability slots must be at least 1.");
+            }
+            numSlots = Math.min(numSlots, 10);
+        } catch (NumberFormatException e) {
+            throw new SyncException("❌ Invalid input. Please enter a valid number between 1 and 10.");
+        }
 
-        System.out.print("Enter number of availability slots: ");
-        int numSlots = Integer.parseInt(scanner.nextLine().trim());
 
         for (int i = 0; i < numSlots; i++) {
             try {
@@ -47,7 +59,6 @@ public class CreateUserCommandFactory implements CommandFactory {
                     System.out.println("❌ End time must be after start time. Skipping this slot.");
                     continue;
                 }
-
                 slots.add(new AvailabilitySlot(start, end));
             } catch (SyncException e) {
                 System.out.println("❌ " + e.getMessage() + " Skipping this slot.");

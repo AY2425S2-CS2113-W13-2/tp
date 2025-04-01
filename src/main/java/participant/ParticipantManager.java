@@ -21,6 +21,10 @@ public class ParticipantManager {
         this.storage = storage;
     }
 
+    public ArrayList<Participant> getParticipants() {
+        return participants;
+    }
+
     public Participant getCurrentUser() {
         return currentUser;
     }
@@ -61,10 +65,11 @@ public class ParticipantManager {
                 ui.showMenu();
                 return this;
             } else {
-                System.out.println("Wrong password. Do you want to login again?");
+                System.out.println("Wrong password. Do you want to login again? (yes/no)");
                 if(scanner.nextLine().equalsIgnoreCase("yes")) {
                     return this.login();
                 } else {
+                    System.out.println("Wrong password! Session ends");
                     return this;
                 }
             }
@@ -99,10 +104,14 @@ public class ParticipantManager {
         return false;
     }
 
-    public boolean assignParticipant(Event event, Participant participant) {
-        boolean assigned = participant.assignEventTime(event.getStartTime(), event.getEndTime());
-        storage.saveUsers(participants);
-        return assigned;
+    public boolean assignParticipant(Event event, Participant participant) throws SyncException {
+        if (event.getParticipants().contains(participant)) {
+            throw new SyncException("User has already been assigned to this event. Try another user/event.");
+        } else {
+            boolean assigned = participant.assignEventTime(event.getStartTime(), event.getEndTime());
+            storage.saveUsers(participants);
+            return assigned;
+        }
     }
 
     public boolean isCurrentUserAdmin() {

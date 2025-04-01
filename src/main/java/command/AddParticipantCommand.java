@@ -50,7 +50,8 @@ public class AddParticipantCommand extends Command {
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
         if (isAvailable) {
             event.addParticipant(participant);
-            participant.assignEventTime(event.getStartTime(), event.getEndTime());
+            //need to use the method in participantManager
+            participantManager.assignParticipant(event, participant);
             ui.showMessage("Participant " + participant.getName() + "has been added.");
         } else {
             ui.showMessage("Participant " + participant.getName() + " is unavailable during the event.");
