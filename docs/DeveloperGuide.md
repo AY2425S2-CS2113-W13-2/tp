@@ -117,8 +117,7 @@ maintainability. The core components are outlined below:
 - UserStorage.java: Handles user data storage
 - Uses file I/O to save and load events and user data
 
-```plantuml
-@startuml
+```mermaid
     class UserStorage {
         -filePath: String
         -slotFormatter: DateTimeFormatter
@@ -170,8 +169,8 @@ maintainability. The core components are outlined below:
     Storage --> Priority : uses
     Storage --> SyncException : throws
     Event --> Participant : has
-@enduml
 ```
+
 #### API: UserStorage.java
 
 The `UserStorage` component,
