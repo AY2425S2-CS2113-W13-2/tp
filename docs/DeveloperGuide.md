@@ -95,22 +95,28 @@ maintainability. The core components are outlined below:
   - Specialized factories for each command type (e.g., AddEventCommandFactory, DeleteCommandFactory)
 
 ### 4. Model Component
+![modelComponent.png](modelComponent.png)
+The **Model Component** is responsible for representing the core data entities of the system and providing functionality to manage them. It is composed of the following parts:
+
 - **Event Component**:
-  - Event.java: Core data structure for scheduled activities
-  - EventManager.java: Manages events collection and operations
+  - `Event.java`: Core data structure for scheduled activities.
+  - `EventManager.java`: Manages the event collection and operations such as add, delete, or retrieve.
+
 - **Participant Component**:
-  - Participant.java: Represents users in the system
-  - ParticipantManager.java: Handles user management
-  - AvailabilitySlot.java: Tracks user availability periods
+  - `Participant.java`: Represents users in the system.
+  - `ParticipantManager.java`: Manages users including creation, deletion, and authentication.
+  - `AvailabilitySlot.java`: Tracks availability timeslots for participants.
+
 - **Label Component**:
-  - Priority.java: Enum for event priority levels
-- **Sort Component**: Strategy pattern for event sorting:
-  - Sort.java: Abstract sorting strategy
-  - SortByStartTime.java: Sorts by event start time
-  - SortByEndTime.java: Sorts by event end time
-  - SortByPriority.java: Sorts by priority level
+  - `Priority.java`: Enum-like structure for event priority levels, supports flexible priority assignment.
+
+- **Sort Component** (implements Strategy Pattern):
+  - `Sort.java`: Abstract base class defining the sorting interface.
+  - `SortByStartTime.java`, `SortByEndTime.java`, `SortByPriority.java`: Concrete implementations for sorting logic.
+
 - **Exception Component**:
-  - SyncException.java: Custom exception for synchronization issues
+  - `SyncException.java`: Custom exception used for synchronization-related errors within model operations.
+
 
 ### 5. Storage Component
 - Storage.java: Base class for data persistence
@@ -278,6 +284,29 @@ The storage component is responsible for persisting event data across sessions.
 - **Why this design?**
     - Using a text file ensures simplicity, portability, and easy debugging.
     - It is lightweight and does not require additional libraries or systems for data management.
+
+## Documentation, logging, testing, configuration, dev-ops
+### Logging Guide
+This project uses Java's built-in `java.util.logging` package for logging.
+- The `EventSyncLogger` class configures a shared `Logger` instance.
+- Logs are written to both the **console** and a log file named `app.log` in the root directory.
+- Logging levels are controlled with:
+  - `ConsoleHandler`: shows logs of level `INFO` and above.
+  - `FileHandler`: captures all logs (`Level.ALL`) into the file.
+#### Initializing the Logger
+Call the following method **once at application startup**:
+  ```
+  EventSyncLogger.setupLogger();
+  ```
+#### Using the Logger
+To use the logger in any class:
+  ```
+  Logger logger = EventSyncLogger.getLogger();
+  logger.info("Login successful");
+  logger.warning("Password attempt failed");
+  logger.severe("Unexpected null reference during sync");
+  ```
+
 
 ## Product Scope
 ### Target User Profile
