@@ -68,6 +68,7 @@ class ParticipantTest {
         assertTrue(output.contains("Access: ADMIN"));
         assertTrue(output.contains(slot1.toString()));
     }
+
     @Test
     void testInvalidAvailabilitySlot_TimeOrder() {
         LocalDateTime start = LocalDateTime.of(2025, 5, 2, 15, 0);

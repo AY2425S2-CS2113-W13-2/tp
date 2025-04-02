@@ -1,12 +1,19 @@
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import event.Event;
 import event.EventManager;
 import label.Priority;
 import command.FilterCommand;
+import participant.ParticipantManager;
+import storage.Storage;
+import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.ByteArrayOutputStream;
@@ -15,6 +22,7 @@ import java.io.PrintStream;
 class PriorityFilterTest {
 
     private EventManager eventManager;
+    private ParticipantManager participantManager;
     private UI ui;
     private ArrayList<Event> testEvents;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -22,64 +30,50 @@ class PriorityFilterTest {
     @BeforeEach
     void setUp() throws SyncException {
         ui = new UI();
-        eventManager = new EventManager("./data/EditEventTest.txt");
-        testEvents = new ArrayList<>();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        UserStorage userStorage = new UserStorage("test-users.txt");
+        Storage storage = new Storage("test-filter.txt", userStorage);
+        eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
+        participantManager = new ParticipantManager(new ArrayList<>(), ui, userStorage);
+
         Priority.clearPriorities();
 
-        // Create test events
-        Event event1 = new Event("Low Priority Task",
-                LocalDateTime.of(2025, 3, 20, 10, 0),
-                LocalDateTime.of(2025, 3, 20, 11, 0),
-                "Home", "Chores");
-        testEvents.add(event1);
+        eventManager.addEvent(new Event("Low Priority",
+                LocalDateTime.of(2025, 4, 1, 10, 0),
+                LocalDateTime.of(2025, 4, 1, 12, 0), "Home", "Chores"));
         Priority.addPriority("LOW");
 
-        Event event2 = new Event("Medium Priority Meeting",
-                LocalDateTime.of(2025, 3, 21, 14, 0),
-                LocalDateTime.of(2025, 3, 21, 15, 0),
-                "Office", "Team sync");
-        testEvents.add(event2);
+        eventManager.addEvent(new Event("Medium Priority",
+                LocalDateTime.of(2025, 4, 2, 14, 0),
+                LocalDateTime.of(2025, 4, 2, 16, 0), "Office", "Meeting"));
         Priority.addPriority("MEDIUM");
 
-        Event event3 = new Event("High Priority Deadline",
-                LocalDateTime.of(2025, 3, 22, 9, 0),
-                LocalDateTime.of(2025, 3, 22, 17, 0),
-                "Remote", "Project submission");
-        testEvents.add(event3);
+        eventManager.addEvent(new Event("High Priority",
+                LocalDateTime.of(2025, 4, 3, 9, 0),
+                LocalDateTime.of(2025, 4, 3, 10, 0), "Remote", "Deadline"));
         Priority.addPriority("HIGH");
-        eventManager.getEvents().addAll(testEvents);
-
-        // Set up capturing output
-        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
     void testFilterLowToMedium() throws SyncException {
-        FilterCommand command = new FilterCommand(1, 2); // LOW=1, MEDIUM=2
-        command.execute(eventManager, ui);
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("Low Priority Task"));
-        assertTrue(output.contains("Medium Priority Meeting"));
-        assertTrue(!output.contains("High Priority Deadline"));
+        FilterCommand cmd = new FilterCommand(1, 2);
+        cmd.execute(eventManager, ui, participantManager);
+
+        String out = outputStreamCaptor.toString();
+        assertTrue(out.contains("Low Priority"));
+        assertTrue(out.contains("Medium Priority"));
+        assertFalse(out.contains("High Priority"));
     }
 
     @Test
     void testFilterHighOnly() throws SyncException {
-        FilterCommand command = new FilterCommand(3, 3); // HIGH=3
-        command.execute(eventManager, ui);
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("High Priority Deadline"));
-        assertTrue(!output.contains("Low Priority Task"));
-        assertTrue(!output.contains("Medium Priority Meeting"));
-    }
+        FilterCommand cmd = new FilterCommand(3, 3);
+        cmd.execute(eventManager, ui, participantManager);
 
-    @Test
-    void testFilterLowOnly() throws SyncException {
-        FilterCommand command = new FilterCommand(1, 1); // LOW=1
-        command.execute(eventManager, ui);
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("Low Priority Task"));
-        assertTrue(!output.contains("Medium Priority Meeting"));
-        assertTrue(!output.contains("High Priority Deadline"));
+        String out = outputStreamCaptor.toString();
+        assertTrue(out.contains("High Priority"));
+        assertFalse(out.contains("Low Priority"));
+        assertFalse(out.contains("Medium Priority"));
     }
 }

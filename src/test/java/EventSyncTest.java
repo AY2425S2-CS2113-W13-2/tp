@@ -8,6 +8,8 @@ import exception.SyncException;
 import event.Event;
 import event.EventManager;
 import seedu.EventSync;
+import storage.Storage;
+import storage.UserStorage;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,14 +20,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 class EventSyncTest {
-
-    private EventSync eventSync;
     private EventManager eventManager;
+    private ui.UI ui;
 
     @BeforeEach
     void setUp() throws SyncException {
-        eventSync = new EventSync("./data/EventSyncTest.txt", "./data/UserSyncTest.txt");
-        eventManager = new EventManager("./data/EventSyncTest.txt");
+        ui = new ui.UI();
+        UserStorage userStorage = new UserStorage("./data/UserSyncTest.txt");
+        Storage storage = new Storage("./data/EventSyncTest.txt", userStorage);
+        eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
     }
 
     @Test
@@ -98,6 +101,7 @@ class EventSyncTest {
         eventManager.addEvent(event2);
         assertEquals(2, eventManager.size());
         ArrayList<Event> collisions = eventManager.checkCollision(
+                "testUser",
                 "2025-05-10 15:00",
                 "2025-05-10 17:00",
                 eventManager.getEvents()
@@ -123,8 +127,9 @@ class EventSyncTest {
         event2.setStartTime(LocalDateTime.parse("2025/05/10 15:00", formatter));
         event2.setEndTime(LocalDateTime.parse("2025/05/10 16:30", formatter));
         ArrayList<Event> collisions = eventManager.checkCollision(
+                "testUser",
                 "2025-05-10 15:00",
-                "2025-05-10 16:30",
+                "2025-05-10 17:00",
                 eventManager.getEvents()
         );
 

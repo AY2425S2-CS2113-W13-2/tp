@@ -16,7 +16,7 @@ public class SortByStartTime extends Sort {
             for (int j = i + 1; j < n; j++) {
                 boolean isEarlier = events.get(j).getStartTime().isBefore(events.get(bestIdx).getStartTime());
                 boolean sameTimeHigherPriority = events.get(j).getStartTime().equals(events.get(bestIdx).getStartTime())
-                        && Priority.getValue(priorities.get(j)) < Priority.getValue(priorities.get(bestIdx));
+                        && Priority.getValue(priorities.get(j)) > Priority.getValue(priorities.get(bestIdx));
 
                 if (isEarlier || sameTimeHigherPriority) {
                     bestIdx = j;

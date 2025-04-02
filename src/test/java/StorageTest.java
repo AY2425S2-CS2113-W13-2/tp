@@ -6,6 +6,8 @@ import storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import storage.UserStorage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -27,12 +29,12 @@ public class StorageTest {
 
     @BeforeEach
     public void setUp() throws SyncException, IOException {
-        storage = new Storage(TEST_FILE_PATH);
-        try {
-            Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Files.createDirectories(Paths.get("./data"));
+
+        UserStorage userStorage = new UserStorage("./data/test-users.txt");
+        storage = new Storage(TEST_FILE_PATH, userStorage);
+
+        Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
     }
 
     @AfterEach
