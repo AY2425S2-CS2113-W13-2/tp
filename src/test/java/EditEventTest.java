@@ -4,11 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import event.Event;
 import event.EventManager;
+import storage.Storage;
+import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 class EditEventTest {
 
@@ -19,8 +22,11 @@ class EditEventTest {
     @BeforeEach
     void setUp() throws SyncException {
 
-        ui = new UI();
-        eventManager = new EventManager("./data/EditEventTest.txt");
+        UI ui = new UI();
+        UserStorage userStorage = new UserStorage("test-users.txt");
+        Storage storage = new Storage("test-events.txt", userStorage);
+        eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
+
         event = new Event("Team Meeting",
             LocalDateTime.parse("2025/05/10 14:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
             LocalDateTime.parse("2025/05/10 16:00", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
