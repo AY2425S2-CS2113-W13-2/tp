@@ -162,7 +162,7 @@ The `Storage` component,
 
 ### 1. Add Event Feature
 
-#### Implementation
+### Implementation
 The `AddEventCommand` feature allows users to add an event to their schedule. It is implemented using the `Command` pattern, where `AddEventCommand` extends `Command`.
 
 1. **Step 1. CLI Input (`add` Command)**:
@@ -180,7 +180,7 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
 - The event is successfully added to the system and saved to storage.
 
 
-##### Expanded Flow of `addEvent` Method Execution
+### Expanded Flow of `addEvent` Method Execution
 
 **Step 1. Null Check for Event**
 - The system ensures that the `event` is not null. If it is, an `AssertionError` is thrown.
@@ -211,7 +211,7 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
 
 ![AddEvent Sequence Diagram](graph/AddEvent/AddEvent.png)
 
-#### Design Considerations
+### Design Considerations
 
 **Aspect 1: Conflict and Availability Checks**
 - **Alternative 1 (current choice)**: Perform collision checks and participant availability checks before adding the event.
@@ -228,9 +228,9 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
   - **Pros**: Centralized error handling that clearly defines issues.
   - **Cons**: Requires users to manage exceptions correctly.
 
-### Edit Event Feature
+### 2. Edit Event Feature
 
-#### Implementation
+### Implementation
 
 The `EditEventCommand` feature allows users to modify an existing event.
 
@@ -238,28 +238,28 @@ The `EditEventCommand` feature allows users to modify an existing event.
 2. **Modification Flow**: The user is guided through inputs to edit event fields (e.g., name, time, location, etc.).
 3. **Update Storage**: The original event is updated in the `EventList`.
 
-#### Design Considerations
+### Design Considerations
 
 - **Why this design?**
   - Enables users to fix or update event details without needing to delete and recreate them.
   - Reuses existing input and validation logic, keeping the system modular.
 
 
-### Conflict Detector Feature
-#### Implementation
+### 3. Conflict Detector Feature
+### Implementation
 
 The `ConflictDetector` feature checks for overlapping events in a user's schedule.
 1. **Conflict Check**: Compares the start and end times of all events in EventList.
 2. **Feedback to User**: If conflicts are detected, a warning message is displayed to the user.
 
-#### Design Considerations
+### Design Considerations
 - **Why this design?**
   - Ensures users are aware of scheduling conflicts, preventing double-booking.
   - Improves event management by highlighting overlapping schedules.
 
 ### 4. List Event Feature
 
-#### Implementation
+### Implementation
 The `ListEventCommand` feature allows users to list all events in their schedule. It is implemented using the `Command` pattern, where `ListEventCommand` extends `Command`.
 
 1. **Step 1. CLI Input (`list` Command)**:
@@ -274,7 +274,7 @@ The `ListEventCommand` feature allows users to list all events in their schedule
 
 ![ListEvent Sequence Diagram](graph/ListEvent/ListEvent.png)
 
-#### Design Considerations
+### Design Considerations
 
 **Aspect 1: Event Retrieval**
 - **Alternative 1 (current choice)**: Retrieve all events directly from the system’s storage.
@@ -284,7 +284,7 @@ The `ListEventCommand` feature allows users to list all events in their schedule
 
 ### 5. Delete Event Feature
 
-#### Implementation
+### Implementation
 The `DeleteCommand` feature users to remove an event from their schedule by keyword. If multiple events share the same name, users are prompted to select the correct one based on the list shown.
 1. **User Input Parsing**: 
 The `Parser` reads the event keyword from user input using `readDeleteName()`. `findMatchingEvents(name)` is used to gather all matching events. 
@@ -292,21 +292,21 @@ If more than one match is found, the UI shows them with indices for disambiguati
 2. **Event Deletion Flow**: The selected event is passed to `DeleteCommand` with the correct index. In `execute()`, the user is asked to confirm the deletion via `ui.confirmDeletion()`.
 3. **Data Synchronization**: If confirmed, the event and its corresponding priority are removed.
 
-#### Design Considerations
+### Design Considerations
 - **Why this design?**
   - Maintains consistency between the events list and the priority list.
   - Ensures safe deletion by confirming with the user.
 
 ### 6. Priority Filter Feature
 
-#### Implementation
+### Implementation
 The `PriorityFilter` feature allows users to filter events by priority level (LOW, MEDIUM, HIGH). 
 
 1. **User Input Parsing**: The Parser class processes input in format {PRIORITY PRIORITY}.
 2. **Event Filtering**: Events with priority within the range are filtered.
 3. **Display**: Events are printed to the user.
 
-#### Design Considerations
+### Design Considerations
 
 - **Why this design?**
   - Allows users to quickly find events with certain priorities.
@@ -314,14 +314,14 @@ The `PriorityFilter` feature allows users to filter events by priority level (LO
 
 ### 7. Duplicate Event Feature
 
-#### Implementation
+### Implementation
 The `DuplicateEventCommand` feature allows users to duplicate an existing event to their schedule. It is implemented using the `Command` pattern, where `DuplicateEventCommand` extends `Command`.
 
 1. **User Input Parsing**: The `Parser` class processes user input and creates an `DuplicateEventCommand` instance.
 2. **Event Storage**: The duplicated event details are stored in an `Event` object, which is added to an `EventList`.
 4. **Feedback to User**: The user is asked to input the index that they wish to duplicate and the new name of the event. Duplicated event is displayed to inform the user of successful event duplication.
 
-#### Design Considerations
+### Design Considerations
 
 - **Why this design?**
     - The `Command` pattern allows easy extension for future commands.
@@ -329,7 +329,7 @@ The `DuplicateEventCommand` feature allows users to duplicate an existing event 
 
 ### 8. Add Participant Feature
 
-#### Implementation
+### Implementation
 
 The `AddParticipantCommand` feature enables users to add a participant to a specific event.
 
@@ -337,7 +337,7 @@ The `AddParticipantCommand` feature enables users to add a participant to a spec
 2. **Validation**: Ensures valid access level and event index.
 3. **Participant Assignment**: Adds the participant to the event.
 
-#### Design Considerations
+### Design Considerations
 
 - **Why this design?**
   - Facilitates collaboration by assigning roles to users in events.
@@ -346,14 +346,14 @@ The `AddParticipantCommand` feature enables users to add a participant to a spec
 
 ### 9. List Participants Feature
 
-#### Implementation
+### Implementation
 
 The `ListParticipantsCommand` feature lists all participants assigned to a specific event.
 
 1. **User Input Parsing**: The user inputs the index of the event.
 2. **Retrieval**: Fetches and displays the participants for that event.
 
-#### Design Considerations
+### Design Considerations
 
 - **Why this design?**
   - Allows users to view who's involved in an event.
@@ -361,7 +361,7 @@ The `ListParticipantsCommand` feature lists all participants assigned to a speci
 
 ### 10. Event Storage Feature
 
-#### Implementation
+### Implementation
 The `Storage` class handles persistent storage of event data to disk. It implements serialization/deserialization of events with participant associations.
 
 1. **Step 1. Saving Events**:
@@ -378,7 +378,7 @@ The `Storage` class handles persistent storage of event data to disk. It impleme
 
 ![Storage Sequence Diagram](graph/Storage/StorageSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 
 **Aspect 1: Data Formatting**
 - **Alternative 1 (current choice)**: Pipe-delimited values with custom participant formatting
@@ -394,7 +394,7 @@ The `Storage` class handles persistent storage of event data to disk. It impleme
 
 ### 11. User Storage Feature
 
-#### Implementation
+### Implementation
 The `UserStorage` class manages persistent storage of participant data including availability slots.
 
 1. **Step 1. Saving Users**:
@@ -411,7 +411,7 @@ The `UserStorage` class manages persistent storage of participant data including
 
 ![UserStorage Sequence Diagram](graph/Storage/UserStorageSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 
 **Aspect 1: Authentication Data Storage**
 - **Alternative 1 (current choice)**: Store passwords in plaintext
@@ -420,7 +420,7 @@ The `UserStorage` class manages persistent storage of participant data including
 
 ### 12. Login System Feature
 
-#### Implementation
+### Implementation
 The login system manages user authentication and session state through the `ParticipantManager` class.
 
 1. **Step 1. Login Process**:
@@ -444,7 +444,7 @@ The login system manages user authentication and session state through the `Part
 ![Simplified Logout Sequence Diagram](graph/LoginSystem/LogOutSequenceDiagram.png)
 ![Simplified Create User Sequence Diagram](graph/LoginSystem/CreateSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 
 **Aspect 1: Authentication Method**
 - **Current Choice**: Password matching in plaintext
