@@ -285,6 +285,29 @@ The storage component is responsible for persisting event data across sessions.
     - Using a text file ensures simplicity, portability, and easy debugging.
     - It is lightweight and does not require additional libraries or systems for data management.
 
+## Documentation, logging, testing, configuration, dev-ops
+### Logging Guide
+This project uses Java's built-in `java.util.logging` package for logging.
+- The `EventSyncLogger` class configures a shared `Logger` instance.
+- Logs are written to both the **console** and a log file named `app.log` in the root directory.
+- Logging levels are controlled with:
+  - `ConsoleHandler`: shows logs of level `INFO` and above.
+  - `FileHandler`: captures all logs (`Level.ALL`) into the file.
+#### Initializing the Logger
+Call the following method **once at application startup**:
+  ```
+  EventSyncLogger.setupLogger();
+  ```
+#### Using the Logger
+To use the logger in any class:
+  ```
+  Logger logger = EventSyncLogger.getLogger();
+  logger.info("Login successful");
+  logger.warning("Password attempt failed");
+  logger.severe("Unexpected null reference during sync");
+  ```
+
+
 ## Product Scope
 ### Target User Profile
 
