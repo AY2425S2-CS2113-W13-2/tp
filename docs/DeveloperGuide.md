@@ -122,7 +122,7 @@ maintainability. The core components are outlined below:
 - UserStorage.java: Handles user data storage
 - Uses file I/O to save and load events and user data
 
-![Storage Class Diagram](images/class_diagram.png)
+![Storage Class Diagram](docs/graph/Storage/Storage.png)
 
 #### API: UserStorage.java
 
