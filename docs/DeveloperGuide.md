@@ -117,8 +117,87 @@ maintainability. The core components are outlined below:
 - UserStorage.java: Handles user data storage
 - Uses file I/O to save and load events and user data
 
+```plantuml
+@startuml
+    class UserStorage {
+        -filePath: String
+        -slotFormatter: DateTimeFormatter
+        +UserStorage(filePath: String)
+        +saveUsers(participants: List<Participant>): void
+        +loadUsers(): ArrayList<Participant>
+        +findUserByName(participants: List<Participant>, name: String): Participant
+    }
+
+    class Storage {
+        -formatter: DateTimeFormatter
+        -filePath: String
+        -userStorage: UserStorage
+        +Storage(filePath: String, userStorage: UserStorage)
+        +saveEvents(events: List<Event>, allPriorities: ArrayList<String>): void
+        +loadEvents(): ArrayList<Event>
+    }
+
+    class Participant {
+        +getName(): String
+        +getAccessLevel(): AccessLevel
+        +getPassword(): String
+        +getAvailableTimes(): List<AvailabilitySlot>
+        +addAvailableTime(start: LocalDateTime, end: LocalDateTime): void
+    }
+
+    class Event {
+        +getName(): String
+        +getStartTime(): LocalDateTime
+        +getEndTime(): LocalDateTime
+        +getLocation(): String
+        +getDescription(): String
+        +getParticipants(): List<Participant>
+        +addParticipant(participant: Participant): void
+    }
+
+    class Priority {
+        +getAllPriorities(): List<String>
+        +loadFromStorage(priorities: List<String>): void
+    }
+
+    class SyncException {
+    }
+
+    UserStorage --> Participant : manages
+    UserStorage --> SyncException : throws
+    Storage --> UserStorage : uses
+    Storage --> Event : manages
+    Storage --> Priority : uses
+    Storage --> SyncException : throws
+    Event --> Participant : has
+@enduml
+```
+#### API: UserStorage.java
+
+The `UserStorage` component,
+
+- is responsible for saving and loading user-related data, including participant details.
+- stores data in a structured format, ensuring persistence across sessions. (sample: Alice | MEMBER | 123 | 2025-03-31 12:00,2025-05-31 12:00)
+- depends on `Participant` as it manages participant-related storage operations.
+- throws `SyncException` in case of synchronization failures.
+---
+
+#### API: Storage.java
+
+The `Storage` component,
+
+- handles the storage and retrieval of both event and priority data.
+- integrates `UserStorage` to manage participant-related information.
+- can save and load events, including participant details and scheduling information.
+- depends on `UserStorage`, `Event`, and `Priority` as it manages multiple data types.
+- throws `SyncException` to handle potential storage errors.
+---
+
 ### 6. Logger Component
 - EventSyncLogger.java: Handles logging for debugging and tracking
+
+### 7. Common classes
+-
 
 ## Design & Implementation
 
