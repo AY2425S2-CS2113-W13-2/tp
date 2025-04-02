@@ -64,11 +64,13 @@ maintainability. The core components are outlined below:
 - Serves as the entry point of the application.
 - Initializes and connects all components (UI, Parser, Managers).
 - Manages the main execution loop and system shutdown.
+---
 
 ### 2. UI Component (UI.java)
 - Handles all user interaction through the command line.
 - Displays menus, messages, prompts, and results.
 - Reads user input and forwards it to the Parser.
+---
 
 ### 3. Logic Component
 - **Parser Component**:
@@ -94,6 +96,8 @@ maintainability. The core components are outlined below:
   - CommandFactory.java: Base factory interface
   - Specialized factories for each command type (e.g., AddEventCommandFactory, DeleteCommandFactory)
 
+---
+
 ### 4. Model Component
 - **Event Component**:
   - Event.java: Core data structure for scheduled activities
@@ -111,65 +115,14 @@ maintainability. The core components are outlined below:
   - SortByPriority.java: Sorts by priority level
 - **Exception Component**:
   - SyncException.java: Custom exception for synchronization issues
+---
 
 ### 5. Storage Component
 - Storage.java: Base class for data persistence
 - UserStorage.java: Handles user data storage
 - Uses file I/O to save and load events and user data
 
-```mermaid
-    class UserStorage {
-        -filePath: String
-        -slotFormatter: DateTimeFormatter
-        +UserStorage(filePath: String)
-        +saveUsers(participants: List<Participant>): void
-        +loadUsers(): ArrayList<Participant>
-        +findUserByName(participants: List<Participant>, name: String): Participant
-    }
-
-    class Storage {
-        -formatter: DateTimeFormatter
-        -filePath: String
-        -userStorage: UserStorage
-        +Storage(filePath: String, userStorage: UserStorage)
-        +saveEvents(events: List<Event>, allPriorities: ArrayList<String>): void
-        +loadEvents(): ArrayList<Event>
-    }
-
-    class Participant {
-        +getName(): String
-        +getAccessLevel(): AccessLevel
-        +getPassword(): String
-        +getAvailableTimes(): List<AvailabilitySlot>
-        +addAvailableTime(start: LocalDateTime, end: LocalDateTime): void
-    }
-
-    class Event {
-        +getName(): String
-        +getStartTime(): LocalDateTime
-        +getEndTime(): LocalDateTime
-        +getLocation(): String
-        +getDescription(): String
-        +getParticipants(): List<Participant>
-        +addParticipant(participant: Participant): void
-    }
-
-    class Priority {
-        +getAllPriorities(): List<String>
-        +loadFromStorage(priorities: List<String>): void
-    }
-
-    class SyncException {
-    }
-
-    UserStorage --> Participant : manages
-    UserStorage --> SyncException : throws
-    Storage --> UserStorage : uses
-    Storage --> Event : manages
-    Storage --> Priority : uses
-    Storage --> SyncException : throws
-    Event --> Participant : has
-```
+![Storage Class Diagram](images/class_diagram.png)
 
 #### API: UserStorage.java
 
@@ -179,7 +132,6 @@ The `UserStorage` component,
 - stores data in a structured format, ensuring persistence across sessions. (sample: Alice | MEMBER | 123 | 2025-03-31 12:00,2025-05-31 12:00)
 - depends on `Participant` as it manages participant-related storage operations.
 - throws `SyncException` in case of synchronization failures.
----
 
 #### API: Storage.java
 
@@ -195,8 +147,12 @@ The `Storage` component,
 ### 6. Logger Component
 - EventSyncLogger.java: Handles logging for debugging and tracking
 
+---
+
 ### 7. Common classes
 -
+
+---
 
 ## Design & Implementation
 

@@ -1,0 +1,56 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+class UserStorage {
+        -filePath: String
+        -slotFormatter: DateTimeFormatter
+        +UserStorage(filePath: String)
+        +saveUsers(participants: List<Participant>): void
+        +loadUsers(): ArrayList<Participant>
+        +findUserByName(participants: List<Participant>, name: String): Participant
+    }
+
+    class Storage {
+        -formatter: DateTimeFormatter
+        -filePath: String
+        -userStorage: UserStorage
+        +Storage(filePath: String, userStorage: UserStorage)
+        +saveEvents(events: List<Event>, allPriorities: ArrayList<String>): void
+        +loadEvents(): ArrayList<Event>
+    }
+
+    class Participant {
+        +getName(): String
+        +getAccessLevel(): AccessLevel
+        +getPassword(): String
+        +getAvailableTimes(): List<AvailabilitySlot>
+        +addAvailableTime(start: LocalDateTime, end: LocalDateTime): void
+    }
+
+    class Event {
+        +getName(): String
+        +getStartTime(): LocalDateTime
+        +getEndTime(): LocalDateTime
+        +getLocation(): String
+        +getDescription(): String
+        +getParticipants(): List<Participant>
+        +addParticipant(participant: Participant): void
+    }
+
+    class Priority {
+        +getAllPriorities(): List<String>
+        +loadFromStorage(priorities: List<String>): void
+    }
+
+    class SyncException {
+    }
+
+    UserStorage --> Participant : manages
+    UserStorage --> SyncException : throws
+    Storage --> UserStorage : uses
+    Storage --> Event : manages
+    Storage --> Priority : uses
+    Storage --> SyncException : throws
+    Event --> Participant : has
+@enduml
