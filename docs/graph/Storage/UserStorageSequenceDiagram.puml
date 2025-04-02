@@ -1,0 +1,55 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant ":ParticipantManager" as ParticipantManager
+participant ":UserStorage" as UserStorage
+participant ":Participant" as Participant
+participant ":SyncException" as SyncException
+
+ParticipantManager -> UserStorage : saveUsers(participants : Participants)
+activate UserStorage
+
+UserStorage -> UserStorage : ensureFileExists()
+activate UserStorage
+
+alt file does not exist
+    UserStorage -> SyncException : throw SyncException("Cannot create storage file: filePath")
+    activate SyncException
+    SyncException --> UserStorage : exception handled
+    deactivate SyncException
+end
+
+UserStorage -> UserStorage : write participants to file
+activate UserStorage
+deactivate UserStorage
+
+deactivate UserStorage
+
+ParticipantManager -> UserStorage : loadUsers()
+activate UserStorage
+
+UserStorage -> UserStorage : read data from file
+activate UserStorage
+
+alt error reading file
+    UserStorage -> SyncException : throw SyncException("Error reading file")
+    activate SyncException
+    SyncException --> UserStorage : exception handled
+    deactivate SyncException
+end
+
+UserStorage -> UserStorage : parseParticipant(line : String)
+activate UserStorage
+
+alt invalid line format
+    UserStorage -> SyncException : throw SyncException("Skipping corrupted line: line")
+    activate SyncException
+    SyncException --> UserStorage : exception handled
+    deactivate SyncException
+end
+
+deactivate UserStorage
+
+@enduml

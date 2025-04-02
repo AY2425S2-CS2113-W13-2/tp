@@ -1,0 +1,75 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor ":User" as User
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":Command" as Command
+participant ":EventManager" as EventManager
+participant ":SyncException" as SyncException
+participant ":ParticipantManager" as ParticipantManager
+participant ":UI" as UI
+participant ":Storage" as Storage
+
+User -> Parser : input
+activate Parser
+
+Parser -> CommandFactory : new AddEventCommandFactory\n(participantManager : ParticipantManager, ui : UI)
+activate CommandFactory
+
+CommandFactory -> Command : new  AddEventCommand(event : Event)
+activate Command
+
+Command -> EventManager : addEvent(event, participant)
+activate EventManager
+
+EventManager -> EventManager : checkCollision(start : String, end : String, \nlocation : String, events : ArrayList<Event>)
+activate EventManager
+
+alt collision detected
+    EventManager -> SyncException : throw SyncException("Event conflicts with existing events.")
+    activate SyncException
+    SyncException --> EventManager : exception handled
+    deactivate SyncException
+end
+
+EventManager -> EventManager : checkParticipant(participant : Participant)
+activate EventManager
+
+alt participant is null
+    EventManager -> SyncException : throw SyncException("No user is currently selected.")
+    activate SyncException
+    SyncException --> EventManager : exception handled
+    deactivate SyncException
+end
+
+EventManager -> ParticipantManager : checkParticipantAvailability(participant : Participant, event : Evenet)
+activate EventManager
+
+alt participant not available
+    EventManager -> SyncException : throw SyncException("Participant is not available at the given time.")
+    activate SyncException
+    SyncException --> EventManager : exception handled
+    deactivate SyncException
+end
+
+EventManager -> ParticipantManager : addParticipantToEvent(event : Event, participant : Participant)
+activate EventManager
+
+EventManager -> Storage : saveEvents(events : List<Event>, allPriorities : ArrayList<String>)
+activate Storage
+Storage --> EventManager : events saved
+deactivate Storage
+
+EventManager -> UI : showAddedMessage(event : Event)
+activate UI
+UI --> User : message displayed
+deactivate UI
+
+EventManager --> Command : event added
+deactivate EventManager
+
+deactivate Parser
+@enduml

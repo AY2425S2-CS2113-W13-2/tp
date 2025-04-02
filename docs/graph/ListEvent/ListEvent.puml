@@ -1,0 +1,44 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor ":User" as User
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":Command" as Command
+participant ":EventManager" as EventManager
+participant ":UI" as UI
+
+User -> Parser : input
+activate Parser
+
+Parser -> CommandFactory : new ListEventCommandFactory(participantManager : ParticipantManager, ui : UI)
+activate CommandFactory
+
+CommandFactory -> Command : new ListEventCommand(sortType : String)
+activate Command
+
+Command -> EventManager : execute()
+activate EventManager
+
+EventManager -> EventManager : viewEvents(events : List<Event>)
+activate EventManager
+
+EventManager -> UI : showEmptyListMessage()
+activate UI
+alt events are empty
+    UI --> EventManager : empty list message displayed
+    deactivate UI
+else
+    loop for each event in events
+        EventManager -> UI : showEvent(event)
+        activate UI
+        UI --> User : event displayed
+        deactivate UI
+    end
+end
+deactivate EventManager
+
+deactivate Parser
+@enduml

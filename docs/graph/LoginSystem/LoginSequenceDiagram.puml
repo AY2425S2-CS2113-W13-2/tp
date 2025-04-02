@@ -1,0 +1,62 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor User
+participant UI
+participant ParticipantManager
+participant Participant
+participant Scanner
+
+User->>UI: Request Login
+UI->>ParticipantManager: login()
+ParticipantManager->>Scanner: new Scanner(System.in)
+ParticipantManager->>User: "Please enter your Username"
+User->>Scanner: Input username
+Scanner->>ParticipantManager: username
+
+ParticipantManager->>ParticipantManager: getParticipant(username)
+
+alt User Found
+    ParticipantManager->>User: "Please enter your password"
+    User->>Scanner: Input password
+    Scanner->>ParticipantManager: password
+    ParticipantManager->>Participant: checkPassword(password)
+
+    alt Password Correct
+        Participant-->>ParticipantManager: true
+        ParticipantManager->>ParticipantManager: currentUser = participant
+        ParticipantManager->>UI: showSuccessLoginMessage()
+        ParticipantManager->>UI: showMenu()
+    else Password Incorrect
+        Participant-->>ParticipantManager: false
+        ParticipantManager->>User: "Wrong password. Do you want to login again? (yes/no)"
+        User->>Scanner: Input response
+        Scanner->>ParticipantManager: response
+
+        alt Try Again
+            ParticipantManager->>ParticipantManager: login() (recursive)
+        else Cancel
+            ParticipantManager->>User: "Wrong password! Session ends"
+        end
+    end
+else User Not Found
+    ParticipantManager->>User: "User not found. Please create user first!"
+end
+
+ParticipantManager-->>UI: Return ParticipantManager instance
+
+User->>UI: Request Logout
+UI->>ParticipantManager: logout()
+
+alt User Logged In
+    ParticipantManager->>Participant: getName()
+    Participant-->>ParticipantManager: name
+    ParticipantManager->>UI: showMessage(name + " has logged out")
+    ParticipantManager->>ParticipantManager: currentUser = null
+else No User Logged In
+    ParticipantManager->>UI: showMessage("No user is currently logged in")
+end
+
+@enduml
