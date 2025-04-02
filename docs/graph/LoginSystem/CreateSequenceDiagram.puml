@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant "CreateUserCommandFactory" as Factory
+participant "CommandParser"
+participant "CreateUserCommand"
+participant "ParticipantManager"
+participant "Storage"
+participant "UI"
+
+User -> Factory: createCommand()
+Factory -> CommandParser: askParticipantName()
+CommandParser --> Factory: return participantName : String
+Factory -> CommandParser: askPassword()
+CommandParser --> Factory: return password : String
+Factory -> CommandParser: askAccessLevel()
+CommandParser --> Factory: return accessLevel : AccessLevel
+Factory -> Factory: askAvailability() : ArrayList<AvailabilitySlot>
+Factory -> CommandParser: parseDateTime()
+CommandParser --> Factory: return LocalDateTime
+
+Factory -> CreateUserCommand: new CreateUserCommand(participant : Participant)
+Factory --> User: return CreateUserCommand
+
+User -> CreateUserCommand: execute(events : EventManager, ui : UI, participantManager : ParticipantManager)
+CreateUserCommand -> ParticipantManager: addNewUser(participant : Participant)
+ParticipantManager -> Storage: saveUsers(participants : Participant)
+CreateUserCommand -> UI: showSuccessCreateMessage(participant)
+UI --> User: Display success message
+@enduml

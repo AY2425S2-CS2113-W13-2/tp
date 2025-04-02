@@ -1,0 +1,69 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant ":EventManager" as EventManager
+participant ":Storage" as Storage
+participant ":Event" as Event
+participant ":SyncException" as SyncException
+participant ":UserStorage" as UserStorage
+participant ":Priority" as Priority
+
+EventManager -> Storage : saveEvents(events : List<Event>, allPriorities : ArrayList<String>)
+activate Storage
+
+Storage -> Storage : ensureFileExists()
+activate Storage
+
+alt file does not exist
+    Storage -> SyncException : throw SyncException("Cannot create storage file: filePath")
+    activate SyncException
+    SyncException --> Storage : exception handled
+    deactivate SyncException
+end
+
+Storage -> Storage : write events to file
+activate Storage
+deactivate Storage
+
+EventManager -> Storage : loadEvents()
+activate Storage
+
+Storage -> Storage : read data from file
+activate Storage
+
+alt error reading file
+    Storage -> SyncException : throw SyncException("Error reading file")
+    activate SyncException
+    SyncException --> Storage : exception handled
+    deactivate SyncException
+end
+
+Storage -> UserStorage : loadUsers()
+activate UserStorage
+deactivate UserStorage
+
+Storage -> Storage : parseEventLine(line : String)
+activate Storage
+
+alt invalid line format
+    Storage -> SyncException : throw SyncException("Skipping corrupted line: line")
+    activate SyncException
+    SyncException --> Storage : exception handled
+    deactivate SyncException
+end
+
+Storage -> Storage : parseEvent(parts, allParticipants)
+activate Storage
+
+alt invalid event data
+    Storage -> SyncException : throw SyncException("Failed to parse event")
+    activate SyncException
+    SyncException --> Storage : exception handled
+    deactivate SyncException
+end
+
+deactivate Storage
+
+@enduml

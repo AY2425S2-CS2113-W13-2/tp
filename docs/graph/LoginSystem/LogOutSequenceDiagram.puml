@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "LogOutCommand"
+participant "ParticipantManager"
+participant "UI"
+
+activate "LogOutCommand"
+User -> LogOutCommand: logout()
+activate ParticipantManager
+activate UI
+LogOutCommand -> ParticipantManager: check if currentUser != null
+alt currentUser is not null
+    ParticipantManager -> UI: showMessage(currentUser.getName() + " has logged out.")
+    ParticipantManager -> ParticipantManager: currentUser = null
+else currentUser is null
+    ParticipantManager -> UI: showMessage("No user is currently logged in.")
+end
+UI --> User: Logout process completed
+@enduml
