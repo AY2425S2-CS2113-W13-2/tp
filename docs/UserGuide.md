@@ -1,5 +1,26 @@
 # User Guide
 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Features](#featurescommand-you-need-to-enter---description)
+    - 3.1 [`login` - Log in](#-login--log-in-as-an-existing-participant)
+    - 3.2 [`create` - Create user](#-create--create-a-new-participant)
+    - 3.3 [`logout` - Log out](#-logout--log-out-of-your-session)
+    - 3.4 [`add` - Add event](#-add--add-a-new-event)
+    - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event-admin-only)
+    - 3.6 [`delete` - Delete event](#-delete--delete-an-event)
+    - 3.7 [`list` - List events](#-list--list-events-assigned-to-you)
+    - 3.8 [`find` - Search events](#-find-keyword--search-for-events)
+    - 3.9 [`filter` - Filter events](#-filter--show-events-by-priority)
+    - 3.10 [`duplicate` - Duplicate event](#-duplicate--duplicate-an-event)
+    - 3.11 [`addparticipant` - Add participant](#-addparticipant--assign-participant-to-event)
+    - 3.12 [`listparticipants` - List participants](#-listparticipants--show-event-participants)
+    - 3.13 [`bye` - Exit](#-bye--exit-the-application)
+4. [FAQ](#faq)
+5. [Command Summary](#command-summary)
+6. [Notes](#notes)
+
 ## Introduction
 
 This is a CLI-based Event Manager for organizing events, participants, and schedules. It supports priority levels, 
@@ -340,21 +361,21 @@ Saves all data and exits the program safely.
 
 ## Command Summary
 
-| Command                  | Description                                 |
-|--------------------------|---------------------------------------------|
-| `login`                 | Log in as an existing user                  |
-| `create`                | Create a new participant                    |
-| `logout`                | Log out of the session                      |
-| `add`                   | Add a new event                             |
-| `edit`                  | Edit an event (admin only)                  |
-| `delete`                | Delete an event                             |
-| `duplicate`             | Duplicate an event                          |
-| `list`                  | List your assigned events                   |
-| `find KEYWORD`          | Search events by name or description        |
-| `filter`                | Filter events by priority                   |
-| `addparticipant`        | Add a participant to an event               |
-| `listparticipants`      | List all participants for an event          |
-| `bye`                   | Exit the program                            |
+| Command(Then follow the guidance) | Description                                 |
+|-----------------------------------|---------------------------------------------|
+| `login`                           | Log in as an existing user                  |
+| `create`                          | Create a new participant                    |
+| `logout`                          | Log out of the session                      |
+| `add`                             | Add a new event                             |
+| `edit`                            | Edit an event (admin only)                  |
+| `delete`                          | Delete an event                             |
+| `duplicate`                       | Duplicate an event                          |
+| `list`                            | List your assigned events                   |
+| `find KEYWORD`                    | Search events by name or description        |
+| `filter`                          | Filter events by priority                   |
+| `addparticipant`                  | Add a participant to an event               |
+| `listparticipants`                | List all participants for an event          |
+| `bye`                             | Exit the program                            |
 
 ---
 

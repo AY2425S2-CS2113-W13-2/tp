@@ -1,8 +1,50 @@
 # Event Manager Developer Guide
 
+# Event Manager Developer Guide
+
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Introduction](#introduction)
+3. [Setting Up](#setting-up-the-development-environment)
+4. [Component Overview](#component-overview)
+  - 4.1 [Main Component](#1-main-component-eventsyncjava)
+  - 4.2 [UI Component](#2-ui-component-uijava)
+  - 4.3 [Logic Component](#3-logic-component)
+  - 4.4 [Model Component](#4-model-component)
+  - 4.5 [Storage Component](#5-storage-component)
+  - 4.6 [Logger Component](#6-logger-component)
+  - 4.7 [Common Classes](#7-common-classes)
+5. [Design & Implementation](#design--implementation)
+  - 5.1 [Add Event](#1-add-event-feature)
+  - 5.2 [Edit Event](#2-edit-event-feature)
+  - 5.3 [Conflict Detector](#3-conflict-detector-feature)
+  - 5.4 [List Events](#4-list-event-feature)
+  - 5.5 [Delete Event](#5-delete-event-feature)
+  - 5.6 [Priority Filter](#6-priority-filter-feature)
+  - 5.7 [Duplicate Event](#7-duplicate-event-feature)
+  - 5.8 [Add Participant](#8-add-participant-feature)
+  - 5.9 [List Participants](#9-list-participants-feature)
+  - 5.10 [Event Storage](#10-event-storage-feature)
+  - 5.11 [User Storage](#11-user-storage-feature)
+  - 5.12 [Login System](#12-login-system-feature)
+6. [Documentation & DevOps](#documentation-logging-testing-configuration-dev-ops)
+7. [Appendix](#appendix)
+  - 7.1 [Product Scope](#product-scope)
+  - 7.2 [User Stories](#user-stories)
+  - 7.3 [Non-Functional Requirements](#non-functional-requirements)
+  - 7.4 [Glossary](#glossary)
+  - 7.5 [Manual Testing](#instructions-for-manual-testing)
+
+[Continue with your existing content...]
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+### Project Framework
+- **[CS2113 Individual Project Template](https://github.com/nus-cs2113-AY2425S2/ip)**  
+  Used as the foundational project structure with modifications for our event management system
+
+### Tutorial Resources
+- **[SE-EDU PlantUML Guide](https://se-education.org/guides/tutorials/plantUml.html)**  
+  Referenced for creating all UML diagrams in this project
 
 ## Introduction
 
@@ -508,19 +550,19 @@ By providing these features, the application allows users to focus on their task
 
 ## User Stories
 
-| Version | As a ...       | I want to ...                          | So that I can ...                                |
-|---------|----------------|----------------------------------------|--------------------------------------------------|
-| v1.0    | user           | add an event with a description and date/time | keep track of important events and deadlines |
-| v1.0    | user           | list all my events                    | see all my events organized by date/time |
-| v2.0    | user           | store events persistently             | ensure my events remain even after restarting the application |
-| v2.0    | admin          | edit event details                    | fix errors or update times                        |
-| v2.0    | user           | filter events by priority             | focus on high-priority tasks when needed          |
-| v2.0    | team leader    | add participants to events            | track who is involved in each activity            |
-| v2.0    | user           | detect scheduling conflicts           | avoid double-booking myself                       |
-| v2.0    | user           | duplicate existing events             | quickly create similar events without re-entering all details |
-| v2.0    | user           | sort events in different ways         | view my schedule according to my current needs    |
-| v2.0    | user           | create a user profile                 | have personalized access to the system            |
-| v2.0    | user           | log in and out of the system          | keep my schedule information secure               |
+| Version | As a ...    | I want to ...                          | So that I can ...                                |
+|---------|-------------|----------------------------------------|--------------------------------------------------|
+| v1.0    | team leader | add an event with a description and date/time | keep track of important events and deadlines |
+| v1.0    | user        | list all my events                    | see all my events organized by date/time |
+| v2.0    | user        | store events persistently             | ensure my events remain even after restarting the application |
+| v2.0    | team leader | edit event details                    | fix errors or update times                        |
+| v2.0    | user        | filter events by priority             | focus on high-priority tasks when needed          |
+| v2.0    | team leader | add participants to events            | track who is involved in each activity            |
+| v2.0    | user        | detect scheduling conflicts           | avoid double-booking myself                       |
+| v2.0    | team leader | duplicate existing events             | quickly create similar events without re-entering all details |
+| v2.0    | user        | sort events in different ways         | view my schedule according to my current needs    |
+| v2.0    | user        | create a user profile                 | have personalized access to the system            |
+| v2.0    | user        | log in and out of the system          | keep my schedule information secure               |
 
 ## Non-Functional Requirements
 
@@ -544,4 +586,225 @@ By providing these features, the application allows users to focus on their task
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+# Manual Testing Documentation
+
+## Phase 1: Admin Setup & Operations
+
+### 1. Create Admin Account
+- **Steps**:
+  1. Run application
+  2. Execute `createUser` command
+  3. Enter:
+    - Name: `admin1`
+    - Password: `admin123`
+    - AccessLevel: `ADMIN`
+    - Availability: Provide valid time slots
+- **Expected**:
+  - Admin account created successfully
+  - Account stored in UserStorage
+
+### 2. Admin Login
+- **Steps**:
+  1. Execute `login` command
+  2. Enter:
+    - Username: `admin1`
+    - Password: `admin123`
+- **Expected**:
+  - Login success message
+  - `currentUser` set to admin1 with ADMIN privileges
+  - Admin menu options displayed
+
+### 3. Other Operations(no restriction)
+- See addtional features listed below
+
+### 4. Admin Logout
+- **Steps**:
+  1. Execute `logout` command
+- **Expected**:
+  - Session terminated
+  - `currentUser` set to null
+  - Return to login screen
+
+---
+
+## Phase 2: Member Setup & Operations
+
+### 1. Create Member Account
+- **Steps**:
+  1. Execute `createUser` command
+  2. Enter:
+    - Name: `member1`
+    - Password: `member123`
+    - AccessLevel: `MEMBER`
+    - Availability: Provide valid time slots
+- **Expected**:
+  - Member account created
+  - Stored with MEMBER access level
+
+### 2. Member Login
+- **Steps**:
+  1. Execute `login` command
+  2. Enter:
+    - Username: `member1`
+    - Password: `member123`
+- **Expected**:
+  - Login success message
+  - `currentUser` set to member1
+  - Member menu options displayed
+
+### 3. Member Operations (Can only view events assigned to you)
+- See addtional features listed below
+
+### 4. Member Logout
+- **Steps**:
+  1. Execute `logout` command
+- **Expected**:
+  - Session terminated
+  - Return to login screen
+
+---
+
+## Phase 3 : Verification Checks
+
+1. **Storage Validation**:
+  - Verify both accounts persist after restart
+  - Check event ownership records
+
+2. **Access Control**:
+  - Confirm admin can use all commands
+  - Verify member can use restricted command set
+  - 
+3. **Session Security**:
+  - Verify proper session termination on logout
+  - Confirm credentials required for re-login
+
+### Additional Features
+### 1. Add Event Feature
+
+#### Test Case 1.1: Add Event with Valid Input
+- **Steps**:
+  1. Enter `add` command in CLI
+  2. Provide valid event details (name, time, location)
+  3. Specify priority level (e.g., HIGH)
+- **Expected**:
+  - Event added successfully
+  - Confirmation message displayed
+  - Event appears in list view
+
+#### Test Case 1.2: Add Event with Missing Participant
+- **Steps**:
+  1. Enter `add` command
+  2. Omit participant field
+- **Expected**:
+  - `SyncException` thrown
+  - Error message: "Participant must be specified"
+
+#### Test Case 1.3: Add Event with Time Conflict
+- **Steps**:
+  1. Add event at specific time
+  2. Attempt to add another event at same time/location
+- **Expected**:
+  - `SyncException` thrown
+  - Error message: "Scheduling conflict detected"
+
+### 2. Edit Event Feature
+
+#### Test Case 2.1: Edit Existing Event
+- **Steps**:
+  1. Enter `edit` with valide index
+  2. Modify event details
+  3. Confirm changes
+- **Expected**:
+  - Event details updated
+  - Changes persisted in storage
+
+#### Test Case 2.2: Edit Non-existent Event
+- **Steps**:
+  1. Enter `edit` with invalid index
+- **Expected**:
+  - Error message: "Invalid event index"
+
+### 3. Conflict Detector
+
+#### Test Case 3.1: Detect Overlapping Events
+- **Steps**:
+  1. Create two events with overlapping times
+  2. Run conflict check
+- **Expected**:
+  - System identifies conflict
+  - Warning message displayed
+
+### 4. List Events
+
+#### Test Case 4.1: List Events
+- **Steps**:
+  1. Enter `list`
+- **Expected**:
+  - Only events assigned to you displayed with complete details
+
+#### Test Case 4.2: Empty Event List
+- **Steps**:
+  1. Clear all events
+  2. Enter `list`
+- **Expected**:
+  - Message: "No events available"
+
+### 5. Delete Event
+
+#### Test Case 5.1: Delete by Name
+- **Steps**:
+  1. Enter `delete` with valid name
+  2. Confirm deletion
+- **Expected**:
+  - Event removed from list
+  - Storage updated
+
+#### Test Case 5.2: Delete Non-existent Event
+- **Steps**:
+  1. Enter `delete` with invalid name
+- **Expected**:
+  - Error message: "Event not found"
+
+### 6. Priority Filter
+
+#### Test Case 6.1: Filter by Priority
+- **Steps**:
+  1. Enter `filter` and choose priority `HIGH`
+- **Expected**:
+  - Only HIGH priority events shown
+
+#### Test Case 6.2: No Matching Priority
+- **Steps**:
+  1. Enter `filter` and choose priority `LOW` (when none exist)
+- **Expected**:
+  - Message: "No events with LOW priority"
+
+### 7. Duplicate Event
+
+#### Test Case 7.1: Duplicate Valid Event
+- **Steps**:
+  1. Enter `duplicate` with valid index
+- **Expected**:
+  - New event created with same details
+  - Original event unchanged
+
+#### Test Case 7.2: Duplicate Invalid Event
+- **Steps**:
+  1. Enter `duplicate` with invalid index
+- **Expected**:
+  - Error message: "Invalid event index"
+
+### 8. Participant Management
+
+#### Test Case 8.1: Add Participant
+- **Steps**:
+  1. Enter `addParticipant` with valid event index and participant name
+- **Expected**:
+  - Participant added to event
+  - Role assignment confirmed
+
+#### Test Case 8.2: List Participants
+- **Steps**:
+  1. Enter `listParticipants`
+- **Expected**:
+  - All participants listed with roles
