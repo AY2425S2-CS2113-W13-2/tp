@@ -1,0 +1,46 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide members
+
+package "Event Component" {
+    class Event
+    class EventManager
+    EventManager --> Event : manages
+}
+
+package "Participant Component" {
+    class Participant
+    class ParticipantManager
+    class AvailabilitySlot
+    enum AccessLevel
+
+    ParticipantManager --> Participant : manages
+    Participant --> AvailabilitySlot : has
+    AccessLevel --> Participant : defines
+}
+
+package "Label Component" {
+    class Priority
+    Event --> Priority : has
+}
+
+package "Sort Component" {
+    abstract class Sort
+    class SortByStartTime
+    class SortByEndTime
+    class SortByPriority
+
+    EventManager --> Sort : uses
+    Sort <|-- SortByStartTime
+    Sort <|-- SortByEndTime
+    Sort <|-- SortByPriority
+}
+
+package "Exception Component" {
+    class SyncException
+    EventManager --> SyncException : throws
+    ParticipantManager --> SyncException : throws
+    Event --> SyncException : throws
+}
+@enduml
