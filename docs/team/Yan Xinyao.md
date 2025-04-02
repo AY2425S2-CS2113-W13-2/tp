@@ -22,7 +22,7 @@ I focused on implementing key functionalities for event management, optimizing p
 
 ### New Features and Enhancements (v2.0)
 - **Added new commands:**
-    - `addParticipantCommand`: Allows users to add participants to existing events with availability checks.
+    - `addParticipantCommand`: Help to achieve the function that allows users to add participants to existing events with availability checks.
     - `createUserCommand`: Allows users to create new accounts and register with the system.
     - `LoginCommand`: Enables user authentication and session management.
     - `LogoutCommand`: Allows users to log out and generates a downloadable event schedule in CSV format.
@@ -71,13 +71,16 @@ I focused on implementing key functionalities for event management, optimizing p
 
 ## Contributions to the User Guide
 - **Documented:**:
-    - Interactive usage of `addEvent`, `listEvent`, `login`, `logout` and `addParticipant`
+    - Interactive usage of `addEvent`, `listEvent`, `login`, `logout` and `create`
     - Provided detailed examples and common user scenarios
 
 ## Contributions to the Developer Guide
 - **Added:**
-    - **Sequence Diagrams** for `addEvent` and `listEvent` commands.
-    - **Class Diagrams** for `EventManager` and its dependencies.
+    - **Sequence Diagrams** for `addEvent`, `listEvent`, `storage`, `userStorage`, `login`, `logout` and `create` commands.
+    - **Class Diagrams** for `Storage`, `UserStorage` and its dependencies.
+    - **Design** for Storage
+    - **Implementaiton** for `addEvent`, `listEvent`, `storage`, `userStorage`, `login`, `logout` and `create`
+    - **Manual Testing** for all possible functions
     - **Detailed explanations** of conflict resolution logic and event handling.
 
 ## Contributions to Team-Based Tasks
