@@ -81,7 +81,8 @@
 //        // 修改这个测试，使用自定义UI而不是反射
 //        // 使用唯一名称
 //        String uniqueName = "TestUser2";
-//        testParticipant = new Participant(uniqueName, "password123", Participant.AccessLevel.MEMBER, new ArrayList<>());
+//        testParticipant = new Participant(uniqueName, "password123", Participant.AccessLevel.MEMBER,
+//        new ArrayList<>());
 //        AddParticipantCommand newCommand = new AddParticipantCommand(0, uniqueName);
 //
 //        // 创建一个会返回"是"的UI
@@ -134,7 +135,8 @@
 //
 //        // 使用唯一名称
 //        String uniqueName = "TestUser3";
-//        testParticipant = new Participant(uniqueName, "password123", Participant.AccessLevel.MEMBER, new ArrayList<>());
+//        testParticipant = new Participant(uniqueName, "password123", Participant.AccessLevel.MEMBER,
+//        new ArrayList<>());
 //        AddParticipantCommand newCommand = new AddParticipantCommand(0, uniqueName);
 //
 //        // Add participant to the manager
