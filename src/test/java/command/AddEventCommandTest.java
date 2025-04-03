@@ -38,7 +38,8 @@ class AddEventCommandTest {
         availableTimes.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
                 LocalDateTime.of(2020, 5, 10, 16, 0)));
 
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, availableTimes);
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, availableTimes);
         participantManager.setCurrentUser(testUser);
 
         eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);

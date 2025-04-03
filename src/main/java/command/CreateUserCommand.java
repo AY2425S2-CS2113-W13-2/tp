@@ -17,4 +17,7 @@ public class CreateUserCommand extends Command {
         ui.showSuccessCreateMessage(participant);
     }
 
+    public Participant getParticipant() {
+        return participant;
+    }
 }

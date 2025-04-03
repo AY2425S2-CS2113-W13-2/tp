@@ -1,6 +1,8 @@
 package command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,6 @@ import storage.Storage;
 import ui.UI;
 import exception.SyncException;
 import storage.UserStorage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
@@ -38,7 +39,8 @@ class LogOutCommandTest {
         availableTimes.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
                 LocalDateTime.of(2020, 5, 10, 16, 0)));
 
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, availableTimes);
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, availableTimes);
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
         EventManager eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);

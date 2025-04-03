@@ -1,1 +1,1 @@
-TestUser | MEMBER | password123 | 
+john_doe | ADMIN | password123 | 2020-05-10 14:00,2020-05-10 16:00

@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import command.AddEventCommand;
 import event.Event;
 import event.EventManager;
 import participant.AvailabilitySlot;
@@ -46,7 +44,8 @@ class LoginCommandTest {
         availableTimes.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
                 LocalDateTime.of(2020, 5, 10, 16, 0)));
 
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, availableTimes);
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, availableTimes);
         participantManager.addNewUser(testUser);
         EventManager eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);
 

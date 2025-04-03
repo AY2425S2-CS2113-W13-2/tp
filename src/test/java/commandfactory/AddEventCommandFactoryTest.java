@@ -1,6 +1,9 @@
 package commandfactory;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +56,8 @@ class AddEventCommandFactoryTest {
 
     @Test
     void testCreateCommandWithValidAdminUser() throws SyncException {
-        participantManager.setCurrentUser(new participant.Participant("admin", "adminpass", participant.Participant.AccessLevel.ADMIN, new ArrayList<>()));
+        participantManager.setCurrentUser(new participant.Participant("admin",
+                "adminpass", participant.Participant.AccessLevel.ADMIN, new ArrayList<>()));
 
         String validInput = "Test Event|2025-05-01 10:00|2025-05-01 12:00|Room A|Test Description" +
                 "\n";

@@ -27,7 +27,7 @@ public class CreateUserCommandFactory implements CommandFactory {
         return new CreateUserCommand(participant);
     }
 
-    private ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
+    ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
         ArrayList<AvailabilitySlot> slots = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         int numSlots;
@@ -62,7 +62,7 @@ public class CreateUserCommandFactory implements CommandFactory {
                 }
                 slots.add(new AvailabilitySlot(start, end));
             } catch (SyncException e) {
-                System.out.println("❌ " + e.getMessage() + " Skipping this slot.");
+                throw new SyncException("❌ " + e.getMessage() + " Skipping this slot.");
             } catch (Exception e) {
                 System.out.println("❌ Unexpected error: " + e.getMessage());
             }
