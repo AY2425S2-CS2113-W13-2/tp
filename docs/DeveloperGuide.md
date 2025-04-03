@@ -103,10 +103,35 @@ The architecture of Event Manager is structured into clearly defined components 
 maintainability. The core components are outlined below:
 
 ### 1. Main Component (EventSync.java)
-- Serves as the entry point of the application.
-- Initializes and connects all components (UI, Parser, Managers).
-- Manages the main execution loop and system shutdown.
+![ArchitectureDiagram.png](graph/ArchitectureDiagram/ArchitectureDiagram.png)
+
+- The **Architecture Diagram** given above explains the high-level design of the App.
+
+- Given below is a quick overview of main components and how they interact with each other.
+
+- **Main components of the architecture**
+
+- **Main**(`EventSync.java`) is in charge of the initialization and execution of the system. 
+  - At launch, it initializes the other components in the correct sequence, and connects them up with each other.
+  - At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+
+- The bulk of the system’s work is done by the following components:
+  - **UI**: The user interface that interacts with the user.
+  - **Logic**: The command executor responsible for processing commands. 
+  - **Model**: Maintains the application's data in memory, including participants and events.
+  - **Storage**: Reads data from, and writes data to, files for persistence.
+
+- **Logger** handles logging of system events, errors, and debugging information.
+- **Commons**: Provides shared utilities and helper functions used across components.
+
+- **How the architecture components interact with each other**
+- Each of the main components:
+  - Defines its API in an interface with the same name as the component.
+  - Implements its functionality using a concrete {Component Name}Factory class, which follows the corresponding API interface.
+
+- The sections below give more details of each component.
 ---
+
 
 ### 2. UI Component (UI.java)
 - Handles all user interaction through the command line.
