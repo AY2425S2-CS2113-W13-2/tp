@@ -1,7 +1,5 @@
 # Event Manager Developer Guide
 
-# Event Manager Developer Guide
-
 ## Table of Contents
 1. [Acknowledgements](#acknowledgements)
 2. [Introduction](#introduction)
