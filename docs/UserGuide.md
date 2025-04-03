@@ -316,7 +316,7 @@ You’ll be prompted to choose a sort order:
 - `priority` — by priority, then end time
 - `start` — by start time, then priority
 - `end` — by end time, then priority
-
+```
 ---
 
 ### 🧠 `find KEYWORD` — Search for events
@@ -325,6 +325,25 @@ Finds events that contain the keyword in either:
 - Event name
 - Event description
 
+#### Command : `find <KEYWORD>`
+
+#### Example : 
+
+```plaintext
+> find team
+Searching for 'team' in list:
+Found 1 matching event.
+Here are the matching events in your list.
+
+1. +----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2020-05-10 14:00
+| End Time             | 2020-05-10 16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
++----------------------+--------------------------------+
+Priority: LOW
+```
 ---
 
 ### 🎯 `filter` — Show events by priority
@@ -350,6 +369,26 @@ You will be prompted to enter:
 
 The copy retains all original details and priority.
 
+#### Command : 'duplicate'
+
+#### Example : 
+
+```plaintext
+> duplicate
+
+Enter duplicate command (format: <index> <New Event Name>):
+`3 new team`
+
+Event duplicated : 
++----------------------+--------------------------------+
+| Name                 | new team
+| Start Time           | 2020-05-10 14:00
+| End Time             | 2020-05-10 16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
++----------------------+--------------------------------+
+Priority: LOW
+```
 ---
 
 ### 🙋 `addparticipant` — Assign participant to event
@@ -378,6 +417,15 @@ You will be prompted to enter the index of the event.
 
 Saves all data and exits the program safely.
 
+#### Command : 'bye'
+
+#### Example : 
+
+```plaintext
+> bye
+
+Bye!
+```
 ---
 
 ## FAQ
