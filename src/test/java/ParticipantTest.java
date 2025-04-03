@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ParticipantTest {
 
@@ -96,7 +98,8 @@ class ParticipantTest {
     @Test
     void testEqualsAndHashCode() {
         Participant p1 = new Participant("Alice", "pass", Participant.AccessLevel.ADMIN);
-        Participant p2 = new Participant("alice", "different", Participant.AccessLevel.MEMBER); // same name, different case
+        Participant p2 = new Participant("alice", "different", Participant.AccessLevel.MEMBER);
+        // same name, different case
 
         assertEquals(p1, p2);
         assertEquals(p1.hashCode(), p2.hashCode());

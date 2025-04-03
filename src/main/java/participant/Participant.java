@@ -3,7 +3,6 @@ package participant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Participant {
     private final String name;
@@ -99,8 +98,8 @@ public class Participant {
     }
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) { return true; }
+        if (obj == null || getClass() != obj.getClass()) { return false;}
         Participant other = (Participant) obj;
         return this.name.equalsIgnoreCase(other.name); // Use ignore case to match on name
     }

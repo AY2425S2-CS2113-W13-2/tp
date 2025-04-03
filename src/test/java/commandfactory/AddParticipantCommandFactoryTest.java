@@ -34,8 +34,10 @@
 //
 //        // Create a ParticipantManager and add some participants
 //        List<Participant> participants = new ArrayList<>();
-//        participants.add(new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>()));
-//        participants.add(new Participant("jane_doe", "password456", Participant.AccessLevel.MEMBER, new ArrayList<>()));
+//        participants.add(new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN,
+//        new ArrayList<>()));
+//        participants.add(new Participant("jane_doe", "password456", Participant.AccessLevel.MEMBER,
+//        new ArrayList<>()));
 //        participantManager = new ParticipantManager(participants, ui, null);
 //
 //        // Create some events for the EventManager
@@ -69,7 +71,8 @@
 //    @Test
 //    void testCreateCommandWithAdminPrivileges() throws SyncException {
 //        // Set the current user as admin
-//        participantManager.setCurrentUser(new Participant("admin", "adminpass", Participant.AccessLevel.ADMIN, new ArrayList<>()));
+//        participantManager.setCurrentUser(new Participant("admin", "adminpass", Participant.AccessLevel.ADMIN,
+//        new ArrayList<>()));
 //
 //        // Simulate the input for adding a participant
 //        String simulatedInput = "2 | jane_doe";  // Event index: 2, Participant: jane_doe
@@ -89,7 +92,8 @@
 //    @Test
 //    void testCreateCommandWithNonAdminUser() {
 //        // Set the current user as non-admin
-//        participantManager.setCurrentUser(new Participant("user", "userpass", Participant.AccessLevel.USER, new ArrayList<>()));
+//        participantManager.setCurrentUser(new Participant("user", "userpass", Participant.AccessLevel.USER,
+//        new ArrayList<>()));
 //
 //        // Attempt to create a command should throw SyncException due to lack of admin privileges
 //        assertThrows(SyncException.class, () -> addParticipantCommandFactory.createCommand());
