@@ -1,6 +1,6 @@
 package seedu;
 
-import commandFactory.CommandFactory;
+import commandfactory.CommandFactory;
 import event.EventManager;
 import parser.Parser;
 import participant.ParticipantManager;

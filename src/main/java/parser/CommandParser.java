@@ -9,8 +9,6 @@ import java.util.Scanner;
 import exception.SyncException;
 import participant.AvailabilitySlot;
 import participant.Participant;
-import sort.SortByPriority;
-import sort.SortByStartTime;
 
 public final class CommandParser {
     private static final Scanner scanner = new Scanner(System.in);
@@ -120,7 +118,8 @@ public final class CommandParser {
     }
 
     public static String readAddCommandInput() {
-        System.out.print("Enter event details (format: Event Name | Start Date | End Date | Location | Description): \n");
+        System.out.print("Enter event details (format: Event Name | " +
+                "Start Date | End Date | Location | Description): \n");
         return scanner.nextLine();
     }
 

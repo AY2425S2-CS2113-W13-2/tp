@@ -1,6 +1,4 @@
-package commandFactory;
-
-import static parser.CommandParser.readDeleteName;
+package commandfactory;
 
 import java.util.ArrayList;
 import java.util.Scanner;

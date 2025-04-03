@@ -1,17 +1,14 @@
 package command;
 
-import commandFactory.CommandFactory;
-import commandFactory.CreateUserCommandFactory;
+import commandfactory.CommandFactory;
+import commandfactory.CreateUserCommandFactory;
 import event.Event;
 import event.EventManager;
 import participant.Participant;
-import participant.AvailabilitySlot;
 import participant.ParticipantManager;
 import exception.SyncException;
 import ui.UI;
 import label.Priority;
-import java.util.ArrayList;
-
 
 public class AddParticipantCommand extends Command {
     private final int eventIndex;

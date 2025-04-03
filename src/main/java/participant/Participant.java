@@ -66,14 +66,21 @@ public class Participant {
         );
     }
 
-    public String getName() { return name; }
-    public String getPassword() { return password; }
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
 
-    public AccessLevel getAccessLevel() { return accessLevel; }
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
 
     public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;

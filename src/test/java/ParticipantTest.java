@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParticipantTest {
 
@@ -70,7 +71,7 @@ class ParticipantTest {
     }
 
     @Test
-    void testInvalidAvailabilitySlot_TimeOrder() {
+    void testInvalidAvailabilitySlotTimeOrder() {
         LocalDateTime start = LocalDateTime.of(2025, 5, 2, 15, 0);
         LocalDateTime end = LocalDateTime.of(2025, 5, 2, 14, 0); // earlier than start
 

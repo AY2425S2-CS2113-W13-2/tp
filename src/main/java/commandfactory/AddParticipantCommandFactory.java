@@ -1,9 +1,8 @@
-package commandFactory;
+package commandfactory;
 
 import command.AddParticipantCommand;
 import event.Event;
 import event.EventManager;
-import participant.AvailabilitySlot;
 import participant.Participant;
 import participant.ParticipantManager;
 import exception.SyncException;
@@ -65,5 +64,4 @@ public class AddParticipantCommandFactory implements CommandFactory {
             ui.showMessage((i + 1) + ". " + events.get(i).getName());
         }
     }
-
 }
