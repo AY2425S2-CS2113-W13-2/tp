@@ -113,7 +113,8 @@ maintainability. The core components are outlined below:
 - Displays menus, messages, prompts, and results.
 - Reads user input and forwards it to the Parser.
 ---
-## 3. Logic Component
+
+### 3. Logic Component
 
 The Logic Component is responsible for interpreting user input and executing appropriate actions in the system using the **Command** and **Factory** patterns. It is made up of several sub-components:
 
@@ -131,7 +132,7 @@ The Logic Component is responsible for interpreting user input and executing app
 
 ---
 
-### Partial UML Class Diagram
+## Partial UML Class Diagram
 
 ![ParserCD.png](graph/Parser/ParserCD.png)
 
@@ -146,7 +147,7 @@ This **partial UML class diagram** focuses only on the components involved in ex
 
 ---
 
-### UML Sequence Diagram (Add Event Command Only)
+## UML Sequence Diagram (Add Event Command Only)
 
 ![ParserSD.png](graph/Parser/ParserSD.png)
 
