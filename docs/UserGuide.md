@@ -11,12 +11,13 @@
     - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event-admin-only)
     - 3.6 [`delete` - Delete event](#-delete--delete-an-event)
     - 3.7 [`list` - List events](#-list--list-events-assigned-to-you)
-    - 3.8 [`find` - Search events](#-find-keyword--search-for-events)
-    - 3.9 [`filter` - Filter events](#-filter--show-events-by-priority)
-    - 3.10 [`duplicate` - Duplicate event](#-duplicate--duplicate-an-event)
-    - 3.11 [`addparticipant` - Add participant](#-addparticipant--assign-participant-to-event)
-    - 3.12 [`listparticipants` - List participants](#-listparticipants--show-event-participants)
-    - 3.13 [`bye` - Exit](#-bye--exit-the-application)
+    - 3.8 [`listall` - List all events](#-listall--list-all-events-admin-only)
+    - 3.9 [`find` - Search events](#-find-keyword--search-for-events)
+    - 3.10 [`filter` - Filter events](#-filter--show-events-by-priority)
+    - 3.11 [`duplicate` - Duplicate event](#-duplicate--duplicate-an-event)
+    - 3.12 [`addparticipant` - Add participant](#-addparticipant--assign-participant-to-event)
+    - 3.13 [`listparticipants` - List participants](#-listparticipants--show-event-participants)
+    - 3.14 [`bye` - Exit](#-bye--exit-the-application)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 6. [Notes](#notes)
@@ -286,6 +287,38 @@ You’ll be prompted to choose a sort order:
 
 ---
 
+### 📋 `listall` — List all events in the storage to you
+
+#### Command: `listall`
+
+#### Example
+
+```plaintext
+>listall
+
+Enter your sort type: Now we have a list of available sort types: priority, start, end 
+>end
+
+The event 1 is: 
++----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2020-05-10 14:00
+| End Time             | 2020-05-10 16:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
++----------------------+--------------------------------+
+Priority: LOW
+
+#### Notes: `listall`
+Displays all events in the storage only for admin level users.
+
+You’ll be prompted to choose a sort order:
+- `priority` — by priority, then end time
+- `start` — by start time, then priority
+- `end` — by end time, then priority
+
+---
+
 ### 🧠 `find KEYWORD` — Search for events
 
 Finds events that contain the keyword in either:
@@ -298,7 +331,8 @@ Finds events that contain the keyword in either:
 
 Filters and displays events by priority range.
 
-**Input format:**
+**Input format:**: filter {lower-priority} {higher-priority}
+#### Example
 ```
 LOW MEDIUM
 ```
@@ -361,21 +395,22 @@ Saves all data and exits the program safely.
 
 ## Command Summary
 
-| Command(Then follow the guidance) | Description                                 |
-|-----------------------------------|---------------------------------------------|
-| `login`                           | Log in as an existing user                  |
-| `create`                          | Create a new participant                    |
-| `logout`                          | Log out of the session                      |
-| `add`                             | Add a new event                             |
-| `edit`                            | Edit an event (admin only)                  |
-| `delete`                          | Delete an event                             |
-| `duplicate`                       | Duplicate an event                          |
-| `list`                            | List your assigned events                   |
-| `find KEYWORD`                    | Search events by name or description        |
-| `filter`                          | Filter events by priority                   |
-| `addparticipant`                  | Add a participant to an event               |
-| `listparticipants`                | List all participants for an event          |
-| `bye`                             | Exit the program                            |
+| Command(Then follow the guidance) | Description                          |
+|-----------------------------------|--------------------------------------|
+| `login`                           | Log in as an existing user           |
+| `create`                          | Create a new participant             |
+| `logout`                          | Log out of the session               |
+| `add`                             | Add a new event                      |
+| `edit`                            | Edit an event (admin only)           |
+| `delete`                          | Delete an event                      |
+| `duplicate`                       | Duplicate an event                   |
+| `list`                            | List your assigned events            |
+| `listall`                         | List all events (admin only)         |
+| `find KEYWORD`                    | Search events by name or description |
+| `filter`                          | Filter events by priority            |
+| `addparticipant`                  | Add a participant to an event        |
+| `listparticipants`                | List all participants for an event   |
+| `bye`                             | Exit the program                     |
 
 ---
 
