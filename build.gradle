@@ -14,10 +14,14 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+
 test {
     useJUnitPlatform()
     jvmArgs '-ea'
-    
+
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -30,11 +34,11 @@ test {
 }
 
 application {
-    mainClass.set("EventSync")
+    mainClass.set("seedu.EventSync")
 }
 
 shadowJar {
-    archiveBaseName.set("EventSync")
+    archiveBaseName.set("seedu.EventSync")
     archiveClassifier.set("")
 }
 
@@ -42,6 +46,6 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
 }
