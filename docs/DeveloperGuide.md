@@ -113,32 +113,60 @@ maintainability. The core components are outlined below:
 - Displays menus, messages, prompts, and results.
 - Reads user input and forwards it to the Parser.
 ---
+## 3. Logic Component
 
-### 3. Logic Component
+The Logic Component is responsible for interpreting user input and executing appropriate actions in the system using the **Command** and **Factory** patterns. It is made up of several sub-components:
+
 - **Parser Component**:
-  - Parser.java: Main parsing interface
-  - CommandParser.java: Specialized parser for command inputs
-- **Command Component**: Implements Command pattern with classes like:
-  - Command.java: Abstract base class for all commands
-  - AddEventCommand.java: Handles event creation
-  - EditEventCommand.java: Allows event modification
-  - DeleteCommand.java: Removes events
-  - DuplicateCommand.java: Creates copies of events
-  - ListCommand.java: Shows events with sort options
-  - ListAllCommand.java: Displays all events
-  - ListParticipantsCommand.java: Shows event participants
-  - FindCommand.java: Searches for specific events
-  - FilterCommand.java: Filters events by criteria
-  - LoginCommand.java: Handles user authentication
-  - LogOutCommand.java: Manages user logout
-  - ByeCommand.java: Exits the application
-  - CreateUserCommand.java: Creates new user profiles
-  - AddParticipantCommand.java: Adds users to events
-- **CommandFactory Component**: Factory pattern implementation for command creation:
-  - CommandFactory.java: Base factory interface
-  - Specialized factories for each command type (e.g., AddEventCommandFactory, DeleteCommandFactory)
+  - `Parser.java`: Core class that receives and interprets user input.
+  - `CommandParser.java`: Provides helper methods to parse specific data (e.g., date-time, event details).
+
+- **Command Component**:
+  - `Command.java`: Abstract base class that defines the `execute()` method.
+  - Concrete subclasses implement specific behaviors like `AddEventCommand`, `DeleteCommand`, `ListCommand`, etc.
+
+- **CommandFactory Component**:
+  - `CommandFactory.java`: Interface for creating Command objects.
+  - Concrete factories (e.g., `AddEventCommandFactory`) encapsulate logic to construct and return specific command types.
 
 ---
+
+### Partial UML Class Diagram
+
+![ParserCD.png](graph/Parser/ParserCD.png)
+
+This **partial UML class diagram** focuses only on the components involved in executing the `add` command:
+
+- The `Parser` receives a command string and delegates to `CommandParser` for detailed input handling.
+- A suitable `CommandFactory` (like `AddEventCommandFactory`) is created to generate the corresponding `Command` object.
+- That factory uses utility methods from `CommandParser` to help construct the required `Command` (e.g., `AddEventCommand`).
+- The resulting `Command` is then ready to be executed by the system.
+
+> **Note:** Only selected classes (`AddEventCommand` and `AddEventCommandFactory`) are shown for brevity. The actual system contains many more command types, each following a similar structure.
+
+---
+
+### UML Sequence Diagram (Add Event Command Only)
+
+![ParserSD.png](graph/Parser/ParserSD.png)
+
+This **sequence diagram** illustrates the interaction flow when a user inputs the `add` command:
+
+1. The `User` enters an input string such as `add`.
+2. The `Parser` interprets the command and instantiates an `AddEventCommandFactory`.
+3. `createCommand()` is called on the factory.
+4. Inside the factory, `CommandParser` is used to:
+  - Prompt and read event details.
+  - Validate and parse the information (e.g., date-time format, name).
+  - Construct an `Event` object.
+5. The `AddEventCommand` is returned.
+6. The command is then executed, adding the event to the system and notifying the UI.
+
+> **Note:** This diagram only shows the flow for the `AddEventCommand`. Other command types like `edit`, `list`, `filter`, etc., follow a similar interaction flow using their respective factories and command implementations.
+
+---
+
+
 
 ### 4. Model Component
 ![modelComponent.png](graph/ModelComponent/modelComponent.png)
