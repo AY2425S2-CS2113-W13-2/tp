@@ -135,9 +135,35 @@ maintainability. The core components are outlined below:
 
 
 ### 2. UI Component (UI.java)
-- Handles all user interaction through the command line.
-- Displays menus, messages, prompts, and results.
-- Reads user input and forwards it to the Parser.
+
+The UI component handles all user interaction through the command line. It displays menus, messages, prompts, and results. It acts as an interface between the user and the application logic. 
+
+The `UI` class is instantiated when the application start. Other components, such as `Event Manager` should us `UI` instance to interact with the user. `UI` helps to separate the user interaction with the core application logic. 
+
+- **Input Handling**:
+  - `Scanner scanner` handles the input from the the user. It is used to read the user commands.
+
+- **Output Display**:
+  - `showMessage(String message)` displays a given meesage to the console. It is used for general messages and error notifications.
+  - `showMenu()` displays the main command menu, outlining available actions at the startup.
+  - `showEventWithIndex(Event event, int index, String priority)` displays the details of an event along with its index and priority. It is used when listing specific events. 
+  - `showEmptyListMessage()` displays a message indicating that there are no events to display. It is used when the event list is empty.
+  - `printMatchingEvents(ArrayList<Event> events)` displays the matching events in a list, or that no matching events were found. It is used when displaying search results.
+  - `showAddFormat()` displays the format for adding a new event. It prompts the user the correct format for adding an event.
+  - `showAddedMessage(Event event)` displays a confirmation message after an event is added. It is used to confirm successful event addition.
+  - `showEditCommandMessage(Event event)` displays step-by-step guidance for the user to edit an event. It is used when the user wish to edit an event.
+  - `showEditedEvent(Event event)` displays the updated event details after editing. It is used to confirm successful event editing.
+  - `showByeMessage()` displays a goodbye message. It is shown when the user quit the program.
+  - `showWelcomeMessage()` displays a welcome message. It is shown when the user run the program. 
+  - `showCollisionWarning(Event newEvent, ArrayList<Event> collisions)` displays a warning message about participant scheduling conflicts. It notifies the user of overlapping participant schedules.
+  - `showDeletedMessage(Event event)` displays a confirmation message after an event is deleted. It is used to confirm successful event deletion.
+  - `showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager)` displays the matching events with their indexes.
+  - `showDeletionCancelledMessage()` displays a message indicating that the deletion was cancelled. It is to inform user of the cancelled the deletion.
+  - `showAddParticipantFormat()` displays the format for adding a new participant. It prompts the user for correct format to add the participant.
+  - `showParticipantAdded(Participant p)` displays a confirmation message after a participant is added. It is used to confirm the addition of the participant. 
+  - `showLogOutMessage()` displays the log out message. It informs the user they have logged out.
+  - `showSuccessLoginMessage()` displays a success login message. It informs the user they have logged in.
+  - `showSuccessCreateMessage(Participant participant)` displays a success create message. It informs the user they have created a new user.
 ---
 
 ### 3. Logic Component
