@@ -574,7 +574,18 @@ The login system manages user authentication and session state through the `Part
 
 ## Documentation, logging, testing, configuration, dev-ops
 
-### Ducumentation
+### Documentation Guide
+**Setting up and maintaining the project website:**
+- We use [Jekyll](https://jekyllrb.com/) to manage documentation.
+- The `docs/` folder is used for documentation.
+- If you are using Intellij for editing documentation files, you can consider enabling ‘soft wrapping’ for *.md files.
+
+**Style guidance:**
+- Follow the [Google developer documentation style guide](https://developers.google.com/style).
+- Also relevant is [[se-edu/guides] Markdown coding standard](https://se-education.org/guides/conventions/markdown.html)
+
+**Diagrams:**
+- See the [[se-edu/guides] Using PlantUML](https://se-education.org/guides/tutorials/plantUml.html).
 
 ### Logging Guide
 This project uses Java's built-in `java.util.logging` package for logging.
