@@ -113,7 +113,8 @@ maintainability. The core components are outlined below:
 - Displays menus, messages, prompts, and results.
 - Reads user input and forwards it to the Parser.
 ---
-## 3. Logic Component
+
+### 3. Logic Component
 
 The Logic Component is responsible for interpreting user input and executing appropriate actions in the system using the **Command** and **Factory** patterns. It is made up of several sub-components:
 
