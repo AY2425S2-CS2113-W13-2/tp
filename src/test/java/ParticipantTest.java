@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import participant.Participant;
@@ -7,8 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParticipantTest {
 
@@ -18,7 +16,7 @@ class ParticipantTest {
 
     @BeforeEach
     void setUp() {
-        participant = new Participant("Alice", "1234",  Participant.AccessLevel.ADMIN);
+        participant = new Participant("Alice", "1234", Participant.AccessLevel.ADMIN);
 
         slot1 = new AvailabilitySlot(
                 LocalDateTime.of(2025, 5, 1, 9, 0),
@@ -65,26 +63,42 @@ class ParticipantTest {
         participant.setAvailableTimes(availabilityList);
 
         String output = participant.toString();
-        assertTrue(output.contains("Name:Alice"));
-        assertTrue(output.contains("Access: ADMIN"));
-        assertTrue(output.contains(slot1.toString()));
+        assertTrue(output.contains("Participant: Alice"));
+        assertTrue(output.contains("Available: 1 slots"));
     }
 
     @Test
-    void testInvalidAvailabilitySlotTimeOrder() {
-        LocalDateTime start = LocalDateTime.of(2025, 5, 2, 15, 0);
-        LocalDateTime end = LocalDateTime.of(2025, 5, 2, 14, 0); // earlier than start
+    void testAssignEventTimeValidSlot() {
+        participant.addAvailableTime(slot1.getStartTime(), slot1.getEndTime());
 
-        AvailabilitySlot invalidSlot = new AvailabilitySlot(start, end);
+        boolean assigned = participant.assignEventTime(
+                LocalDateTime.of(2025, 5, 1, 9, 0),
+                LocalDateTime.of(2025, 5, 1, 10, 0)
+        );
 
-        List<AvailabilitySlot> list = new ArrayList<>();
-        list.add(invalidSlot);
-
-        participant.setAvailableTimes(list);
-
-        assertTrue(participant.getAvailableTimes().get(0).getStartTime()
-                        .isAfter(participant.getAvailableTimes().get(0).getEndTime()),
-                "Invalid time slot should have start time after end time");
+        assertTrue(assigned, "Participant should be assigned if available.");
+        assertEquals(0, participant.getAvailableTimes().size());
     }
 
+    @Test
+    void testAssignEventTimeNoOverlap() {
+        participant.addAvailableTime(slot1.getStartTime(), slot1.getEndTime());
+
+        boolean assigned = participant.assignEventTime(
+                LocalDateTime.of(2025, 5, 1, 11, 0),
+                LocalDateTime.of(2025, 5, 1, 12, 0)
+        );
+
+        assertFalse(assigned, "Participant should not be assigned if unavailable.");
+        assertEquals(1, participant.getAvailableTimes().size());
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Participant p1 = new Participant("Alice", "pass", Participant.AccessLevel.ADMIN);
+        Participant p2 = new Participant("alice", "different", Participant.AccessLevel.MEMBER); // same name, different case
+
+        assertEquals(p1, p2);
+        assertEquals(p1.hashCode(), p2.hashCode());
+    }
 }

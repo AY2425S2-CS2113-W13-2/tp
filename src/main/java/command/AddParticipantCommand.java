@@ -41,18 +41,26 @@ public class AddParticipantCommand extends Command {
             CommandFactory factory = new CreateUserCommandFactory();
             Command cmd = factory.createCommand();
             cmd.execute(eventManager, ui, participantManager);
+
+            // RELOAD the participant object from the manager
+            participant = participantManager.getParticipant(participantName);
         }
+
 
         // 3. Check availability and add to event
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
         if (isAvailable) {
-            event.addParticipant(participant);
-            //need to use the method in participantManager
-            participantManager.assignParticipant(event, participant);
-            ui.showMessage("Participant " + participant.getName() + "has been added.");
+            boolean assigned = participantManager.assignParticipant(event, participant);
+            if (assigned) {
+                event.addParticipant(participant);
+                ui.showMessage("Participant " + participant.getName() + " has been added.");
+            } else {
+                ui.showMessage("Failed to assign time slot.");
+            }
         } else {
             ui.showMessage("Participant " + participant.getName() + " is unavailable during the event.");
         }
+
 
         // Persist updated event list to storage
         eventManager.getStorage().saveEvents(eventManager.getEvents(), Priority.getAllPriorities());
