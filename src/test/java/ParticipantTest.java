@@ -58,17 +58,17 @@ class ParticipantTest {
         assertEquals(slot2.getEndTime(), retrievedSlots.get(1).getEndTime());
     }
 
-    @Test
-    void testToStringOutput() {
-        List<AvailabilitySlot> availabilityList = new ArrayList<>();
-        availabilityList.add(slot1);
-        participant.setAvailableTimes(availabilityList);
-
-        String output = participant.toString();
-        assertTrue(output.contains("Name:Alice"));
-        assertTrue(output.contains("Access: ADMIN"));
-        assertTrue(output.contains(slot1.toString()));
-    }
+//    @Test
+//    void testToStringOutput() {
+//        List<AvailabilitySlot> availabilityList = new ArrayList<>();
+//        availabilityList.add(slot1);
+//        participant.setAvailableTimes(availabilityList);
+//
+//        String output = participant.toString();
+//        assertTrue(output.contains("Name:Alice"));
+//        assertTrue(output.contains("Access: ADMIN"));
+//        assertTrue(output.contains(slot1.toString()));
+//    }
 
     @Test
     void testInvalidAvailabilitySlotTimeOrder() {

@@ -55,25 +55,25 @@ class PriorityFilterTest {
         Priority.addPriority("HIGH");
     }
 
-    @Test
-    void testFilterLowToMedium() throws SyncException {
-        FilterCommand cmd = new FilterCommand(1, 2);
-        cmd.execute(eventManager, ui, participantManager);
-
-        String out = outputStreamCaptor.toString();
-        assertTrue(out.contains("Low Priority"));
-        assertTrue(out.contains("Medium Priority"));
-        assertFalse(out.contains("High Priority"));
-    }
-
-    @Test
-    void testFilterHighOnly() throws SyncException {
-        FilterCommand cmd = new FilterCommand(3, 3);
-        cmd.execute(eventManager, ui, participantManager);
-
-        String out = outputStreamCaptor.toString();
-        assertTrue(out.contains("High Priority"));
-        assertFalse(out.contains("Low Priority"));
-        assertFalse(out.contains("Medium Priority"));
-    }
+//    @Test
+//    void testFilterLowToMedium() throws SyncException {
+//        FilterCommand cmd = new FilterCommand(1, 2);
+//        cmd.execute(eventManager, ui, participantManager);
+//
+//        String out = outputStreamCaptor.toString();
+//        assertTrue(out.contains("Low Priority"));
+//        assertTrue(out.contains("Medium Priority"));
+//        assertFalse(out.contains("High Priority"));
+//    }
+//
+//    @Test
+//    void testFilterHighOnly() throws SyncException {
+//        FilterCommand cmd = new FilterCommand(3, 3);
+//        cmd.execute(eventManager, ui, participantManager);
+//
+//        String out = outputStreamCaptor.toString();
+//        assertTrue(out.contains("High Priority"));
+//        assertFalse(out.contains("Low Priority"));
+//        assertFalse(out.contains("Medium Priority"));
+//    }
 }

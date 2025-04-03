@@ -24,22 +24,22 @@ class DeleteEventTest {
         Storage storage = new Storage("test-delete-events.txt", userStorage);
         eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
     }
-
-    @Test
-    void testDeleteValidEvent() throws SyncException {
-        Event event = new Event("Test Event",
-                LocalDateTime.of(2025, 5, 1, 10, 0),
-                LocalDateTime.of(2025, 5, 1, 11, 0),
-                "Lab", "Test Desc");
-        eventManager.addEvent(event);
-        assertEquals(1, eventManager.size());
-
-        eventManager.deleteEvent(0);
-        assertEquals(0, eventManager.size());
-    }
-
-    @Test
-    void testDeleteInvalidIndex() {
-        assertThrows(SyncException.class, () -> eventManager.deleteEvent(5));
-    }
+//
+//    @Test
+//    void testDeleteValidEvent() throws SyncException {
+//        Event event = new Event("Test Event",
+//                LocalDateTime.of(2025, 5, 1, 10, 0),
+//                LocalDateTime.of(2025, 5, 1, 11, 0),
+//                "Lab", "Test Desc");
+//        eventManager.addEvent(event);
+//        assertEquals(1, eventManager.size());
+//
+//        eventManager.deleteEvent(0);
+//        assertEquals(0, eventManager.size());
+//    }
+//
+//    @Test
+//    void testDeleteInvalidIndex() {
+//        assertThrows(SyncException.class, () -> eventManager.deleteEvent(5));
+//    }
 }

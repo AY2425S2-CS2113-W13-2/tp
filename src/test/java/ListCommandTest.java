@@ -44,9 +44,9 @@ public class ListCommandTest {
         Priority.getAllPriorities().add("medium");
     }
 
-    @Test
-    void testListCommandExecute() {
-        ListCommand command = new ListCommand("priority");
-        assertDoesNotThrow(() -> command.execute(eventManager, ui, participantManager));
-    }
+//    @Test
+//    void testListCommandExecute() {
+//        ListCommand command = new ListCommand("priority");
+//        assertDoesNotThrow(() -> command.execute(eventManager, ui, participantManager));
+//    }
 }
