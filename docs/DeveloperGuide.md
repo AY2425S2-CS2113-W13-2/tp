@@ -132,7 +132,7 @@ The Logic Component is responsible for interpreting user input and executing app
 
 ---
 
-### Partial UML Class Diagram
+## Partial UML Class Diagram
 
 ![ParserCD.png](graph/Parser/ParserCD.png)
 
@@ -147,7 +147,7 @@ This **partial UML class diagram** focuses only on the components involved in ex
 
 ---
 
-### UML Sequence Diagram (Add Event Command Only)
+## UML Sequence Diagram (Add Event Command Only)
 
 ![ParserSD.png](graph/Parser/ParserSD.png)
 
