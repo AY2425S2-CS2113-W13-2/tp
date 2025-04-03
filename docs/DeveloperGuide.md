@@ -103,9 +103,10 @@ The architecture of Event Manager is structured into clearly defined components 
 maintainability. The core components are outlined below:
 
 ### 1. Main Component (EventSync.java)
-![ArchitectureDiagram.png](graph/ArchitectureDiagram/ArchitectureDiagram.png)
 
-- The **Architecture Diagram** given above explains the high-level design of the App.
+![ArchitectureDiagram.png](graph/ArchitectureDiagram/ArchitectureDiagram.jpg)
+
+- The **Architecture Diagram** given above explains the high-level design.
 
 - Given below is a quick overview of main components and how they interact with each other.
 
@@ -572,6 +573,9 @@ The login system manages user authentication and session state through the `Part
   - *Alternative*: Iterative retry with attempt limit
 
 ## Documentation, logging, testing, configuration, dev-ops
+
+### Ducumentation
+
 ### Logging Guide
 This project uses Java's built-in `java.util.logging` package for logging.
 - The `EventSyncLogger` class configures a shared `Logger` instance.
