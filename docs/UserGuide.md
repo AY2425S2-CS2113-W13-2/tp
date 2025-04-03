@@ -449,6 +449,7 @@ Lists participants of a selected event.
 You will be prompted to enter the index of the event.
 
 #### Example 1 : Successful list
+```plaintext
 >listparticipants
 
 Enter event index to list participants:
@@ -457,7 +458,7 @@ Enter event index to list participants:
 Participants for event "Chill":
 - Participant: Jacky (Available: 1 slots)
 - Participant: jack (Available: 3 slots)
-
+````
 ---
 
 ### 👋 `bye` — Exit the application
