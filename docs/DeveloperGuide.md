@@ -141,7 +141,7 @@ maintainability. The core components are outlined below:
 ---
 
 ### 4. Model Component
-![modelComponent.png](modelComponent.png)
+![modelComponent.png](graph/ModelComponent/modelComponent.png)
 The **Model Component** is responsible for representing the core data entities of the system and providing functionality to manage them. It is composed of the following parts:
 
 - **Event Component**:
@@ -310,9 +310,12 @@ The `ListEventCommand` feature allows users to list all events in their schedule
 2. **Step 2. Command Object Creation**:
   - The `ListEventCommand` object is created, which will contain the logic to retrieve and display the events.
 
-3. **Step 3. Executing `listEvents`**:
-  - The `listEvents` method of `EventManager` is called to fetch all events in the system.
-  - The events are then formatted and displayed to the user through the UI.
+3. **Step 3. Command Execution**:
+  - `ListCommand.execute()` is called. It:
+    - Retrieves the current logged-in user from `ParticipantManager`.
+    - Filters the events from `EventManager` based on those involving the current user.
+    - Sorts the events using the specified `Sort` strategy (`SortByPriority`, `SortByStartTime`, or `SortByEndTime`).
+    - Displays the events via `UI.showEventWithIndex(...)` with both event details and priority.
 
 ![ListEvent Sequence Diagram](graph/ListEvent/ListEvent.png)
 
@@ -322,6 +325,12 @@ The `ListEventCommand` feature allows users to list all events in their schedule
 - **Alternative 1 (current choice)**: Retrieve all events directly from the system’s storage.
   - **Pros**: Simple and efficient for small data sets.
   - **Cons**: May become inefficient for large data sets or if there are a lot of events to display.
+
+**Aspect 2: Sorting Strategy Implementation**
+- **Alternative 1 (current choice)**: Uses the Strategy Pattern to dynamically choose a sorting strategy 
+(`SortByStartTime`, `SortByEndTime`, `SortByPriority`).
+  - **Pros**: Promotes open/closed principle — easy to add new sorting strategies without modifying existing code.
+  - **Cons**: Adds additional complexity when only one sorting mechanism is used; might be overkill for small use cases.
 
 
 ### 5. Delete Event Feature
@@ -333,6 +342,8 @@ The `Parser` reads the event keyword from user input using `readDeleteName()`. `
 If more than one match is found, the UI shows them with indices for disambiguation.
 2. **Event Deletion Flow**: The selected event is passed to `DeleteCommand` with the correct index. In `execute()`, the user is asked to confirm the deletion via `ui.confirmDeletion()`.
 3. **Data Synchronization**: If confirmed, the event and its corresponding priority are removed.
+
+![DeleteEvent.png](graph/DeleteEvent/DeleteEvent.png)
 
 ### Design Considerations
 - **Why this design?**

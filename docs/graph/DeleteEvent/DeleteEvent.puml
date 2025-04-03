@@ -1,0 +1,58 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor ":User" as User
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":DeleteCommand" as Command
+participant ":EventManager" as EventManager
+participant ":UI" as UI
+
+== User inputs event name ==
+User -> Parser : readDeleteName()
+activate Parser
+Parser -> EventManager : findMatchingEvents(name)
+activate EventManager
+EventManager --> Parser : List<Event> matchingEvents
+deactivate EventManager
+
+alt multiple matches found
+    Parser -> UI : showMatchingEvents(matchingEvents)
+    activate UI
+    UI -> User : display matching events
+    User -> Parser : select index
+end
+deactivate UI
+
+Parser -> CommandFactory : new DeleteCommandFactory(matchingIndex)
+activate CommandFactory
+CommandFactory -> Command : new DeleteCommand(index)
+deactivate CommandFactory
+activate Command
+
+== Delete execution ==
+User -> Command : execute(eventManager, ui, participants)
+Command -> EventManager : getEvent(index)
+activate EventManager
+EventManager --> Command : Event
+deactivate EventManager
+
+Command -> UI : confirmDeletion(Event)
+activate UI
+UI -> User : "Are you sure? (yes/no)"
+User -> UI : yes
+UI --> Command : confirmed
+deactivate UI
+
+Command -> EventManager : deleteEvent(index)
+activate EventManager
+EventManager -> UI : showDeletedMessage(Event)
+UI -> User : notify success
+deactivate UI
+deactivate EventManager
+
+Command -> EventManager : save updated list
+deactivate Command
+@enduml
