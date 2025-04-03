@@ -1,0 +1,55 @@
+@startuml
+' === Style Settings ===
+hide circle
+skinparam classAttributeIconSize 0
+
+' === Interfaces and Abstract Classes ===
+interface "«interface» CommandFactory" {
+    +createCommand(): Command
+}
+
+abstract class "«abstract» Command" {
+    +execute(eventManager: EventManager, ui: UI, participantManager: ParticipantManager): void
+    +isExit(): boolean
+}
+
+' === Core Parser Classes ===
+class Parser {
+    - eventManager: EventManager
+    - participantManager: ParticipantManager
+    - ui: UI
+    - scanner: Scanner
+    + parse(input: String): CommandFactory
+}
+
+class CommandParser {
+    + readInput(): String
+    + parseDateTime(dateStr: String): LocalDateTime
+    + splitAddCommandInput(input: String): String[]
+    + splitAddParticipantCommandInput(): String[]
+    + parseAvailabilitySlots(input: String): ArrayList<AvailabilitySlot>
+    + readDeleteName(): String
+    + readFilterInput(): String
+    + askParticipantName(): String
+    + askAccessLevel(): AccessLevel
+    + askPassword(): String
+    + readListCommandInput(): String
+    + readAddCommandInput(): String
+    + readAddParticipantInput(): String
+}
+
+' === Concrete Command Classes ===
+class AddEventCommand
+
+' === Concrete Command Factories ===
+class AddEventCommandFactory
+
+' === Inheritance Relationships ===
+"«abstract» Command" <|-- AddEventCommand
+"«interface» CommandFactory" <|.. AddEventCommandFactory
+
+' === Associations ===
+Parser --> "«interface» CommandFactory" : uses
+Parser --> CommandParser : uses (static)
+"«interface» CommandFactory" --> "«abstract» Command" : creates
+@enduml

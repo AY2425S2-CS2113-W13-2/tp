@@ -1,0 +1,20 @@
+@startuml
+actor User
+
+User -> Parser : input command string
+Parser -> CommandFactory : parse(input)
+activate Parser
+note right of Parser : Determines command type\n(e.g., "add", "list", etc.)
+Parser -> CommandFactory : new AddEventCommandFactory()
+deactivate Parser
+
+CommandFactory -> Command : createCommand()
+activate CommandFactory
+note right of CommandFactory : Uses user input to\ninstantiate specific Command
+deactivate CommandFactory
+
+Command -> Command : execute(EventManager, UI, ParticipantManager)
+activate Command
+note right of Command : Executes behavior depending\non command type
+deactivate Command
+@enduml
