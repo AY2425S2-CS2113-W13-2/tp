@@ -1,6 +1,5 @@
 package command;
 
-import event.Event;
 import event.EventManager;
 import exception.SyncException;
 import participant.Participant;
@@ -18,4 +17,7 @@ public class CreateUserCommand extends Command {
         ui.showSuccessCreateMessage(participant);
     }
 
+    public Participant getParticipant() {
+        return participant;
+    }
 }

@@ -29,7 +29,10 @@ public class ParticipantManager {
         return currentUser;
     }
 
-    public void addNewUser(Participant participant) {
+    public void addNewUser(Participant participant) throws SyncException {
+        if (participants.stream().anyMatch(p -> p.getName().equals(participant.getName()))) {
+            throw new SyncException("User already exists.");
+        }
         participants.add(participant);
         storage.saveUsers(participants);
     }
@@ -112,6 +115,10 @@ public class ParticipantManager {
             storage.saveUsers(participants);
             return assigned;
         }
+    }
+
+    public void setCurrentUser(Participant user) {
+        this.currentUser = user;
     }
 
     public boolean isCurrentUserAdmin() {

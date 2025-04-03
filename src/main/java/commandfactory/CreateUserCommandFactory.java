@@ -1,11 +1,10 @@
-package commandFactory;
+package commandfactory;
 
 import command.Command;
 import command.CreateUserCommand;
 import parser.CommandParser;
 import participant.Participant;
 import participant.AvailabilitySlot;
-import ui.UI;
 import exception.SyncException;
 
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class CreateUserCommandFactory implements CommandFactory {
         return new CreateUserCommand(participant);
     }
 
-    private ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
+    ArrayList<AvailabilitySlot> askAvailability() throws SyncException {
         ArrayList<AvailabilitySlot> slots = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         int numSlots;
@@ -46,10 +45,12 @@ public class CreateUserCommandFactory implements CommandFactory {
 
         for (int i = 0; i < numSlots; i++) {
             try {
-                System.out.print("Enter start time for availability slot " + (i + 1) + " (in format yyyy-MM-dd HH:mm): ");
+                System.out.print("Enter start time for availability slot " + (i + 1) +
+                        " (in format yyyy-MM-dd HH:mm): ");
                 String startTimeStr = scanner.nextLine().trim();
 
-                System.out.print("Enter end time for availability slot " + (i + 1) + " (in format yyyy-MM-dd HH:mm): ");
+                System.out.print("Enter end time for availability slot " + (i + 1) +
+                        " (in format yyyy-MM-dd HH:mm): ");
                 String endTimeStr = scanner.nextLine().trim();
 
                 LocalDateTime start = CommandParser.parseDateTime(startTimeStr);
@@ -61,7 +62,7 @@ public class CreateUserCommandFactory implements CommandFactory {
                 }
                 slots.add(new AvailabilitySlot(start, end));
             } catch (SyncException e) {
-                System.out.println("❌ " + e.getMessage() + " Skipping this slot.");
+                throw new SyncException("❌ " + e.getMessage() + " Skipping this slot.");
             } catch (Exception e) {
                 System.out.println("❌ Unexpected error: " + e.getMessage());
             }

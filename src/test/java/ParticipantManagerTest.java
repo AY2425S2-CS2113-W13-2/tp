@@ -1,8 +1,6 @@
 import event.Event;
-import event.EventManager;
 import participant.Participant;
 import participant.ParticipantManager;
-import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
@@ -13,7 +11,10 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ParticipantManagerTest {
 
@@ -31,7 +32,7 @@ public class ParticipantManagerTest {
     }
 
     @Test
-    void testAddAndDeleteUser() {
+    void testAddAndDeleteUser() throws SyncException {
         Participant p = new Participant("Alice", "pass", Participant.AccessLevel.MEMBER);
         participantManager.addNewUser(p);
         assertEquals(1, participantManager.getParticipants().size());
@@ -93,7 +94,7 @@ public class ParticipantManagerTest {
     }
 
     @Test
-    void testLogout() {
+    void testLogout() throws SyncException {
         Participant p = new Participant("Frank", "pass", Participant.AccessLevel.ADMIN);
         participantManager.addNewUser(p);
         participantManager.logout(); // nothing to logout

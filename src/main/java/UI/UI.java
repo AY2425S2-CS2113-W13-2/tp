@@ -6,7 +6,6 @@ import java.util.Scanner;
 import event.Event;
 import event.EventManager;
 import participant.Participant;
-import participant.ParticipantManager;
 
 public class UI {
     public final Scanner scanner = new Scanner(System.in);

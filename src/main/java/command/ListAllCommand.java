@@ -36,7 +36,7 @@ public class ListAllCommand extends Command {
 
         if (currentUser.getAccessLevel() != Participant.AccessLevel.ADMIN) {
             ui.showMessage("Sorry, you need to be an ADMIN to access all events.");
-                return;
+            return;
         }
 
         List<Event> eventList = new ArrayList<>(events.getEvents());

@@ -1,4 +1,4 @@
-package commandFactory;
+package commandfactory;
 
 import command.Command;
 import command.ListCommand;

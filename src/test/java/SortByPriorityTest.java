@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 import sort.SortByPriority;
 import event.Event;
-import label.Priority;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

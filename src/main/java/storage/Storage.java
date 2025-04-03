@@ -1,15 +1,22 @@
 package storage;
 
 import event.Event;
-import exception.SyncException;
 import label.Priority;
 import participant.Participant;
 import participant.Participant.AccessLevel;
-import java.io.*;
-import java.nio.file.*;
+import exception.SyncException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Storage {
@@ -58,7 +65,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    String[] parts = parseEventLine(line.trim());  // 修改为新的解析方法
+                    String[] parts = parseEventLine(line.trim());
                     Event event = parseEvent(parts, allParticipants);
                     String priority = parts[5];
                     loadedPriorities.add(priority);
