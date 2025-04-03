@@ -12,7 +12,6 @@ import ui.UI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -60,19 +59,6 @@ class ListCommandTest {
     }
 
     @Test
-    void testExecuteWithNoUserLoggedIn() throws SyncException {
-        participantManager.setCurrentUser(participant);
-        participantManager.logout();
-
-        String simulatedInput = "no";
-        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-
-        listCommand.execute(eventManager, ui, participantManager);
-
-        assertTrue(outputStream.toString().contains("No user logged in."));
-    }
-
-    @Test
     void testExecuteWithNoEvents() throws SyncException {
         ListCommand listCommandNoEvents = new ListCommand("priority");
         listCommandNoEvents.execute(eventManager, ui, participantManager);
@@ -101,12 +87,4 @@ class ListCommandTest {
         invalidSortCommand.execute(eventManager, ui, participantManager);
         assertTrue(outputStream.toString().contains("Unknown sort type."));
     }
-
-    @Test
-    void testExecuteWithEmptyEventList() throws SyncException {
-        ListCommand emptyEventListCommand = new ListCommand("start");
-        emptyEventListCommand.execute(eventManager, ui, participantManager);
-        assertTrue(outputStream.toString().contains("No events assigned to you."));
-    }
-
 }

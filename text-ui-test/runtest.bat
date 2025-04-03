@@ -5,7 +5,6 @@ pushd %~dp0
 cd ..
 call gradlew clean shadowJar
 
-# 确保data目录存在
 if not exist data mkdir data
 
 cd build\libs
@@ -15,7 +14,6 @@ for /f "tokens=*" %%a in (
     set jarloc=%%a
 )
 
-# 使用绝对路径确保data目录被正确创建
 java -jar %jarloc% < ..\..\text-ui-test\input.txt > ..\..\text-ui-test\ACTUAL.TXT
 
 cd ..\..\text-ui-test
