@@ -3,6 +3,7 @@ package participant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Participant {
     private final String name;
@@ -25,7 +26,6 @@ public class Participant {
         this.accessLevel = accessLevel;
         this.availableTimes = new ArrayList<>(availableTimes); // Defensive copy
     }
-
 
     public boolean assignEventTime(LocalDateTime eventStart, LocalDateTime eventEnd) {
         if (eventStart.isAfter(eventEnd)) {
@@ -57,7 +57,6 @@ public class Participant {
         }
         return false;
     }
-
 
     public boolean isAvailableDuring(LocalDateTime start, LocalDateTime end) {
         return availableTimes.stream().anyMatch(slot ->
@@ -96,8 +95,19 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "Participant: " + name +
-                " (Available: " + availableTimes.size() + " slots)";
+        return "Participant: " + name + " (Available: " + availableTimes.size() + " slots)";
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Participant other = (Participant) obj;
+        return this.name.equalsIgnoreCase(other.name); // Use ignore case to match on name
+    }
+
+    @Override
+    public int hashCode() {
+        return name.toLowerCase().hashCode(); // Match the equals rule
     }
 
     public void addAvailableTime(LocalDateTime start, LocalDateTime end) {
@@ -111,4 +121,5 @@ public class Participant {
         availableTimes.add(newSlot);
         availableTimes.sort((a, b) -> a.getStartTime().compareTo(b.getStartTime()));
     }
+
 }

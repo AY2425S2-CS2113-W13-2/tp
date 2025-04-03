@@ -230,6 +230,46 @@ You will be shown options to modify:
 4. Location
 5. Description
 
+#### Example:
+
+```plaintext
+>edit
+
+Enter event index to edit: 
+>7
+
+Editing Event: Chill
+1. Edit Name
+2. Edit Start Time
+3. Edit End Time
+4. Edit Location
+5. Edit Description
+6. Done Editing
+Select an option: 
+>1
+
+Enter New Event Name: 
+>Chillingg
+
+Updated Event Details:
++----------------------+--------------------------------+
+| Name                 | Chillingg
+| Start Time           | 2020-01-01 10:00
+| End Time             | 2020-01-02 10:00
+| Location             | Home
+| Description          | chill
+| Participants         | [Participant: Jacky (Available: 1 slots), Participant: jack (Available: 3 slots)]
++----------------------+--------------------------------+
+
+Editing Event: Chillingg
+1. Edit Name
+2. Edit Start Time
+3. Edit End Time
+4. Edit Location
+5. Edit Description
+6. Done Editing
+Select an option: 
+````
 ---
 
 ### 🗑️ `delete` — Delete an event
@@ -351,26 +391,72 @@ You will be prompted to enter:
 The copy retains all original details and priority.
 
 ---
-
+````
 ### 🙋 `addparticipant` — Assign participant to event
 
 Adds a participant to an event if available. Only ADMIN can add a participant. 
 The list of events and users will be shown.
 
-**Input format:**
-```
-EventIndex | ParticipantName
-```
-- Availability is checked before assigning.
-- If the participant does not exist, you’ll be asked to create them.
 
----
+#### Example 1: ✅ Successful Addition
 
+```plaintext
+>addparticipant
+
+Available Events:
+1. event a
+2. Meeting
+3. Team Meeting
+4. Team Meeting
+5. Meeting
+6. MEETUP
+7. Chill
+
+Available Participants:
+- hii
+- Terry
+- jack
+- Alice
+- Jacky
+
+Use: <EventIndex> | <Participant Name>
+>7|jack
+
+Event Index : 6
+Event Start Time : 2020-01-01T10:00
+Event End Time : 2020-01-02T10:00
+Checking participant availability
+  -2000-12-12T12:00 to 2023-03-03T15:59
+Participant jack has been added.
+
+
+#### Example 2 : Fail Addition
+>addparticipant
+7|ye
+
+Event Index : 6
+Event Start Time : 2020-01-01T10:00
+Event End Time : 2020-01-02T10:00
+Participant 'ye' does not exist. Create a new one? (Y/N)
+>N
+Operation cancelled.
+
+````
 ### 🧑‍🤝‍🧑 `listparticipants` — Show event participants
 
 Lists participants of a selected event.
 
 You will be prompted to enter the index of the event.
+
+#### Example 1 : Successful list
+>listparticipants
+
+Enter event index to list participants:
+>7
+
+Participants for event "Chill":
+- Participant: Jacky (Available: 1 slots)
+- Participant: jack (Available: 3 slots)
 
 ---
 
