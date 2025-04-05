@@ -430,7 +430,7 @@ Event duplicated :
 Priority: LOW
 ```
 ---
-````
+
 ### 🙋 `addparticipant` — Assign participant to event
 
 Adds a participant to an event if available. Only ADMIN can add a participant. 
