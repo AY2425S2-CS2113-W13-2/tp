@@ -1,4 +1,5 @@
 package exception;
+import java.time.LocalDateTime;
 
 public class SyncException extends Exception {
     public SyncException(String message) {
@@ -49,4 +50,26 @@ public class SyncException extends Exception {
                 "   Be careful that the lower priority cannot be higher than upper priority.\n" +
                 "   Example: filter LOW MEDIUM";
     }
+
+    public static String invalidDateTimeFormatMessage(String type) {
+        return "❌ Invalid " + type + " time format! Please enter in YYYY-MM-DD HH:MM format.";
+    }
+
+    public static String startTimeAfterEndTimeMessage() {
+        return "❌ Start time cannot be after current end time.";
+    }
+
+    public static String endTimeBeforeStartTimeMessage() {
+        return "❌ End time cannot be before current start time.";
+    }
+
+    public static String participantUnavailableDuringEditError(String name, LocalDateTime start, LocalDateTime end) {
+        return "❌ " + name + " is not available from " + start + " to " + end;
+    }
+
+    public static String participantConflictMessage() {
+        return "❌ One or more participants are unavailable for the new time.";
+    }
+
+
 }

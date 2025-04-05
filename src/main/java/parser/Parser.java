@@ -75,7 +75,7 @@ public class Parser {
                 return new DuplicateCommandFactory(this.participantManager, this.ui, this.eventManager);
             case "edit":
                 logger.info("Edit command received.");
-                return new EditCommandFactory(this.participantManager);
+                return new EditCommandFactory(this.participantManager,this.eventManager);
             case "find":
                 if (parts.length > 1) {
                     logger.info("Find command received with keyword: " + parts[1]);
