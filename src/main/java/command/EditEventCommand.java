@@ -72,6 +72,7 @@ public class EditEventCommand extends Command {
             return true; // return to main edit menu
         }
         event.setName(newName);
+        ui.showMessage("✅ Name updated:");
         return true;
     }
 
@@ -131,6 +132,7 @@ public class EditEventCommand extends Command {
             return true;
         }
         event.setLocation(newLocation);
+        ui.showMessage("✅ Location updated:");
         return true;
     }
 
@@ -142,6 +144,7 @@ public class EditEventCommand extends Command {
             return true;
         }
         event.setDescription(newDesc);
+        ui.showMessage("✅ Description updated:");
         return true;
     }
 
