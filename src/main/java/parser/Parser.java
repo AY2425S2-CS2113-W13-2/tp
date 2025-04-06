@@ -12,6 +12,7 @@ import commandfactory.DuplicateCommandFactory;
 import commandfactory.EditCommandFactory;
 import commandfactory.FilterCommandFactory;
 import commandfactory.FindCommandFactory;
+import commandfactory.HelpCommandFactory;
 import commandfactory.ListAllCommandFactory;
 import commandfactory.ListCommandFactory;
 import commandfactory.ListParticipantsCommandFactory;
@@ -102,6 +103,9 @@ public class Parser {
             case "create":
                 logger.info("Create command received.");
                 return new CreateUserCommandFactory(this.ui, this.participantManager);
+            case "help":
+                logger.info("Help command received.");
+                return new HelpCommandFactory();
             default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));

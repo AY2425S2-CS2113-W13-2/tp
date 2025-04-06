@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
             ArrayList<Event> matchingEvents = new ArrayList<>();
-            for (Event event : events.getEvents()) {
+            for (Event event : events.getEventsByParticipant(participantManager.getCurrentUser())) {
                 String eventName = event.getName().trim().toLowerCase();
                 String eventDescription = event.getDescription().trim().toLowerCase();
                 String searchKeyword = keyword.trim().toLowerCase();

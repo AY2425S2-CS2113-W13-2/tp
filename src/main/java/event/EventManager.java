@@ -214,4 +214,14 @@ public class EventManager {
     public Storage getStorage() {
         return storage;
     }
+
+    public ArrayList<Event> getEventsByParticipant(Participant participant) {
+        ArrayList<Event> events = new ArrayList<>();
+        for (Event event : this.events) {
+            if(event.hasParticipant(participant)) {
+                events.add(event);
+            }
+        }
+        return events;
+    }
 }
