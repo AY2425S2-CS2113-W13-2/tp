@@ -26,7 +26,7 @@ public class ParticipantManagerTest {
     @BeforeEach
     void setUp() throws SyncException {
         ui = new UI();
-        storage = new UserStorage("test-users.txt");
+        storage = new UserStorage("data/test-users.txt");
         participants = new ArrayList<>();
         participantManager = new ParticipantManager(participants, ui, storage);
     }
