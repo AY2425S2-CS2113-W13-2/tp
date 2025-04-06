@@ -27,17 +27,22 @@ public class FilterCommandFactory implements CommandFactory{
         String[] stringParts = input.split(" ");
         assert stringParts.length > 0 : "Split result should not be empty";
 
-        if (stringParts.length != 2) {
+        if ((stringParts.length != 1) && (stringParts.length != 2)) {
             //logger.warning("Invalid number of parts in input: " + stringParts.length);
-            throw new SyncException("Please provide two priority levels (e.g., 'LOW MEDIUM')");
+            throw new SyncException("Please provide one or two priority levels (e.g.,'LOW', 'LOW MEDIUM')");
         }
 
         try {
             String lowerPriority = stringParts[0].toUpperCase();
-            String upperPriority = stringParts[1].toUpperCase();
+            String upperPriority;
+            if ((stringParts.length == 1)) {
+                upperPriority = lowerPriority;
+            } else {
+                upperPriority = stringParts[1].toUpperCase();
+            }
 
             if (!Priority.isValid(lowerPriority) || !Priority.isValid(upperPriority)) {
-                throw new SyncException(SyncException.invalidBoundErrorMessage());
+                throw new SyncException(SyncException.invalidPriorityFilterErrorMessage());
             }
 
             int lower = Priority.getValue(lowerPriority);

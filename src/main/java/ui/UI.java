@@ -244,8 +244,8 @@ public class UI {
     }
 
     public String readFilterInput() {
-        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
-        return scanner.nextLine();
+        System.out.print("Enter a priority or a range: ");
+        return scanner.nextLine().trim();
     }
 
     public String askParticipantName() {
