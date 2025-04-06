@@ -7,6 +7,7 @@ user management, and sorting capabilities.
 
 I was primarily responsible for implementing the priority system, the list command with sorting strategies, and the delete feature.
 
+---
 
 ## Code Contributed
 [View my code on tP Code Dashboard](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=Lydialkx&sort=groupTitle%20dsc&sortWithin=title&since=2025-02-21&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
@@ -31,7 +32,6 @@ I was primarily responsible for implementing the priority system, the list comma
       - By **start** or **end time** (primary), sub-sorted by priority.
     - Synced sorting logic for both events and their corresponding priority levels.
     - Prompted user to select sort type after entering list, enhancing interactivity.
-
 
 ### Implementation of JUnit Tests
 - **Added comprehensive JUnit tests for:**
@@ -63,12 +63,17 @@ I was primarily responsible for implementing the priority system, the list comma
   the usage of EventSyncLogger with java.util.logging, setup, and code snippets.
 
 ## Contributions to Team-Based Tasks
-- Helped debug integration bugs in list and delete features.
-- Reviewed and coordinated merging of team contributions related to events and commands.
-- Supported documentation polishing and milestone deliverables (DG, UG formatting).
+- Helped debug integration issues in delete and list workflows.
+- Reviewed and merged PRs related to event, sorting, and participant features.
+- Supported DG/UG formatting and milestone submission checks.
+
 
 ## Review/Mentoring Contributions
 - Reviewed PRs related to sorting, filtering, and command structure.
 - Assisted teammates with testing and implementation of user input parsing and validation.
 
+##  Contributions Beyond the Project Team
+- Actively participated in Project Evaluation - Dry Run (PE-D) by reporting 10 valid bugs in another team’s product.
+- The bugs spanned a range of functionality flaws, documentation inconsistencies, and edge case issues — each crafted 
+with reproduction steps and annotated screenshots.
 ---
