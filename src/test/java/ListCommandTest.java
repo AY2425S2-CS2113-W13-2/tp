@@ -25,8 +25,8 @@ public class ListCommandTest {
     @BeforeEach
     void setUp() throws SyncException {
         UI ui = new UI();
-        UserStorage userStorage = new UserStorage("test-users.txt");
-        Storage storage = new Storage("test-events.txt", userStorage);
+        UserStorage userStorage = new UserStorage("data/test-users.txt");
+        Storage storage = new Storage("data/test-events.txt", userStorage);
         eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
 
         Participant user = new Participant("testuser", "pass", Participant.AccessLevel.MEMBER);
