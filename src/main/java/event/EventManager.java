@@ -54,6 +54,15 @@ public class EventManager {
     public void addEvent(Event event) throws SyncException {
         assert event != null : "Event cannot be null";
 
+        // Set the exclude index to -1 to avoid excluding any element
+        ArrayList<Event> collisions = checkCollision(
+                event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                event.getLocation(),
+                events,
+                -1
+        );
+
         events.add(event);
         String priority;
         try {
@@ -64,13 +73,6 @@ public class EventManager {
         Priority.addPriority(priority);
 
         ui.showAddedMessage(event);
-
-        ArrayList<Event> collisions = checkCollision(
-                event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                event.getLocation(),
-                events
-        );
 
         // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
@@ -83,15 +85,18 @@ public class EventManager {
     public void addEvent(Event event, Participant participant) throws SyncException {
         assert event != null : "Event cannot be null";
 
+        // Set the exclude index to -1 to avoid excluding any element
         ArrayList<Event> collisions = checkCollision(
                 event.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 event.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 event.getLocation(),
-                events
+                events,
+                -1
         );
 
         if (!collisions.isEmpty()) {
-            throw new SyncException("Event conflicts with existing events.");
+            ui.showCollisionWarning(event, collisions);
+            throw new SyncException("You can try choose a different timing or venue instead.");
         }
 
         if (participant == null) {
@@ -163,16 +168,17 @@ public class EventManager {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
 
-        // Update the event at the given index with the updated event
-        events.set(index, updatedEvent);
-
         // Check for conflicts after editing the event
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getLocation(),
-                events
+                events,
+                index
         );
+
+        // Update the event at the given index with the updated event
+        events.set(index, updatedEvent);
 
         // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
@@ -194,13 +200,26 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public ArrayList<Event> checkCollision(String start, String end, String location, ArrayList<Event> events) {
+    public ArrayList<Event> checkCollision(
+            String start,
+            String end,
+            String location,
+            ArrayList<Event> events,
+            int excludeIndex
+    ) {
+        assert start != null : "Start time cannot be null";
+        assert end != null : "End time cannot be null";
+        assert location != null : "Location cannot be null";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
         ArrayList<Event> collisions = new ArrayList<>();
 
-        for (int i = 0; i < events.size() - 1; i++) {
+        for (int i = 0; i < events.size(); i++) {
+            if (i == excludeIndex) {
+                continue;
+            }
             Event event = events.get(i);
             boolean timeOverlap = !(event.getEndTime().isBefore(startTime) || event.getStartTime().isAfter(endTime));
             boolean sameLocation = event.getLocation().equals(location);
