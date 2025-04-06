@@ -37,27 +37,27 @@ public class EditEventCommand extends Command {
             }
 
             switch (choice) {
-            case 1:
-                editing = editName(event, ui);
-                break;
-            case 2:
-                editing = editStartTime(event, ui);
-                break;
-            case 3:
-                editing = editEndTime(event, ui);
-                break;
-            case 4:
-                editing = editLocation(event, ui);
-                break;
-            case 5:
-                editing = editDescription(event, ui);
-                break;
-            case 6:
-                editing = false;
-                ui.showMessage("✅ Event editing completed.");
-                break;
-            default:
-                ui.showEditCommandCorrectFormat();
+                case 1:
+                    editing = editName(event, ui);
+                    break;
+                case 2:
+                    editing = editStartTime(event, ui);
+                    break;
+                case 3:
+                    editing = editEndTime(event, ui);
+                    break;
+                case 4:
+                    editing = editLocation(event, ui);
+                    break;
+                case 5:
+                    editing = editDescription(event, ui);
+                    break;
+                case 6:
+                    editing = false;
+                    ui.showMessage("✅ Event editing completed.");
+                    break;
+                default:
+                    ui.showEditCommandCorrectFormat();
             }
 
             events.updateEvent(index, event);
@@ -68,65 +68,71 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep1();
         String newName = ui.readLine().trim();
         if (newName.equalsIgnoreCase("exit")) {
-            return false;
+            ui.showMessage("❌ Name editing cancelled.");
+            return true; // return to main edit menu
         }
         event.setName(newName);
+        ui.showMessage("✅ Name updated:");
         return true;
     }
 
     private boolean editStartTime(Event event, UI ui) {
-        ui.showEditCommandStep2();
-        try {
+        while (true) {
+
             LocalDateTime newStart = getValidDateTime(ui, "start");
             if (newStart == null) {
-                return true;
+                ui.showMessage("❌ Start time editing cancelled.");
+                return true; // return to main edit menu
             }
 
             if (newStart.isAfter(event.getEndTime())) {
-                throw new SyncException(SyncException.startTimeAfterEndTimeMessage());
+                ui.showMessage(SyncException.startTimeAfterEndTimeMessage());
+                continue;
             }
 
             if (!checkParticipantAvailability(event, newStart, event.getEndTime(), ui)) {
-                throw new SyncException(SyncException.participantConflictMessage());
+                ui.showMessage(SyncException.participantConflictMessage());
+                continue;
             }
 
             event.setStartTime(newStart);
-        } catch (SyncException e) {
-            ui.showMessage(e.getMessage());
+            return true;
         }
-        return true;
     }
 
     private boolean editEndTime(Event event, UI ui) {
-        ui.showEditCommandStep3();
-        try {
+        while (true) {
+            ui.showEditCommandStep3();
             LocalDateTime newEnd = getValidDateTime(ui, "end");
             if (newEnd == null) {
+                ui.showMessage("❌ End time editing cancelled.");
                 return true;
             }
 
             if (newEnd.isBefore(event.getStartTime())) {
-                throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
+                ui.showMessage(SyncException.endTimeBeforeStartTimeMessage());
+                continue;
             }
 
-            if (!participantManager.checkCurrentParticipantAvailability(event)) {
-                throw new SyncException(SyncException.participantConflictMessage());
+            if (!checkParticipantAvailability(event, event.getStartTime(), newEnd, ui)) {
+                ui.showMessage(SyncException.participantConflictMessage());
+                continue;
             }
 
             event.setEndTime(newEnd);
-        } catch (SyncException e) {
-            ui.showMessage(e.getMessage());
+            return true;
         }
-        return true;
     }
 
     private boolean editLocation(Event event, UI ui) {
         ui.showEditCommandStep4();
         String newLocation = ui.readLine().trim();
         if (newLocation.equalsIgnoreCase("exit")) {
-            return false;
+            ui.showMessage("❌ Location editing cancelled.");
+            return true;
         }
         event.setLocation(newLocation);
+        ui.showMessage("✅ Location updated:");
         return true;
     }
 
@@ -134,14 +140,26 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep5();
         String newDesc = ui.readLine().trim();
         if (newDesc.equalsIgnoreCase("exit")) {
-            return false;
+            ui.showMessage("❌ Description editing cancelled.");
+            return true;
         }
         event.setDescription(newDesc);
+        ui.showMessage("✅ Description updated:");
         return true;
     }
 
     private LocalDateTime getValidDateTime(UI ui, String type) {
+        boolean firstPrompt = true;
+
         while (true) {
+            if (firstPrompt) {
+                ui.showMessage("Enter New " + type.substring(0, 1).toUpperCase() + type.substring(1)
+                        + " Time (YYYY-MM-DD HH:MM) or type 'exit' to cancel:");
+                firstPrompt = false;
+            } else {
+                ui.showMessage("❌ Invalid format! Please re-enter or type 'exit' to cancel:");
+            }
+
             String input = ui.readLine().trim();
             if (input.equalsIgnoreCase("exit")) {
                 return null;
@@ -150,21 +168,28 @@ public class EditEventCommand extends Command {
             try {
                 return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
-                ui.showMessage(SyncException.invalidDateTimeFormatMessage(type));
-                ui.showMessage("Enter " + type + " time again or type 'exit': ");
+                // loop will continue and re-show the re-entry prompt
             }
         }
     }
 
+
+
     private boolean checkParticipantAvailability(Event event, LocalDateTime newStart,
                                                  LocalDateTime newEnd, UI ui) {
+        boolean allAvailable = true;
         for (Participant p : event.getParticipants()) {
             if (!p.isAvailableDuring(newStart, newEnd)) {
                 ui.showMessage(SyncException.participantUnavailableDuringEditError(
                         p.getName(), newStart, newEnd));
-                return false;
+                ui.showMessage("   📆 Available slots for " + p.getName() + ":");
+                int index = 1;
+                for (var slot : p.getAvailableTimes()) {
+                    ui.showMessage("     [" + index++ + "] " + slot);
+                }
+                allAvailable = false;
             }
         }
-        return true;
+        return allAvailable;
     }
 }

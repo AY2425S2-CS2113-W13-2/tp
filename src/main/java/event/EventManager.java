@@ -162,13 +162,32 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    //Make sure the events are updated and checks for collisions
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
 
-        // Check for conflicts after editing the event
+        // Validate start/end time relationship
+        if (updatedEvent.getStartTime().isAfter(updatedEvent.getEndTime())) {
+            throw new SyncException(SyncException.startTimeAfterEndTimeMessage());
+        }
+
+        if (updatedEvent.getEndTime().isBefore(updatedEvent.getStartTime())) {
+            throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
+        }
+
+        // Validate participant availability
+        for (Participant p : updatedEvent.getParticipants()) {
+            if (!p.isAvailableDuring(updatedEvent.getStartTime(), updatedEvent.getEndTime())) {
+                throw new SyncException(SyncException.participantUnavailableDuringEditError(
+                        p.getName(), updatedEvent.getStartTime(), updatedEvent.getEndTime()));
+            }
+        }
+
+        // Update the event
+        events.set(index, updatedEvent);
+
+        // Collision check
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -177,8 +196,7 @@ public class EventManager {
                 index
         );
 
-        // Update the event at the given index with the updated event
-        events.set(index, updatedEvent);
+
 
         // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
@@ -186,8 +204,10 @@ public class EventManager {
         } else {
             ui.showEditedEvent(updatedEvent);
         }
+
         storage.saveEvents(events, Priority.getAllPriorities());
     }
+
 
     public void duplicateEvent(Event eventToDuplicate, String newName) throws SyncException {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
