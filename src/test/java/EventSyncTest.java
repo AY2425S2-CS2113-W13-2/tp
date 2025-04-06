@@ -106,14 +106,17 @@ class EventSyncTest {
                 "2025-05-10 15:00",
                 "2025-05-10 17:00",
                 "Conference Room",
-                eventManager.getEvents()
+                eventManager.getEvents(),
+                -1
         );
+
+        // Verify collision detected with team meeting
         assertEquals(1, collisions.size());
         assertEquals("Team Meeting", collisions.get(0).getName());
     }
 
     @Test
-    void testEditEventTimeWithCollision() throws SyncException {
+    void testAddEventWithoutCollision() throws SyncException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         Event event1 = new Event("Team Meeting",
                 LocalDateTime.parse("2025/05/10 14:00", formatter),
@@ -130,13 +133,49 @@ class EventSyncTest {
         event2.setEndTime(LocalDateTime.parse("2025/05/10 16:30", formatter));
         ArrayList<Event> collisions = eventManager.checkCollision(
                 "2025-05-10 15:00",
-                "2025-05-10 17:00",
+                "2025-05-10 18:00",
                 "Home",
-                eventManager.getEvents()
+                eventManager.getEvents(),
+                -1
         );
 
-        // Verify collision detected
+        // Verify no collision detected
         assertEquals(0, collisions.size());
-        assertEquals("Team Meeting", collisions.get(0).getName());
+    }
+
+    @Test
+    void testEditEventToResolveCollision() throws SyncException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        Event event1 = new Event("Team Meeting",
+                LocalDateTime.parse("2025/05/10 14:00", formatter),
+                LocalDateTime.parse("2025/05/10 16:00", formatter),
+                "Conference Room", "Team Meeting");
+        eventManager.addEvent(event1);
+
+        ArrayList<Event> collisions1 = eventManager.checkCollision(
+                "2025-05-10 15:30",
+                "2025-05-10 17:30",
+                "Conference Room",
+                eventManager.getEvents(),
+                -1
+        );
+        assertEquals(1, collisions1.size());
+
+        Event event2 = new Event("Project Discussion",
+                LocalDateTime.parse("2025/05/10 15:30", formatter),
+                LocalDateTime.parse("2025/05/10 17:30", formatter),
+                "Conference Room", "Project brainstorming");
+        eventManager.addEvent(event2);
+        assertEquals(2, eventManager.size());
+        ArrayList<Event> collisions2 = eventManager.checkCollision(
+                "2025-05-10 15:30",
+                "2025-05-10 17:30",
+                "Home",
+                eventManager.getEvents(),
+                1
+        );
+
+        // Verify no collision detected
+        assertEquals(0, collisions2.size());
     }
 }

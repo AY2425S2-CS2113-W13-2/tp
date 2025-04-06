@@ -60,12 +60,14 @@ public class ListAllCommand extends Command {
             sequence = new SortByEndTime();
             break;
         default:
+            sequence =null;
             ui.showMessage("Unknown sort type. Showing unsorted list.");
-
-            return;
+            break;
         }
 
-        sequence.sort(eventList, Priority.getAllPriorities());
+        if (sequence != null) {
+            sequence.sort(eventList, Priority.getAllPriorities());
+        }
         events.viewEvents(eventList);
     }
 }

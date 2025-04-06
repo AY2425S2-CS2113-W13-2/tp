@@ -22,7 +22,11 @@ public class ListAllCommandFactory implements CommandFactory{
         } else if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("Sorry, you need to be an ADMIN to access all events.");
         } else {
-            String sort = ui.readListCommandInput().trim();
+            String sort = ui.readListCommandInput();
+
+            assert sort != null : "Input sort type should not be null";
+            assert !sort.trim().isEmpty() : "Input string should not be empty";
+
             return new ListAllCommand(sort, ui);
         }
     }
