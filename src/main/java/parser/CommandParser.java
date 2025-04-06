@@ -60,8 +60,6 @@ public final class CommandParser {
         return slots;
     }
 
-
-
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
         System.out.print("Enter participant's access level (1 for Admin, 2 for Member): ");
         try {
