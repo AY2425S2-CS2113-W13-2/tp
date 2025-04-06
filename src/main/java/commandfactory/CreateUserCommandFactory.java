@@ -25,14 +25,16 @@ public class CreateUserCommandFactory implements CommandFactory {
     public Command createCommand() throws SyncException {
         String participantName = askParticipantName();
         if (participantManager.getParticipant(participantName) != null) {
-            throw new SyncException("Participant " + participantName + " already exists");
+            throw new SyncException("Participant " + participantName + " already exists. Please enter 'create' " +
+                    "and try another name.");
         }
         String password = askPassword();
         Participant.AccessLevel accessLevel = askAccessLevel();
         ArrayList<AvailabilitySlot> availabilitySlots = askAvailabilitySlots();
 
         if (availabilitySlots.isEmpty()) {
-            throw new SyncException("❌ No valid availability slots provided. Cannot create participant.");
+            throw new SyncException("❌ No valid availability slots provided. Cannot create participant." +
+                    "Please enter 'create' and try again.");
         }
 
         Participant participant = new Participant(participantName, password, accessLevel);
@@ -73,13 +75,15 @@ public class CreateUserCommandFactory implements CommandFactory {
         try {
             numSlots = Integer.parseInt(ui.readLine().trim());
             if (numSlots <= 0) {
-                throw new SyncException("❌ Number of availability slots must be at least 1.");
+                throw new SyncException("❌ Number of availability slots must be at least 1." +
+                        "\"Please enter 'create' and try again.");
             } else if (numSlots > 10) {
                 ui.showMessage("You entered more than 10 slots. The number of slots has been set to 10 by default.");
             }
             return Math.min(numSlots, 10);
         } catch (NumberFormatException e) {
-            throw new SyncException("❌ Invalid input. Please enter a valid number between 1 and 10.");
+            throw new SyncException("❌ Invalid input. Please enter a valid number between 1 and 10. " +
+                    "\"Please enter 'create' and try again.");
         }
     }
 
@@ -94,7 +98,7 @@ public class CreateUserCommandFactory implements CommandFactory {
             }
             return new AvailabilitySlot(start, end);
         } catch (SyncException e) {
-            throw new SyncException("❌ " + e.getMessage() + " Skipping this slot.");
+            throw new SyncException("❌ " + e.getMessage() + " Skipping this slot. \"Please enter 'create' and try again.");
         }
     }
 

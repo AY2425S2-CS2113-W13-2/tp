@@ -52,7 +52,8 @@ public class SyncException extends Exception {
     }
 
     public static String invalidDateTimeFormatMessage(String type) {
-        return "❌ Invalid " + type + " time format! Please enter in YYYY-MM-DD HH:MM format.";
+        return "❌ Invalid " + type + " time format! Please enter in YYYY-MM-DD HH:MM format. " +
+                "\"Please enter any command word and try again.";
     }
 
     public static String startTimeAfterEndTimeMessage() {

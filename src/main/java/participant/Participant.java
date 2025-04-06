@@ -80,6 +80,10 @@ public class Participant {
         return accessLevel;
     }
 
+    public boolean isAdmin() {
+        return accessLevel == AccessLevel.ADMIN;
+    }
+
     public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
     }
