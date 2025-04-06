@@ -3,7 +3,6 @@ package commandfactory;
 import command.Command;
 import command.ListParticipantsCommand;
 import exception.SyncException;
-import parser.CommandParser;
 import ui.UI;
 
 public class ListParticipantsCommandFactory implements CommandFactory {
@@ -15,7 +14,7 @@ public class ListParticipantsCommandFactory implements CommandFactory {
 
     public Command createCommand() throws SyncException {
         ui.showMessage("Enter event index to list participants:");
-        String input = CommandParser.readInput();
+        String input = ui.readLine();
         try {
             int eventIndex = Integer.parseInt(input.trim()) - 1;
             return new ListParticipantsCommand(eventIndex);

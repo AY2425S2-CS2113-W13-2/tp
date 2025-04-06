@@ -7,7 +7,6 @@ import participant.Participant;
 import participant.ParticipantManager;
 import exception.SyncException;
 import java.util.ArrayList;
-import parser.CommandParser;
 import ui.UI;
 
 public class AddParticipantCommandFactory implements CommandFactory {
@@ -25,11 +24,12 @@ public class AddParticipantCommandFactory implements CommandFactory {
         checkAdminPrivileges();
         showAllEvents();
         showAllParticipants();
-        String[] input = CommandParser.splitAddParticipantCommandInput();
+        String[] input = ui.splitAddParticipantCommandInput();
 
         return new AddParticipantCommand(
                 Integer.parseInt(input[0].trim()) - 1,
-                input[1].trim()
+                input[1].trim(),
+                ui, participantManager
         );
     }
 

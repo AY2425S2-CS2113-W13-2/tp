@@ -3,10 +3,9 @@ package command;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
-import parser.CommandParser;
+import ui.UI;
 import participant.Participant;
 import participant.ParticipantManager;
-import ui.UI;
 import label.Priority;
 import sort.Sort;
 import sort.SortByPriority;
@@ -17,9 +16,11 @@ import java.util.List;
 
 public class ListAllCommand extends Command {
     private final String sortType;
+    private final UI ui;
 
-    public ListAllCommand(String sortType) {
+    public ListAllCommand(String sortType, UI ui) {
         this.sortType = sortType.toLowerCase();
+        this.ui = ui;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class ListAllCommand extends Command {
         Participant currentUser = participants.getCurrentUser();
         if (currentUser == null) {
             ui.showMessage("No user logged in. Do you want to log in?");
-            if(CommandParser.readInput().equalsIgnoreCase("yes")) {
+            if(ui.readLine().equalsIgnoreCase("yes")) {
                 new LoginCommand().execute(events, ui, participants);
             } else {
                 return;

@@ -13,17 +13,21 @@ import label.Priority;
 public class AddParticipantCommand extends Command {
     private final int eventIndex;
     private final String participantName;
+    private final UI ui;
+    private final ParticipantManager participantManager;
 
-    public AddParticipantCommand(int eventIndex, String participantName) {
+    public AddParticipantCommand(int eventIndex, String participantName, UI ui, ParticipantManager participantManager) {
         this.eventIndex = eventIndex;
         this.participantName = participantName;
+        this.ui = ui;
+        this.participantManager = participantManager;
     }
 
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         Event event = eventManager.getEvent(eventIndex);
-        System.out.println("Event Index : " + eventIndex);
-        System.out.println("Event Start Time : " + event.getStartTime());
-        System.out.println("Event End Time : " + event.getEndTime());
+        ui.showMessage("Event Index: " + eventIndex);
+        ui.showMessage("Event Start Time: " + event.getStartTime());
+        ui.showMessage("Event End Time: " + event.getEndTime());
 
         Participant participant = participantManager.getParticipant(participantName);
 
@@ -38,7 +42,7 @@ public class AddParticipantCommand extends Command {
                 return;
             }
 
-            CommandFactory factory = new CreateUserCommandFactory();
+            CommandFactory factory = new CreateUserCommandFactory(this.ui, this.participantManager);
             Command cmd = factory.createCommand();
             cmd.execute(eventManager, ui, participantManager);
 

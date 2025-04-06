@@ -75,7 +75,7 @@ public class Parser {
                 return new DuplicateCommandFactory(this.participantManager, this.ui, this.eventManager);
             case "edit":
                 logger.info("Edit command received.");
-                return new EditCommandFactory(this.participantManager,this.eventManager);
+                return new EditCommandFactory(this.participantManager,this.eventManager, this.ui);
             case "find":
                 if (parts.length > 1) {
                     logger.info("Find command received with keyword: " + parts[1]);
@@ -92,7 +92,7 @@ public class Parser {
                 return new ListParticipantsCommandFactory(this.ui);
             case "filter":
                 logger.info("Filter command received.");
-                return new FilterCommandFactory(this.participantManager);
+                return new FilterCommandFactory(this.participantManager, this.ui);
             case "login":
                 logger.info("Login command received.");
                 return new LoginCommandFactory();
@@ -101,7 +101,7 @@ public class Parser {
                 return new LogOutCommandFactory();
             case "create":
                 logger.info("Create command received.");
-                return new CreateUserCommandFactory();
+                return new CreateUserCommandFactory(this.ui, this.participantManager);
             default:
                 logger.warning("Invalid command received: " + input);
                 throw new SyncException(SyncException.invalidCommandErrorMessage(input));

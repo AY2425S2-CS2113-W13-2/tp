@@ -1,20 +1,21 @@
 package commandfactory;
 
-import java.util.Scanner;
-
 import command.Command;
 import command.EditEventCommand;
 import event.EventManager;
 import exception.SyncException;
 import participant.ParticipantManager;
+import ui.UI;
 
 public class EditCommandFactory implements CommandFactory {
     private final ParticipantManager participantManager;
     private final EventManager eventManager;
+    private final UI ui;
 
-    public EditCommandFactory(ParticipantManager participantManager, EventManager eventManager) {
+    public EditCommandFactory(ParticipantManager participantManager, EventManager eventManager, UI ui) {
         this.participantManager = participantManager;
         this.eventManager = eventManager;
+        this.ui = ui;
     }
 
     @Override
@@ -28,18 +29,17 @@ public class EditCommandFactory implements CommandFactory {
         }
 
         // Show event list before prompting for index
-        System.out.println("\n📅 Here are the available events to edit:\n");
+        ui.showMessage("\n📅 Here are the available events to edit:\n");
         eventManager.viewAllEvents();
 
         int index = readEditEventIndex();
-        return new EditEventCommand(index);
+        return new EditEventCommand(index, this.participantManager);
     }
 
     private int readEditEventIndex() throws SyncException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("\nEnter event index to edit: ");
+        ui.showMessage("\nEnter event index to edit: ");
         try {
-            int index = Integer.parseInt(scanner.nextLine().trim()) - 1;
+            int index = Integer.parseInt(ui.readLine().trim()) - 1;
             return index;
         } catch (Exception e) {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());

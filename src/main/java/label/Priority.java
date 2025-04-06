@@ -3,15 +3,15 @@ package label;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
+import ui.UI;
 
 public class Priority {
     public static final String HIGH = "HIGH";
     public static final String MEDIUM = "MEDIUM";
     public static final String LOW = "LOW";
 
-    private static final Scanner scanner = new Scanner(System.in);
     private static final ArrayList<String> priorityList = new ArrayList<>();
+    private static final UI ui = new UI();
 
     public static int getValue(String priority) {
         switch (priority.toUpperCase()) {
@@ -35,10 +35,10 @@ public class Priority {
     }
 
     public static String priorityInput() {
-        System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+        ui.showMessage("Enter event priority (LOW, MEDIUM, HIGH): ");
         String input;
         try {
-            input = scanner.nextLine().trim();
+            input = ui.readLine().trim();
         } catch (NoSuchElementException e) {
             return LOW;
         }
@@ -46,7 +46,7 @@ public class Priority {
         while (!isValid(input)) {
             System.out.println("Invalid priority. Please enter LOW, MEDIUM, or HIGH.");
             System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
-            input = scanner.nextLine().trim();
+            input = ui.readLine().trim();
         }
 
         return normalize(input);

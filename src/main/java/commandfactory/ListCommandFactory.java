@@ -3,7 +3,6 @@ package commandfactory;
 import command.Command;
 import command.ListCommand;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.ParticipantManager;
 
 public class ListCommandFactory implements CommandFactory{
@@ -17,7 +16,7 @@ public class ListCommandFactory implements CommandFactory{
 
     @Override
     public Command createCommand() throws SyncException {
-        String sortType = CommandParser.readListCommandInput();
+        String sortType = ui.readListCommandInput();
         return new ListCommand(sortType);
     }
 }

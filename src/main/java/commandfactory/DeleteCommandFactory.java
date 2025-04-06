@@ -8,7 +8,6 @@ import command.DeleteCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.ParticipantManager;
 
 public class DeleteCommandFactory implements CommandFactory{
@@ -28,7 +27,7 @@ public class DeleteCommandFactory implements CommandFactory{
         } else if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("Only admin can delete events!");
         } else {
-            String name = CommandParser.readDeleteName();
+            String name =ui.readDeleteName();
             ArrayList<Event> matchingEvents = findMatchingEvents(name);
 
             if (matchingEvents.isEmpty()) {
@@ -64,7 +63,7 @@ public class DeleteCommandFactory implements CommandFactory{
     }
 
     private int readDeleteEventIndex(ArrayList<Event> matchingEvents) throws SyncException {  // 🔹 Ask for event index
-        System.out.print("Enter the index of the event you want to delete: ");
+        ui.showMessage("Enter the index of the event you want to delete: ");
         try {
             Scanner scanner = new Scanner(System.in);
             int index = Integer.parseInt(scanner.nextLine()) - 1;

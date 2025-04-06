@@ -2,7 +2,6 @@ event a | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | sdfsf | LOW | Terry:ADMI
 Meeting | 2025-10-15 15:00 | 2025-10-16 02:00 | Meeting Room | Weekly Meeting | LOW | 
 Team Meeting | 2020-05-10 14:00 | 2020-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW | Terry:ADMIN
 Team Meeting | 2021-05-10 14:00 | 2021-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW | Terry:ADMIN
-test | 2025-04-03 20:00 | 2025-04-03 21:00 | tt | ii | LOW | gg:ADMIN
 new team | 2020-05-10 14:00 | 2020-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW | Terry:ADMIN
 Meeting | 2020-12-12 16:00 | 2020-12-12 18:00 | Meet room | Meeting | LOW | Jacky:ADMIN
 MEETUP | 2023-03-03 16:00 | 2023-04-04 17:00 | Meet | MEET | LOW | Jacky:ADMIN,jack:MEMBER

@@ -3,7 +3,6 @@ package command;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
@@ -25,54 +24,71 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
-        Participant currentUser = participants.getCurrentUser();
+        Participant currentUser = ensureUserLoggedIn(events, ui, participants);
         if (currentUser == null) {
-            ui.showMessage("No user logged in. Do you want to log in?");
-            if(CommandParser.readInput().equalsIgnoreCase("yes")) {
-                new LoginCommand().execute(events, ui, participants);
-            } else {
-                return;
-            }
+            return;
         }
 
-        List<Event> userEvents = events.getEvents().stream()
-                .filter(event -> event.hasParticipant(currentUser))
-                .collect(Collectors.toList());
-
+        List<Event> userEvents = getUserEvents(events, currentUser);
         if (userEvents.isEmpty()) {
             ui.showMessage("No events assigned to you.");
             return;
         }
 
-        Sort sequence;
-        switch (sortType) {
-        case "priority":
-            sequence = new SortByPriority();
-            break;
-        case "start":
-            sequence = new SortByStartTime();
-            break;
-        case "end":
-            sequence = new SortByEndTime();
-            break;
-        default:
-            ui.showMessage("Unknown sort type. Showing unsorted list.");
+        Sort sorter = chooseSortStrategy(ui);
+        if (sorter == null) {
             events.viewEvents(userEvents);
             return;
         }
 
-        ArrayList<Event> eventCopies = new ArrayList<>(userEvents);
-        ArrayList<String> priorityCopies = new ArrayList<>(Priority.getAllPriorities());
+        displaySortedEvents(ui, userEvents, sorter);
+    }
 
-        sequence.sort(eventCopies, priorityCopies);
+    private Participant ensureUserLoggedIn(EventManager events, UI ui, ParticipantManager participants)
+            throws SyncException {
+        Participant user = participants.getCurrentUser();
+        if (user == null) {
+            ui.showMessage("No user logged in. Do you want to log in?");
+            if (ui.readLine().equalsIgnoreCase("yes")) {
+                new LoginCommand().execute(events, ui, participants);
+                return participants.getCurrentUser(); // Try again after login
+            } else {
+                return null;
+            }
+        }
+        return user;
+    }
 
-        if (eventCopies.isEmpty()) {
+    private List<Event> getUserEvents(EventManager events, Participant user) {
+        return events.getEvents().stream()
+                .filter(event -> event.hasParticipant(user))
+                .collect(Collectors.toList());
+    }
+
+    private Sort chooseSortStrategy(UI ui) {
+        switch (sortType) {
+        case "priority":
+            return new SortByPriority();
+        case "start":
+            return new SortByStartTime();
+        case "end":
+            return new SortByEndTime();
+        default:
+            ui.showMessage("Unknown sort type. Showing unsorted list.");
+            return null;
+        }
+    }
+
+    private void displaySortedEvents(UI ui, List<Event> events, Sort sorter) {
+        ArrayList<Event> sortedEvents = new ArrayList<>(events);
+        ArrayList<String> priorities = new ArrayList<>(Priority.getAllPriorities());
+        sorter.sort(sortedEvents, priorities);
+
+        if (sortedEvents.isEmpty()) {
             ui.showMessage("No events to display.");
         } else {
-            for (int i = 0; i < eventCopies.size(); i++) {
-                Event event = eventCopies.get(i);
-                String priority = priorityCopies.get(i);
-                ui.showEventWithIndex(event, i + 1, priority);
+            for (int i = 0; i < sortedEvents.size(); i++) {
+                ui.showEventWithIndex(sortedEvents.get(i), i + 1, priorities.get(i));
             }
         }
     }

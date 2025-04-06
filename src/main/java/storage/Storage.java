@@ -42,7 +42,7 @@ public class Storage {
         }
     }
 
-    public void saveEvents(List<Event> events, ArrayList<String> allPriorities) {
+    public void saveEvents(List<Event> events, ArrayList<String> allPriorities) throws SyncException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             List<String> priorities = Priority.getAllPriorities();
             for (int i = 0; i < events.size(); i++) {
@@ -52,11 +52,11 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error saving events: " + e.getMessage());
+            throw new SyncException("Error saving events: " + e.getMessage());
         }
     }
 
-    public ArrayList<Event> loadEvents() {
+    public ArrayList<Event> loadEvents() throws SyncException {
         ArrayList<Event> events = new ArrayList<>();
         ArrayList<String> loadedPriorities = new ArrayList<>();
         List<Participant> allParticipants = userStorage.loadUsers();
@@ -71,12 +71,12 @@ public class Storage {
                     loadedPriorities.add(priority);
                     events.add(event);
                 } catch (Exception e) {
-                    System.out.println("Skipping corrupted line: " + line + " | Error: " + e.getMessage());
+                    throw new SyncException("Skipping corrupted line: " + line + " | Error: " + e.getMessage());
                 }
             }
             Priority.loadFromStorage(loadedPriorities);
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        } catch (IOException | SyncException e) {
+            throw new SyncException("Error reading file: " + e.getMessage());
         }
         return events;
     }
@@ -97,7 +97,7 @@ public class Storage {
     }
 
     private String[] parseEventLine(String line) throws SyncException {
-        String[] parts = line.split("\\s*\\|\\s*", -1);  // 改进的分割方式，处理多余空格
+        String[] parts = line.split("\\s*\\|\\s*", -1);
 
         if (parts.length < 5) {
             throw new SyncException("Missing required fields");

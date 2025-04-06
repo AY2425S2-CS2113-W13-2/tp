@@ -16,10 +16,6 @@ public final class CommandParser {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static String readInput() throws SyncException {
-        String input = scanner.nextLine();
-        return input;
-    }
     public static LocalDateTime parseDateTime(String dateStr) throws SyncException {
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);
@@ -32,16 +28,6 @@ public final class CommandParser {
         String[] parts = input.split("\\|");
         if (parts.length != 5) {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
-        }
-        return parts;
-    }
-
-    public static String[] splitAddParticipantCommandInput() throws SyncException {
-        System.out.println("Use: <EventIndex> | <Participant Name>");
-        String input = scanner.nextLine();
-        String[] parts = input.split("\\|");
-        if (parts.length != 2) {
-            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>");
         }
         return parts;
     }
@@ -74,20 +60,7 @@ public final class CommandParser {
         return slots;
     }
 
-    public static String readDeleteName() {
-        System.out.print("Enter name to search for events to delete: ");
-        return scanner.nextLine().trim();
-    }
 
-    public static String readFilterInput() {
-        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
-        return scanner.nextLine();
-    }
-
-    public static String askParticipantName() {
-        System.out.print("Enter participant's name: ");
-        return scanner.nextLine().trim();
-    }
 
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
         System.out.print("Enter participant's access level (1 for Admin, 2 for Member): ");
@@ -104,27 +77,5 @@ public final class CommandParser {
         } catch (NumberFormatException e) {
             throw new SyncException("Please enter only 1 or 2");
         }
-    }
-
-    public static String askPassword() {
-        System.out.print("Enter participant's password: ");
-        return scanner.nextLine();
-    }
-
-    public static String readListCommandInput() {
-        System.out.print("Enter your sort type: ");
-        System.out.print("Now we have a list of available sort types: priority, start, end ");
-        return scanner.nextLine();
-    }
-
-    public static String readAddCommandInput() {
-        System.out.print("Enter event details (format: Event Name | " +
-                "Start Date | End Date | Location | Description): \n");
-        return scanner.nextLine();
-    }
-
-    public static String readAddParticipantInput() {
-        System.out.print("Follow this format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability> \n");
-        return scanner.nextLine();
     }
 }

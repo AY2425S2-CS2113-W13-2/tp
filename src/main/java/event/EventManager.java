@@ -51,7 +51,7 @@ public class EventManager {
         return events.size();
     }
 
-    public void addEvent(Event event) {
+    public void addEvent(Event event) throws SyncException {
         assert event != null : "Event cannot be null";
 
         events.add(event);
@@ -183,7 +183,7 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public void duplicateEvent(Event eventToDuplicate, String newName) {
+    public void duplicateEvent(Event eventToDuplicate, String newName) throws SyncException {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
 
