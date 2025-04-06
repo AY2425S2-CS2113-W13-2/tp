@@ -255,17 +255,16 @@ public class UI {
 
     public String askPassword() {
         System.out.print("Enter participant's password: ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     public String readListCommandInput() {
-        System.out.print("Enter your sort type: ");
-        System.out.print("Now we have a list of available sort types: priority, start, end ");
-        return scanner.nextLine();
+        System.out.print("Enter your sort type (priority, start, end): ");
+        return scanner.nextLine().trim();
     }
 
     public String readAddParticipantInput() {
         System.out.print("Follow this format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability> \n");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 }
