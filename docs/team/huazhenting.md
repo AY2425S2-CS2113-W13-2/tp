@@ -53,6 +53,7 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 
 ## **Contributions to Team-Based Tasks**
 - Assisted in debugging and integration.
+- Reviewed and corrected issues from PE Dry Run.
 - Contributed to project documentation and testing strategies.
 - Participated in milestone planning and feature discussions.
 

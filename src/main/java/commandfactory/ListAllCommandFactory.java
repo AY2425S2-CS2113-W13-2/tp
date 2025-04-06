@@ -22,8 +22,8 @@ public class ListAllCommandFactory implements CommandFactory{
         } else if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("Sorry, you need to be an ADMIN to access all events.");
         } else {
-            String sortType = ui.readListCommandInput();
-            return new ListAllCommand(sortType, ui);
+            String sort = ui.readListCommandInput().trim();
+            return new ListAllCommand(sort, ui);
         }
     }
 }

@@ -221,6 +221,7 @@ public class EventManager {
             Event event = events.get(i);
             boolean timeOverlap = !(event.getEndTime().isBefore(startTime) || event.getStartTime().isAfter(endTime));
             boolean sameLocation = event.getLocation().equals(location);
+
             if (timeOverlap && sameLocation) {
                 collisions.add(event);
             }
