@@ -71,7 +71,7 @@ public class Storage {
                     loadedPriorities.add(priority);
                     events.add(event);
                 } catch (Exception e) {
-                   throw new SyncException("Skipping corrupted line: " + line + " | Error: " + e.getMessage());
+                    throw new SyncException("Skipping corrupted line: " + line + " | Error: " + e.getMessage());
                 }
             }
             Priority.loadFromStorage(loadedPriorities);

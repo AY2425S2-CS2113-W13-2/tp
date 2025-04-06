@@ -8,7 +8,6 @@ import command.DeleteCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.ParticipantManager;
 
 public class DeleteCommandFactory implements CommandFactory{

@@ -3,7 +3,6 @@ package commandfactory;
 import command.Command;
 import command.ListCommand;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.ParticipantManager;
 
 public class ListCommandFactory implements CommandFactory{

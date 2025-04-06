@@ -1,7 +1,5 @@
 package commandfactory;
 
-import java.util.Scanner;
-
 import command.Command;
 import command.EditEventCommand;
 import event.EventManager;

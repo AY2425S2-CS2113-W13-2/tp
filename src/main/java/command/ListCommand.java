@@ -3,7 +3,6 @@ package command;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
-import parser.CommandParser;
 import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
@@ -26,7 +25,9 @@ public class ListCommand extends Command {
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
         Participant currentUser = ensureUserLoggedIn(events, ui, participants);
-        if (currentUser == null) return;
+        if (currentUser == null) {
+            return;
+        }
 
         List<Event> userEvents = getUserEvents(events, currentUser);
         if (userEvents.isEmpty()) {
@@ -43,7 +44,8 @@ public class ListCommand extends Command {
         displaySortedEvents(ui, userEvents, sorter);
     }
 
-    private Participant ensureUserLoggedIn(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
+    private Participant ensureUserLoggedIn(EventManager events, UI ui, ParticipantManager participants)
+            throws SyncException {
         Participant user = participants.getCurrentUser();
         if (user == null) {
             ui.showMessage("No user logged in. Do you want to log in?");

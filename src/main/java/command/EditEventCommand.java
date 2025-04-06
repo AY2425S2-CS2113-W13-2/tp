@@ -78,7 +78,9 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep2();
         try {
             LocalDateTime newStart = getValidDateTime(ui, "start");
-            if (newStart == null) return true;
+            if (newStart == null) {
+                return true;
+            }
 
             if (newStart.isAfter(event.getEndTime())) {
                 throw new SyncException(SyncException.startTimeAfterEndTimeMessage());
@@ -99,7 +101,9 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep3();
         try {
             LocalDateTime newEnd = getValidDateTime(ui, "end");
-            if (newEnd == null) return true;
+            if (newEnd == null) {
+                return true;
+            }
 
             if (newEnd.isBefore(event.getStartTime())) {
                 throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());

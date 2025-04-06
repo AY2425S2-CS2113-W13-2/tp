@@ -7,7 +7,6 @@ import participant.Participant;
 import participant.ParticipantManager;
 import exception.SyncException;
 import java.util.ArrayList;
-import parser.CommandParser;
 import ui.UI;
 
 public class AddParticipantCommandFactory implements CommandFactory {
