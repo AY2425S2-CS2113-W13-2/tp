@@ -35,6 +35,7 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 ### **Implementation of JUnit Tests**
 - **Added comprehensive JUnit tests for:**
     - `PriorityFilterTest`
+    - `ListAllCommandTest`
     - Conflict detection logic for adding/editing events in `EventSyncTest`
 - Ensured coverage of edge cases.
 

@@ -47,8 +47,7 @@ class ListAllCommandTest {
                 "Hall",
                 "Watch a Concert");
 
-        // Add events only once here (don't add them again in execute or elsewhere)
-        eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);  // reset or use existing one
+        eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
         eventManager.addEvent(event1);
         eventManager.addEvent(event2);
 
@@ -60,7 +59,7 @@ class ListAllCommandTest {
         event2.addParticipant(memberUser);
     }
 
-
+    // Test ListAllCommand for Admin User
     @Test
     void testListAllCommandForAdmin_outputsTwoEvents() throws SyncException {
         participantManager.setCurrentUser(adminUser);
@@ -79,6 +78,7 @@ class ListAllCommandTest {
         assertTrue(output.contains("Concert"));
     }
 
+    // Test that Memeber cannot access ListAllCommand
     @Test
     void testListAllCommandForMember_showsAdminWarning() throws SyncException {
         participantManager.setCurrentUser(memberUser);
