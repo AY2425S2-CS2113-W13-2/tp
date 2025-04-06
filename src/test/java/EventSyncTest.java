@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import exception.SyncException;
 import event.Event;
 import event.EventManager;
+import participant.Participant;
 import seedu.EventSync;
 import storage.Storage;
 import storage.UserStorage;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 class EventSyncTest {
     private EventManager eventManager;
     private ui.UI ui;
+    private Participant adminUser;
 
     @BeforeEach
     void setUp() throws SyncException {
@@ -72,7 +74,7 @@ class EventSyncTest {
 
         InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
 
-        EventSync eventSync = new EventSync(in,"./data/EventSyncTest.txt", "./data/UserSyncTest.txt" );
+        EventSync eventSync = new EventSync(in, "./data/EventSyncTest.txt", "./data/UserSyncTest.txt");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalSystemOut = System.out;
@@ -101,9 +103,9 @@ class EventSyncTest {
         eventManager.addEvent(event2);
         assertEquals(2, eventManager.size());
         ArrayList<Event> collisions = eventManager.checkCollision(
-                "testUser",
                 "2025-05-10 15:00",
                 "2025-05-10 17:00",
+                "Conference Room",
                 eventManager.getEvents()
         );
         assertEquals(1, collisions.size());
@@ -127,14 +129,14 @@ class EventSyncTest {
         event2.setStartTime(LocalDateTime.parse("2025/05/10 15:00", formatter));
         event2.setEndTime(LocalDateTime.parse("2025/05/10 16:30", formatter));
         ArrayList<Event> collisions = eventManager.checkCollision(
-                "testUser",
                 "2025-05-10 15:00",
                 "2025-05-10 17:00",
+                "Home",
                 eventManager.getEvents()
         );
 
         // Verify collision detected
-        assertEquals(1, collisions.size());
+        assertEquals(0, collisions.size());
         assertEquals("Team Meeting", collisions.get(0).getName());
     }
 }
