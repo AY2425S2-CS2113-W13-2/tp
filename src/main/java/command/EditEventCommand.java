@@ -2,7 +2,6 @@ package command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 import event.Event;
 import event.EventManager;
@@ -13,11 +12,11 @@ import ui.UI;
 
 public class EditEventCommand extends Command {
     private final int index;
-    private final Scanner scanner;
+    private final ParticipantManager participantManager;
 
-    public EditEventCommand(int index) {
-        this.scanner = new Scanner(System.in);
+    public EditEventCommand(int index, ParticipantManager participantManager) {
         this.index = index;
+        this.participantManager = participantManager;
     }
 
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
@@ -29,106 +28,117 @@ public class EditEventCommand extends Command {
         boolean editing = true;
 
         while (editing) {
-            ui.showEditCommandMessage(event);
+            ui.showEditCommandMessageWithOptions(event);
 
-            if (!scanner.hasNextInt()) {
+            Integer choice = ui.readInt();
+            if (choice == null) {
                 ui.showEditCommandCorrectFormat();
-                scanner.next(); // Clear invalid input
                 continue;
             }
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
             switch (choice) {
-                case 1:
-                    ui.showEditCommandStep1();
-                    String newName = scanner.nextLine().trim();
-                    if (newName.equalsIgnoreCase("exit")) {
-                        editing = false;
-                        break;
-                    }
-                    event.setName(newName);
-                    break;
-
-                case 2:
-                    ui.showEditCommandStep2();
-                    try {
-                        LocalDateTime newStart = getValidDateTime(ui, "start");
-                        if (newStart == null) break;
-
-                        if (newStart.isAfter(event.getEndTime())) {
-                            throw new SyncException(SyncException.startTimeAfterEndTimeMessage());
-                        }
-
-                        if (!checkParticipantAvailability(event, newStart, event.getEndTime(), ui)) {
-                            throw new SyncException(SyncException.participantConflictMessage());
-                        }
-
-                        event.setStartTime(newStart);
-                    } catch (SyncException e) {
-                        ui.showMessage(e.getMessage());
-                        break;
-                    }
-                    break;
-
-                case 3:
-                    ui.showEditCommandStep3();
-                    try {
-                        LocalDateTime newEnd = getValidDateTime(ui, "end");
-                        if (newEnd == null) break;
-
-                        if (newEnd.isBefore(event.getStartTime())) {
-                            throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
-                        }
-
-                        if (!checkParticipantAvailability(event, event.getStartTime(), newEnd, ui)) {
-                            throw new SyncException(SyncException.participantConflictMessage());
-                        }
-
-                        event.setEndTime(newEnd);
-                    } catch (SyncException e) {
-                        ui.showMessage(e.getMessage());
-                        break;
-                    }
-                    break;
-
-                case 4:
-                    ui.showEditCommandStep4();
-                    String newLocation = scanner.nextLine().trim();
-                    if (newLocation.equalsIgnoreCase("exit")) {
-                        editing = false;
-                        break;
-                    }
-                    event.setLocation(newLocation);
-                    break;
-
-                case 5:
-                    ui.showEditCommandStep5();
-                    String newDesc = scanner.nextLine().trim();
-                    if (newDesc.equalsIgnoreCase("exit")) {
-                        editing = false;
-                        break;
-                    }
-                    event.setDescription(newDesc);
-                    break;
-
-                case 6:
-                    editing = false;
-                    System.out.println("✅ Event editing completed.");
-                    break;
-
-                default:
-                    ui.showEditCommandCorrectFormat();
+            case 1:
+                editing = editName(event, ui);
+                break;
+            case 2:
+                editing = editStartTime(event, ui);
+                break;
+            case 3:
+                editing = editEndTime(event, ui);
+                break;
+            case 4:
+                editing = editLocation(event, ui);
+                break;
+            case 5:
+                editing = editDescription(event, ui);
+                break;
+            case 6:
+                editing = false;
+                ui.showMessage("✅ Event editing completed.");
+                break;
+            default:
+                ui.showEditCommandCorrectFormat();
             }
 
             events.updateEvent(index, event);
         }
     }
 
+    private boolean editName(Event event, UI ui) {
+        ui.showEditCommandStep1();
+        String newName = ui.readLine().trim();
+        if (newName.equalsIgnoreCase("exit")) {
+            return false;
+        }
+        event.setName(newName);
+        return true;
+    }
+
+    private boolean editStartTime(Event event, UI ui) {
+        ui.showEditCommandStep2();
+        try {
+            LocalDateTime newStart = getValidDateTime(ui, "start");
+            if (newStart == null) return true;
+
+            if (newStart.isAfter(event.getEndTime())) {
+                throw new SyncException(SyncException.startTimeAfterEndTimeMessage());
+            }
+
+            if (!checkParticipantAvailability(event, newStart, event.getEndTime(), ui)) {
+                throw new SyncException(SyncException.participantConflictMessage());
+            }
+
+            event.setStartTime(newStart);
+        } catch (SyncException e) {
+            ui.showMessage(e.getMessage());
+        }
+        return true;
+    }
+
+    private boolean editEndTime(Event event, UI ui) {
+        ui.showEditCommandStep3();
+        try {
+            LocalDateTime newEnd = getValidDateTime(ui, "end");
+            if (newEnd == null) return true;
+
+            if (newEnd.isBefore(event.getStartTime())) {
+                throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
+            }
+
+            if (!participantManager.checkCurrentParticipantAvailability(event)) {
+                throw new SyncException(SyncException.participantConflictMessage());
+            }
+
+            event.setEndTime(newEnd);
+        } catch (SyncException e) {
+            ui.showMessage(e.getMessage());
+        }
+        return true;
+    }
+
+    private boolean editLocation(Event event, UI ui) {
+        ui.showEditCommandStep4();
+        String newLocation = ui.readLine().trim();
+        if (newLocation.equalsIgnoreCase("exit")) {
+            return false;
+        }
+        event.setLocation(newLocation);
+        return true;
+    }
+
+    private boolean editDescription(Event event, UI ui) {
+        ui.showEditCommandStep5();
+        String newDesc = ui.readLine().trim();
+        if (newDesc.equalsIgnoreCase("exit")) {
+            return false;
+        }
+        event.setDescription(newDesc);
+        return true;
+    }
+
     private LocalDateTime getValidDateTime(UI ui, String type) {
         while (true) {
-            String input = scanner.nextLine().trim();
+            String input = ui.readLine().trim();
             if (input.equalsIgnoreCase("exit")) {
                 return null;
             }
@@ -137,7 +147,7 @@ public class EditEventCommand extends Command {
                 return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
                 ui.showMessage(SyncException.invalidDateTimeFormatMessage(type));
-                System.out.print("Enter " + type + " time again or type 'exit': ");
+                ui.showMessage("Enter " + type + " time again or type 'exit': ");
             }
         }
     }
@@ -146,7 +156,8 @@ public class EditEventCommand extends Command {
                                                  LocalDateTime newEnd, UI ui) {
         for (Participant p : event.getParticipants()) {
             if (!p.isAvailableDuring(newStart, newEnd)) {
-                ui.showMessage(SyncException.participantUnavailableDuringEditError(p.getName(), newStart, newEnd));
+                ui.showMessage(SyncException.participantUnavailableDuringEditError(
+                        p.getName(), newStart, newEnd));
                 return false;
             }
         }

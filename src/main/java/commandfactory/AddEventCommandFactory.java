@@ -25,7 +25,7 @@ public class AddEventCommandFactory implements CommandFactory {
         } else if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("Only admin can create events!");
         } else {
-            String input = CommandParser.readAddCommandInput();
+            String input = ui.readAddCommandInput();
             String[] parts = CommandParser.splitAddCommandInput(input);
             String name = parts[0].trim();
             LocalDateTime startTime = CommandParser.parseDateTime(parts[1]);

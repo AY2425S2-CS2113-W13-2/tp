@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 import event.Event;
 import event.EventManager;
+import exception.SyncException;
 import participant.Participant;
 
 public class UI {
-    public final Scanner scanner = new Scanner(System.in);
+    public static final Scanner scanner = new Scanner(System.in);
 
     public void showMessage(String message) {
         System.out.println(message);
@@ -193,5 +194,78 @@ public class UI {
     public void showWelcomeMessage() {
         System.out.println("Welcome to EventSync!");
         System.out.println("Press 'login' to log in or 'create' to create a new user." );
+    }
+
+    public String readLine() {
+        return scanner.nextLine();
+    }
+
+    public Integer readInt() {
+        String input = scanner.nextLine().trim();
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public void showEditCommandMessageWithOptions(event.Event event) {
+        System.out.println("\n--- Editing Event ---");
+        System.out.println(event);
+        System.out.println("What would you like to edit?");
+        System.out.println("1. Name");
+        System.out.println("2. Start Time (format: yyyy-MM-dd HH:mm)");
+        System.out.println("3. End Time (format: yyyy-MM-dd HH:mm)");
+        System.out.println("4. Location");
+        System.out.println("5. Description");
+        System.out.println("6. Done");
+        System.out.print("Enter your choice (1-6): ");
+    }
+
+    public String readAddCommandInput() {
+        System.out.print("Enter event details (format: Event Name | " +
+                "Start Date | End Date | Location | Description): \n");
+        return scanner.nextLine();
+    }
+
+    public String[] splitAddParticipantCommandInput() throws SyncException {
+        System.out.println("Use: <EventIndex> | <Participant Name>");
+        String input = this.scanner.nextLine();
+        String[] parts = input.split("\\|");
+        if (parts.length != 2) {
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>");
+        }
+        return parts;
+    }
+
+    public String readDeleteName() {
+        System.out.print("Enter name to search for events to delete: ");
+        return scanner.nextLine().trim();
+    }
+
+    public String readFilterInput() {
+        System.out.print("Enter priority range (e.g., LOW MEDIUM): ");
+        return scanner.nextLine();
+    }
+
+    public String askParticipantName() {
+        System.out.print("Enter participant's name: ");
+        return scanner.nextLine().trim();
+    }
+
+    public String askPassword() {
+        System.out.print("Enter participant's password: ");
+        return scanner.nextLine();
+    }
+
+    public String readListCommandInput() {
+        System.out.print("Enter your sort type: ");
+        System.out.print("Now we have a list of available sort types: priority, start, end ");
+        return scanner.nextLine();
+    }
+
+    public String readAddParticipantInput() {
+        System.out.print("Follow this format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability> \n");
+        return scanner.nextLine();
     }
 }

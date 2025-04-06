@@ -23,7 +23,7 @@ public class FindCommand extends Command {
                 String eventDescription = event.getDescription().trim().toLowerCase();
                 String searchKeyword = keyword.trim().toLowerCase();
 
-                System.out.println("Searching for: '" + searchKeyword + " in list : " ); // Debugging
+                ui.showMessage("Searching for: '" + searchKeyword + " in list : " ); // Debugging
 
                 if (eventName.contains(searchKeyword) || eventDescription.contains(searchKeyword)) {
                     matchingEvents.add(event);

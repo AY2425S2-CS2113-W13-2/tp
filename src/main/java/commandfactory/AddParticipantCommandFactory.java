@@ -25,11 +25,12 @@ public class AddParticipantCommandFactory implements CommandFactory {
         checkAdminPrivileges();
         showAllEvents();
         showAllParticipants();
-        String[] input = CommandParser.splitAddParticipantCommandInput();
+        String[] input = ui.splitAddParticipantCommandInput();
 
         return new AddParticipantCommand(
                 Integer.parseInt(input[0].trim()) - 1,
-                input[1].trim()
+                input[1].trim(),
+                ui, participantManager
         );
     }
 

@@ -37,7 +37,7 @@ public class ParticipantManager {
         storage.saveUsers(participants);
     }
 
-    public void deleteUser(Participant participant) {
+    public void deleteUser(Participant participant) throws SyncException {
         participants.remove(participant);
         storage.saveUsers(participants);
     }
@@ -123,5 +123,9 @@ public class ParticipantManager {
 
     public boolean isCurrentUserAdmin() {
         return this.currentUser.getAccessLevel() == Participant.AccessLevel.ADMIN;
+    }
+
+    public boolean checkCurrentParticipantAvailability(Event event) {
+        return this.currentUser.isAvailableDuring(event.getStartTime(), event.getEndTime());
     }
 }

@@ -41,18 +41,18 @@ public class UserStorage {
         }
     }
 
-    public void saveUsers(List<Participant> participants) {
+    public void saveUsers(List<Participant> participants) throws SyncException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Participant participant : participants) {
                 writer.write(formatParticipant(participant));
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Error saving users: " + e.getMessage());
+            throw new SyncException("Error saving users: " + e.getMessage());
         }
     }
 
-    public ArrayList<Participant> loadUsers() {
+    public ArrayList<Participant> loadUsers() throws SyncException {
         ArrayList<Participant> participants = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -62,12 +62,11 @@ public class UserStorage {
                     Participant participant = parseParticipant(line);
                     participants.add(participant);
                 } catch (Exception e) {
-                    System.out.println("Skipping corrupted line: " + line);
-                    System.out.println("Error: " + e.getMessage());
+                    throw new SyncException("Skipping corrupted line: " + line);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        } catch (IOException | SyncException e) {
+            throw new SyncException("Error reading file: " + e.getMessage());
         }
 
         return participants;
@@ -96,7 +95,7 @@ public class UserStorage {
         return sb.toString();
     }
 
-    private Participant parseParticipant(String line) {
+    private Participant parseParticipant(String line) throws SyncException {
         String[] parts = line.split("\\s*\\|\\s*", -1); // handles spaces around `|`
         if (parts.length < 3) {
             throw new IllegalArgumentException("Missing required fields");
@@ -119,7 +118,8 @@ public class UserStorage {
                         participant.addAvailableTime(start, end);
                     }
                 } catch (Exception e) {
-                    System.out.printf("Invalid slot format '%s': %s%n", entry, e.getMessage());
+                    throw new SyncException(String.format("Invalid slot format '%s': %s", entry, e.getMessage()));
+
                 }
             }
         }

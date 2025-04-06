@@ -17,7 +17,7 @@ public class ListCommandFactory implements CommandFactory{
 
     @Override
     public Command createCommand() throws SyncException {
-        String sortType = CommandParser.readListCommandInput();
+        String sortType = ui.readListCommandInput();
         return new ListCommand(sortType);
     }
 }

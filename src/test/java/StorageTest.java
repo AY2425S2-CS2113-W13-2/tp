@@ -47,7 +47,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveEvents() {
+    public void testSaveEvents() throws SyncException {
         Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0),
                 LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
         Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
@@ -72,7 +72,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadEvents() {
+    public void testLoadEvents() throws SyncException {
         Event event1 = new Event("Event 1", LocalDateTime.of(2025, 3, 25, 10, 0),
                 LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
         Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
@@ -87,7 +87,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadEventsWithCorruptedFile() {
+    public void testLoadEventsWithCorruptedFile() throws SyncException {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(TEST_FILE_PATH))) {
             writer.write("Invalid Event Data");
         } catch (IOException e) {

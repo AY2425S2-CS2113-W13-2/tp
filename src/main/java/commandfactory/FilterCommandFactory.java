@@ -4,19 +4,21 @@ import command.Command;
 import command.FilterCommand;
 import exception.SyncException;
 import label.Priority;
-import parser.CommandParser;
+import ui.UI;
 import participant.ParticipantManager;
 
 public class FilterCommandFactory implements CommandFactory{
     private final ParticipantManager participantManager;
+    private final UI ui;
 
-    public FilterCommandFactory(ParticipantManager participantManager) {
+    public FilterCommandFactory(ParticipantManager participantManager, UI ui) {
         this.participantManager = participantManager;
+        this.ui = ui;
     }
 
     public Command createCommand() throws SyncException {
         //logger.info("Creating filter command.");
-        String input = CommandParser.readFilterInput();
+        String input = ui.readFilterInput();
         //logger.fine("Input for filter event: " + input);
 
         assert input != null : "Input string should not be null";
