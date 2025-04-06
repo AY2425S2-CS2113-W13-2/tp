@@ -17,6 +17,7 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 - **Conflict Detection Feature:**
   - Called automatically with adding or editing an event. 
   - Detects and warns user of potential scheduling conflicts.
+  - Outputs conflicts on venue occupied at the sheduled time.
 
 ### **New Features and Enhancements (v2.0)**
 - **Implemented Priority Filter:**
