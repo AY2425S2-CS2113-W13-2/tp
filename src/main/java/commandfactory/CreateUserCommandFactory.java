@@ -74,6 +74,8 @@ public class CreateUserCommandFactory implements CommandFactory {
             numSlots = Integer.parseInt(ui.readLine().trim());
             if (numSlots <= 0) {
                 throw new SyncException("❌ Number of availability slots must be at least 1.");
+            } else if (numSlots > 10) {
+                ui.showMessage("You entered more than 10 slots. The number of slots has been set to 10 by default.");
             }
             return Math.min(numSlots, 10);
         } catch (NumberFormatException e) {
