@@ -3,7 +3,7 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
-3. [Features](#featurescommand-you-need-to-enter---description)
+3. [Features](#features)
     - 3.1 [`create` - Create user](#-create--create-a-new-participant)
     - 3.2 [`login` - Log in](#-login--log-in-as-an-existing-participant)
     - 3.3 [`logout` - Log out](#-logout--log-out-of-your-session)
@@ -44,7 +44,7 @@ java -jar EventManager.jar
 
 ---
 
-## Features(command you need to enter - description)
+## Features
 
 ### 👤 `create` — Creates a user (admin or member) and sets availability.
 
