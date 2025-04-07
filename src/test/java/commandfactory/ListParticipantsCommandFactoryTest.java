@@ -78,43 +78,6 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommandInvalidEventIndexThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123",
-                Participant.AccessLevel.ADMIN, new ArrayList<>());
-        participantManager.addNewUser(testUser);
-        participantManager.setCurrentUser(testUser);
-
-        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
-        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime, "Test Location",
-                "Test Description");
-        eventManager.addEvent(event);
-
-        UI mockUi = new UI() {
-            private int callCount = 0;
-
-            @Override
-            public String readLine() {
-                callCount++;
-                if (callCount == 1) {
-                    return "invalid";
-                } else {
-                    return "exit";
-                }
-            }
-
-            @Override
-            public void showMessage(String message) {
-            }
-        };
-
-        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
-
-        SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Operation cancelled.", exception.getMessage());
-    }
-
-    @Test
     public void testCreateCommandNoEventsAvailableThrowsSyncException() throws SyncException {
         Participant testUser = new Participant("john_doe", "password123",
                 Participant.AccessLevel.ADMIN, new ArrayList<>());

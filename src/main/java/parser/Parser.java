@@ -2,7 +2,22 @@ package parser;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
-import commandfactory.*;
+import commandfactory.AddEventCommandFactory;
+import commandfactory.AddParticipantCommandFactory;
+import commandfactory.ByeCommandFactory;
+import commandfactory.CommandFactory;
+import commandfactory.CreateUserCommandFactory;
+import commandfactory.DeleteCommandFactory;
+import commandfactory.DuplicateCommandFactory;
+import commandfactory.EditCommandFactory;
+import commandfactory.FilterCommandFactory;
+import commandfactory.FindCommandFactory;
+import commandfactory.HelpCommandFactory;
+import commandfactory.ListAllCommandFactory;
+import commandfactory.ListCommandFactory;
+import commandfactory.ListParticipantsCommandFactory;
+import commandfactory.LogOutCommandFactory;
+import commandfactory.LoginCommandFactory;
 import logger.EventSyncLogger;
 import event.EventManager;
 import participant.ParticipantManager;
@@ -10,7 +25,8 @@ import ui.UI;
 import exception.SyncException;
 
 /**
- * The Parser class is responsible for parsing user input and delegating the appropriate command creation to the relevant
+ * The Parser class is responsible for parsing user input and delegating the appropriate
+ * command creation to the relevant
  * CommandFactory based on the user's input. It processes the input command, validates it, and returns a corresponding
  * CommandFactory object that creates a command to be executed.
  */

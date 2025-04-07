@@ -33,7 +33,8 @@ public class AddParticipantCommandFactory implements CommandFactory {
 
     /**
      * Creates an AddParticipantCommand based on user input.
-     * Validates the user's status (must be logged in and an admin) and allows selecting an event and participant to add.
+     * Validates the user's status (must be logged in and an admin) and allows selecting an
+     * event and participant to add.
      *
      * @return an AddParticipantCommand that can be executed to add a participant to an event
      * @throws SyncException if the user is not logged in, is not an admin, or if the input is invalid

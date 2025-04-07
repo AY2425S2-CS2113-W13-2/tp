@@ -81,7 +81,7 @@ public class EditEventCommandTest {
         command.execute(eventManager, ui, participantManager);
 
         assertEquals("New Event Name", originalEvent.getName());
-        assertTrue(outputStreamCaptor.toString().contains("✅ Event editing completed."));
+        assertTrue(outputStreamCaptor.toString().contains("Event editing completed."));
     }
 
     @Test
@@ -182,7 +182,7 @@ public class EditEventCommandTest {
 
         assertEquals("Event", originalEvent.getName());
 
-        assertTrue(outputStreamCaptor.toString().contains("✅ Event editing completed."));
+        assertTrue(outputStreamCaptor.toString().contains("Event editing completed."));
     }
 
     @Test
@@ -196,7 +196,7 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertTrue(outputStreamCaptor.toString().contains("✅ Event editing completed."));
+        assertTrue(outputStreamCaptor.toString().contains("Event editing completed."));
     }
 
     @Test
@@ -210,7 +210,7 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertTrue(outputStreamCaptor.toString().contains("✅ Event editing completed."));
+        assertTrue(outputStreamCaptor.toString().contains("Event editing completed."));
     }
 
     @Test

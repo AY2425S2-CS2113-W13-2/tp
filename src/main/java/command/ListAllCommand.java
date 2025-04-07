@@ -34,7 +34,8 @@ public class ListAllCommand extends Command {
     }
 
     /**
-     * Executes the command to list all events for the current user, optionally sorting them based on the given criterion.
+     * Executes the command to list all events for the current
+     * user, optionally sorting them based on the given criterion.
      *
      * @param events the EventManager instance that manages the events
      * @param ui the UI instance used to display messages to the user

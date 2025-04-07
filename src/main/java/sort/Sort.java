@@ -7,7 +7,8 @@ import java.util.List;
  * The abstract Sort class defines a blueprint for sorting algorithms that can be applied to a list of events.
  * Subclasses are required to implement the sorting logic based on the provided priorities.
  *
- * This class allows different sorting strategies to be used for sorting events, based on various criteria such as date, time, or other event attributes.
+ * This class allows different sorting strategies to be used for sorting events,
+ * based on various criteria such as date, time, or other event attributes.
  */
 public abstract class Sort {
 

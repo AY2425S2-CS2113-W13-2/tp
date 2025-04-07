@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Test Event | 2020-05-10 14:00 | 2020-05-10 14:30 | Test Location | Test Description | LOW | 
-=======
-Test Event | 2020-05-10 14:00 | 2020-05-10 14:30 | Test Location | Test Description | HIGH | 
->>>>>>> 7ab5b74ca23220b4e8e5b04485de041d5fcd95d2
+Test Event | 2020-05-10 14:00 | 2020-05-10 14:30 | Test Location | Test Description | MEDIUM | 

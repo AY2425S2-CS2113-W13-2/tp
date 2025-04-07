@@ -30,16 +30,24 @@ test {
 }
 
 application {
-    mainClass.set("EventSync")
+    mainClass.set("seedu.EventSync")
 }
 
 shadowJar {
-    archiveBaseName.set("EventSync")
+    archiveBaseName.set("seedu.EventSync")
     archiveClassifier.set("")
 }
 
 checkstyle {
     toolVersion = '10.2'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 run{

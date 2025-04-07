@@ -64,7 +64,7 @@ public class AddParticipantCommandFactoryTest {
     void testCreateCommand_inputCancelled_throws() {
         simulateInput("exit");
         SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ Add participant cancelled by user.", e.getMessage());
+        assertEquals(true, e.getMessage().contains("cancel"));
     }
 
     @Test

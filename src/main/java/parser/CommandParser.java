@@ -33,12 +33,6 @@ public final class CommandParser {
     }
 
     /**
-     * The date-time formatter used for parsing date-time strings in the format "yyyy-MM-dd HH:mm".
-     */
-    private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    /**
      * Parses a date-time string and converts it into a LocalDateTime object.
      *
      * @param dateStr The date-time string to be parsed.

@@ -31,7 +31,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the command to list events assigned to the current user, with optional sorting based on the provided sort type.
+     * Executes the command to list events assigned to the current user,
+     * with optional sorting based on the provided sort type.
      *
      * @param events the EventManager instance that manages the events
      * @param ui the UI instance used to display messages to the user

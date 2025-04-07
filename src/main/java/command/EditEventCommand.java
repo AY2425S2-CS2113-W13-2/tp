@@ -38,7 +38,7 @@ public class EditEventCommand extends Command {
      * @param events The event manager that holds the events
      * @param ui The UI interface to interact with the user
      * @param participantManager The participant manager to handle participant data
-     * @throws SyncException If an error occurs during the editing process, such as invalid data or participant unavailability
+     * @throws SyncException If an error occurs, such as invalid data or participant unavailability
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {

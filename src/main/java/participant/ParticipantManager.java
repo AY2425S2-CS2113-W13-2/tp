@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import storage.UserStorage;
 
 /**
- * Manages the participants in the system, including user authentication, availability checking, and assignment to events.
+ * Manages the participants in the system, including user authentication,
+ * availability checking, and assignment to events.
  * The ParticipantManager handles user login, logout, adding new users, and checking availability for events.
  */
 public class ParticipantManager {
@@ -18,7 +19,8 @@ public class ParticipantManager {
     private final UserStorage storage;
 
     /**
-     * Constructs a ParticipantManager with a list of participants, UI instance, and storage for saving participant data.
+     * Constructs a ParticipantManager with a list of participants,
+     * UI instance, and storage for saving participant data.
      *
      * @param participants The list of participants.
      * @param ui The UI instance for interacting with the user.
