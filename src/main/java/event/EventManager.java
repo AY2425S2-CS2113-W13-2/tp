@@ -1,7 +1,6 @@
 package event;
 
 import java.util.ArrayList;
-
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
@@ -11,17 +10,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import storage.Storage;
 import label.Priority;
 
-
+/**
+ * Manages events, including adding, deleting, updating, viewing, and checking for collisions among events.
+ */
 public class EventManager {
     public ArrayList<Event> events;
     private final UI ui;
     private final Storage storage;
     private final UserStorage userStorage;
 
+    /**
+     * Constructor for initializing the EventManager with a list of events, UI, storage, and userStorage.
+     *
+     * @param events the list of events
+     * @param ui the UI instance for user interaction
+     * @param storage the storage instance for saving events
+     * @param userStorage the user storage for managing users
+     */
     public EventManager(ArrayList<Event> events, UI ui, Storage storage, UserStorage userStorage) {
         this.events = events;
         this.ui = ui;
@@ -29,6 +37,13 @@ public class EventManager {
         this.userStorage = userStorage;
     }
 
+    /**
+     * Constructor for initializing the EventManager from a file path and userStorage.
+     *
+     * @param filePath the path to the event storage file
+     * @param userStorage the user storage for managing users
+     * @throws SyncException if there is an error initializing from the file
+     */
     public EventManager(String filePath, UserStorage userStorage) throws SyncException {
         this.userStorage = userStorage;
         this.events = new ArrayList<>();
@@ -36,10 +51,22 @@ public class EventManager {
         this.storage = new Storage(filePath, userStorage);
     }
 
+    /**
+     * Returns the list of events.
+     *
+     * @return the list of events
+     */
     public ArrayList<Event> getEvents() {
         return events;
     }
 
+    /**
+     * Returns the event at the specified index.
+     *
+     * @param index the index of the event
+     * @return the event at the specified index
+     * @throws SyncException if the event index is invalid
+     */
     public Event getEvent(int index) throws SyncException {
         if (index >= 0 && index < events.size()) {
             return events.get(index);
@@ -48,10 +75,21 @@ public class EventManager {
         }
     }
 
+    /**
+     * Returns the number of events.
+     *
+     * @return the number of events
+     */
     public int size() {
         return events.size();
     }
 
+    /**
+     * Adds an event to the list of events and checks for collisions.
+     *
+     * @param event the event to be added
+     * @throws SyncException if there is an error adding the event
+     */
     public void addEvent(Event event) throws SyncException {
         assert event != null : "Event cannot be null";
 
@@ -83,6 +121,13 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
+    /**
+     * Adds an event and a participant to the event, checking for availability and collisions.
+     *
+     * @param event the event to be added
+     * @param participant the participant to be added
+     * @throws SyncException if there is an error adding the event or participant
+     */
     public void addEvent(Event event, Participant participant) throws SyncException {
         assert event != null : "Event cannot be null";
 
@@ -105,7 +150,7 @@ public class EventManager {
             throw new SyncException("No user is currently selected. Please enter 'login' to log in.");
         }
 
-        if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime()) ) {
+        if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime())) {
             throw new SyncException("Participant is not available at the given time. Enter 'add' to try again");
         }
 
@@ -124,7 +169,9 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-
+    /**
+     * Views all events, showing their details.
+     */
     public void viewAllEvents() {
         assert events != null : "Events list should not be null";
 
@@ -139,6 +186,12 @@ public class EventManager {
         }
     }
 
+    /**
+     * Views the specified list of events.
+     *
+     * @param events the list of events to view
+     * @throws SyncException if there is an error viewing the events
+     */
     public void viewEvents(List<Event> events) throws SyncException {
         assert events != null : "Events list should not be null";
 
@@ -147,13 +200,19 @@ public class EventManager {
                 Event event = events.get(i);
                 assert event != null : "Event at index " + i + " should not be null";
                 String priority = Priority.getPriority(i);
-                ui.showEventWithIndex(event, i + 1,priority);
+                ui.showEventWithIndex(event, i + 1, priority);
             }
         } else {
             ui.showEmptyListMessage();
         }
     }
 
+    /**
+     * Deletes the event at the specified index.
+     *
+     * @param index the index of the event to delete
+     * @throws SyncException if the event index is invalid
+     */
     public void deleteEvent(int index) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
@@ -164,6 +223,13 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
+    /**
+     * Updates the event at the specified index with the new event details.
+     *
+     * @param index the index of the event to update
+     * @param updatedEvent the updated event
+     * @throws SyncException if the event index is invalid or the update is invalid
+     */
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
@@ -203,8 +269,6 @@ public class EventManager {
                 index
         );
 
-
-
         // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(updatedEvent, collisions);
@@ -215,7 +279,13 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-
+    /**
+     * Duplicates the specified event with a new name and adds it to the event list.
+     *
+     * @param eventToDuplicate the event to duplicate
+     * @param newName the new name for the duplicated event
+     * @throws SyncException if there is an error duplicating the event
+     */
     public void duplicateEvent(Event eventToDuplicate, String newName) throws SyncException {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         events.add(duplicatedEvent);
@@ -227,6 +297,16 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
+    /**
+     * Checks for collisions between the specified event and other events in the list.
+     *
+     * @param start the start time of the event
+     * @param end the end time of the event
+     * @param location the location of the event
+     * @param events the list of events to check for collisions
+     * @param excludeIndex the index of the event to exclude from the collision check
+     * @return a list of events that collide with the specified event
+     */
     public ArrayList<Event> checkCollision(
             String start,
             String end,
@@ -258,10 +338,21 @@ public class EventManager {
         return collisions;
     }
 
+    /**
+     * Returns the storage instance used for saving events.
+     *
+     * @return the storage instance
+     */
     public Storage getStorage() {
         return storage;
     }
 
+    /**
+     * Returns a list of events associated with the current participant.
+     *
+     * @param participantManager the participant manager for retrieving the current user
+     * @return the list of events associated with the current participant
+     */
     public ArrayList<Event> getEventsByParticipant(ParticipantManager participantManager) {
         Participant participant = participantManager.getCurrentUser();
         ArrayList<Event> events = new ArrayList<>();
@@ -277,6 +368,11 @@ public class EventManager {
         return events;
     }
 
+    /**
+     * Sets the list of events.
+     *
+     * @param events the list of events to set
+     */
     public void setEvents(ArrayList<Event> events) {
         this.events = events;
     }

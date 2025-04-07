@@ -2,25 +2,43 @@ package commandfactory;
 
 import command.Command;
 import command.CreateUserCommand;
-import parser.CommandParser;
+import exception.SyncException;
 import participant.Participant;
 import participant.AvailabilitySlot;
-import exception.SyncException;
 import participant.ParticipantManager;
 import ui.UI;
+import parser.CommandParser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Factory class responsible for creating a CreateUserCommand.
+ * This factory gathers all necessary information from the user to create a new participant.
+ */
 public class CreateUserCommandFactory implements CommandFactory {
     private final UI ui;
     private final ParticipantManager participantManager;
 
+    /**
+     * Constructor to initialize the factory with the UI and participant manager.
+     *
+     * @param ui The UI used to interact with the user
+     * @param participantManager The participant manager to handle participant data
+     */
     public CreateUserCommandFactory(UI ui, ParticipantManager participantManager) {
         this.ui = ui;
         this.participantManager = participantManager;
     }
 
+    /**
+     * Creates a CreateUserCommand based on the user's input.
+     * This method will ask the user for participant details such as name, password,
+     * access level, and availability slots, and then create a new participant.
+     *
+     * @return A new CreateUserCommand
+     * @throws SyncException If an error occurs during the command creation
+     */
     @Override
     public Command createCommand() throws SyncException {
         String participantName = askParticipantName();
@@ -97,7 +115,6 @@ public class CreateUserCommandFactory implements CommandFactory {
 
         return new AvailabilitySlot(start, end);
     }
-
 
     private LocalDateTime askStartTime(int slotIndex) throws SyncException {
         ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm): ");

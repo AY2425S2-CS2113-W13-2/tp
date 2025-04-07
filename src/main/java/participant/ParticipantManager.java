@@ -5,15 +5,25 @@ import exception.SyncException;
 import ui.UI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 import storage.UserStorage;
 
+/**
+ * Manages the participants in the system, including user authentication, availability checking, and assignment to events.
+ * The ParticipantManager handles user login, logout, adding new users, and checking availability for events.
+ */
 public class ParticipantManager {
     private ArrayList<Participant> participants;
     private Participant currentUser;
     private final UI ui;
     private final UserStorage storage;
 
+    /**
+     * Constructs a ParticipantManager with a list of participants, UI instance, and storage for saving participant data.
+     *
+     * @param participants The list of participants.
+     * @param ui The UI instance for interacting with the user.
+     * @param storage The UserStorage instance for saving participant data.
+     */
     public ParticipantManager(ArrayList<Participant> participants, UI ui, UserStorage storage) {
         this.participants = participants;
         this.currentUser = null;
@@ -21,14 +31,30 @@ public class ParticipantManager {
         this.storage = storage;
     }
 
+    /**
+     * Gets the list of all participants.
+     *
+     * @return The list of participants.
+     */
     public ArrayList<Participant> getParticipants() {
         return participants;
     }
 
+    /**
+     * Gets the currently logged-in participant.
+     *
+     * @return The current user.
+     */
     public Participant getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Adds a new participant to the system. Throws an exception if the user already exists.
+     *
+     * @param participant The participant to add.
+     * @throws SyncException If the participant already exists.
+     */
     public void addNewUser(Participant participant) throws SyncException {
         if (participants.stream().anyMatch(p -> p.getName().equals(participant.getName()))) {
             throw new SyncException("User already exists.");
@@ -37,11 +63,24 @@ public class ParticipantManager {
         storage.saveUsers(participants);
     }
 
+    /**
+     * Deletes a participant from the system.
+     *
+     * @param participant The participant to delete.
+     * @throws SyncException If an error occurs while deleting.
+     */
     public void deleteUser(Participant participant) throws SyncException {
         participants.remove(participant);
         storage.saveUsers(participants);
     }
 
+    /**
+     * Retrieves a participant by their username.
+     *
+     * @param username The username of the participant to retrieve.
+     * @return The participant, or null if not found.
+     * @throws SyncException If an error occurs while retrieving the participant.
+     */
     public Participant getParticipant(String username) throws SyncException {
         try {
             for (Participant participant : participants) {
@@ -55,6 +94,13 @@ public class ParticipantManager {
         return null;
     }
 
+    /**
+     * Logs in a participant by verifying their username and password.
+     * Prompts the user for their credentials and handles login success or failure.
+     *
+     * @return The current ParticipantManager instance after login.
+     * @throws SyncException If an error occurs during login.
+     */
     public ParticipantManager login() throws SyncException {
         ui.showMessage("Please enter your Username");
         String username = ui.readLine();
@@ -82,6 +128,9 @@ public class ParticipantManager {
         }
     }
 
+    /**
+     * Logs out the current participant, if any.
+     */
     public void logout() {
         if (this.currentUser != null) {
             ui.showMessage(this.currentUser.getName() + " has logged out.");
@@ -91,6 +140,13 @@ public class ParticipantManager {
         }
     }
 
+    /**
+     * Checks if a participant is available during the given event's time slot.
+     *
+     * @param event The event to check for availability.
+     * @param participant The participant to check.
+     * @return True if the participant is available during the event time, false otherwise.
+     */
     public boolean checkParticipantAvailability(Event event, Participant participant) {
         ui.showMessage("Checking participant availability");
         for (AvailabilitySlot slot : participant.getAvailableTimes()) {
@@ -107,6 +163,14 @@ public class ParticipantManager {
         return false;
     }
 
+    /**
+     * Assigns a participant to an event, ensuring the participant is not already assigned.
+     *
+     * @param event The event to assign the participant to.
+     * @param participant The participant to assign.
+     * @return True if the participant was successfully assigned, false otherwise.
+     * @throws SyncException If the participant is already assigned to the event.
+     */
     public boolean assignParticipant(Event event, Participant participant) throws SyncException {
         if (event.getParticipants().contains(participant)) {
             throw new SyncException("User has already been assigned to this event. Try another user/event.");
@@ -117,14 +181,30 @@ public class ParticipantManager {
         }
     }
 
+    /**
+     * Sets the current logged-in participant.
+     *
+     * @param user The participant to set as the current user.
+     */
     public void setCurrentUser(Participant user) {
         this.currentUser = user;
     }
 
+    /**
+     * Checks if the current logged-in participant is an admin.
+     *
+     * @return True if the current user is an admin, false otherwise.
+     */
     public boolean isCurrentUserAdmin() {
         return this.currentUser.getAccessLevel() == Participant.AccessLevel.ADMIN;
     }
 
+    /**
+     * Checks if the current logged-in participant is available during the given event's time slot.
+     *
+     * @param event The event to check for availability.
+     * @return True if the current user is available during the event time, false otherwise.
+     */
     public boolean checkCurrentParticipantAvailability(Event event) {
         return this.currentUser.isAvailableDuring(event.getStartTime(), event.getEndTime());
     }

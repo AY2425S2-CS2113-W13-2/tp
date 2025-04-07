@@ -10,15 +10,33 @@ import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
 
+/**
+ * Represents a command that allows editing an existing event's details.
+ */
 public class EditEventCommand extends Command {
     private final int index;
     private final ParticipantManager participantManager;
 
+    /**
+     * Constructs an {@code EditEventCommand} with the specified event index and participant manager.
+     *
+     * @param index the index of the event to be edited.
+     * @param participantManager the manager handling participant information.
+     */
     public EditEventCommand(int index, ParticipantManager participantManager) {
         this.index = index;
         this.participantManager = participantManager;
     }
 
+    /**
+     * Executes the event editing process by allowing the user to select specific fields to edit.
+     * Only administrators can edit events.
+     *
+     * @param events the event manager managing the events.
+     * @param ui the user interface for input/output.
+     * @param participantManager the participant manager for checking access and availability.
+     * @throws SyncException if the user is not an admin or input is invalid.
+     */
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("You are not currently administrator.");
@@ -37,52 +55,57 @@ public class EditEventCommand extends Command {
             }
 
             switch (choice) {
-                case 1:
-                    editing = editName(event, ui);
-                    break;
-                case 2:
-                    editing = editStartTime(event, ui);
-                    break;
-                case 3:
-                    editing = editEndTime(event, ui);
-                    break;
-                case 4:
-                    editing = editLocation(event, ui);
-                    break;
-                case 5:
-                    editing = editDescription(event, ui);
-                    break;
-                case 6:
-                    editing = false;
-                    ui.showMessage("✅ Event editing completed.");
-                    break;
-                default:
-                    ui.showEditCommandCorrectFormat();
+            case 1:
+                editing = editName(event, ui);
+                break;
+            case 2:
+                editing = editStartTime(event, ui);
+                break;
+            case 3:
+                editing = editEndTime(event, ui);
+                break;
+            case 4:
+                editing = editLocation(event, ui);
+                break;
+            case 5:
+                editing = editDescription(event, ui);
+                break;
+            case 6:
+                editing = false;
+                ui.showMessage("✅ Event editing completed.");
+                break;
+            default:
+                ui.showEditCommandCorrectFormat();
             }
 
             events.updateEvent(index, event);
         }
     }
 
+    /**
+     * Prompts the user to edit the event name.
+     */
     private boolean editName(Event event, UI ui) {
         ui.showEditCommandStep1();
         String newName = ui.readLine().trim();
         if (newName.equalsIgnoreCase("exit")) {
             ui.showMessage("❌ Name editing cancelled.");
-            return true; // return to main edit menu
+            return true;
         }
         event.setName(newName);
         ui.showMessage("✅ Name updated:");
         return true;
     }
 
+    /**
+     * Prompts the user to edit the event start time with validations.
+     */
     private boolean editStartTime(Event event, UI ui) throws SyncException {
         while (true) {
-
             LocalDateTime newStart = getValidDateTime(ui, "start");
             if (newStart == null) {
                 ui.showMessage("❌ Start time editing cancelled.");
-                return true; // return to main edit menu
+                return true;
             }
 
             if (newStart.isAfter(event.getEndTime())) {
@@ -100,6 +123,9 @@ public class EditEventCommand extends Command {
         }
     }
 
+    /**
+     * Prompts the user to edit the event end time with validations.
+     */
     private boolean editEndTime(Event event, UI ui) throws SyncException {
         while (true) {
             ui.showEditCommandStep3();
@@ -124,6 +150,9 @@ public class EditEventCommand extends Command {
         }
     }
 
+    /**
+     * Prompts the user to edit the event location.
+     */
     private boolean editLocation(Event event, UI ui) {
         ui.showEditCommandStep4();
         String newLocation = ui.readLine().trim();
@@ -136,6 +165,9 @@ public class EditEventCommand extends Command {
         return true;
     }
 
+    /**
+     * Prompts the user to edit the event description.
+     */
     private boolean editDescription(Event event, UI ui) {
         ui.showEditCommandStep5();
         String newDesc = ui.readLine().trim();
@@ -148,6 +180,9 @@ public class EditEventCommand extends Command {
         return true;
     }
 
+    /**
+     * Prompts the user for a valid date and time input.
+     */
     private LocalDateTime getValidDateTime(UI ui, String type) throws SyncException {
         boolean firstPrompt = true;
 
@@ -173,6 +208,9 @@ public class EditEventCommand extends Command {
         }
     }
 
+    /**
+     * Checks if all participants in the event are available during the new time.
+     */
     private boolean checkParticipantAvailability(Event event, LocalDateTime newStart,
                                                  LocalDateTime newEnd, UI ui) {
         boolean allAvailable = true;

@@ -2,36 +2,53 @@ package parser;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
-import commandfactory.AddEventCommandFactory;
-import commandfactory.AddParticipantCommandFactory;
-import commandfactory.ByeCommandFactory;
-import commandfactory.CommandFactory;
-import commandfactory.CreateUserCommandFactory;
-import commandfactory.DeleteCommandFactory;
-import commandfactory.DuplicateCommandFactory;
-import commandfactory.EditCommandFactory;
-import commandfactory.FilterCommandFactory;
-import commandfactory.FindCommandFactory;
-import commandfactory.HelpCommandFactory;
-import commandfactory.ListAllCommandFactory;
-import commandfactory.ListCommandFactory;
-import commandfactory.ListParticipantsCommandFactory;
-import commandfactory.LoginCommandFactory;
-import commandfactory.LogOutCommandFactory;
+import commandfactory.*;
 import logger.EventSyncLogger;
 import event.EventManager;
 import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 
-
+/**
+ * The Parser class is responsible for parsing user input and delegating the appropriate command creation to the relevant
+ * CommandFactory based on the user's input. It processes the input command, validates it, and returns a corresponding
+ * CommandFactory object that creates a command to be executed.
+ */
 public class Parser {
+
+    /**
+     * The logger instance for logging information and warnings.
+     */
     private static final Logger logger = EventSyncLogger.getLogger();
+
+    /**
+     * The EventManager used to manage events.
+     */
     private EventManager eventManager;
+
+    /**
+     * The ParticipantManager used to manage participants.
+     */
     private ParticipantManager participantManager;
+
+    /**
+     * The UI instance for user interaction.
+     */
     private final UI ui;
+
+    /**
+     * The scanner used to read user input from the console.
+     */
     private final Scanner scanner;
 
+    /**
+     * Constructs a Parser with the specified EventManager, ParticipantManager, and UI.
+     * Uses the default scanner for input.
+     *
+     * @param eventManager The EventManager to manage events.
+     * @param participantManager The ParticipantManager to manage participants.
+     * @param ui The UI instance to interact with the user.
+     */
     public Parser(EventManager eventManager, ParticipantManager participantManager, UI ui) {
         this.eventManager = eventManager;
         this.participantManager = participantManager;
@@ -40,6 +57,14 @@ public class Parser {
         logger.info("Parser initialized with default scanner.");
     }
 
+    /**
+     * Constructs a Parser with the specified EventManager, ParticipantManager, UI, and custom scanner.
+     *
+     * @param eventManager The EventManager to manage events.
+     * @param participantManager The ParticipantManager to manage participants.
+     * @param ui The UI instance to interact with the user.
+     * @param scanner The custom scanner to read user input.
+     */
     public Parser(EventManager eventManager, ParticipantManager participantManager, UI ui, Scanner scanner) {
         this.eventManager = eventManager;
         this.participantManager = participantManager;
@@ -48,6 +73,13 @@ public class Parser {
         logger.info("Parser initialized with custom scanner.");
     }
 
+    /**
+     * Parses the user input and returns the corresponding CommandFactory to create the appropriate command.
+     *
+     * @param input The user input to be parsed.
+     * @return The CommandFactory that will create the corresponding command.
+     * @throws SyncException If the input is invalid or the command is not recognized.
+     */
     public CommandFactory parse(String input) throws SyncException {
         logger.info("Parsing command: " + input);
 

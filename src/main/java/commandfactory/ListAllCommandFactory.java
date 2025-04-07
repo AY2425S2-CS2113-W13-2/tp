@@ -6,15 +6,31 @@ import exception.SyncException;
 import ui.UI;
 import participant.ParticipantManager;
 
-public class ListAllCommandFactory implements CommandFactory{
+/**
+ * Factory class responsible for creating a ListAllCommand.
+ * This factory creates a command that lists all events with optional sorting.
+ */
+public class ListAllCommandFactory implements CommandFactory {
     private final ParticipantManager participantManager;
     private final UI ui;
 
-    public ListAllCommandFactory(ParticipantManager participantManager, ui.UI ui) {
+    /**
+     * Constructs a ListAllCommandFactory with the given participant manager and UI.
+     *
+     * @param participantManager The participant manager to check the current user's role
+     * @param ui The UI to interact with the user and get the sorting input
+     */
+    public ListAllCommandFactory(ParticipantManager participantManager, UI ui) {
         this.participantManager = participantManager;
         this.ui = ui;
     }
 
+    /**
+     * Creates a ListAllCommand that lists all events, either sorted or unsorted.
+     *
+     * @return A new ListAllCommand with the selected sorting option
+     * @throws SyncException If the user is not logged in or is not an admin
+     */
     @Override
     public Command createCommand() throws SyncException {
         if (participantManager.getCurrentUser() == null) {

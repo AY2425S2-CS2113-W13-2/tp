@@ -5,19 +5,33 @@ import command.LoginCommand;
 import exception.SyncException;
 import participant.ParticipantManager;
 
-public class LoginCommandFactory implements CommandFactory{
+/**
+ * Factory class responsible for creating a LoginCommand.
+ * This factory generates a command to log in a user if they are not already logged in.
+ */
+public class LoginCommandFactory implements CommandFactory {
     private final ParticipantManager participantManager;
 
+    /**
+     * Constructs a LoginCommandFactory with the given participant manager.
+     *
+     * @param participantManager The participant manager for managing user sessions
+     */
     public LoginCommandFactory(ParticipantManager participantManager) {
         this.participantManager = participantManager;
     }
 
+    /**
+     * Creates a LoginCommand if the user is not already logged in.
+     *
+     * @return A LoginCommand to log the user in
+     * @throws SyncException If the user is already logged in and tries to log in again
+     */
     public Command createCommand() throws SyncException {
-        if(participantManager.getCurrentUser() == null) {
+        if (participantManager.getCurrentUser() == null) {
             return new LoginCommand();
         } else {
             throw new SyncException("You are already logged in. Please enter 'logout' to log out first.");
         }
-
     }
 }
