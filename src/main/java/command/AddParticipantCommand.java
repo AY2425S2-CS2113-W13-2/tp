@@ -17,21 +17,32 @@ public class AddParticipantCommand extends Command {
     private final ParticipantManager participantManager;
 
     public AddParticipantCommand(int eventIndex, String participantName, UI ui, ParticipantManager participantManager) {
+        assert eventIndex >= 0 : "Event index cannot be negative";
+        assert participantName != null && !participantName.isBlank() : "Participant name cannot be null or blank";
+        assert ui != null : "UI cannot be null";
+        assert participantManager != null : "ParticipantManager cannot be null";
+
         this.eventIndex = eventIndex;
         this.participantName = participantName;
         this.ui = ui;
         this.participantManager = participantManager;
     }
 
+    @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert eventManager != null : "EventManager should not be null";
+        assert ui != null : "UI should not be null";
+        assert participantManager != null : "ParticipantManager should not be null";
+
         Event event = eventManager.getEvent(eventIndex);
-        ui.showMessage("Event Index: " + eventIndex);
+        assert event != null : "Retrieved event should not be null";
+
+        ui.showMessage("Event Index: " + (eventIndex + 1));
         ui.showMessage("Event Start Time: " + event.getStartTime());
         ui.showMessage("Event End Time: " + event.getEndTime());
 
         Participant participant = participantManager.getParticipant(participantName);
 
-        // 2. If not, ask if the user wants to create a new one
         if (participant == null) {
             boolean shouldCreate = ui.askConfirmation(
                     "Participant '" + participantName + "' does not exist. Create a new one? (Y/N)"
@@ -48,6 +59,7 @@ public class AddParticipantCommand extends Command {
 
             // RELOAD the participant object from the manager
             participant = participantManager.getParticipant(participantName);
+            assert participant != null : "Participant should exist after successful creation";
         }
 
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
@@ -55,15 +67,15 @@ public class AddParticipantCommand extends Command {
             boolean assigned = participantManager.assignParticipant(event, participant);
             if (assigned) {
                 event.addParticipant(participant);
-                ui.showMessage("Participant " + participant.getName() + " has been added.");
+                ui.showMessage("✅ Participant " + participant.getName() + " has been added.");
+                participantManager.save(); // Ensure participant availability updates are saved
             } else {
-                ui.showMessage("Failed to assign time slot. Enter 'addparticipant' to try again.");
+                ui.showMessage("❌ Failed to assign time slot. Enter 'addparticipant' to try again.");
             }
         } else {
-            ui.showMessage("Participant " + participant.getName() + " is unavailable during the event." +
-                    "Enter 'addparticipant' to try again or try other features.");
+            ui.showMessage("❌ Participant " + participant.getName() +
+                    " is unavailable during the event. Enter 'addparticipant' to try again or try other features.");
         }
-
 
         // Persist updated event list to storage
         eventManager.getStorage().saveEvents(eventManager.getEvents(), Priority.getAllPriorities());

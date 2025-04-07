@@ -157,6 +157,7 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep4();
         String newLocation = ui.readLine().trim();
         ui.checkForExit(newLocation);
+        assert !newLocation.isEmpty() : "Event location must not be empty";
         event.setLocation(newLocation);
         ui.showMessage("✅ Location updated:");
         return true;
@@ -166,6 +167,7 @@ public class EditEventCommand extends Command {
         ui.showEditCommandStep5();
         String newDesc = ui.readLine().trim();
         ui.checkForExit(newDesc);
+        assert !newDesc.isEmpty() : "Event description must not be empty";
         event.setDescription(newDesc);
         ui.showMessage("✅ Description updated:");
         return true;
