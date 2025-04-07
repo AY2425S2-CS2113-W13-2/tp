@@ -4,9 +4,9 @@
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
 3. [Features](#features)
-    - 3.1 [`create` - Create user](#-create--create-a-new-participant)
+    - 3.1 [`create` - Create user](#-create--creates-a-user-and-sets-availability)
     - 3.2 [`login` - Log in](#-login--log-in-as-an-existing-participant)
-    - 3.3 [`logout` - Log out](#-logout--log-out-of-your-session)
+    - 3.3 [`logout` - Log out](#-logout--ends-the-current-user-session)
     - 3.4 [`add` - Add event](#-add--add-a-new-event)
     - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event-admin-only)
     - 3.6 [`delete` - Delete event](#-delete--delete-an-event)
@@ -46,7 +46,7 @@ java -jar EventManager.jar
 
 ## Features
 
-### 👤 `create` — Creates a user (admin or member) and sets availability.
+### 👤 `create` — Creates a user and sets availability
 
 #### Command: `create`
 
