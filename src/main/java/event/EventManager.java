@@ -97,15 +97,16 @@ public class EventManager {
 
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(event, collisions);
-            throw new SyncException("You can try choose a different timing or venue instead.");
+            throw new SyncException("You can try choose a different timing or venue instead. " +
+                    "Enter 'add' to try again");
         }
 
         if (participant == null) {
-            throw new SyncException("No user is currently selected.");
+            throw new SyncException("No user is currently selected. Please enter 'login' to log in.");
         }
 
         if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime()) ) {
-            throw new SyncException("Participant is not available at the given time.");
+            throw new SyncException("Participant is not available at the given time. Enter 'add' to try again");
         }
 
         event.addParticipant(participant);
