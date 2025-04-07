@@ -75,7 +75,7 @@ public class CreateUserCommandFactory implements CommandFactory {
         ui.checkForExit(input);
 
         try {
-            numSlots = Integer.parseInt(ui.readLine().trim());
+            numSlots = Integer.parseInt(input.trim());
             if (numSlots <= 0) {
                 throw new SyncException("❌ Number of availability slots must be at least 1." +
                         "\"Please enter 'create' and try again.");
