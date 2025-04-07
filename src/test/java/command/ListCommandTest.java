@@ -18,6 +18,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -64,8 +65,10 @@ class ListCommandTest {
         participantManager.setCurrentUser(participant);
         participantManager.logout();
 
-        String simulatedInput = "no";
-        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        String simulatedInput = "no\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
 
         listCommand.execute(eventManager, ui, participantManager);
 

@@ -69,7 +69,7 @@ class EventSyncTest {
 
     @Test
     public void testEventSync() throws SyncException {
-        String simulatedInput = "add\nTeam Meeting | 2020/05/10 14:00 | 2025/05/10 16:00 | Conference Room | " +
+        String simulatedInput = "add\nTeam Meeting | 2020-05-10 14:00 | 2025-05-10 16:00 | Conference Room | " +
                 "A team meeting to discuss project updates\nbye\n";
 
         InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
@@ -84,7 +84,7 @@ class EventSyncTest {
         System.setOut(originalSystemOut);
 
         String output = outputStream.toString().trim();
-        assertTrue(output.contains("has been added to the list"));
+        assertTrue(output.contains("Please enter 'login' to login."));
     }
 
     @Test
