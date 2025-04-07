@@ -9,7 +9,11 @@ import exception.SyncException;
 import participant.Participant;
 
 public class UI {
-    public static final Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
+
+    public void setScanner(Scanner newScanner) {
+        UI.scanner = newScanner;
+    }
 
     public void showMessage(String message) {
         System.out.println(message);
@@ -176,7 +180,6 @@ public class UI {
         System.out.println("Bye! Press 'login' to log in or 'create' to create a new user." );
     }
     public boolean askConfirmation(String message) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(message);
         String input = scanner.nextLine().trim().toLowerCase();
 

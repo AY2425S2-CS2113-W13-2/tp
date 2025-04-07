@@ -32,4 +32,8 @@ public class DeleteCommand extends Command {
             ui.showDeletionCancelledMessage();
         }
     }
+
+    public int getEventIndex() {
+        return this.index;
+    }
 }
