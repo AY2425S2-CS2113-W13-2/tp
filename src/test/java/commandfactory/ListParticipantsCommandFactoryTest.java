@@ -2,10 +2,7 @@ package commandfactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import command.Command;
-import command.ListParticipantsCommand;
 import exception.SyncException;
 import event.Event;
 import event.EventManager;
@@ -14,15 +11,13 @@ import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class ListParticipantsCommandFactoryTest {
 
@@ -37,17 +32,21 @@ public class ListParticipantsCommandFactoryTest {
     void setUp() throws SyncException {
         originalSystemIn = System.in;
         ui = new UI();
-        ui.setScanner(new Scanner(System.in));
         UserStorage userStorage = new UserStorage("./data/test-users.txt");
         Storage storage = new Storage("./data/test-events.txt", userStorage);
         participantManager = new ParticipantManager(new ArrayList<>(), ui, userStorage);
         eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
-        factory = new ListParticipantsCommandFactory(ui, eventManager, participantManager);
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setIn(originalSystemIn);
     }
 
     @Test
     public void testCreateCommand_NoUserLoggedIn_ThrowsSyncException() {
         participantManager.setCurrentUser(null);
+        factory = new ListParticipantsCommandFactory(ui, eventManager, participantManager);
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
         assertEquals("You are not logged in. Enter 'login' to log in first.", exception.getMessage());
     }
@@ -60,53 +59,72 @@ public class ListParticipantsCommandFactoryTest {
 
         LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
         LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime,
-                "Test Location", "Test Description");
+        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
         eventManager.addEvent(event);
 
-        String simulatedInput = "1\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        UI mockUi = new UI() {
+            @Override
+            public String readLine() {
+                return "exit";
+            }
+        };
 
-        Scanner testScanner = new Scanner(inputStream);
-        ui.setScanner(testScanner);
+        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
 
-        Command command = factory.createCommand();
-        assertTrue(command instanceof ListParticipantsCommand);
+        SyncException exception = assertThrows(SyncException.class, factory::createCommand);
+        assertEquals("Operation cancelled.", exception.getMessage());
     }
 
     @Test
     public void testCreateCommand_InvalidEventIndex_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123",
-                Participant.AccessLevel.ADMIN, new ArrayList<>());
+        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
 
         LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
         LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime,
-                "Test Location", "Test Description");
+        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
         eventManager.addEvent(event);
 
-        String simulatedInput = "invalid\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        UI mockUi = new UI() {
+            private int callCount = 0;
 
-        Scanner testScanner = new Scanner(inputStream);
-        ui.setScanner(testScanner);
+            @Override
+            public String readLine() {
+                callCount++;
+                if (callCount == 1) {
+                    return "invalid";
+                } else {
+                    return "exit";
+                }
+            }
+
+            @Override
+            public void showMessage(String message) {
+            }
+        };
+
+        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
 
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Invalid event index. Please enter a number.", exception.getMessage());
+        assertEquals("Operation cancelled.", exception.getMessage());
     }
 
     @Test
-    public void testCreateCommand_NoEventsAvailable_ShowsMessage() throws SyncException {
+    public void testCreateCommand_NoEventsAvailable_ThrowsSyncException() throws SyncException {
         Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
-        String simulatedInput = "1\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
-        Scanner testScanner = new Scanner(inputStream);
-        ui.setScanner(testScanner);
-        Command command = factory.createCommand();
-        assertTrue(command instanceof ListParticipantsCommand);
+
+        UI mockUi = new UI() {
+            @Override
+            public void showMessage(String message) {
+            }
+        };
+
+        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
+
+        SyncException exception = assertThrows(SyncException.class, factory::createCommand);
+        assertEquals("No events available.", exception.getMessage());
     }
 }

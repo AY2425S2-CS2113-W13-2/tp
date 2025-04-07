@@ -36,6 +36,7 @@ public class StorageTest {
         storage = new Storage(TEST_FILE_PATH, userStorage);
 
         Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
+        Priority.clearPriorities();
     }
 
     @AfterEach
@@ -96,7 +97,7 @@ public class StorageTest {
         }
 
         assertThrows(SyncException.class, () ->
-            storage.loadEvents());
+                storage.loadEvents());
     }
 
     @Test
@@ -105,6 +106,10 @@ public class StorageTest {
                 LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description 1");
         Event event2 = new Event("Event 2", LocalDateTime.of(2025, 3, 26, 14, 0),
                 LocalDateTime.of(2025, 3, 26, 15, 0), "Room 102", "Description 2");
+
+        // 先添加优先级
+        Priority.addPriority("HIGH");
+        Priority.addPriority("LOW");
 
         storage.saveEvents(List.of(event1, event2), Priority.getAllPriorities());
 
@@ -115,6 +120,11 @@ public class StorageTest {
             String line1 = reader.readLine();
             String line2 = reader.readLine();
 
+            // 输出文件内容以便调试
+            System.out.println("Line 1: " + line1);
+            System.out.println("Line 2: " + line2);
+
+            assertTrue(line1.contains("HIGH"), "Event 1 should have HIGH priority");
             assertTrue(line2.contains("LOW"), "Event 2 should have LOW priority");
         } catch (IOException e) {
             fail("Error reading file: " + e.getMessage());

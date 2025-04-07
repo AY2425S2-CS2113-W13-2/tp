@@ -7,6 +7,7 @@ import event.Event;
 import event.EventManager;
 import participant.Participant;
 import participant.AvailabilitySlot;
+import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
