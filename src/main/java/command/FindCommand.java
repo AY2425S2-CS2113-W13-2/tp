@@ -1,6 +1,7 @@
 package command;
 
 import event.EventManager;
+import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
@@ -17,6 +18,12 @@ public class FindCommand extends Command {
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
+            Participant participant = participantManager.getCurrentUser();
+
+            if (participant == null) {
+                throw new SyncException("You are not logged in. Enter 'login' to log in first.");
+            }
+
             ArrayList<Event> matchingEvents = new ArrayList<>();
             ArrayList<Event> allEvents = new ArrayList<>();
             if (participantManager.getCurrentUser().isAdmin() == true) {

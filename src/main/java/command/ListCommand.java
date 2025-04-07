@@ -48,7 +48,7 @@ public class ListCommand extends Command {
             throws SyncException {
         Participant user = participants.getCurrentUser();
         if (user == null) {
-            ui.showMessage("No user logged in. Do you want to log in?");
+            ui.showMessage("No user logged in. Do you want to log in?(yes/no)");
             if (ui.readLine().equalsIgnoreCase("yes")) {
                 new LoginCommand().execute(events, ui, participants);
                 return participants.getCurrentUser(); // Try again after login

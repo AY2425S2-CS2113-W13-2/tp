@@ -21,6 +21,12 @@ public class AddParticipantCommandFactory implements CommandFactory {
     }
 
     public AddParticipantCommand createCommand() throws SyncException {
+        Participant participant = participantManager.getCurrentUser();
+
+        if (participant == null) {
+            throw new SyncException("You are not logged in. Enter 'login' to log in first.");
+        }
+
         checkAdminPrivileges();
         showAllEvents();
         showAllParticipants();
@@ -48,7 +54,8 @@ public class AddParticipantCommandFactory implements CommandFactory {
 
     private void checkAdminPrivileges() throws SyncException {
         if (!participantManager.isCurrentUserAdmin()) {
-            throw new SyncException("Only ADMIN users can add participants.");
+            throw new SyncException("Only ADMIN users can add participants. Please 'logout' " +
+                    "and 'login' to an ADMIN user");
         }
     }
 

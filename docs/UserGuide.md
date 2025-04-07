@@ -4,8 +4,8 @@
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
 3. [Features](#featurescommand-you-need-to-enter---description)
-    - 3.1 [`login` - Log in](#-login--log-in-as-an-existing-participant)
-    - 3.2 [`create` - Create user](#-create--create-a-new-participant)
+    - 3.1 [`create` - Create user](#-create--create-a-new-participant)
+    - 3.2 [`login` - Log in](#-login--log-in-as-an-existing-participant)
     - 3.3 [`logout` - Log out](#-logout--log-out-of-your-session)
     - 3.4 [`add` - Add event](#-add--add-a-new-event)
     - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event-admin-only)
@@ -45,6 +45,50 @@ java -jar EventManager.jar
 ---
 
 ## Features(command you need to enter - description)
+
+### 👤 `create` — Create a new participant
+
+#### Command: `create`
+
+#### Example
+
+```plaintext
+User not found. Please create user first!
+>create
+
+Enter participant's name: 
+>Alice
+
+Enter participant's password: 
+>123
+
+Enter participant's access level (1 for Admin, 2 for Member): 
+>2
+
+Enter number of availability slots (maximum 10): 
+>1
+
+Enter start time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
+>2025-03-31 12:00
+
+Enter end time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
+>2025-05-31 12:00
+
+Successfully created: Alice
+```
+
+#### Notes: `create`
+Creates a user (admin or member) and sets availability.
+
+**Input format:**  
+You will be asked to provide:
+- Name
+- Password
+- Access level (`ADMIN` or `MEMBER`)
+- Number of available slots
+- Availability slots (`yyyy-MM-dd HH:mm - yyyy-MM-dd HH:mm`)
+
+---
 
 ### ✅ `login` — Log in as an existing participant
 
@@ -114,50 +158,6 @@ Successfully logged in.
 - Username
 - Password
 - Required before accessing most features.
----
-
-### 👤 `create` — Create a new participant
-
-#### Command: `create`
-
-#### Example
-
-```plaintext
-User not found. Please create user first!
->create
-
-Enter participant's name: 
->Alice
-
-Enter participant's password: 
->123
-
-Enter participant's access level (1 for Admin, 2 for Member): 
->2
-
-Enter number of availability slots (maximum 10): 
->1
-
-Enter start time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
->2025-03-31 12:00
-
-Enter end time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
->2025-05-31 12:00
-
-Successfully created: Alice
-```
-
-#### Notes: `create`
-Creates a user (admin or member) and sets availability.
-
-**Input format:**  
-You will be asked to provide:
-- Name
-- Password
-- Access level (`ADMIN` or `MEMBER`)
-- Number of available slots
-- Availability slots (`yyyy-MM-dd HH:mm - yyyy-MM-dd HH:mm`)
-
 ---
 
 ### 🔒 `logout` — Log out of your session

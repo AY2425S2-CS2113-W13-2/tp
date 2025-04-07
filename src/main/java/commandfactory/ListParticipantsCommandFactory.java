@@ -7,6 +7,7 @@ import command.ListParticipantsCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
+import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
 
@@ -22,6 +23,12 @@ public class ListParticipantsCommandFactory implements CommandFactory {
     }
 
     public Command createCommand() throws SyncException {
+        Participant participant = participantManager.getCurrentUser();
+
+        if (participant == null) {
+            throw new SyncException("You are not logged in. Enter 'login' to log in first.");
+        }
+
         showAllEvents();
         ui.showMessage("Enter event index to list participants:");
         String input = ui.readLine();

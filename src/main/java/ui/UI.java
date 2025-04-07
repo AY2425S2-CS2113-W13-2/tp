@@ -189,6 +189,7 @@ public class UI {
 
     public void showSuccessCreateMessage(Participant participant) {
         System.out.println("Successfully created: " + participant.getName());
+        System.out.println("Please enter 'login' to log in.");
     }
 
     public void showWelcomeMessage() {

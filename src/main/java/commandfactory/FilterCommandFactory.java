@@ -4,6 +4,7 @@ import command.Command;
 import command.FilterCommand;
 import exception.SyncException;
 import label.Priority;
+import participant.Participant;
 import ui.UI;
 import participant.ParticipantManager;
 
@@ -17,6 +18,12 @@ public class FilterCommandFactory implements CommandFactory{
     }
 
     public Command createCommand() throws SyncException {
+        Participant participant = participantManager.getCurrentUser();
+
+        if (participant == null) {
+            throw new SyncException("You are not logged in. Enter 'login' to log in first.");
+        }
+
         //logger.info("Creating filter command.");
         String input = ui.readFilterInput();
         //logger.fine("Input for filter event: " + input);

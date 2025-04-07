@@ -29,29 +29,8 @@ public class AddParticipantCommand extends Command {
         ui.showMessage("Event Start Time: " + event.getStartTime());
         ui.showMessage("Event End Time: " + event.getEndTime());
 
-        Participant participant = participantManager.getParticipant(participantName);
+        Participant participant = participantManager.getCurrentUser();
 
-        // 2. If not, ask if the user wants to create a new one
-        if (participant == null) {
-            boolean shouldCreate = ui.askConfirmation(
-                    "Participant '" + participantName + "' does not exist. Create a new one? (Y/N)"
-            );
-
-            if (!shouldCreate) {
-                ui.showMessage("Operation cancelled.");
-                return;
-            }
-
-            CommandFactory factory = new CreateUserCommandFactory(this.ui, this.participantManager);
-            Command cmd = factory.createCommand();
-            cmd.execute(eventManager, ui, participantManager);
-
-            // RELOAD the participant object from the manager
-            participant = participantManager.getParticipant(participantName);
-        }
-
-
-        // 3. Check availability and add to event
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
         if (isAvailable) {
             boolean assigned = participantManager.assignParticipant(event, participant);
@@ -59,10 +38,11 @@ public class AddParticipantCommand extends Command {
                 event.addParticipant(participant);
                 ui.showMessage("Participant " + participant.getName() + " has been added.");
             } else {
-                ui.showMessage("Failed to assign time slot.");
+                ui.showMessage("Failed to assign time slot. Enter 'addparticipant' to try again.");
             }
         } else {
-            ui.showMessage("Participant " + participant.getName() + " is unavailable during the event.");
+            ui.showMessage("Participant " + participant.getName() + " is unavailable during the event." +
+                    "Enter 'addparticipant' to try again or try other features.");
         }
 
 
