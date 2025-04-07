@@ -129,4 +129,34 @@ public class Participant {
         availableTimes.sort((a, b) -> a.getStartTime().compareTo(b.getStartTime()));
     }
 
+    public void unassignEventTime(LocalDateTime eventStart, LocalDateTime eventEnd) {
+        AvailabilitySlot newSlot = new AvailabilitySlot(eventStart, eventEnd);
+        List<AvailabilitySlot> mergedSlots = new ArrayList<>();
+
+        boolean inserted = false;
+
+        for (AvailabilitySlot slot : availableTimes) {
+            if (slot.getEndTime().isBefore(newSlot.getStartTime().minusMinutes(1))) {
+                mergedSlots.add(slot);
+            } else if (slot.getStartTime().isAfter(newSlot.getEndTime().plusMinutes(1))) {
+                if (!inserted) {
+                    mergedSlots.add(newSlot);
+                    inserted = true;
+                }
+                mergedSlots.add(slot);
+            } else {
+                newSlot = new AvailabilitySlot(
+                        slot.getStartTime().isBefore(newSlot.getStartTime()) ? slot.getStartTime() : newSlot.getStartTime(),
+                        slot.getEndTime().isAfter(newSlot.getEndTime()) ? slot.getEndTime() : newSlot.getEndTime()
+                );
+            }
+        }
+
+        if (!inserted) {
+            mergedSlots.add(newSlot);
+        }
+
+        mergedSlots.sort((a, b) -> a.getStartTime().compareTo(b.getStartTime()));
+        availableTimes = mergedSlots;
+    }
 }
