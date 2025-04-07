@@ -56,28 +56,28 @@ public class ParticipantManager {
     }
 
     public ParticipantManager login() throws SyncException {
-        System.out.println("Please enter your Username");
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine();
+        ui.showMessage("Please enter your Username");
+        String username = ui.readLine();
         if(this.getParticipant(username) != null) {
-            System.out.println("Please enter your password");
-            String password = scanner.nextLine();
+            ui.showMessage("Please enter your password");
+            String password = ui.readLine();
             if(this.getParticipant(username).checkPassword(password)) {
                 this.currentUser = this.getParticipant(username);
                 ui.showSuccessLoginMessage();
                 ui.showMenu();
                 return this;
             } else {
-                System.out.println("Wrong password. Do you want to login again? (yes/no)");
-                if(scanner.nextLine().equalsIgnoreCase("yes")) {
+                ui.showMessage("Wrong password. Do you want to login again? (yes/no)");
+                if(ui.readLine().equalsIgnoreCase("yes")) {
                     return this.login();
                 } else {
-                    System.out.println("Wrong password! Session ends");
+                    ui.showMessage("Wrong password! Session ends");
+                    ui.showMessage("Please enter 'create' to create user first or 'login' to log in.");
                     return this;
                 }
             }
         } else {
-            System.out.println("User not found. Please create user first!");
+            ui.showMessage("User not found. Please enter 'create' to create user first!");
             return this;
         }
     }
@@ -94,7 +94,7 @@ public class ParticipantManager {
     public boolean checkParticipantAvailability(Event event, Participant participant) {
         System.out.println("Checking participant availability");
         for (AvailabilitySlot slot : participant.getAvailableTimes()) {
-            System.out.println("  -" + slot.getStartTime() + " to " + slot.getEndTime());
+            ui.showMessage("  -" + slot.getStartTime() + " to " + slot.getEndTime());
             LocalDateTime slotStart = slot.getStartTime();
             LocalDateTime slotEnd = slot.getEndTime();
 

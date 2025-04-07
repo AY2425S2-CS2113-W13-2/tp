@@ -1,15 +1,23 @@
 package exception;
 import java.time.LocalDateTime;
 
+import participant.Participant;
+import participant.ParticipantManager;
+
 public class SyncException extends Exception {
     public SyncException(String message) {
         super(message);
     }
 
-    public static String invalidCommandErrorMessage(String command) {
-        return "   (╯°□°)╯︵ OOPS!!! Invalid command: " + command + "\n" +
-                "   Please enter a valid command or login first. \n" +
-                "   Example: `add` or `list` or `edit`.";
+    public static String invalidCommandErrorMessage(String command, ParticipantManager participantManager) {
+        if (participantManager.getCurrentUser() == null) {
+            return "   (╯°□°)╯︵ OOPS!!! Invalid command: " + command + "\n" +
+                    "   Please enter 'login' to login first.";
+        } else {
+            return "   (╯°□°)╯︵ OOPS!!! Invalid command: " + command + "\n" +
+                    "   Please enter a valid command or help to see all commands. \n" +
+                    "   Example: `add` or `list` or `edit`.";
+        }
     }
 
     public static String invalidEventIndexErrorMessage() {

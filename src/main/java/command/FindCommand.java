@@ -22,7 +22,7 @@ public class FindCommand extends Command {
             if (participantManager.getCurrentUser().isAdmin() == true) {
                 allEvents = events.getEvents();
             } else {
-                allEvents = events.getEventsByParticipant(participantManager.getCurrentUser());
+                allEvents = events.getEventsByParticipant(participantManager);
             }
             for (Event event : allEvents) {
                 String eventName = event.getName().trim().toLowerCase();

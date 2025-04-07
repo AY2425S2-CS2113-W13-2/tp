@@ -3,6 +3,7 @@ package event;
 import java.util.ArrayList;
 
 import participant.Participant;
+import participant.ParticipantManager;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
@@ -255,11 +256,16 @@ public class EventManager {
         return storage;
     }
 
-    public ArrayList<Event> getEventsByParticipant(Participant participant) {
+    public ArrayList<Event> getEventsByParticipant(ParticipantManager participantManager) {
+        Participant participant = participantManager.getCurrentUser();
         ArrayList<Event> events = new ArrayList<>();
-        for (Event event : this.events) {
-            if(event.hasParticipant(participant)) {
-                events.add(event);
+        if (participant.isAdmin()) {
+            events = this.events;
+        } else {
+            for (Event event : this.events) {
+                if (event.hasParticipant(participant)) {
+                    events.add(event);
+                }
             }
         }
         return events;

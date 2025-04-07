@@ -22,8 +22,8 @@ public class UI {
         System.out.println("║  === Event Management Commands ===      ║");
         System.out.println("║  add            - Add new event         ║");
         System.out.println("║  listall        - List all events       ║");
-        System.out.println("║  delete [INDEX] - Delete an event       ║");
-        System.out.println("║  edit [INDEX]   - Edit an event         ║");
+        System.out.println("║  delete         - Delete an event       ║");
+        System.out.println("║  edit           - Edit an event         ║");
         System.out.println("║  duplicate [ID] - Duplicate an event    ║");
         System.out.println("║  addparticipant - Add to event          ║");
         System.out.println("║                                         ║");
@@ -32,9 +32,9 @@ public class UI {
         System.out.println("║  find [KEYWORD] - Search events         ║");
         System.out.println("║  filter         - Filter events         ║");
         System.out.println("║  listparticipants- List participants    ║");
-        System.out.println("║  create         - Create new user       ║");
         System.out.println("║                                         ║");
         System.out.println("║  === Session Commands ===               ║");
+        System.out.println("║  create         - Create new user       ║");
         System.out.println("║  login          - Login to system       ║");
         System.out.println("║  logout         - Logout                ║");
         System.out.println("║                                         ║");
