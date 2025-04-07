@@ -30,7 +30,7 @@ public class SyncException extends Exception {
         return "   (╯°□°)╯︵ OOPS!!! Invalid event details! Enter 'add' to try again.\n" +
                 "   Please provide valid event details in the format: \n" +
                 "   `add Event Name | Start Date | End Date | Location | Description`.\n" +
-                "   Example: `add Meeting | 2025/05/10 14:00 | 2025/05/10 15:00 | Room 101 | Discuss project`.";
+                "   Example: `add Meeting | 2025-05-10 14:00 | 2025-05-10 15:00 | Room 101 | Discuss project`.";
     }
 
     public static String invalidFilterInputErrorMessage() {

@@ -29,7 +29,26 @@ public class AddParticipantCommand extends Command {
         ui.showMessage("Event Start Time: " + event.getStartTime());
         ui.showMessage("Event End Time: " + event.getEndTime());
 
-        Participant participant = participantManager.getCurrentUser();
+        Participant participant = participantManager.getParticipant(participantName);
+
+        // 2. If not, ask if the user wants to create a new one
+        if (participant == null) {
+            boolean shouldCreate = ui.askConfirmation(
+                    "Participant '" + participantName + "' does not exist. Create a new one? (Y/N)"
+            );
+
+            if (!shouldCreate) {
+                ui.showMessage("Operation cancelled.");
+                return;
+            }
+
+            CommandFactory factory = new CreateUserCommandFactory(this.ui, this.participantManager);
+            Command cmd = factory.createCommand();
+            cmd.execute(eventManager, ui, participantManager);
+
+            // RELOAD the participant object from the manager
+            participant = participantManager.getParticipant(participantName);
+        }
 
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
         if (isAvailable) {

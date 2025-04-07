@@ -189,7 +189,7 @@ public class UI {
 
     public void showSuccessCreateMessage(Participant participant) {
         System.out.println("Successfully created: " + participant.getName());
-        System.out.println("Please enter 'login' to log in.");
+        System.out.println("Please enter 'login' to log in or continue with your previous command.");
     }
 
     public void showWelcomeMessage() {
@@ -234,7 +234,8 @@ public class UI {
         String input = this.scanner.nextLine();
         String[] parts = input.split("\\|");
         if (parts.length != 2) {
-            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>");
+            throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>. " +
+                    "Enter 'addparticipant' to try again.");
         }
         return parts;
     }
