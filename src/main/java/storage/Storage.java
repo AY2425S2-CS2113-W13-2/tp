@@ -19,17 +19,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The Storage class handles reading and writing event data to a file, ensuring that events
+ * are properly loaded, saved, and synchronized. It works with both events and participants,
+ * storing and retrieving data in a specific format.
+ */
 public class Storage {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final String filePath;
     private final UserStorage userStorage;
 
+    /**
+     * Constructs a Storage object with the specified file path and user storage.
+     * Ensures that the storage file exists by creating it if necessary.
+     *
+     * @param filePath The path to the event storage file.
+     * @param userStorage The UserStorage object used to load participant data.
+     * @throws SyncException If an error occurs during file creation or initialization.
+     */
     public Storage(String filePath, UserStorage userStorage) throws SyncException {
         this.filePath = filePath;
         this.userStorage = userStorage;
         ensureFileExists();
     }
 
+    /**
+     * Ensures that the storage file exists. If it doesn't, it creates the necessary directories
+     * and the file itself.
+     *
+     * @throws SyncException If there is an error creating the file or directories.
+     */
     private void ensureFileExists() throws SyncException {
         try {
             Path path = Paths.get(filePath);
@@ -42,6 +61,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a list of events and their associated priorities to the storage file.
+     * Each event is written in a specific format.
+     *
+     * @param events The list of events to be saved.
+     * @param allPriorities The list of priorities for the events.
+     * @throws SyncException If an error occurs during the saving process.
+     */
     public void saveEvents(List<Event> events, ArrayList<String> allPriorities) throws SyncException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (int i = 0; i < events.size(); i++) {
@@ -55,6 +82,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads events from the storage file. Each event is parsed and converted into an Event object.
+     *
+     * @return A list of Event objects loaded from the file.
+     * @throws SyncException If an error occurs during the loading or parsing process.
+     */
     public ArrayList<Event> loadEvents() throws SyncException {
         ArrayList<Event> events = new ArrayList<>();
         ArrayList<String> loadedPriorities = new ArrayList<>();
@@ -80,6 +113,13 @@ public class Storage {
         return events;
     }
 
+    /**
+     * Formats an event into a string suitable for writing to the storage file.
+     *
+     * @param event The event to be formatted.
+     * @param priority The priority of the event.
+     * @return A formatted string representing the event.
+     */
     private String formatEvent(Event event, String priority) {
         String participantsStr = event.getParticipants().stream()
                 .map(p -> p.getName() + ":" + p.getAccessLevel())
@@ -95,6 +135,13 @@ public class Storage {
                 participantsStr);
     }
 
+    /**
+     * Parses a line from the storage file into an array of strings representing the event data.
+     *
+     * @param line The line to be parsed.
+     * @return An array of strings representing the parsed event data.
+     * @throws SyncException If the line is invalid or incomplete.
+     */
     private String[] parseEventLine(String line) throws SyncException {
         String[] parts = line.split("\\s*\\|\\s*", -1);
 
@@ -111,6 +158,14 @@ public class Storage {
         return normalized;
     }
 
+    /**
+     * Parses an event's data from an array of strings and converts it into an Event object.
+     *
+     * @param parts An array of strings containing the event data.
+     * @param allParticipants A list of all available participants.
+     * @return The parsed Event object.
+     * @throws SyncException If the event data is invalid.
+     */
     private Event parseEvent(String[] parts, List<Participant> allParticipants) throws SyncException {
         try {
             if (parts[0] == null || parts[1] == null || parts[2] == null) {

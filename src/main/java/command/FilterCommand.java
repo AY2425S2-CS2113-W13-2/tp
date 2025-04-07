@@ -11,15 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command that filters events based on priority bounds for the current user.
+ * It checks the assigned events to the user and filters them based on the priority range.
+ */
 public class FilterCommand extends Command {
     private final int lowerBound;
     private final int upperBound;
 
+    /**
+     * Constructor to initialize the FilterCommand with a lower and upper priority bound.
+     *
+     * @param lower The lower bound for filtering events by priority
+     * @param upper The upper bound for filtering events by priority
+     */
     public FilterCommand(int lower, int upper) {
         this.lowerBound = lower;
         this.upperBound = upper;
     }
 
+    /**
+     * Executes the command to filter events based on the priority bounds.
+     * The method validates the bounds, checks if the user is logged in, and filters the events accordingly.
+     *
+     * @param eventManager The manager for handling events
+     * @param ui The UI interface for displaying messages to the user
+     * @param participantManager The manager for handling participant data
+     * @throws SyncException If there is an error while executing the command, such as invalid bounds or missing user
+     */
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
@@ -65,8 +84,13 @@ public class FilterCommand extends Command {
         }
     }
 
+    /**
+     * Validates if the given priority bound is within the acceptable range (1 to 3).
+     *
+     * @param bound The priority bound to validate
+     * @return true if the bound is valid (between 1 and 3), otherwise false
+     */
     private boolean isValidBound(int bound) {
         return bound >= 1 && bound <= 3;
     }
 }
-

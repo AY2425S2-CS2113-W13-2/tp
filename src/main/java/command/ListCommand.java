@@ -15,13 +15,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command to list events assigned to the current user, optionally sorted by a specified criterion.
+ */
 public class ListCommand extends Command {
     private final String sortType;
 
+    /**
+     * Constructs a ListCommand with the specified sorting criterion.
+     *
+     * @param sortType the type of sorting ('priority', 'start', or 'end')
+     */
     public ListCommand(String sortType) {
         this.sortType = sortType.toLowerCase();
     }
 
+    /**
+     * Executes the command to list events assigned to the current user, with optional sorting based on the provided sort type.
+     *
+     * @param events the EventManager instance that manages the events
+     * @param ui the UI instance used to display messages to the user
+     * @param participants the ParticipantManager instance that manages participants
+     * @throws SyncException if there is an issue with logging in or processing events
+     */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
         Participant currentUser = ensureUserLoggedIn(events, ui, participants);
@@ -44,6 +60,15 @@ public class ListCommand extends Command {
         displaySortedEvents(ui, userEvents, sorter);
     }
 
+    /**
+     * Ensures that the current user is logged in. If not, prompts for login and retries.
+     *
+     * @param events the EventManager instance that manages the events
+     * @param ui the UI instance used to display messages to the user
+     * @param participants the ParticipantManager instance that manages participants
+     * @return the current user if logged in, or null if login is unsuccessful
+     * @throws SyncException if an error occurs during login
+     */
     private Participant ensureUserLoggedIn(EventManager events, UI ui, ParticipantManager participants)
             throws SyncException {
         Participant user = participants.getCurrentUser();
@@ -59,12 +84,25 @@ public class ListCommand extends Command {
         return user;
     }
 
+    /**
+     * Retrieves the list of events assigned to the current user.
+     *
+     * @param events the EventManager instance that manages the events
+     * @param user the current participant
+     * @return a list of events assigned to the user
+     */
     private List<Event> getUserEvents(EventManager events, Participant user) {
         return events.getEvents().stream()
                 .filter(event -> event.hasParticipant(user))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Chooses the sorting strategy based on the specified sort type.
+     *
+     * @param ui the UI instance used to display messages to the user
+     * @return the chosen sorting strategy, or null if the sort type is unknown
+     */
     private Sort chooseSortStrategy(UI ui) {
         switch (sortType) {
         case "priority":
@@ -79,6 +117,13 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Displays the sorted events to the user.
+     *
+     * @param ui the UI instance used to display messages to the user
+     * @param events the list of events to display
+     * @param sorter the sorting strategy used to sort the events
+     */
     private void displaySortedEvents(UI ui, List<Event> events, Sort sorter) {
         ArrayList<Event> sortedEvents = new ArrayList<>(events);
         ArrayList<String> priorities = new ArrayList<>(Priority.getAllPriorities());
