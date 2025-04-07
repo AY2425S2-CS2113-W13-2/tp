@@ -33,8 +33,8 @@
   - 7.3 [Non-Functional Requirements](#non-functional-requirements)
   - 7.4 [Glossary](#glossary)
   - 7.5 [Manual Testing](#instructions-for-manual-testing)
+  - 7.6 [Future Features](#future-features)
 
-[Continue with your existing content...]
 ## Acknowledgements
 
 ### Project Framework
@@ -1101,3 +1101,22 @@ By providing these features, the application allows users to focus on their task
   1. Enter `listParticipants`
 - **Expected**:
   - All participants listed with roles
+
+# Future Features
+EventSync Future Development Roadmap
+Proposed Features
+1. Event Management
+
+  - Advanced filtering and sorting
+  - Take attendance system
+
+2. Collaboration
+
+- Shared calendars
+- Invitation system
+
+3. Smart Features
+
+- Automated scheduling suggestions
+- Performance analytics
+
