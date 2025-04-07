@@ -45,11 +45,11 @@ class AddEventCommand
 class AddEventCommandFactory
 
 ' === Inheritance Relationships ===
-"«abstract» Command" <|-- AddEventCommand
+"«abstract» Command" <|-- AddEventCommand : 1
 "«interface» CommandFactory" <|.. AddEventCommandFactory
 
 ' === Associations ===
-Parser --> "«interface» CommandFactory" : uses
-Parser --> CommandParser : uses (static)
-"«interface» CommandFactory" --> "«abstract» Command" : creates
+Parser --> "1..*" "«interface» CommandFactory" : uses
+AddEventCommandFactory --> "1" CommandParser : uses (static)
+"«interface» CommandFactory" --> "1" "«abstract» Command" : creates
 @enduml

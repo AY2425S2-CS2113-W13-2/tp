@@ -135,35 +135,55 @@ maintainability. The core components are outlined below:
 
 ### 2. UI Component (UI.java)
 
-The UI component handles all user interaction through the command line. It displays menus, messages, prompts, and results. It acts as an interface between the user and the application logic. 
+The UI component handles all user interaction through the command line. It displays menus, messages, prompts, and results. It acts as an interface between the user and the application logic.
 
-The `UI` class is instantiated when the application start. Other components, such as `Event Manager` should us `UI` instance to interact with the user. `UI` helps to separate the user interaction with the core application logic. 
+The `UI` class is instantiated when the application starts. Other components, such as `Event Manager` should use the `UI` instance to interact with the user. `UI` helps to separate the user interaction from the core application logic.
 
 - **Input Handling**:
-  - `Scanner scanner` handles the input from the the user. It is used to read the user commands.
+  - `Scanner scanner` handles the input from the user. It is used to read user commands and data.
+  - `setScanner(Scanner newScanner)` allows setting a different scanner, useful for testing purposes.
+  - `readLine()` reads a line of text from the user.
+  - `readInt()` reads an integer input from the user, returning null if the input is not a valid integer.
+  - `checkForExit(String input)` checks if the user wants to exit the current operation by typing 'exit'.
 
-- **Output Display**:
-  - `showMessage(String message)` displays a given meesage to the console. It is used for general messages and error notifications.
-  - `showMenu()` displays the main command menu, outlining available actions at the startup.
-  - `showEventWithIndex(Event event, int index, String priority)` displays the details of an event along with its index and priority. It is used when listing specific events. 
-  - `showEmptyListMessage()` displays a message indicating that there are no events to display. It is used when the event list is empty.
-  - `printMatchingEvents(ArrayList<Event> events)` displays the matching events in a list, or that no matching events were found. It is used when displaying search results.
-  - `showAddFormat()` displays the format for adding a new event. It prompts the user the correct format for adding an event.
-  - `showAddedMessage(Event event)` displays a confirmation message after an event is added. It is used to confirm successful event addition.
-  - `showEditCommandMessage(Event event)` displays step-by-step guidance for the user to edit an event. It is used when the user wish to edit an event.
-  - `showEditedEvent(Event event)` displays the updated event details after editing. It is used to confirm successful event editing.
-  - `showByeMessage()` displays a goodbye message. It is shown when the user quit the program.
-  - `showWelcomeMessage()` displays a welcome message. It is shown when the user run the program. 
-  - `showCollisionWarning(Event newEvent, ArrayList<Event> collisions)` displays a warning message about participant scheduling conflicts. It notifies the user of overlapping participant schedules.
-  - `showDeletedMessage(Event event)` displays a confirmation message after an event is deleted. It is used to confirm successful event deletion.
-  - `showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager)` displays the matching events with their indexes.
-  - `showDeletionCancelledMessage()` displays a message indicating that the deletion was cancelled. It is to inform user of the cancelled the deletion.
-  - `showAddParticipantFormat()` displays the format for adding a new participant. It prompts the user for correct format to add the participant.
-  - `showParticipantAdded(Participant p)` displays a confirmation message after a participant is added. It is used to confirm the addition of the participant. 
-  - `showLogOutMessage()` displays the log out message. It informs the user they have logged out.
-  - `showSuccessLoginMessage()` displays a success login message. It informs the user they have logged in.
-  - `showSuccessCreateMessage(Participant participant)` displays a success create message. It informs the user they have created a new user.
----
+- **Command Input Methods**:
+  - `readAddCommandInput()` gets input for adding a new event.
+  - `readDuplicateEventInput()` gets input for duplicating an event.
+  - `readDeleteName()` gets input for searching events to delete.
+  - `readFilterInput()` gets input for filtering events.
+  - `readListCommandInput()` gets input for listing and sorting events.
+  - `readAddParticipantInput()` gets input for adding a participant to an event.
+  - `splitAddParticipantCommandInput()` parses input for adding a participant.
+  - `askParticipantName()` prompts for and reads a participant's name.
+  - `askPassword()` prompts for and reads a participant's password.
+  - `askConfirmation(String message)` asks the user for confirmation (y/n).
+  - `confirmDeletion(String eventName)` asks the user to confirm deletion of an event.
+
+- **Output Display Methods**:
+  - `showMessage(String message)` displays a given message to the console.
+  - `showMenu()` displays the main command menu with all available actions.
+  - `showEventWithIndex(Event event, int index, String priority)` displays event details with its index and priority.
+  - `showEmptyListMessage()` displays a message when there are no events to show.
+  - `printMatchingEvents(ArrayList<Event> events)` displays matching events from a search.
+  - `showAddFormat()` displays the format for adding a new event.
+  - `showAddedMessage(Event event)` confirms an event has been added.
+  - `showEditCommandMessageWithOptions(Event event)` displays edit options for an event.
+  - `showEditCommandCorrectFormat()` shows correct format for edit commands.
+  - `showEditCommandStep1()` to `showEditCommandStep5()` guide users through editing different event fields.
+  - `showEditedEvent(Event event)` displays updated event details.
+  - `showByeMessage()` displays a goodbye message when exiting.
+  - `showWelcomeMessage()` displays a welcome message at startup.
+  - `showCollisionWarning()` and `showParticipantSlotCollisionWarning()` warn about scheduling conflicts.
+  - `showDeletedMessage(Event event)` confirms an event has been deleted.
+  - `showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager)` displays matching events with indices.
+  - `showDeletionCancelledMessage()` informs that deletion was cancelled.
+  - `showAddParticipantFormat()` displays format for adding participants.
+  - `showParticipantAdded(Participant p)` confirms a participant was added.
+  - `showLogOutMessage()` displays logout message.
+  - `showSuccessLoginMessage()` confirms successful login.
+  - `showSuccessCreateMessage(Participant participant)` confirms user creation.
+
+The UI component provides a comprehensive set of methods to handle user interactions, ensuring a clear separation between the user interface and the application logic. Each method is designed to handle a specific type of interaction, making the code more modular and easier to maintain.
 
 ### 3. Logic Component
 
@@ -302,7 +322,7 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
 - The event is successfully added to the system and saved to storage.
 
 
-### Expanded Flow of `addEvent` Method Execution
+#### Expanded Flow of `addEvent` Method Execution
 
 **Step 1. Null Check for Event**
 - The system ensures that the `event` is not null. If it is, an `AssertionError` is thrown.
@@ -354,17 +374,45 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
 
 ### Implementation
 
-The `EditEventCommand` feature allows users to modify an existing event.
+The `EditEventCommand` feature allows users to modify an existing event in their schedule. It is implemented using the `Command` pattern, where `EditEventCommand` extends `Command`.
 
-1. **User Input Parsing**: The `Parser` prompts the user for the index of the event they want to edit.
-2. **Modification Flow**: The user is guided through inputs to edit event fields (e.g., name, time, location, etc.).
-3. **Update Storage**: The original event is updated in the `EventList`.
+1. **Step 1. CLI Input (`edit` Command)**:
+- The user inputs the `edit` command via the CLI. This command is parsed, and the `Parser` creates an `EditCommandFactory` object.
+
+2. **Step 2. Event Selection**:
+- The system displays all available events and prompts the user to select an event by index.
+- The system verifies that the current user has administrator privileges.
+
+3. **Step 3. Command Object Creation**:
+- The `EditEventCommand` object is created with the event index and participant manager.
+
+4. **Step 4. Editing Menu Loop**:
+- The system presents the user with options to edit different aspects of the event (name, start time, end time, location, description).
+- For each edit, appropriate validation is performed (e.g., checking participant availability for time changes).
+- Changes are saved to storage after each successful edit.
+
+5. **Step 5. Exit Editing**:
+- The user can choose to exit the editing process when complete.
+- All modified data is saved to persistent storage.
+
+![EditEvent Sequence Diagram](graph/EditEvent/EditEvent.png)
 
 ### Design Considerations
 
-- **Why this design?**
-  - Enables users to fix or update event details without needing to delete and recreate them.
-  - Reuses existing input and validation logic, keeping the system modular.
+**Aspect 1: Admin-Only Access**
+- **Alternative 1 (current choice)**: Restrict editing to administrators only.
+  - **Pros**: Maintains data integrity by controlling who can modify events.
+  - **Cons**: Limits flexibility for non-admin users who may need to adjust their own events.
+
+**Aspect 2: Availability Verification**
+- **Alternative 1 (current choice)**: Verify participant availability before confirming time changes.
+  - **Pros**: Prevents scheduling participants during their unavailable times.
+  - **Cons**: Adds complexity to time-editing operations.
+
+**Aspect 3: Incremental Editing**
+- **Alternative 1 (current choice)**: Allow users to edit individual aspects of an event rather than replacing the entire event.
+  - **Pros**: Provides fine-grained control and preserves existing data that doesn't need to change.
+  - **Cons**: Requires more complex UI flow with multiple edit options.
 
 
 ### 3. Conflict Detector Feature
@@ -466,15 +514,42 @@ Input Formats Supported:
 ### Implementation
 The `DuplicateEventCommand` feature allows users to duplicate an existing event to their schedule. It is implemented using the `Command` pattern, where `DuplicateEventCommand` extends `Command`.
 
-1. **User Input Parsing**: The `Parser` class processes user input and creates an `DuplicateEventCommand` instance.
-2. **Event Storage**: The duplicated event details are stored in an `Event` object, which is added to an `EventList`.
-4. **Feedback to User**: The user is asked to input the index that they wish to duplicate and the new name of the event. Duplicated event is displayed to inform the user of successful event duplication.
+1. **Step 1. CLI Input (`duplicate` Command)**:
+- The user inputs the `duplicate` command via the CLI. This command is parsed, and the `Parser` creates a `DuplicateEventCommandFactory` object.
+
+2. **Step 2. Event Selection**:
+- The system prompts the user to input the index of the event they wish to duplicate.
+
+3. **Step 3. New Event Name Collection**:
+- The system prompts the user to input a new name for the duplicated event.
+
+4. **Step 4. Command Object Creation**:
+- The `DuplicateEventCommand` object is created with the event index and new name.
+
+5. **Step 5. Executing Event Duplication**:
+- The system creates a copy of the selected event with the new name.
+- The duplicated event retains all properties of the original event (time, location, participants, etc.).
+- The duplicate event is added to the system and saved to storage.
+- A confirmation message is displayed to the user.
+
+![DuplicateEvent Sequence Diagram](graph/DuplicateEvent/DuplicateEvent.png)
 
 ### Design Considerations
 
-- **Why this design?**
-    - The `Command` pattern allows easy extension for future commands.
-    - Using an `EventList` simplifies storage and retrieval.
+**Aspect 1: Duplication Approach**
+- **Alternative 1 (current choice)**: Create a complete copy of the existing event with a new name.
+  - **Pros**: Simple implementation that preserves all event details.
+  - **Cons**: May duplicate unnecessary information if user only wants to reuse part of an event.
+
+**Aspect 2: Participant Handling**
+- **Alternative 1 (current choice)**: Copy all participants from the original event to the duplicate.
+  - **Pros**: Maintains team consistency across duplicate events.
+  - **Cons**: May require additional participant availability checks.
+
+**Aspect 3: Time Assignment**
+- **Alternative 1 (current choice)**: Keep the same time as the original event.
+  - **Pros**: Simplifies the duplication process.
+  - **Cons**: May lead to scheduling conflicts if the event is meant for a different time.
 
 ### 8. Add Participant Feature
 
@@ -482,16 +557,43 @@ The `DuplicateEventCommand` feature allows users to duplicate an existing event 
 
 The `AddParticipantCommand` feature enables users to add a participant to a specific event.
 
-1. **User Input Parsing**: The `Parser` reads the event index, participant name, and access level (ADMIN or MEMBER).
-2. **Validation**: Ensures valid access level and event index.
-3. **Participant Assignment**: Adds the participant to the event.
+1. **Step 1. CLI Input (`addp` Command)**:
+- The user inputs the `addp` command via the CLI. This command is parsed, and the `Parser` creates an `AddParticipantCommandFactory` object.
+
+2. **Step 2. Event Selection**:
+- The system prompts the user to input the index of the event to which they want to add a participant.
+
+3. **Step 3. Participant Information Collection**:
+- The system prompts the user to input the participant's name.
+- The system prompts the user to specify the access level (ADMIN or MEMBER) for the participant.
+
+4. **Step 4. Command Object Creation**:
+- The `AddParticipantCommand` object is created with the event index, participant name, and access level.
+
+5. **Step 5. Executing Participant Addition**:
+- The system validates that the event index and access level are valid.
+- The participant is added to the event with the specified access level.
+- The updated event information is saved to storage.
+- A confirmation message is displayed to the user.
+
+![AddParticipant Sequence Diagram](graph/AddParticipant/AddParticipant.png)
 
 ### Design Considerations
 
-- **Why this design?**
-  - Facilitates collaboration by assigning roles to users in events.
-  - Enhances event detail and accountability.
+**Aspect 1: Access Level Assignment**
+- **Alternative 1 (current choice)**: Allow specifying ADMIN or MEMBER access when adding participants.
+  - **Pros**: Provides fine-grained control over participant permissions.
+  - **Cons**: Adds complexity to the participant addition process.
 
+**Aspect 2: Availability Checking**
+- **Alternative 1 (current choice)**: Check participant availability before adding them to an event.
+  - **Pros**: Prevents scheduling conflicts for participants.
+  - **Cons**: Requires maintaining availability information for all participants.
+
+**Aspect 3: Duplicate Handling**
+- **Alternative 1 (current choice)**: Prevent adding the same participant to an event multiple times.
+  - **Pros**: Maintains data integrity and prevents confusion.
+  - **Cons**: Requires additional validation checks.
 
 ### 9. List Participants Feature
 
@@ -499,14 +601,38 @@ The `AddParticipantCommand` feature enables users to add a participant to a spec
 
 The `ListParticipantsCommand` feature lists all participants assigned to a specific event.
 
-1. **User Input Parsing**: The user inputs the index of the event.
-2. **Retrieval**: Fetches and displays the participants for that event.
+1. **Step 1. CLI Input (`listp` Command)**:
+- The user inputs the `listp` command via the CLI. This command is parsed, and the `Parser` creates a `ListParticipantsCommandFactory` object.
+
+2. **Step 2. Event Selection**:
+- The system prompts the user to input the index of the event for which they want to list participants.
+
+3. **Step 3. Command Object Creation**:
+- The `ListParticipantsCommand` object is created with the event index.
+
+4. **Step 4. Executing Participant Listing**:
+- The system retrieves the event based on the provided index.
+- The system fetches all participants assigned to the event.
+- The participant information (names and access levels) is displayed to the user.
+
+![ListParticipants Sequence Diagram](graph/ListParticipants/ListParticipants.png)
 
 ### Design Considerations
 
-- **Why this design?**
-  - Allows users to view who's involved in an event.
-  - Useful for managing group tasks or meetings.
+**Aspect 1: Display Format**
+- **Alternative 1 (current choice)**: Display participant names along with their access levels.
+  - **Pros**: Provides complete information about each participant's role.
+  - **Cons**: May clutter the display for events with many participants.
+
+**Aspect 2: Sorting Order**
+- **Alternative 1 (current choice)**: List participants in the order they were added to the event.
+  - **Pros**: Simple implementation with natural historical ordering.
+  - **Cons**: May not be the most useful ordering for all use cases.
+
+**Aspect 3: Access Control**
+- **Alternative 1 (current choice)**: Allow any user to view the participant list.
+  - **Pros**: Promotes transparency in event management.
+  - **Cons**: May expose participant information too broadly.
 
 ### 10. Event Storage Feature
 
@@ -589,8 +715,13 @@ The login system manages user authentication and session state through the `Part
   - Immediately persists to storage
   - Includes name, password, access level and available slots
 
+Login SD
 ![Simplified Login Sequence Diagram](graph/LoginSystem/LoginSequenceDiagram.png)
+
+Logout SD
 ![Simplified Logout Sequence Diagram](graph/LoginSystem/LogOutSequenceDiagram.png)
+
+Create user SD
 ![Simplified Create User Sequence Diagram](graph/LoginSystem/CreateSequenceDiagram.png)
 
 ### Design Considerations
