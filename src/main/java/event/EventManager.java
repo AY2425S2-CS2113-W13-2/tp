@@ -177,6 +177,11 @@ public class EventManager {
         if (updatedEvent.getEndTime().isBefore(updatedEvent.getStartTime())) {
             throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
         }
+        Event originalEvent = events.get(index);
+
+        if (originalEvent.equals(updatedEvent)) {
+            return;
+        }
 
         // Validate participant availability
         for (Participant p : updatedEvent.getParticipants()) {

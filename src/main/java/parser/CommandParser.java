@@ -20,7 +20,8 @@ public final class CommandParser {
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);
         } catch (DateTimeException e) {
-            throw new SyncException("Invalid date-time format. Use yyyy-MM-dd HH:mm");
+            throw new SyncException("Invalid date-time format. Use yyyy-MM-dd HH:mm. " +
+                    "Enter any command word to continue.");
         }
     }
 

@@ -92,7 +92,7 @@ public class ParticipantManager {
     }
 
     public boolean checkParticipantAvailability(Event event, Participant participant) {
-        System.out.println("Checking participant availability");
+        ui.showMessage("Checking participant availability");
         for (AvailabilitySlot slot : participant.getAvailableTimes()) {
             ui.showMessage("  -" + slot.getStartTime() + " to " + slot.getEndTime());
             LocalDateTime slotStart = slot.getStartTime();
