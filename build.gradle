@@ -42,6 +42,14 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 run{
     standardInput = System.in
 }

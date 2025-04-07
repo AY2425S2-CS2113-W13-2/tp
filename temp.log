@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="GBK" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2025-04-07T20:39:33.282882600Z</date>
-  <millis>1744058373282</millis>
-  <nanos>882600</nanos>
+  <date>2025-04-07T20:46:31.168734800Z</date>
+  <millis>1744058791168</millis>
+  <nanos>734800</nanos>
   <sequence>8</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
