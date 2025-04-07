@@ -1,0 +1,50 @@
+@startuml
+hide footbox
+skinparam style strictuml
+
+actor User
+participant Parser
+participant ListParticipantsCommandFactory
+participant ListParticipantsCommand
+participant EventManager
+participant Event
+participant UI
+
+User -> Parser: input "listp" command
+activate Parser
+activate UI
+activate EventManager
+
+Parser -> ListParticipantsCommandFactory: createCommand()
+activate ListParticipantsCommandFactory
+    ListParticipantsCommandFactory -> EventManager: viewAllEvents()
+    ListParticipantsCommandFactory -> UI: readEventIndex()
+    create ListParticipantsCommand
+    ListParticipantsCommandFactory -> ListParticipantsCommand: new(index)
+    ListParticipantsCommandFactory --> User : return command
+deactivate ListParticipantsCommandFactory
+
+User -> ListParticipantsCommand: execute(eventManager, ui, participantManager)
+activate ListParticipantsCommand
+    ListParticipantsCommand -> EventManager: getEvent(index)
+    activate EventManager
+        EventManager --> ListParticipantsCommand: event
+    deactivate EventManager
+
+    ListParticipantsCommand -> Event: getParticipants()
+    activate Event
+        Event --> ListParticipantsCommand: participants
+    deactivate Event
+
+    ListParticipantsCommand -> UI: showMessage("Participants for event: " + event.getName())
+
+    loop for each participant in participants
+        ListParticipantsCommand -> UI: showMessage(participant.getName() + " - " + participant.getAccessLevel())
+    end
+
+    ListParticipantsCommand --> User: participant listing completed
+deactivate ListParticipantsCommand
+
+Parser --> User: command executed
+deactivate Parser
+@enduml

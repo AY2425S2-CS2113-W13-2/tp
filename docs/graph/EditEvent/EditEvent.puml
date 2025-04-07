@@ -1,0 +1,83 @@
+@startuml
+hide footbox
+skinparam style strictuml
+
+actor User
+participant Parser
+participant EditCommandFactory
+participant EditEventCommand
+participant EventManager
+participant UI
+participant ParticipantManager
+participant Event
+participant Participant
+
+User -> Parser: input: edit command
+activate Parser
+activate Event
+activate EventManager
+activate UI
+activate ParticipantManager
+activate Participant
+    Parser -> EditCommandFactory: createCommand()
+        activate EditCommandFactory
+        EditCommandFactory -> ParticipantManager: getCurrentUser()
+        EditCommandFactory -> ParticipantManager: isCurrentUserAdmin()
+        EditCommandFactory -> EventManager: viewAllEvents()
+        EditCommandFactory -> UI: readEditEventIndex()
+        EditCommandFactory --> EditEventCommand: new EditEventCommand(index, participantManager)
+        activate EditEventCommand
+    deactivate EditCommandFactory
+
+    User -> EditEventCommand: execute(eventManager, ui, participantManager)
+    activate EditEventCommand
+        EditEventCommand -> ParticipantManager: isCurrentUserAdmin()
+        EditEventCommand -> EventManager: getEvent(index)
+
+        loop while editing
+            EditEventCommand -> UI: showEditCommandMessageWithOptions(event)
+            EditEventCommand -> UI: readInt()
+
+            alt choice = 1: Edit Name
+                EditEventCommand -> UI: readLine()
+                EditEventCommand -> Event: setName(newName)
+
+            else choice = 2: Edit Start Time
+                EditEventCommand -> UI: getValidDateTime("start")
+                EditEventCommand -> Event: getParticipants()
+                loop for participant in event
+                    EditEventCommand -> Participant: unassignEventTime()
+                    EditEventCommand -> Participant: isAvailableDuring()
+                    EditEventCommand -> Participant: assignEventTime()
+                end
+                EditEventCommand -> Event: setStartTime(newStart)
+
+            else choice = 3: Edit End Time
+                EditEventCommand -> UI: getValidDateTime("end")
+                EditEventCommand -> Event: getParticipants()
+                loop for participant in event
+                    EditEventCommand -> Participant: unassignEventTime()
+                    EditEventCommand -> Participant: isAvailableDuring()
+                    EditEventCommand -> Participant: assignEventTime()
+                end
+                EditEventCommand -> Event: setEndTime(newEnd)
+
+            else choice = 4: Edit Location
+                EditEventCommand -> UI: readLine()
+                EditEventCommand -> Event: setLocation(newLocation)
+
+            else choice = 5: Edit Description
+                EditEventCommand -> UI: readLine()
+                EditEventCommand -> Event: setDescription(newDescription)
+            end
+
+            EditEventCommand -> EventManager: save()
+            EditEventCommand -> ParticipantManager: save()
+        end
+
+        EditEventCommand --> Parser
+    deactivate EditEventCommand
+
+    Parser --> User: command executed
+deactivate Parser
+@enduml
