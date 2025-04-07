@@ -29,44 +29,31 @@ public class FilterCommand extends Command {
                 return;
             }
 
-            List<Event> userEvents = eventManager.getEvents().stream()
-                    .filter(event -> event.hasParticipant(currentUser))
-                    .collect(Collectors.toList());
+            // Get all events with their indices
+            List<Event> allEvents = eventManager.getEvents();
+            List<String> allPriorities = Priority.getAllPriorities();
 
-            if (userEvents.isEmpty()) {
-                ui.showMessage("No events assigned to you.");
-                return;
-            }
+            // Filter events by both user assignment and priority
+            List<Event> matchingEvents = new ArrayList<>();
+            for (int i = 0; i < allEvents.size(); i++) {
+                Event event = allEvents.get(i);
+                String priority = allPriorities.get(i);
 
-            ArrayList<Event> matchingEvents = new ArrayList<>();
-            ArrayList<String> allPriorities = Priority.getAllPriorities();
-
-            if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
-                throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");
-            }
-
-            if (allPriorities.size() != eventManager.size()) {
-                throw new SyncException("Priority list is out of sync with events");
-            }
-
-            for (int i = 0; i < eventManager.size(); i++) {
-                Event event = eventManager.getEvent(i);
-                if (event.hasParticipant(currentUser)) {  // Check if user is assigned
-                    String priority = allPriorities.get(i);
+                if (event.hasParticipant(currentUser)) {
                     int priorityValue = Priority.getValue(priority);
                     if (priorityValue >= lowerBound && priorityValue <= upperBound) {
                         matchingEvents.add(event);
                     }
                 }
             }
-            ui.printMatchingEvents(matchingEvents);
+
+            if (matchingEvents.isEmpty()) {
+                ui.showMessage("No events match your filter criteria.");
+            } else {
+                ui.printMatchingEvents((ArrayList<Event>) matchingEvents);
+            }
         } catch (Exception e) {
             throw new SyncException("Error filtering events: " + e.getMessage());
         }
     }
-
-    private boolean isValidBound(int bound) {
-        return bound >= 1 && bound <= 3;
-    }
 }
-

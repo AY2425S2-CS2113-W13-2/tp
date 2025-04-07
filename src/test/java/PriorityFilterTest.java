@@ -45,17 +45,22 @@ class PriorityFilterTest {
         Scanner testScanner = new Scanner(inputStream);
         ui.setScanner(testScanner);
 
-        eventManager.addEvent(new Event("Low Priority",
+        Event low =  new Event("Low Priority",
                 LocalDateTime.of(2025, 4, 1, 10, 0),
-                LocalDateTime.of(2025, 4, 1, 12, 0), "Home", "Chores"));
-
-        eventManager.addEvent(new Event("Medium Priority",
+                LocalDateTime.of(2025, 4, 1, 12, 0),
+                "Home", "Chores");
+        Event middle = new Event("Medium Priority",
                 LocalDateTime.of(2025, 4, 2, 14, 0),
-                LocalDateTime.of(2025, 4, 2, 16, 0), "Office", "Meeting"));
+                LocalDateTime.of(2025, 4, 2, 16, 0),
+                "Office", "Meeting");
+         Event high = new Event("High Priority",
+                 LocalDateTime.of(2025, 4, 3, 9, 0),
+                 LocalDateTime.of(2025, 4, 3, 10, 0),
+                 "Remote", "Deadline");
 
-        eventManager.addEvent(new Event("High Priority",
-                LocalDateTime.of(2025, 4, 3, 9, 0),
-                LocalDateTime.of(2025, 4, 3, 10, 0), "Remote", "Deadline"));
+        eventManager.addEvent(low);
+        eventManager.addEvent(middle);
+        eventManager.addEvent(high);
     }
 
     @Test
