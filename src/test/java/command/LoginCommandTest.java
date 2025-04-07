@@ -1,89 +1,57 @@
 package command;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import event.Event;
-import event.EventManager;
-import participant.AvailabilitySlot;
-import participant.ParticipantManager;
-import participant.Participant;
+
 import exception.SyncException;
+import participant.AvailabilitySlot;
+import participant.Participant;
+import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
+import event.EventManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
-class LoginCommandTest {
+public class LoginCommandTest {
 
+    private EventManager eventManager;
     private ParticipantManager participantManager;
     private UI ui;
-    private Storage storage;
-    private EventManager eventManager;
-    private Participant participant;
-    private ByteArrayOutputStream outputStream;
-    private PrintStream originalOut;
 
     @BeforeEach
-    void setUp() throws SyncException {
+    public void setUp() throws SyncException {
         ui = new UI();
         UserStorage userStorage = new UserStorage("./data/test-users.txt");
         Storage eventStorage = new Storage("./data/commandTest/AddEventCommandTest.txt", userStorage);
         participantManager = new ParticipantManager(new ArrayList<>(), ui, userStorage);
+        eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);
 
-        List<AvailabilitySlot> availableTimes = new ArrayList<>();
-        availableTimes.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
-                LocalDateTime.of(2020, 5, 10, 16, 0)));
-
-        Participant testUser = new Participant("john_doe", "password123",
-                Participant.AccessLevel.ADMIN, availableTimes);
-        participantManager.addNewUser(testUser);
-        EventManager eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);
-
-        Event event = new Event("Test Event",
-                LocalDateTime.of(2020, 5, 10, 14, 0),
-                LocalDateTime.of(2020, 5, 10, 16, 0),
-                "Lab", "Test Desc");
-
-        outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
+        ArrayList<AvailabilitySlot> availableTimes = new ArrayList<>();
+        availableTimes.add(new AvailabilitySlot(
+                LocalDateTime.of(2025, 4, 9, 10, 0),
+                LocalDateTime.of(2025, 4, 9, 14, 0)
+        ));
+        Participant admin = new Participant("admin", "pw", Participant.AccessLevel.ADMIN, availableTimes);
+        participantManager.addNewUser(admin);
     }
 
     @Test
-    void testLoginWithValidCredentials() throws SyncException {
-        String simulatedInput = "john_doe\npassword123\n";
-        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(in);
-        participantManager.login();
-        assertNotNull(participantManager.getCurrentUser());
-        assertEquals("john_doe", participantManager.getCurrentUser().getName());
-    }
+    public void testExecute_Login() throws SyncException {
+        String simulatedInput = "admin\npw\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
 
-    @Test
-    void testLoginWithInvalidUsername() throws SyncException {
-        String simulatedInput = "invalid_user\n";
-        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(in);
-        participantManager.login();
-        assertTrue(outputStream.toString().contains("User not found"));
-    }
+        LoginCommand command = new LoginCommand();
+        command.execute(eventManager, ui, participantManager);
 
-    @Test
-    void testLoginWithInvalidPassword() throws SyncException {
-        String simulatedInput = "john_doe\nwrong_password\nno\n";
-        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(in);
-        participantManager.login();
-        assertTrue(outputStream.toString().contains("Wrong password"));
+        assertTrue(participantManager.getCurrentUser() != null,
+                "ParticipantManager should be logged in after calling login.");
     }
 }

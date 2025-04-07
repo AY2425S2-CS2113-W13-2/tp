@@ -15,13 +15,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        if (index < 0 || index >= eventManager.getEvents().size()) {
+            throw new SyncException("Invalid event index. Please enter a valid index.");
+        }
+
         if (eventManager.getEvents().isEmpty()) {
             ui.showMessage("No events available.");
             return;
-        }
-
-        if (index < 0 || index >= eventManager.getEvents().size()) {
-            throw new SyncException("Invalid event index. Please enter a valid index.");
         }
 
         Event eventToDelete = eventManager.getEvents().get(index);

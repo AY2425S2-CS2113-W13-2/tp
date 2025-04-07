@@ -18,6 +18,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import parser.CommandParser;
 
 class AddEventCommandFactoryTest {
@@ -59,12 +61,13 @@ class AddEventCommandFactoryTest {
         participantManager.setCurrentUser(new participant.Participant("admin",
                 "adminpass", participant.Participant.AccessLevel.ADMIN, new ArrayList<>()));
 
-        String validInput = "Test Event|2025-05-01 10:00|2025-05-01 12:00|Room A|Test Description" +
+        String simulatedInput = "Test Event|2025-05-01 10:00|2025-05-01 12:00|Room A|Test Description" +
                 "\n";
-        InputStream in = new ByteArrayInputStream(validInput.getBytes());
-        System.setIn(in);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
 
-        String[] parts = CommandParser.splitAddCommandInput(validInput); // Split input into parts
+        String[] parts = CommandParser.splitAddCommandInput(simulatedInput); // Split input into parts
 
         LocalDateTime startTime = CommandParser.parseDateTime(parts[1]); // Parse the start time
         LocalDateTime endTime = CommandParser.parseDateTime(parts[2]); // Parse the end time
