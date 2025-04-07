@@ -52,7 +52,7 @@ class PriorityFilterTest {
                 LocalDateTime.of(2025, 4, 2, 14, 0),
                 LocalDateTime.of(2025, 4, 2, 16, 0),
                 "Office", "Meeting");
-         Event high = new Event("High Priority",
+        Event high = new Event("High Priority",
                  LocalDateTime.of(2025, 4, 3, 9, 0),
                  LocalDateTime.of(2025, 4, 3, 10, 0),
                  "Remote", "Deadline");

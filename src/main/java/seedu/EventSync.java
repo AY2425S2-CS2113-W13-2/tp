@@ -46,7 +46,8 @@ public class EventSync {
     }
 
     /**
-     * Constructs an EventSync instance with an InputStream for reading user input and specified file paths for event and user data.
+     * Constructs an EventSync instance with an InputStream
+     * for reading user input and specified file paths for event and user data.
      * Initializes the user interface, event manager, participant manager, parser, and storage components.
      *
      * @param inputStream The InputStream for reading user input (e.g., System.in).
@@ -66,7 +67,8 @@ public class EventSync {
     }
 
     /**
-     * Starts the event synchronization application. It continuously reads user input, processes commands, and executes them.
+     * Starts the event synchronization application.
+     * It continuously reads user input, processes commands, and executes them.
      * The loop will exit when an exit command is executed.
      */
     public void run() {

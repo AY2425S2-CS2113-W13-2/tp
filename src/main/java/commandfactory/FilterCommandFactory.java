@@ -34,7 +34,8 @@ public class FilterCommandFactory implements CommandFactory {
      * It validates the input to ensure the user is logged in and the provided priority levels are valid.
      *
      * @return A new FilterCommand to filter events by priority
-     * @throws SyncException If an error occurs during command creation, such as invalid input or the user not being logged in
+     * @throws SyncException If an error occurs during command creation, such as invalid
+     * input or the user not being logged in
      */
     public Command createCommand() throws SyncException {
         Participant participant = participantManager.getCurrentUser();

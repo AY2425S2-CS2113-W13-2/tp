@@ -318,7 +318,8 @@ public class EventManager {
      * @param end          the end time of the event to check for collisions.
      * @param location     the location of the event to check for collisions.
      * @param events       the list of existing events to compare against.
-     * @param excludeIndex the index of the event to exclude from the collision check (typically the event being edited).
+     * @param excludeIndex the index of the event to exclude from the collision
+     *                     check (typically the event being edited).
      * @return a list of events that collide with the specified event.
      */
     public ArrayList<Event> checkCollision(

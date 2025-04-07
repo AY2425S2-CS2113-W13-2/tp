@@ -214,7 +214,8 @@ public class Participant {
     }
 
     /**
-     * Adds an availability slot for the participant. If the new slot overlaps with existing ones, the overlapping slots are removed.
+     * Adds an availability slot for the participant. If the new
+     * slot overlaps with existing ones, the overlapping slots are removed.
      * The slots are then sorted by their start time.
      *
      * @param start The start time of the new availability slot.
