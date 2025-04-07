@@ -76,7 +76,7 @@ public class EditEventCommand extends Command {
         return true;
     }
 
-    private boolean editStartTime(Event event, UI ui) {
+    private boolean editStartTime(Event event, UI ui) throws SyncException {
         while (true) {
 
             LocalDateTime newStart = getValidDateTime(ui, "start");
@@ -100,7 +100,7 @@ public class EditEventCommand extends Command {
         }
     }
 
-    private boolean editEndTime(Event event, UI ui) {
+    private boolean editEndTime(Event event, UI ui) throws SyncException {
         while (true) {
             ui.showEditCommandStep3();
             LocalDateTime newEnd = getValidDateTime(ui, "end");
@@ -148,7 +148,7 @@ public class EditEventCommand extends Command {
         return true;
     }
 
-    private LocalDateTime getValidDateTime(UI ui, String type) {
+    private LocalDateTime getValidDateTime(UI ui, String type) throws SyncException {
         boolean firstPrompt = true;
 
         while (true) {
@@ -168,7 +168,7 @@ public class EditEventCommand extends Command {
             try {
                 return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
-                // loop will continue and re-show the re-entry prompt
+                throw new SyncException("cInvalid format! Please re-enter or type 'exit' to cancel:");
             }
         }
     }

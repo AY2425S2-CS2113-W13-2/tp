@@ -23,6 +23,10 @@ public class FilterCommand extends Command {
             ArrayList<Event> matchingEvents = new ArrayList<>();
             ArrayList<String> allPriorities = Priority.getAllPriorities();
 
+            if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
+                throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");
+            }
+
             if (allPriorities.size() != eventManager.size()) {
                 throw new SyncException("Priority list is out of sync with events");
             }
@@ -35,10 +39,13 @@ public class FilterCommand extends Command {
                     matchingEvents.add(event);
                 }
             }
-
             ui.printMatchingEvents(matchingEvents);
         } catch (Exception e) {
             throw new SyncException("Error filtering events: " + e.getMessage());
         }
+    }
+
+    private boolean isValidBound(int bound) {
+        return bound >= 1 && bound <= 3;
     }
 }

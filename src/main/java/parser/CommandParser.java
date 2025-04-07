@@ -12,7 +12,11 @@ import participant.Participant;
 import ui.UI;
 
 public final class CommandParser {
-    private static final UI ui = new UI();
+    private static UI ui = new UI();
+
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
 
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -32,34 +36,6 @@ public final class CommandParser {
             throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
         }
         return parts;
-    }
-
-    public static ArrayList<AvailabilitySlot> parseAvailabilitySlots(String input) throws SyncException {
-        ArrayList<AvailabilitySlot> slots = new ArrayList<>();
-        String[] timeSlots = input.split(",");
-
-        for (String slot : timeSlots) {
-            String trimmedSlot = slot.trim();
-            if (!trimmedSlot.isEmpty()) {
-                String[] startEnd = trimmedSlot.split("-");
-                if (startEnd.length == 2) {
-                    try {
-                        LocalDateTime start = parseDateTime(startEnd[0].trim());
-                        LocalDateTime end = parseDateTime(startEnd[1].trim());
-                        slots.add(new AvailabilitySlot(start, end));
-                    } catch (DateTimeException e) {
-                        throw new SyncException("Invalid time format. Use yyyy/MM/dd HH:mm - yyyy/MM/dd HH:mm");
-                    }
-                } else {
-                    throw new SyncException("Availability slot must contain start and end time separated by '-'");
-                }
-            }
-        }
-
-        if (slots.isEmpty()) {
-            throw new SyncException("At least one availability slot is required.");
-        }
-        return slots;
     }
 
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
