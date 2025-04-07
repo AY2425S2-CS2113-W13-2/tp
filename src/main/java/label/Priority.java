@@ -44,8 +44,8 @@ public class Priority {
         }
 
         while (!isValid(input)) {
-            System.out.println("Invalid priority. Please enter LOW, MEDIUM, or HIGH.");
-            System.out.print("Enter event priority (LOW, MEDIUM, HIGH): ");
+            ui.showMessage("Invalid priority. Please enter LOW, MEDIUM, or HIGH.");
+            ui.showMessage("Enter event priority (LOW, MEDIUM, HIGH): ");
             input = ui.readLine().trim();
         }
 

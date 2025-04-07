@@ -1,129 +1,119 @@
-//package commandfactory;
-//
-//import command.AddParticipantCommand;
-//import event.Event;
-//import event.EventManager;
-//import participant.Participant;
-//import participant.ParticipantManager;
-//import exception.SyncException;
-//import ui.UI;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//class AddParticipantCommandFactoryTest {
-//
-//    private ParticipantManager participantManager;
-//    private UI ui;
-//    private EventManager eventManager;
-//    private AddParticipantCommandFactory addParticipantCommandFactory;
-//
-//    @BeforeEach
-//    void setUp() {
-//        // Mock UI
-//        ui = new UI() {
-//            @Override
-//            public void showMessage(String message) {
-//                // Do nothing in tests, or print message for debugging purposes
-//            }
-//        };
-//
-//        // Create a ParticipantManager and add some participants
-//        List<Participant> participants = new ArrayList<>();
-//        participants.add(new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN,
-//        new ArrayList<>()));
-//        participants.add(new Participant("jane_doe", "password456", Participant.AccessLevel.MEMBER,
-//        new ArrayList<>()));
-//        participantManager = new ParticipantManager(participants, ui, null);
-//
-//        // Create some events for the EventManager
-//        List<Event> events = new ArrayList<>();
-//        events.add(new Event("Event 1", null, null, "Room A", "Description 1"));
-//        events.add(new Event("Event 2", null, null, "Room B", "Description 2"));
-//        eventManager = new EventManager(events, ui, null, null);
-//
-//        // Create the AddParticipantCommandFactory
-//        addParticipantCommandFactory = new AddParticipantCommandFactory(eventManager, participantManager, ui);
-//    }
-//
-//    @Test
-//    void testCreateCommandWithValidInput() throws SyncException {
-//        // Simulate the input for adding a participant
-//        String simulatedInput = "1 | john_doe";  // Event index: 1, Participant: john_doe
-//
-//        // Create the command using the factory
-//        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-//        System.setIn(in);
-//
-//        // Create the AddParticipantCommand
-//        AddParticipantCommand command = (AddParticipantCommand) addParticipantCommandFactory.createCommand();
-//
-//        // Validate the created command
-//        assertNotNull(command);
-//        assertEquals(0, command.getEventIndex());  // Index is 1, but array is 0-based, so it should be 0
-//        assertEquals("john_doe", command.getParticipantName());
-//    }
-//
-//    @Test
-//    void testCreateCommandWithAdminPrivileges() throws SyncException {
-//        // Set the current user as admin
-//        participantManager.setCurrentUser(new Participant("admin", "adminpass", Participant.AccessLevel.ADMIN,
-//        new ArrayList<>()));
-//
-//        // Simulate the input for adding a participant
-//        String simulatedInput = "2 | jane_doe";  // Event index: 2, Participant: jane_doe
-//
-//        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-//        System.setIn(in);
-//
-//        // Create the AddParticipantCommand
-//        AddParticipantCommand command = (AddParticipantCommand) addParticipantCommandFactory.createCommand();
-//
-//        // Validate the created command
-//        assertNotNull(command);
-//        assertEquals(1, command.getEventIndex());  // Index is 2, but array is 0-based, so it should be 1
-//        assertEquals("jane_doe", command.getParticipantName());
-//    }
-//
-//    @Test
-//    void testCreateCommandWithNonAdminUser() {
-//        // Set the current user as non-admin
-//        participantManager.setCurrentUser(new Participant("user", "userpass", Participant.AccessLevel.USER,
-//        new ArrayList<>()));
-//
-//        // Attempt to create a command should throw SyncException due to lack of admin privileges
-//        assertThrows(SyncException.class, () -> addParticipantCommandFactory.createCommand());
-//    }
-//
-//    @Test
-//    void testCreateCommandWhenNoParticipantsAvailable() throws SyncException {
-//        // Remove all participants
-//        participantManager.setParticipants(new ArrayList<>());
-//
-//        // Simulate the input for adding a participant
-//        String simulatedInput = "1 | john_doe";  // Event index: 1, Participant: john_doe
-//        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-//        System.setIn(in);
-//
-//        // No participants available, should display a message
-//        assertThrows(SyncException.class, () -> addParticipantCommandFactory.createCommand());
-//    }
-//
-//    @Test
-//    void testCreateCommandWhenNoEventsAvailable() throws SyncException {
-//        // Remove all events
-//        eventManager.setEvents(new ArrayList<>());
-//
-//        // Simulate the input for adding a participant
-//        String simulatedInput = "1 | john_doe";  // Event index: 1, Participant: john_doe
-//        InputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
-//        System.setIn(in);
-//
-//        // No events available, should throw SyncException
-//        assertThrows(SyncException.class, () -> addParticipantCommandFactory.createCommand());
-//    }
-//}
+package commandfactory;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import command.AddParticipantCommand;
+import exception.SyncException;
+import event.Event;
+import event.EventManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import participant.AvailabilitySlot;
+import participant.Participant;
+import participant.ParticipantManager;
+import participant.Participant.AccessLevel;
+import storage.Storage;
+import storage.UserStorage;
+import ui.UI;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+
+public class AddParticipantCommandFactoryTest {
+
+    private UI ui;
+    private ParticipantManager participantManager;
+    private EventManager eventManager;
+    private AddParticipantCommandFactory factory;
+    private Participant admin;
+
+    @BeforeEach
+    void setUp() throws SyncException {
+        ui = new UI();
+        UserStorage userStorage = new UserStorage("./data/test-users.txt");
+        Storage eventStorage = new Storage("./data/commandTest/AddEventCommandTest.txt", userStorage);
+
+        admin = new Participant("admin", "admin123", AccessLevel.ADMIN);
+        ArrayList<Participant> participantList = new ArrayList<>();
+        participantList.add(admin);
+
+        participantManager = new ParticipantManager(participantList, ui, userStorage);
+        participantManager.setCurrentUser(admin);
+
+        eventManager = new EventManager(new ArrayList<>(), ui, eventStorage, userStorage);
+        factory = new AddParticipantCommandFactory(eventManager, participantManager, ui);
+    }
+
+    @Test
+    void testCreateCommand_validInput_success() throws SyncException {
+        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
+        Event event = new Event("Test Event", startTime, endTime,
+                "Test Location", "Test Description");
+        eventManager.addEvent(event);
+
+        Participant p2 = new Participant("john", "pw", AccessLevel.MEMBER);
+        ArrayList<AvailabilitySlot> slots = new ArrayList<>();
+        slots.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
+                LocalDateTime.of(2020, 5, 10, 14, 30)));
+        p2.setAvailableTimes(slots);
+        participantManager.addNewUser(p2);
+
+
+        simulateInput("1|john");
+
+        AddParticipantCommand command = factory.createCommand();
+
+        assertNotNull(command);
+        assertEquals(0, command.getEventIndex());
+        assertEquals("john", command.getParticipantName());
+    }
+
+    @Test
+    void testCreateCommand_notLoggedIn_throws() {
+        participantManager.setCurrentUser(null);
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("You are not logged in. Enter 'login' to log in first.", e.getMessage());
+    }
+
+    @Test
+    void testCreateCommand_nonAdminUser_throws() {
+        Participant user = new Participant("user", "pw", AccessLevel.MEMBER);
+        participantManager.setCurrentUser(user);
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Only ADMIN users can add participants. Please 'logout' and 'login' to an ADMIN user",
+                e.getMessage());
+    }
+
+    @Test
+    void testCreateCommand_invalidEventNumber_throws() throws SyncException {
+        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
+        Event event = new Event("Test Event", startTime, endTime,
+                "Test Location", "Test Description");
+        eventManager.addEvent(event);
+
+        Participant p2 = new Participant("john", "pw", AccessLevel.MEMBER);
+        participantManager.addNewUser(p2);
+
+        simulateInput("abc\njohn");
+
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Invalid format. Use: <EventIndex> | <Participant Name>. Enter 'addparticipant' to try again.",
+                e.getMessage());
+    }
+
+    private void simulateInput(String input) {
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        Scanner testScanner = new Scanner(in);
+        ui.setScanner(testScanner);
+    }
+}

@@ -68,4 +68,12 @@ public class AddParticipantCommand extends Command {
         // Persist updated event list to storage
         eventManager.getStorage().saveEvents(eventManager.getEvents(), Priority.getAllPriorities());
     }
+
+    public String getParticipantName() {
+        return participantName;
+    }
+
+    public int getEventIndex() {
+        return eventIndex;
+    }
 }
