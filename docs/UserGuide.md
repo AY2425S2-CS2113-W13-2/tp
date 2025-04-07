@@ -350,7 +350,8 @@ The event 1 is:
 Priority: LOW
 
 #### Notes: `listall`
-Displays all events in the storage only for admin level users.
+You need to log in to an ADMIN account first.
+Displays all events in the storage. Only ADMIN can list all events.
 
 You’ll be prompted to choose a sort order:
 - `priority` — by priority, then end time
@@ -388,15 +389,23 @@ Priority: LOW
 
 ### 🎯 `filter` — Show events by priority
 
-Filters and displays events by priority range.
+Filters and displays events by either:
+- A certain priority
+- A priority range
 
-**Input format:**: filter {lower-priority} {higher-priority}
+**Input format:**: 
+- filter {priority}
+- filter {lower-priority} {higher-priority}
+
+Valid values: `HIGH`, `MEDIUM`, `LOW`.
+
 #### Example
+```
+LOW 
+```
 ```
 LOW MEDIUM
 ```
-Valid values: `HIGH`, `MEDIUM`, `LOW`.
-
 ---
 
 ### 📎 `duplicate` — Duplicate an event
