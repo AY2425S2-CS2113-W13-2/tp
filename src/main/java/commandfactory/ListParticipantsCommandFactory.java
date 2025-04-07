@@ -29,27 +29,48 @@ public class ListParticipantsCommandFactory implements CommandFactory {
             throw new SyncException("You are not logged in. Enter 'login' to log in first.");
         }
 
-        showAllEvents();
-        ui.showMessage("Enter event index to list participants:");
-        String input = ui.readLine();
-        try {
-            int eventIndex = Integer.parseInt(input.trim()) - 1;
-            return new ListParticipantsCommand(eventIndex);
-        } catch (NumberFormatException e) {
-            throw new SyncException("Invalid event index. Please enter a number.");
+        ArrayList<Event> events = eventManager.getEventsByParticipant(participantManager);
+        if (events.isEmpty()) {
+            throw new SyncException("No events available.");
+        }
+
+        while (true) {
+            showAllEvents(events);
+            ui.showMessage("Enter event index to list participants (or type 'exit' to cancel):");
+            String input = ui.readLine().trim();
+
+            if (input.equalsIgnoreCase("exit")) {
+                throw new SyncException("Exited list participants menu.");
+            }
+
+            try {
+                int eventIndex = Integer.parseInt(input) - 1;
+                if (eventIndex < 0 || eventIndex >= events.size()) {
+                    ui.showMessage("Invalid index. Please try again.");
+                    continue;
+                }
+
+                // Show participants of the selected event
+                Command listCommand = new ListParticipantsCommand(eventIndex);
+                listCommand.execute(eventManager, ui, participantManager);
+
+
+            } catch (NumberFormatException e) {
+                ui.showMessage("Invalid input. Please enter a valid number or 'exit'.");
+            } catch (SyncException e) {
+                ui.showMessage("Error: " + e.getMessage());
+            }
+
+            ui.showMessage("--------------------------------------------------");
         }
     }
 
-    private void showAllEvents() {
-        ArrayList<Event> events = eventManager.getEventsByParticipant(participantManager);
-        if (events.isEmpty()) {
-            ui.showMessage("No events available.");
-            return;
-        }
 
+    private void showAllEvents(ArrayList<Event> events) {
         ui.showMessage("Available Events:");
         for (int i = 0; i < events.size(); i++) {
             ui.showMessage((i + 1) + ". " + events.get(i).getName());
         }
     }
+
 }
