@@ -1,12 +1,15 @@
 package command;
 
 import event.EventManager;
+import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
 import event.Event;
 import label.Priority;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilterCommand extends Command {
     private final int lowerBound;
@@ -20,6 +23,21 @@ public class FilterCommand extends Command {
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
+            Participant currentUser = participantManager.getCurrentUser();
+            if (currentUser == null) {
+                ui.showMessage("Please login first to view your events.");
+                return;
+            }
+
+            List<Event> userEvents = eventManager.getEvents().stream()
+                    .filter(event -> event.hasParticipant(currentUser))
+                    .collect(Collectors.toList());
+
+            if (userEvents.isEmpty()) {
+                ui.showMessage("No events assigned to you.");
+                return;
+            }
+
             ArrayList<Event> matchingEvents = new ArrayList<>();
             ArrayList<String> allPriorities = Priority.getAllPriorities();
 
@@ -33,10 +51,12 @@ public class FilterCommand extends Command {
 
             for (int i = 0; i < eventManager.size(); i++) {
                 Event event = eventManager.getEvent(i);
-                String priority = allPriorities.get(i);
-                int priorityValue = Priority.getValue(priority);
-                if (priorityValue >= lowerBound && priorityValue <= upperBound) {
-                    matchingEvents.add(event);
+                if (event.hasParticipant(currentUser)) {  // Check if user is assigned
+                    String priority = allPriorities.get(i);
+                    int priorityValue = Priority.getValue(priority);
+                    if (priorityValue >= lowerBound && priorityValue <= upperBound) {
+                        matchingEvents.add(event);
+                    }
                 }
             }
             ui.printMatchingEvents(matchingEvents);
@@ -49,3 +69,4 @@ public class FilterCommand extends Command {
         return bound >= 1 && bound <= 3;
     }
 }
+

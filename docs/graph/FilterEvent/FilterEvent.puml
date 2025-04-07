@@ -1,0 +1,93 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor ":User" as User
+participant ":Parser" as Parser
+participant ":FilterCommandFactory" as CommandFactory
+participant ":FilterCommand" as Command
+participant ":ParticipantManager" as ParticipantManager
+participant ":UI" as UI
+participant ":EventManager" as EventManager
+participant ":Priority" as Priority
+
+User -> Parser : "filter"
+activate Parser
+
+Parser -> CommandFactory : new FilterCommandFactory(participantManager, ui)
+activate CommandFactory
+
+CommandFactory -> ParticipantManager : getCurrentUser()
+activate ParticipantManager
+ParticipantManager --> CommandFactory : currentUser
+deactivate ParticipantManager
+
+alt no current user
+    CommandFactory -> UI : showMessage("Not logged in")
+    activate UI
+    UI --> User : "Not logged in" displayed
+    deactivate UI
+else has current user
+    CommandFactory -> UI : readFilterInput()
+    activate UI
+    UI --> CommandFactory : "LOW MEDIUM"
+    deactivate UI
+
+    CommandFactory -> CommandFactory : validate input
+    CommandFactory -> Priority : isValid("LOW"), isValid("MEDIUM")
+    activate Priority
+    Priority --> CommandFactory : true, true
+    deactivate Priority
+
+    CommandFactory -> Priority : getValue("LOW"), getValue("MEDIUM")
+    activate Priority
+    Priority --> CommandFactory : 1, 2
+    deactivate Priority
+
+    CommandFactory -> Command : new FilterCommand(1, 2)
+    activate Command
+    CommandFactory --> Parser : FilterCommand
+    deactivate CommandFactory
+    Parser -> Command : execute()
+
+    Command -> ParticipantManager : getCurrentUser()
+    activate ParticipantManager
+    ParticipantManager --> Command : currentUser
+    deactivate ParticipantManager
+
+    Command -> EventManager : getEvents()
+    activate EventManager
+    EventManager --> Command : List<Event>
+    deactivate EventManager
+
+    loop for each event
+        Command -> Command : check event.hasParticipant(currentUser)
+        alt event assigned to user
+            Command -> Priority : getValue(priority)
+            activate Priority
+            Priority --> Command : priorityValue
+            deactivate Priority
+            Command -> Command : check bounds (1 <= priorityValue <= 2)
+            alt within bounds
+                Command -> Command : add to matchingEvents
+            end
+        end
+    end
+
+    alt no matching events
+        Command -> UI : showMessage("No matching events")
+        activate UI
+        UI --> User : message displayed
+        deactivate UI
+    else has matches
+        Command -> UI : printMatchingEvents(matchingEvents)
+        activate UI
+        UI --> User : filtered events displayed
+        deactivate UI
+    end
+end
+
+deactivate Command
+deactivate Parser
+@enduml

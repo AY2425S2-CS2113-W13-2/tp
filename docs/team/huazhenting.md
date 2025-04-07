@@ -23,7 +23,10 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 
 ### **New Features and Enhancements (v2.0)**
 - **Implemented Priority Filter:**
-    - Developed the 'FilterCommand' to allow users to filter events by a specified priority range.
+    - Developed the 'FilterCommand' to allow users to filter events assigned to him by priority.
+    - Used a single class to handle different input types:
+      - 1. Single priority
+      - 2. A range of priorities
     - Displayed matching events in a clean, readable format through the UI.
     - Integrated debug output to facilitate troubleshooting.
 
@@ -50,6 +53,9 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 ## **Contributions to the Developer Guide**
 - **Added:**
     - **Architecture Diagram** giving an overview of the main components and their interaction.
+    - **Sequence Diagram** for:
+      - `Priority Filter` feature (`FilterEvent.puml`).
+      - `List All Events` feature (`ListAllEvents.puml`).
     - **Implementation Details** for conflict detection, priority filter and list all feature.
     - **Documentation Guide** providing guidance on setting up, maintaining, and styling the project's documentation.
 
