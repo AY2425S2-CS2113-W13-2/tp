@@ -1,0 +1,70 @@
+@startuml
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor ":User" as User
+participant ":Parser" as Parser
+participant ":ListAllCommandFactory" as CommandFactory
+participant ":ListAllCommand" as Command
+participant ":ParticipantManager" as ParticipantManager
+participant ":EventManager" as EventManager
+participant ":UI" as UI
+
+User -> Parser : "listall"
+activate Parser
+
+Parser -> CommandFactory : new ListAllCommandFactory(participantManager, ui)
+activate CommandFactory
+
+CommandFactory -> ParticipantManager : getCurrentUser()
+activate ParticipantManager
+ParticipantManager --> CommandFactory : currentUser
+deactivate ParticipantManager
+
+CommandFactory -> ParticipantManager : isCurrentUserAdmin()
+activate ParticipantManager
+ParticipantManager --> CommandFactory : true
+deactivate ParticipantManager
+
+CommandFactory -> UI : readListCommandInput()
+activate UI
+UI --> CommandFactory : "priority"
+deactivate UI
+
+CommandFactory -> Command : new ListAllCommand("priority", ui)
+activate Command
+CommandFactory --> Parser : ListAllCommand
+deactivate CommandFactory
+
+Parser --> User : command created
+deactivate Parser
+
+User -> Command : execute()
+activate Command
+
+Command -> EventManager : getEvents()
+activate EventManager
+EventManager --> Command : List<Event>
+deactivate EventManager
+
+alt no events
+    Command -> UI : showMessage("No events in the system.")
+    activate UI
+    UI --> User : message displayed
+    deactivate UI
+else has events
+    Command -> Command : sort events by priority
+    Command -> EventManager : viewEvents(sortedEvents)
+    activate EventManager
+    EventManager -> UI : showEvents(sortedEvents)
+    activate UI
+    loop for each event
+        UI --> User : event displayed
+    end
+    deactivate UI
+    deactivate EventManager
+end
+
+deactivate Command
+@enduml

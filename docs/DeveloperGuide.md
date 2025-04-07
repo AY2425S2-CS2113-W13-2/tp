@@ -25,6 +25,7 @@
   - 5.10 [Event Storage](#10-event-storage-feature)
   - 5.11 [User Storage](#11-user-storage-feature)
   - 5.12 [Login System](#12-login-system-feature)
+  - 5.13 [List All Events](#13-list-all-event-feature)
 6. [Documentation & DevOps](#documentation-logging-testing-configuration-dev-ops)
 7. [Appendix](#appendix)
   - 7.1 [Product Scope](#product-scope)
@@ -432,17 +433,33 @@ If more than one match is found, the UI shows them with indices for disambiguati
 ### 6. Priority Filter Feature
 
 ### Implementation
-The `PriorityFilter` feature allows users to filter events by priority level (LOW, MEDIUM, HIGH). 
+The `PriorityFilter` feature allows users to filter events based on priority levels:
+- LOW 
+- MEDIUM 
+- HIGH 
 
-1. **User Input Parsing**: The Parser class processes input in format {PRIORITY PRIORITY}.
-2. **Event Filtering**: Events with priority within the range are filtered.
-3. **Display**: Events are printed to the user.
+Input Formats Supported:
+- 1. Single priority (e.g., "LOW"):
+  - Filters events with exact priority match.
+
+- 2. Range of priorities (e.g., "LOW HIGH"):
+  - Filters events that fall within the inclusive range between the two specified priorities.
+  - The order of priorities matters。
+  
+1. **User Input Parsing**: The Parser class parses input to FilterCommandFactory.
+2. **Message Processing**: The FilterCommandFactory class processes input in format {PRIORITY} or {PRIORITY PRIORITY}.
+2. **Event Filtering**:  The FilterCommand handles the logic of comparing each event’s priority.
+3. **Display**: Events are printed to the user by the UI.
+
+![FilterEvent.png](graph/FilterEvent/FilterEvent.png)
 
 ### Design Considerations
 
 - **Why this design?**
-  - Allows users to quickly find events with certain priorities.
-  - Enhances usability by enabling customized event views.
+  - Provides flexibility for both simple and advanced users.
+  - Enhances user control and visibility over event prioritization.
+  - Keeps implementation simple and extensible for future priority levels.
+
 
 ### 7. Duplicate Event Feature
 
@@ -595,6 +612,47 @@ The login system manages user authentication and session state through the `Part
   - **Pros**: Good user experience
   - **Cons**: Potential stack overflow risk
   - *Alternative*: Iterative retry with attempt limit
+
+### 13. List All Events Feature
+
+### Implementation
+The `listall` feature displays all events currently stored in the system.
+This command is restricted to ADMIN users only.
+
+After invocation, the user is prompted to choose a sorting method to organize the displayed events.
+
+Access Control:
+- Only users with ADMIN access level may execute the `listall` command.
+- If a non-ADMIN user attempts access, a warning is issued.
+
+**Workflow:**
+- 1. Command Parsing:
+  - The ADMIN user inputs the listall command via the CLI. 
+  - The Parser identifies this input and delegates the creation to a ListAllCommandFactory.
+
+- 2. Command Object Construction:
+  - ListAllCommandFactory checks that the current user is ADMIN.
+  - Returns a ListAllCommand instance
+
+- 3. Command Execution:
+  - ListAllCommand.execute() does the following:
+    - Re-validates login and ADMIN status.
+    - Retrieves all events from EventManager.
+    - Sorts events using chosen Sort strategy.
+    - Displays results using the UI.
+
+![List All Events Sequence Diagram](graph/ListAllEvents/ListAllEvents.png)
+
+### Design Considerations
+**Aspect 1: Access Control**
+- **Implementation**: Restrict access to only ADMIN users.
+  - **Pros**: Ensures data confidentiality; prevents unauthorized access.
+  - **Cons**: Non-admin users cannot view full event list, even if necessary for context.
+
+* **Aspect 3: User Interaction for Sort Type**
+* - **Implementation**: Prompt user for sort input at runtime using `UI.readListCommandInput()`.
+*   - **Pros**: Allows flexible choice each time the command is called.
+*   - **Cons**: Requires additional input step from the user; might reduce efficiency if used frequently.
 
 ## Documentation, logging, testing, configuration, dev-ops
 
