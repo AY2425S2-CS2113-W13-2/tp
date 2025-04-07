@@ -72,7 +72,7 @@ public class ListParticipantsCommandFactoryTest {
         factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
 
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Exited list participants menu.", exception.getMessage());
+        assertEquals("Operation cancelled.", exception.getMessage());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ListParticipantsCommandFactoryTest {
         factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
 
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Exited list participants menu.", exception.getMessage());
+        assertEquals("Operation cancelled.", exception.getMessage());
     }
 
     @Test
