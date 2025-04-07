@@ -88,19 +88,16 @@ public class CreateUserCommandFactory implements CommandFactory {
     }
 
     private AvailabilitySlot askAvailabilitySlot(int slotIndex) throws SyncException {
-        try {
-            LocalDateTime start = askStartTime(slotIndex);
-            LocalDateTime end = askEndTime(slotIndex);
+        LocalDateTime start = askStartTime(slotIndex);
+        LocalDateTime end = askEndTime(slotIndex);
 
-            if (end.isBefore(start)) {
-                ui.showMessage("❌ End time must be after start time. Skipping this slot.");
-                return null;
-            }
-            return new AvailabilitySlot(start, end);
-        } catch (SyncException e) {
-            throw new SyncException("❌ " + e.getMessage() + " Skipping this slot. \"Please enter 'create' and try again.");
+        if (end.isBefore(start)) {
+            throw new SyncException("❌ End time must be after start time. Please enter 'create' and try again.");
         }
+
+        return new AvailabilitySlot(start, end);
     }
+
 
     private LocalDateTime askStartTime(int slotIndex) throws SyncException {
         ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm): ");
