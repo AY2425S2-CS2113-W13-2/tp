@@ -96,10 +96,10 @@ public class Parser {
                 return new FilterCommandFactory(this.participantManager, this.ui);
             case "login":
                 logger.info("Login command received.");
-                return new LoginCommandFactory();
+                return new LoginCommandFactory(this.participantManager);
             case "logout":
                 logger.info("Logout command received.");
-                return new LogOutCommandFactory();
+                return new LogOutCommandFactory(this.participantManager);
             case "create":
                 logger.info("Create command received.");
                 return new CreateUserCommandFactory(this.ui, this.participantManager);
