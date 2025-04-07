@@ -23,6 +23,10 @@ public class FilterCommand extends Command {
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
         try {
+            if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
+                throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");
+            }
+
             Participant currentUser = participantManager.getCurrentUser();
             if (currentUser == null) {
                 ui.showMessage("Please login first to view your events.");
@@ -40,10 +44,6 @@ public class FilterCommand extends Command {
 
             ArrayList<Event> matchingEvents = new ArrayList<>();
             ArrayList<String> allPriorities = Priority.getAllPriorities();
-
-            if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
-                throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");
-            }
 
             if (allPriorities.size() != eventManager.size()) {
                 throw new SyncException("Priority list is out of sync with events");

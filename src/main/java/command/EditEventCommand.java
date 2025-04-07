@@ -62,7 +62,8 @@ public class EditEventCommand extends Command {
                     ui.showEditCommandCorrectFormat();
             }
 
-            events.updateEvent(index, event);
+            events.save();
+            participantManager.save();
         }
     }
 
@@ -92,9 +93,24 @@ public class EditEventCommand extends Command {
                 continue;
             }
 
-            if (!checkParticipantAvailability(event, newStart, event.getEndTime(), ui)) {
-                ui.showMessage(SyncException.participantConflictMessage());
-                continue;
+            for (Participant p : event.getParticipants()) {
+                p.unassignEventTime(event.getStartTime(), event.getEndTime());
+            }
+
+            for (Participant p : event.getParticipants()) {
+                if (!p.isAvailableDuring(newStart, event.getEndTime())) {
+                    for (Participant recover : event.getParticipants()) {
+                        recover.assignEventTime(event.getStartTime(), event.getEndTime());
+                        participantManager.save(recover);
+                    }
+                    throw new SyncException(SyncException.participantUnavailableDuringEditError(
+                            p.getName(), event.getStartTime(), event.getEndTime()));
+                }
+            }
+
+            for (Participant p : event.getParticipants()) {
+                p.assignEventTime(newStart, event.getEndTime());
+                participantManager.save(p);
             }
 
             event.setStartTime(newStart);
@@ -116,9 +132,23 @@ public class EditEventCommand extends Command {
                 continue;
             }
 
-            if (!checkParticipantAvailability(event, event.getStartTime(), newEnd, ui)) {
-                ui.showMessage(SyncException.participantConflictMessage());
-                continue;
+            for (Participant p : event.getParticipants()) {
+                p.unassignEventTime(event.getStartTime(), event.getEndTime());
+            }
+
+            for (Participant p : event.getParticipants()) {
+                if (!p.isAvailableDuring(event.getStartTime(), newEnd)) {
+                    for (Participant recover : event.getParticipants()) {
+                        recover.assignEventTime(event.getStartTime(), event.getEndTime());
+                        participantManager.save();
+                    }
+                    throw new SyncException(SyncException.participantUnavailableDuringEditError(
+                            p.getName(), event.getStartTime(), event.getEndTime()));
+                }
+            }
+            for (Participant p : event.getParticipants()) {
+                p.assignEventTime(event.getStartTime(), newEnd);
+                participantManager.save();
             }
 
             event.setEndTime(newEnd);
