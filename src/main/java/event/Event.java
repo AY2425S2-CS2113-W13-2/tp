@@ -15,6 +15,7 @@ public class Event {
     private String location;
     private String description;
     private ArrayList<Participant> participants;
+    private String priority;
 
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime, String location, String description) {
         this.name = name;
@@ -118,6 +119,14 @@ public class Event {
                 System.out.println("- " + p);
             }
         }
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getPriority() {
+        return priority;
     }
 
     @Override

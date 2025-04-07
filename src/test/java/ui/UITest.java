@@ -81,6 +81,61 @@ public class UITest {
     }
 
     @Test
+    public void testReadFilterInputValid() {
+        String simulatedInput = "4 5\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readFilterInput();
+        assertEquals("4 5", result);
+    }
+
+    @Test
+    public void testReadFilterInputInvalid() {
+        String simulatedInput = "invalid\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readFilterInput();
+        assertEquals("invalid", result);
+    }
+
+    @Test
+    public void testReadListCommandInputValidAll() {
+        String simulatedInput = "all\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readListCommandInput();
+        assertEquals("all", result);
+    }
+
+    @Test
+    public void testReadListCommandInputValidParticipants() {
+        String simulatedInput = "participants EventName\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readListCommandInput();
+        assertEquals("participants EventName", result);
+    }
+
+    @Test
+    public void testReadListCommandInputInvalid() {
+        String simulatedInput = "invalid\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readListCommandInput();
+        assertEquals("invalid", result);
+    }
+
+    @Test
     public void testShowAddFormat() {
         ui.showAddFormat();
         assertTrue(outputStreamCaptor.toString().contains("Enter event " +
@@ -155,6 +210,28 @@ public class UITest {
     }
 
     @Test
+    public void testReadAddCommandInputValid() {
+        String simulatedInput = "Event Name | 2025-03-25 10:00 | 2025-03-25 11:00 | Room 101 | Description\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readAddCommandInput();
+        assertEquals(simulatedInput.trim(), result);
+    }
+
+    @Test
+    public void testReadAddCommandInputInvalid() {
+        String simulatedInput = "Invalid Input\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        String result = ui.readAddCommandInput();
+        assertEquals(simulatedInput.trim(), result);
+    }
+
+    @Test
     public void testShowCollisionWarning() {
         Event newEvent = new Event("New Event", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description");
         ArrayList<Event> collisions = new ArrayList<>();
@@ -180,3 +257,4 @@ public class UITest {
         assertTrue(outputStreamCaptor.toString().contains("Bye!"));
     }
 }
+

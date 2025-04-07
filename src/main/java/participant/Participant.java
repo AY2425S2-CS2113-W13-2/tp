@@ -98,7 +98,7 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "Participant: " + name + " (Available: " + availableTimes.size() + " slots)";
+        return "Participant: " + name;
     }
     @Override
     public boolean equals(Object obj) {

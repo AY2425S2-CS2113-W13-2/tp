@@ -12,4 +12,3 @@ Meeting | 2025-05-10 13:00 | 2025-05-10 18:00 | Room 102 | Discuss project | LOW
 test | 2025-12-12 12:00 | 2025-12-12 13:00 | na | na | LOW | t:ADMIN
 a | 2022-12-12 12:00 | 2022-12-12 12:05 | b | haha | HIGH | qw:ADMIN
 test | 2026-12-12 12:00 | 2026-12-12 12:30 | na | na | MEDIUM | Terry:ADMIN
-

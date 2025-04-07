@@ -1,5 +1,6 @@
 package commandfactory;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,17 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import command.Command;
 import command.FilterCommand;
 import exception.SyncException;
-import participant.AvailabilitySlot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
 import ui.UI;
-
-import java.time.LocalDateTime;
+import label.Priority;
 import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -26,7 +24,6 @@ public class FilterCommandFactoryTest {
     private Participant participant;
     private ParticipantManager participantManager;
 
-    // Custom UI implementation for testing
     private static class MockUI extends UI {
         private String simulatedInput;
 
@@ -44,12 +41,8 @@ public class FilterCommandFactoryTest {
     void setUp() throws SyncException {
         ui = new MockUI();
 
-        List<AvailabilitySlot> availableTimes = new ArrayList<>();
-        availableTimes.add(new AvailabilitySlot(LocalDateTime.of(2020, 5, 10, 14, 0),
-                LocalDateTime.of(2020, 5, 10, 16, 0)));
-
         participant = new Participant("admin_user", "admin123",
-                Participant.AccessLevel.ADMIN, availableTimes);
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
 
         ArrayList<Participant> participants = new ArrayList<>();
         participants.add(participant);
@@ -68,6 +61,7 @@ public class FilterCommandFactoryTest {
 
         assertTrue(command instanceof FilterCommand);
         FilterCommand filterCommand = (FilterCommand) command;
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound());
     }
 
     @Test
@@ -79,6 +73,8 @@ public class FilterCommandFactoryTest {
 
         assertTrue(command instanceof FilterCommand);
         FilterCommand filterCommand = (FilterCommand) command;
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound());
+        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound());
     }
 
     @Test
@@ -109,19 +105,21 @@ public class FilterCommandFactoryTest {
     }
 
     @Test
-    public void testEmptyInputThrowsAssertionError() {
+    public void testEmptyInputThrowsException() {
         ui.setSimulatedInput("      ");
 
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
-        assertThrows(AssertionError.class, factory::createCommand);
+        SyncException e = assertThrows(SyncException.class, factory::createCommand);
+        assertEquals("Input string should not be empty", e.getMessage());
     }
 
     @Test
-    public void testNullInputThrowsAssertionError() {
+    public void testNullInputThrowsException() {
         ui.setSimulatedInput(null);
 
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
-        assertThrows(AssertionError.class, factory::createCommand);
+        SyncException e = assertThrows(SyncException.class, factory::createCommand);
+        assertEquals("Input string should not be null", e.getMessage());
     }
 
     @Test
@@ -132,5 +130,33 @@ public class FilterCommandFactoryTest {
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
         SyncException e = assertThrows(SyncException.class, factory::createCommand);
         assertEquals("You are not logged in. Enter 'login' to log in first.", e.getMessage());
+    }
+
+    @Test
+    public void testCaseInsensitivity() throws SyncException {
+        ui.setSimulatedInput("lOw hIgH");
+        FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
+        Command command = factory.createCommand();
+        FilterCommand filterCommand = (FilterCommand) command;
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound()); // Correct usage
+        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound()); // Correct usage
+    }
+
+    @Test
+    public void testWhitespaceHandling() throws SyncException {
+        ui.setSimulatedInput("  LOW HIGH  ");
+        FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
+        Command command = factory.createCommand();
+        FilterCommand filterCommand = (FilterCommand) command;
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound()); // Correct usage
+        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound()); // Correct usage
+    }
+
+    @Test
+    public void testNonPriorityStringThrowsException() {
+        ui.setSimulatedInput("test");
+        FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
+        SyncException e = assertThrows(SyncException.class, factory::createCommand);
+        assertEquals(SyncException.invalidPriorityFilterErrorMessage(), e.getMessage());
     }
 }

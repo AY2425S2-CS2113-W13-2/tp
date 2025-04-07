@@ -38,19 +38,16 @@ public class FilterCommandTest {
         ui = new UI();
 
         userStorage = new UserStorage("./data/test-users.txt");
-
         eventStorage = new Storage("./data/test-events.txt", userStorage);
-        participantManager = new ParticipantManager(new ArrayList<>(), ui, userStorage);
-
 
         ArrayList<Event> events = new ArrayList<>();
         eventManager = new EventManager(events, ui, eventStorage, userStorage);
+        participantManager = new ParticipantManager(new ArrayList<>(), ui, userStorage);
 
         System.setOut(new PrintStream(outputStreamCaptor));
 
         Priority.clearPriorities();
     }
-
 
     @Test
     public void testFilterCommand_ValidPriorityRange() throws SyncException {
@@ -76,7 +73,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void testFilterCommand_EmptyMatchingEvents() throws SyncException {
+    public void testFilterCommand_InvalidPriorityBounds() throws SyncException {
         FilterCommand command = new FilterCommand(4, 5);
 
         assertThrows(SyncException.class, () -> {

@@ -53,6 +53,35 @@ public class AddParticipantCommandFactoryTest {
     }
 
     @Test
+    void testCreateCommand_invalidInputFormat_throws() {
+        simulateInput("1|john|extra"); // Incorrect number of parts
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Invalid format. Use: <EventIndex> | <Participant Name>. Enter 'addparticipant' to try again.",
+                e.getMessage());
+    }
+
+    @Test
+    void testCreateCommand_inputCancelled_throws() {
+        simulateInput("exit");
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("❌ Add participant cancelled by user.", e.getMessage());
+    }
+
+    @Test
+    void testCreateCommand_emptyParticipantName_throws() throws SyncException {
+        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
+        Event event = new Event("Test Event", startTime, endTime,
+                "Test Location", "Test Description");
+        eventManager.addEvent(event);
+
+        simulateInput("1|"); // Empty participant name
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Invalid format. Use: <EventIndex> | <Participant Name>. Enter 'addparticipant' to try again.",
+                e.getMessage());
+    }
+
+    @Test
     void testCreateCommand_validInput_success() throws SyncException {
         LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
         LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
@@ -75,6 +104,31 @@ public class AddParticipantCommandFactoryTest {
         assertNotNull(command);
         assertEquals(0, command.getEventIndex());
         assertEquals("john", command.getParticipantName());
+    }
+    @Test
+    void testCreateCommand_negativeEventIndex_throws() throws SyncException {
+        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
+        Event event = new Event("Test Event", startTime, endTime,
+                "Test Location", "Test Description");
+        eventManager.addEvent(event);
+
+        simulateInput("-1|john");
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Event index cannot be negative. Please enter a valid index.", e.getMessage());
+    }
+
+    @Test
+    void testCreateCommand_eventIndexOutOfBounds_throws() throws SyncException {
+        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
+        Event event = new Event("Test Event", startTime, endTime,
+                "Test Location", "Test Description");
+        eventManager.addEvent(event);
+
+        simulateInput("100|john");
+        SyncException e = assertThrows(SyncException.class, () -> factory.createCommand());
+        assertEquals("Event index is out of bounds. Please enter a valid index.", e.getMessage());
     }
 
     @Test
