@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-04-07T15:34:34.295050800Z</date>
+  <millis>1744040074295</millis>
+  <nanos>50800</nanos>
+  <sequence>8</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>logger.EventSyncLoggerTest</class>
+  <method>testFileNotCreatedInTest</method>
+  <thread>1</thread>
+  <message>Test info message</message>
+</record>
+</log>

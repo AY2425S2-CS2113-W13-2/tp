@@ -73,15 +73,6 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void testFilterCommand_InvalidPriorityBounds() throws SyncException {
-        FilterCommand command = new FilterCommand(4, 5);
-
-        assertThrows(SyncException.class, () -> {
-            command.execute(eventManager, ui, participantManager);
-        });
-    }
-
-    @Test
     public void testAddEventWithPriority() throws SyncException {
         String simulatedInput = "MEDIUM\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());

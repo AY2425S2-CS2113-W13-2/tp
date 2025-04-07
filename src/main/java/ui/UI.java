@@ -96,23 +96,23 @@ public class UI {
     }
 
     public void showEditCommandStep1() {
-        System.out.print("Enter New Event Name: ");
+        System.out.print("Enter New Event Name  (or type 'exit' to cancel): ");
     }
 
     public void showEditCommandStep2() {
-        System.out.print("Enter New Start Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Enter New Start Time (YYYY-MM-DD HH:MM) (or type 'exit' to cancel): ");
     }
 
     public void showEditCommandStep3() {
-        System.out.print("Enter New End Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Enter New End Time (YYYY-MM-DD HH:MM) (or type 'exit' to cancel): ");
     }
 
     public void showEditCommandStep4() {
-        System.out.print("Enter New Event Location: ");
+        System.out.print("Enter New Event Location (or type 'exit' to cancel): ");
     }
 
     public void showEditCommandStep5() {
-        System.out.print("Enter New Event Description: ");
+        System.out.print("Enter New Event Description (or type 'exit' to cancel): ");
     }
 
     public void showEditedEvent(Event event) {
@@ -146,9 +146,11 @@ public class UI {
         System.out.println("\"" + event.getName() + "\" has been deleted.");
     }
 
-    public String readDuplicateEventInput() {
-        System.out.print("Enter duplicate command (format: <index> <New Event Name>): ");
-        return scanner.nextLine();
+    public String readDuplicateEventInput() throws SyncException{
+        System.out.print("Enter duplicate command (format: <index> <New Event Name>) (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
@@ -226,10 +228,12 @@ public class UI {
         System.out.print("Enter your choice (1-6): ");
     }
 
-    public String readAddCommandInput() {
+    public String readAddCommandInput() throws SyncException {
         System.out.print("Enter event details (format: Event Name | " +
-                "Start Date | End Date | Location | Description): \n");
-        return scanner.nextLine();
+                "Start Date | End Date | Location | Description) (or type 'exit' to cancel) : \n");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     public String[] splitAddParticipantCommandInput() throws SyncException {
@@ -237,11 +241,7 @@ public class UI {
         System.out.println("Type 'exit' to cancel.");
 
         String input = scanner.nextLine().trim();
-
-        if (input.equalsIgnoreCase("exit")) {
-            throw new SyncException("❌ Add participant cancelled by user.");
-        }
-
+        checkForExit(input);
         String[] parts = input.split("\\|");
         if (parts.length != 2) {
             throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>. " +
@@ -251,33 +251,51 @@ public class UI {
         return parts;
     }
 
-    public String readDeleteName() {
-        System.out.print("Enter name to search for events to delete: ");
-        return scanner.nextLine().trim();
+    public String readDeleteName() throws SyncException {
+        System.out.print("Enter name to search for events to delete (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
-    public String readFilterInput() {
-        System.out.print("Enter a priority or a range: ");
-        return scanner.nextLine().trim();
+    public String readFilterInput() throws SyncException {
+        System.out.print("Enter a priority or a range (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
-    public String askParticipantName() {
-        System.out.print("Enter participant's name: ");
-        return scanner.nextLine().trim();
+
+    public String askParticipantName() throws SyncException {
+        System.out.print("Enter participant's name (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
-    public String askPassword() {
-        System.out.print("Enter participant's password: ");
-        return scanner.nextLine().trim();
+    public String askPassword() throws SyncException {
+        System.out.print("Enter participant's password (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
-    public String readListCommandInput() {
-        System.out.print("Enter your sort type (priority, start, end): ");
-        return scanner.nextLine().trim();
+
+    public String readListCommandInput() throws SyncException {
+        System.out.print("Enter your sort type (priority, start, end) or type 'exit' to cancel: ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     public String readAddParticipantInput() {
         System.out.print("Follow this format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability> \n");
         return scanner.nextLine().trim();
     }
+    public void checkForExit(String input) throws SyncException {
+        if (input.trim().equalsIgnoreCase("exit")) {
+            throw new SyncException("Operation cancelled.");
+        }
+    }
+
 }

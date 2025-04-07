@@ -56,11 +56,13 @@ public class ParticipantManager {
     }
 
     public ParticipantManager login() throws SyncException {
-        ui.showMessage("Please enter your Username");
+        ui.showMessage("Please enter your Username (or type 'exit' to leave)");
         String username = ui.readLine();
+        ui.checkForExit(username);
         if(this.getParticipant(username) != null) {
-            ui.showMessage("Please enter your password");
+            ui.showMessage("Please enter your password (or type 'exit' to leave)");
             String password = ui.readLine();
+            ui.checkForExit(password);
             if(this.getParticipant(username).checkPassword(password)) {
                 this.currentUser = this.getParticipant(username);
                 ui.showSuccessLoginMessage();
@@ -127,5 +129,39 @@ public class ParticipantManager {
 
     public boolean checkCurrentParticipantAvailability(Event event) {
         return this.currentUser.isAvailableDuring(event.getStartTime(), event.getEndTime());
+    }
+
+    public void updateParticipant(Participant updated) throws SyncException {
+        for (int i = 0; i < participants.size(); i++) {
+            if (participants.get(i).getName().equalsIgnoreCase(updated.getName())) {
+                participants.set(i, updated);
+                storage.saveUsers(participants);
+                return;
+            }
+        }
+        participants.add(updated);
+        storage.saveUsers(participants);
+    }
+
+    public void save() throws SyncException {
+        storage.saveUsers(participants);
+    }
+
+    public void save(Participant participant) throws SyncException {
+        boolean found = false;
+
+        for (int i = 0; i < participants.size(); i++) {
+            if (participants.get(i).getName().equals(participant.getName())) {
+                participants.set(i, participant);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            participants.add(participant);
+        }
+
+        storage.saveUsers(participants);
     }
 }
