@@ -24,9 +24,9 @@ ParticipantManager --> CommandFactory : currentUser
 deactivate ParticipantManager
 
 alt no current user
-    CommandFactory -> UI : showMessage("You are not logged in. Enter 'login' to log in first.")
+    CommandFactory -> UI : showMessage("Not logged in")
     activate UI
-    UI --> User : "You are not logged in. Enter 'login' to log in first." displayed
+    UI --> User : "Not logged in" displayed
     deactivate UI
 else has current user
     CommandFactory -> UI : readFilterInput()
@@ -51,27 +51,41 @@ else has current user
     deactivate CommandFactory
     Parser -> Command : execute()
 
+    Command -> ParticipantManager : getCurrentUser()
+    activate ParticipantManager
+    ParticipantManager --> Command : currentUser
+    deactivate ParticipantManager
+
     Command -> EventManager : getEvents()
     activate EventManager
     EventManager --> Command : List<Event>
     deactivate EventManager
 
-    Command -> Priority : getAllPriorities()
-    activate Priority
-    Priority --> Command : priorityList
-    deactivate Priority
-
     loop for each event
-        Command -> Command : check priority bounds
-        alt within bounds
-            Command -> Command : add to matchingEvents
+        Command -> Command : check event.hasParticipant(currentUser)
+        alt event assigned to user
+            Command -> Priority : getValue(priority)
+            activate Priority
+            Priority --> Command : priorityValue
+            deactivate Priority
+            Command -> Command : check bounds (1 <= priorityValue <= 2)
+            alt within bounds
+                Command -> Command : add to matchingEvents
+            end
         end
     end
 
-    Command -> UI : printMatchingEvents(matchingEvents)
-    activate UI
-    UI --> User : filtered events displayed
-    deactivate UI
+    alt no matching events
+        Command -> UI : showMessage("No matching events")
+        activate UI
+        UI --> User : message displayed
+        deactivate UI
+    else has matches
+        Command -> UI : printMatchingEvents(matchingEvents)
+        activate UI
+        UI --> User : filtered events displayed
+        deactivate UI
+    end
 end
 
 deactivate Command

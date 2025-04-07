@@ -433,7 +433,7 @@ If more than one match is found, the UI shows them with indices for disambiguati
 ### 6. Priority Filter Feature
 
 ### Implementation
-The `PriorityFilter` feature allows users to filter events based on priority levels:
+The `PriorityFilter` feature allows users to filter events assigned to him based on priority levels:
 - LOW 
 - MEDIUM 
 - HIGH 

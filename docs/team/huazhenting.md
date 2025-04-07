@@ -23,8 +23,8 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 
 ### **New Features and Enhancements (v2.0)**
 - **Implemented Priority Filter:**
-    - Developed the 'FilterCommand' to allow users to filter events by priority.
-    - Used a single class to handle diffent input types:
+    - Developed the 'FilterCommand' to allow users to filter events assigned to him by priority.
+    - Used a single class to handle different input types:
       - 1. Single priority
       - 2. A range of priorities
     - Displayed matching events in a clean, readable format through the UI.
