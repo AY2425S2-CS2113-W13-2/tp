@@ -25,6 +25,8 @@ public class EditEventCommand extends Command {
         }
 
         Event event = events.getEvent(index);
+        assert event != null : "Event to edit should not be null";
+
         boolean editing = true;
 
         while (editing) {

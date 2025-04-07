@@ -1,1 +1,1 @@
-Test Event | 2020-05-10 14:00 | 2020-05-10 14:30 | Test Location | Test Description | LOW | 
+Test Event | 2020-05-10 14:00 | 2020-05-10 16:00 | Lab | Test Desc | LOW | john_doe:ADMIN

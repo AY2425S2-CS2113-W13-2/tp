@@ -1,4 +1,4 @@
-kmfsmdfk | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | sdfsf | HIGH | Terry:ADMIN,jack:MEMBER,qw:ADMIN
+kmfsmdfk | 2023-05-23 16:00 | 2023-05-24 17:00 | sdfsf | sdfsf | HIGH | Terry:ADMIN,jack:MEMBER,qw:ADMIN,ben:ADMIN
 wer | 2020-01-01 10:00 | 2025-10-16 02:00 | Meeting Room | Weekly Meeting | LOW | 
 Team Meeting | 2020-05-10 14:00 | 2020-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW | Terry:ADMIN
 Team Meeting | 2021-05-10 14:00 | 2021-05-10 16:00 | Conference Room | A team meeting to discuss project updates | LOW | Terry:ADMIN
@@ -10,4 +10,4 @@ add Meeting | 2025-05-10 14:00 | 2025-05-10 15:00 | Room 101 | Discuss project |
 testy | 2025-05-10 15:30 | 2025-05-10 15:40 | Room 101 | Discuss project | LOW | Terry:ADMIN
 Meeting | 2025-05-10 13:00 | 2025-05-10 18:00 | Room 102 | Discuss project | LOW | Terry:ADMIN
 test | 2025-12-12 12:00 | 2025-12-12 13:00 | na | na | LOW | t:ADMIN
-a | 2022-12-12 12:00 | 2022-12-12 12:05 | b | haha | HIGH | qw:ADMIN
+a | 2022-12-12 12:00 | 2022-12-12 12:05 | b | haha | HIGH | qw:ADMIN,jack:MEMBER
