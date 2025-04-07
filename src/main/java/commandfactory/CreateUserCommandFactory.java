@@ -2,25 +2,43 @@ package commandfactory;
 
 import command.Command;
 import command.CreateUserCommand;
-import parser.CommandParser;
+import exception.SyncException;
 import participant.Participant;
 import participant.AvailabilitySlot;
-import exception.SyncException;
 import participant.ParticipantManager;
 import ui.UI;
+import parser.CommandParser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Factory class responsible for creating a CreateUserCommand.
+ * This factory gathers all necessary information from the user to create a new participant.
+ */
 public class CreateUserCommandFactory implements CommandFactory {
     private final UI ui;
     private final ParticipantManager participantManager;
 
+    /**
+     * Constructor to initialize the factory with the UI and participant manager.
+     *
+     * @param ui The UI used to interact with the user
+     * @param participantManager The participant manager to handle participant data
+     */
     public CreateUserCommandFactory(UI ui, ParticipantManager participantManager) {
         this.ui = ui;
         this.participantManager = participantManager;
     }
 
+    /**
+     * Creates a CreateUserCommand based on the user's input.
+     * This method will ask the user for participant details such as name, password,
+     * access level, and availability slots, and then create a new participant.
+     *
+     * @return A new CreateUserCommand
+     * @throws SyncException If an error occurs during the command creation
+     */
     @Override
     public Command createCommand() throws SyncException {
         String participantName = askParticipantName();
@@ -42,18 +60,42 @@ public class CreateUserCommandFactory implements CommandFactory {
         return new CreateUserCommand(participant);
     }
 
+    /**
+     * Prompts the user for the participant's name.
+     *
+     * @return the participant name entered by the user
+     * @throws SyncException if there is an error while asking the name
+     */
     private String askParticipantName() throws SyncException {
         return ui.askParticipantName();
     }
 
+    /**
+     * Prompts the user for the participant's password.
+     *
+     * @return the password entered by the user
+     * @throws SyncException if there is an error while asking the password
+     */
     private String askPassword() throws SyncException {
         return ui.askPassword();
     }
 
+    /**
+     * Prompts the user for the participant's access level.
+     *
+     * @return the access level entered by the user
+     * @throws SyncException if there is an error while asking the access level
+     */
     private Participant.AccessLevel askAccessLevel() throws SyncException {
         return CommandParser.askAccessLevel();
     }
 
+    /**
+     * Prompts the user for availability slots and collects them.
+     *
+     * @return a list of availability slots entered by the user
+     * @throws SyncException if there is an error while asking for availability slots
+     */
     private ArrayList<AvailabilitySlot> askAvailabilitySlots() throws SyncException {
         ArrayList<AvailabilitySlot> slots = new ArrayList<>();
         int numSlots = askNumberOfSlots();
@@ -68,6 +110,12 @@ public class CreateUserCommandFactory implements CommandFactory {
         return slots;
     }
 
+    /**
+     * Prompts the user to enter the number of availability slots.
+     *
+     * @return the number of availability slots
+     * @throws SyncException if the user input is invalid
+     */
     private int askNumberOfSlots() throws SyncException {
         ui.showMessage("Enter number of availability slots (maximum 10) (or type 'exit' to cancel): ");
         String input = ui.readLine().trim(); // Only call readLine ONCE
@@ -88,7 +136,13 @@ public class CreateUserCommandFactory implements CommandFactory {
         }
     }
 
-
+    /**
+     * Prompts the user to enter the details for a specific availability slot.
+     *
+     * @param slotIndex the index of the slot being asked for
+     * @return an AvailabilitySlot object containing the start and end times
+     * @throws SyncException if there is an error while asking for slot details
+     */
     private AvailabilitySlot askAvailabilitySlot(int slotIndex) throws SyncException {
         LocalDateTime start = askStartTime(slotIndex);
         LocalDateTime end = askEndTime(slotIndex);
@@ -100,7 +154,13 @@ public class CreateUserCommandFactory implements CommandFactory {
         return new AvailabilitySlot(start, end);
     }
 
-
+    /**
+     * Prompts the user to enter the start time for an availability slot.
+     *
+     * @param slotIndex the index of the slot being asked for
+     * @return the start time as a LocalDateTime
+     * @throws SyncException if the user input is invalid
+     */
     private LocalDateTime askStartTime(int slotIndex) throws SyncException {
         ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) " +
                 "(or type 'exit' to cancel): ");
@@ -109,6 +169,13 @@ public class CreateUserCommandFactory implements CommandFactory {
         return CommandParser.parseDateTime(startTimeStr);
     }
 
+    /**
+     * Prompts the user to enter the end time for an availability slot.
+     *
+     * @param slotIndex the index of the slot being asked for
+     * @return the end time as a LocalDateTime
+     * @throws SyncException if the user input is invalid
+     */
     private LocalDateTime askEndTime(int slotIndex) throws SyncException {
         ui.showMessage("Enter end time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm)" +
                 " (or type 'exit' to cancel): ");

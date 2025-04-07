@@ -8,15 +8,34 @@ import participant.Participant;
 import ui.UI;
 import participant.ParticipantManager;
 
-public class FilterCommandFactory implements CommandFactory{
+/**
+ * Factory class responsible for creating a FilterCommand.
+ * This factory ensures the user is logged in and creates a command to filter events
+ * based on priority levels.
+ */
+public class FilterCommandFactory implements CommandFactory {
     private final ParticipantManager participantManager;
     private final UI ui;
 
+    /**
+     * Constructor to initialize the factory with participant manager and UI.
+     *
+     * @param participantManager The participant manager to handle participant data
+     * @param ui The UI used to interact with the user
+     */
     public FilterCommandFactory(ParticipantManager participantManager, UI ui) {
         this.participantManager = participantManager;
         this.ui = ui;
     }
 
+    /**
+     * Creates a FilterCommand based on the user's input.
+     * The command filters events according to the specified priority levels.
+     * It validates the input to ensure the user is logged in and the provided priority levels are valid.
+     *
+     * @return A new FilterCommand to filter events by priority
+     * @throws SyncException If an error occurs during command creation, such as invalid input or the user not being logged in
+     */
     public Command createCommand() throws SyncException {
         Participant participant = participantManager.getCurrentUser();
 
@@ -24,9 +43,8 @@ public class FilterCommandFactory implements CommandFactory{
             throw new SyncException("You are not logged in. Enter 'login' to log in first.");
         }
 
-        //logger.info("Creating filter command.");
+        // Read and validate the input for filter criteria
         String input = ui.readFilterInput();
-        //logger.fine("Input for filter event: " + input);
 
         if (input == null) {
             throw new SyncException("Input string should not be null");
@@ -44,8 +62,7 @@ public class FilterCommandFactory implements CommandFactory{
         }
 
         if ((stringParts.length != 1) && (stringParts.length != 2)) {
-            //logger.warning("Invalid number of parts in input: " + stringParts.length);
-            throw new SyncException("Please provide one or two priority levels (e.g.,'LOW', 'LOW MEDIUM')");
+            throw new SyncException("Please provide one or two priority levels (e.g., 'LOW', 'LOW MEDIUM')");
         }
 
         try {
@@ -71,7 +88,6 @@ public class FilterCommandFactory implements CommandFactory{
         } catch (SyncException e) {
             throw e;
         } catch (Exception e) {
-            //logger.severe("Unexpected exception: " + e.getMessage());
             throw new SyncException(SyncException.invalidBoundErrorMessage());
         }
     }

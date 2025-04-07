@@ -1,0 +1,55 @@
+@startuml
+hide footbox
+skinparam style strictuml
+
+actor User
+participant Parser
+participant DuplicateEventCommandFactory
+participant DuplicateEventCommand
+participant EventManager
+participant Event
+participant UI
+
+User -> Parser: input "duplicate" command
+activate Parser
+activate UI
+activate EventManager
+
+Parser -> DuplicateEventCommandFactory: createCommand()
+activate DuplicateEventCommandFactory
+    DuplicateEventCommandFactory -> EventManager: viewAllEvents()
+    DuplicateEventCommandFactory -> UI: readEventIndex()
+    DuplicateEventCommandFactory -> UI: readNewEventName()
+    create DuplicateEventCommand
+    DuplicateEventCommandFactory -> DuplicateEventCommand: new(index, newName)
+    DuplicateEventCommandFactory --> Parser: return command
+deactivate DuplicateEventCommandFactory
+
+Parser -> DuplicateEventCommand: execute(eventManager, ui, participantManager)
+activate DuplicateEventCommand
+    DuplicateEventCommand -> EventManager: getEvent(index)
+    activate EventManager
+        EventManager --> DuplicateEventCommand: originalEvent
+    deactivate EventManager
+
+    create Event
+    DuplicateEventCommand -> Event: new(newName, startTime, endTime, location, description)
+
+    DuplicateEventCommand -> EventManager: addEvent(newEvent)
+    activate EventManager
+        EventManager -> Event: getParticipants()
+        loop for each participant in original event
+            EventManager -> Event: addParticipant(participant)
+        end
+        EventManager -> EventManager: events.add(newEvent)
+        EventManager -> EventManager: save()
+        EventManager --> DuplicateEventCommand: success
+    deactivate EventManager
+
+    DuplicateEventCommand -> UI: showMessage("Event duplicated successfully")
+    DuplicateEventCommand --> Parser: duplication completed
+deactivate DuplicateEventCommand
+
+Parser --> User: command executed
+deactivate Parser
+@enduml

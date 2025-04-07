@@ -4,10 +4,23 @@ import event.Event;
 import label.Priority;
 import java.util.List;
 
-
-
+/**
+ * The SortByPriority class implements the sorting algorithm for a list of events,
+ * sorting them based on their priority in descending order.
+ * In case two events have the same priority, they are sorted based on their end time,
+ * with earlier events appearing first.
+ */
 public class SortByPriority extends Sort {
 
+    /**
+     * Sorts a list of events based on their priority and end time.
+     * The events are sorted in descending order of their priority. If two events have
+     * the same priority, they are further sorted in ascending order of their end time.
+     *
+     * @param events The list of events to be sorted.
+     * @param priorities The list of priorities corresponding to the events, used for sorting.
+     *                   A higher priority value indicates a higher priority.
+     */
     @Override
     public void sort(List<Event> events, List<String> priorities) {
         int n = events.size();
@@ -29,7 +42,14 @@ public class SortByPriority extends Sort {
         }
     }
 
-
+    /**
+     * Swaps the elements at indices i and j in both the events and priorities lists.
+     *
+     * @param events The list of events.
+     * @param priorities The list of priorities.
+     * @param i The index of the first element to swap.
+     * @param j The index of the second element to swap.
+     */
     private void swap(List<Event> events, List<String> priorities, int i, int j) {
         Event tempEvent = events.get(i);
         events.set(i, events.get(j));

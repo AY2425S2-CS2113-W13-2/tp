@@ -67,6 +67,7 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 
 ## **Review/Mentoring Contributions**
 - Reviewed PRs related to event listing and filtering.
+- Added JavaDoc Comments for the code.
 - Edited coding style.
 
 ---

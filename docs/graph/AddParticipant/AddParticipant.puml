@@ -1,0 +1,72 @@
+@startuml
+hide footbox
+skinparam style strictuml
+
+actor User
+participant Parser
+participant AddParticipantCommandFactory
+participant AddParticipantCommand
+participant EventManager
+participant Event
+participant ParticipantManager
+participant Participant
+participant UI
+
+User -> Parser: input "addp" command
+activate Parser
+activate Event
+activate ParticipantManager
+activate UI
+activate EventManager
+
+Parser -> AddParticipantCommandFactory: createCommand()
+activate AddParticipantCommandFactory
+    AddParticipantCommandFactory -> EventManager: viewAllEvents()
+    AddParticipantCommandFactory -> UI: readEventIndex()
+    AddParticipantCommandFactory -> UI: readParticipantName()
+    AddParticipantCommandFactory -> UI: readAccessLevel()
+    create AddParticipantCommand
+    AddParticipantCommandFactory -> AddParticipantCommand: new(index, name, accessLevel)
+    AddParticipantCommandFactory --> User: return command
+deactivate AddParticipantCommandFactory
+
+User -> AddParticipantCommand: execute(eventManager, ui, participantManager)
+activate AddParticipantCommand
+    AddParticipantCommand -> EventManager: getEvent(index)
+    activate EventManager
+        EventManager --> AddParticipantCommand: event
+    deactivate EventManager
+
+    AddParticipantCommand -> ParticipantManager: getParticipant(name)
+    activate ParticipantManager
+        alt participant exists
+            ParticipantManager --> AddParticipantCommand: participant
+        else participant doesn't exist
+            create Participant
+            ParticipantManager -> Participant: new(name, accessLevel)
+            ParticipantManager -> ParticipantManager: addParticipant(participant)
+            ParticipantManager --> AddParticipantCommand: participant
+        end
+    deactivate ParticipantManager
+
+    AddParticipantCommand -> Participant: isAvailableDuring(event.startTime, event.endTime)
+    activate Participant
+        Participant --> AddParticipantCommand: isAvailable
+    deactivate Participant
+
+    alt participant is available
+        AddParticipantCommand -> Event: addParticipant(participant)
+        AddParticipantCommand -> Participant: assignEventTime(event.startTime, event.endTime)
+        AddParticipantCommand -> EventManager: save()
+        AddParticipantCommand -> ParticipantManager: save()
+        AddParticipantCommand -> UI: showMessage("Participant added successfully")
+    else participant is not available
+        AddParticipantCommand -> UI: showMessage("Participant is not available during this time")
+    end
+
+    AddParticipantCommand --> User: participant addition completed
+deactivate AddParticipantCommand
+
+Parser --> User: command executed
+deactivate Parser
+@enduml
