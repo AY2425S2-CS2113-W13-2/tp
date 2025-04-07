@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2025-04-07T17:52:12.737766Z</date>
-  <millis>1744048332737</millis>
-  <nanos>766000</nanos>
+  <date>2025-04-07T18:28:35.726981700Z</date>
+  <millis>1744050515726</millis>
+  <nanos>981700</nanos>
   <sequence>1926</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Test info message</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.737766Z</date>
-  <millis>1744048332737</millis>
-  <nanos>766000</nanos>
+  <date>2025-04-07T18:28:35.728993800Z</date>
+  <millis>1744050515728</millis>
+  <nanos>993800</nanos>
   <sequence>1927</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -26,9 +26,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.739837100Z</date>
-  <millis>1744048332739</millis>
-  <nanos>837100</nanos>
+  <date>2025-04-07T18:28:35.730992500Z</date>
+  <millis>1744050515730</millis>
+  <nanos>992500</nanos>
   <sequence>1928</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -38,8 +38,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.741Z</date>
-  <millis>1744048332741</millis>
+  <date>2025-04-07T18:28:35.730992500Z</date>
+  <millis>1744050515730</millis>
+  <nanos>992500</nanos>
   <sequence>1929</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -49,8 +50,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.741Z</date>
-  <millis>1744048332741</millis>
+  <date>2025-04-07T18:28:35.730992500Z</date>
+  <millis>1744050515730</millis>
+  <nanos>992500</nanos>
   <sequence>1930</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -60,9 +62,9 @@
   <message>Logger initialized successfully</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.747757400Z</date>
-  <millis>1744048332747</millis>
-  <nanos>757400</nanos>
+  <date>2025-04-07T18:28:35.739803200Z</date>
+  <millis>1744050515739</millis>
+  <nanos>803200</nanos>
   <sequence>1945</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -72,9 +74,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.747757400Z</date>
-  <millis>1744048332747</millis>
-  <nanos>757400</nanos>
+  <date>2025-04-07T18:28:35.741944Z</date>
+  <millis>1744050515741</millis>
+  <nanos>944000</nanos>
   <sequence>1949</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -84,9 +86,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.747757400Z</date>
-  <millis>1744048332747</millis>
-  <nanos>757400</nanos>
+  <date>2025-04-07T18:28:35.741944Z</date>
+  <millis>1744050515741</millis>
+  <nanos>944000</nanos>
   <sequence>1950</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -96,9 +98,9 @@
   <message>Parsing command: logout</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.747757400Z</date>
-  <millis>1744048332747</millis>
-  <nanos>757400</nanos>
+  <date>2025-04-07T18:28:35.741944Z</date>
+  <millis>1744050515741</millis>
+  <nanos>944000</nanos>
   <sequence>1951</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -108,9 +110,9 @@
   <message>Logout command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.750577900Z</date>
-  <millis>1744048332750</millis>
-  <nanos>577900</nanos>
+  <date>2025-04-07T18:28:35.744113600Z</date>
+  <millis>1744050515744</millis>
+  <nanos>113600</nanos>
   <sequence>1955</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -120,9 +122,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.750577900Z</date>
-  <millis>1744048332750</millis>
-  <nanos>577900</nanos>
+  <date>2025-04-07T18:28:35.744113600Z</date>
+  <millis>1744050515744</millis>
+  <nanos>113600</nanos>
   <sequence>1956</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -132,9 +134,9 @@
   <message>Parsing command: duplicate event_id</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.750577900Z</date>
-  <millis>1744048332750</millis>
-  <nanos>577900</nanos>
+  <date>2025-04-07T18:28:35.744113600Z</date>
+  <millis>1744050515744</millis>
+  <nanos>113600</nanos>
   <sequence>1957</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -144,9 +146,9 @@
   <message>Duplicate command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.751491300Z</date>
-  <millis>1744048332751</millis>
-  <nanos>491300</nanos>
+  <date>2025-04-07T18:28:35.746183300Z</date>
+  <millis>1744050515746</millis>
+  <nanos>183300</nanos>
   <sequence>1961</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -156,9 +158,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.751491300Z</date>
-  <millis>1744048332751</millis>
-  <nanos>491300</nanos>
+  <date>2025-04-07T18:28:35.746183300Z</date>
+  <millis>1744050515746</millis>
+  <nanos>183300</nanos>
   <sequence>1962</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -168,9 +170,9 @@
   <message>Parsing command: listparticipants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.751491300Z</date>
-  <millis>1744048332751</millis>
-  <nanos>491300</nanos>
+  <date>2025-04-07T18:28:35.746183300Z</date>
+  <millis>1744050515746</millis>
+  <nanos>183300</nanos>
   <sequence>1963</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -180,9 +182,9 @@
   <message>ListParticipants command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.754185800Z</date>
-  <millis>1744048332754</millis>
-  <nanos>185800</nanos>
+  <date>2025-04-07T18:28:35.748578500Z</date>
+  <millis>1744050515748</millis>
+  <nanos>578500</nanos>
   <sequence>1967</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -192,9 +194,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.754185800Z</date>
-  <millis>1744048332754</millis>
-  <nanos>185800</nanos>
+  <date>2025-04-07T18:28:35.748578500Z</date>
+  <millis>1744050515748</millis>
+  <nanos>578500</nanos>
   <sequence>1968</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -204,9 +206,9 @@
   <message>Parsing command: listall</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.754185800Z</date>
-  <millis>1744048332754</millis>
-  <nanos>185800</nanos>
+  <date>2025-04-07T18:28:35.748578500Z</date>
+  <millis>1744050515748</millis>
+  <nanos>578500</nanos>
   <sequence>1969</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -216,9 +218,9 @@
   <message>List all command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.755218Z</date>
-  <millis>1744048332755</millis>
-  <nanos>218000</nanos>
+  <date>2025-04-07T18:28:35.749601300Z</date>
+  <millis>1744050515749</millis>
+  <nanos>601300</nanos>
   <sequence>1973</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -228,9 +230,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.756303800Z</date>
-  <millis>1744048332756</millis>
-  <nanos>303800</nanos>
+  <date>2025-04-07T18:28:35.750867600Z</date>
+  <millis>1744050515750</millis>
+  <nanos>867600</nanos>
   <sequence>1974</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -240,9 +242,9 @@
   <message>Parsing command: find</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.756303800Z</date>
-  <millis>1744048332756</millis>
-  <nanos>303800</nanos>
+  <date>2025-04-07T18:28:35.750867600Z</date>
+  <millis>1744050515750</millis>
+  <nanos>867600</nanos>
   <sequence>1975</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -252,9 +254,9 @@
   <message>Find command received without keyword.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.756303800Z</date>
-  <millis>1744048332756</millis>
-  <nanos>303800</nanos>
+  <date>2025-04-07T18:28:35.750867600Z</date>
+  <millis>1744050515750</millis>
+  <nanos>867600</nanos>
   <sequence>1977</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -719,9 +721,9 @@
   </exception>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.759841700Z</date>
-  <millis>1744048332759</millis>
-  <nanos>841700</nanos>
+  <date>2025-04-07T18:28:35.755813400Z</date>
+  <millis>1744050515755</millis>
+  <nanos>813400</nanos>
   <sequence>1981</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -731,9 +733,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.760059700Z</date>
-  <millis>1744048332760</millis>
-  <nanos>59700</nanos>
+  <date>2025-04-07T18:28:35.756820100Z</date>
+  <millis>1744050515756</millis>
+  <nanos>820100</nanos>
   <sequence>1982</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -743,9 +745,9 @@
   <message>Parsing command: invalidCommand</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.760059700Z</date>
-  <millis>1744048332760</millis>
-  <nanos>59700</nanos>
+  <date>2025-04-07T18:28:35.756820100Z</date>
+  <millis>1744050515756</millis>
+  <nanos>820100</nanos>
   <sequence>1983</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -755,9 +757,9 @@
   <message>Invalid command received: invalidCommand</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.760059700Z</date>
-  <millis>1744048332760</millis>
-  <nanos>59700</nanos>
+  <date>2025-04-07T18:28:35.756820100Z</date>
+  <millis>1744050515756</millis>
+  <nanos>820100</nanos>
   <sequence>1985</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -1223,9 +1225,9 @@
   </exception>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.763487300Z</date>
-  <millis>1744048332763</millis>
-  <nanos>487300</nanos>
+  <date>2025-04-07T18:28:35.761717900Z</date>
+  <millis>1744050515761</millis>
+  <nanos>717900</nanos>
   <sequence>1989</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1235,9 +1237,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.763697100Z</date>
-  <millis>1744048332763</millis>
-  <nanos>697100</nanos>
+  <date>2025-04-07T18:28:35.763111400Z</date>
+  <millis>1744050515763</millis>
+  <nanos>111400</nanos>
   <sequence>1990</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1247,9 +1249,9 @@
   <message>Parsing command: bye</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.763697100Z</date>
-  <millis>1744048332763</millis>
-  <nanos>697100</nanos>
+  <date>2025-04-07T18:28:35.763111400Z</date>
+  <millis>1744050515763</millis>
+  <nanos>111400</nanos>
   <sequence>1991</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1259,9 +1261,9 @@
   <message>Bye command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.764083100Z</date>
-  <millis>1744048332764</millis>
-  <nanos>83100</nanos>
+  <date>2025-04-07T18:28:35.764130700Z</date>
+  <millis>1744050515764</millis>
+  <nanos>130700</nanos>
   <sequence>1996</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1271,9 +1273,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.764083100Z</date>
-  <millis>1744048332764</millis>
-  <nanos>83100</nanos>
+  <date>2025-04-07T18:28:35.764130700Z</date>
+  <millis>1744050515764</millis>
+  <nanos>130700</nanos>
   <sequence>1997</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1283,9 +1285,9 @@
   <message>Parsing command: list</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.764083100Z</date>
-  <millis>1744048332764</millis>
-  <nanos>83100</nanos>
+  <date>2025-04-07T18:28:35.764130700Z</date>
+  <millis>1744050515764</millis>
+  <nanos>130700</nanos>
   <sequence>1998</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1295,9 +1297,9 @@
   <message>List command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.765136800Z</date>
+  <millis>1744050515765</millis>
+  <nanos>136800</nanos>
   <sequence>2002</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1307,9 +1309,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.766142700Z</date>
+  <millis>1744050515766</millis>
+  <nanos>142700</nanos>
   <sequence>2003</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1319,9 +1321,9 @@
   <message>Parsing command: login username password</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.766142700Z</date>
+  <millis>1744050515766</millis>
+  <nanos>142700</nanos>
   <sequence>2004</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1331,9 +1333,9 @@
   <message>Login command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.767143400Z</date>
+  <millis>1744050515767</millis>
+  <nanos>143400</nanos>
   <sequence>2008</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1343,9 +1345,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.768145400Z</date>
+  <millis>1744050515768</millis>
+  <nanos>145400</nanos>
   <sequence>2009</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1355,9 +1357,9 @@
   <message>Parsing command: create username password</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.765639Z</date>
-  <millis>1744048332765</millis>
-  <nanos>639000</nanos>
+  <date>2025-04-07T18:28:35.768145400Z</date>
+  <millis>1744050515768</millis>
+  <nanos>145400</nanos>
   <sequence>2010</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1367,9 +1369,9 @@
   <message>Create command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.768993800Z</date>
-  <millis>1744048332768</millis>
-  <nanos>993800</nanos>
+  <date>2025-04-07T18:28:35.769144700Z</date>
+  <millis>1744050515769</millis>
+  <nanos>144700</nanos>
   <sequence>2015</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1379,9 +1381,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.769259800Z</date>
-  <millis>1744048332769</millis>
-  <nanos>259800</nanos>
+  <date>2025-04-07T18:28:35.770141500Z</date>
+  <millis>1744050515770</millis>
+  <nanos>141500</nanos>
   <sequence>2016</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1391,9 +1393,9 @@
   <message>Parsing command: </message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.769259800Z</date>
-  <millis>1744048332769</millis>
-  <nanos>259800</nanos>
+  <date>2025-04-07T18:28:35.770141500Z</date>
+  <millis>1744050515770</millis>
+  <nanos>141500</nanos>
   <sequence>2017</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -1403,9 +1405,9 @@
   <message>Invalid command received: </message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.769259800Z</date>
-  <millis>1744048332769</millis>
-  <nanos>259800</nanos>
+  <date>2025-04-07T18:28:35.770141500Z</date>
+  <millis>1744050515770</millis>
+  <nanos>141500</nanos>
   <sequence>2019</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -1871,9 +1873,9 @@
   </exception>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.772791900Z</date>
-  <millis>1744048332772</millis>
-  <nanos>791900</nanos>
+  <date>2025-04-07T18:28:35.773146200Z</date>
+  <millis>1744050515773</millis>
+  <nanos>146200</nanos>
   <sequence>2023</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1883,9 +1885,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.773055800Z</date>
-  <millis>1744048332773</millis>
-  <nanos>55800</nanos>
+  <date>2025-04-07T18:28:35.774144Z</date>
+  <millis>1744050515774</millis>
+  <nanos>144000</nanos>
   <sequence>2024</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1895,9 +1897,9 @@
   <message>Parsing command: help</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.773055800Z</date>
-  <millis>1744048332773</millis>
-  <nanos>55800</nanos>
+  <date>2025-04-07T18:28:35.774144Z</date>
+  <millis>1744050515774</millis>
+  <nanos>144000</nanos>
   <sequence>2025</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1907,9 +1909,9 @@
   <message>Help command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.773928400Z</date>
-  <millis>1744048332773</millis>
-  <nanos>928400</nanos>
+  <date>2025-04-07T18:28:35.775144Z</date>
+  <millis>1744050515775</millis>
+  <nanos>144000</nanos>
   <sequence>2029</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1919,9 +1921,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.773928400Z</date>
-  <millis>1744048332773</millis>
-  <nanos>928400</nanos>
+  <date>2025-04-07T18:28:35.775144Z</date>
+  <millis>1744050515775</millis>
+  <nanos>144000</nanos>
   <sequence>2030</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1931,9 +1933,9 @@
   <message>Parsing command: edit event_id | new_description</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.773928400Z</date>
-  <millis>1744048332773</millis>
-  <nanos>928400</nanos>
+  <date>2025-04-07T18:28:35.776426Z</date>
+  <millis>1744050515776</millis>
+  <nanos>426000</nanos>
   <sequence>2031</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1943,9 +1945,9 @@
   <message>Edit command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.778310900Z</date>
+  <millis>1744050515778</millis>
+  <nanos>310900</nanos>
   <sequence>2035</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1955,9 +1957,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.778310900Z</date>
+  <millis>1744050515778</millis>
+  <nanos>310900</nanos>
   <sequence>2036</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1967,9 +1969,9 @@
   <message>Parsing command: filter event_type</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.778310900Z</date>
+  <millis>1744050515778</millis>
+  <nanos>310900</nanos>
   <sequence>2037</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1979,9 +1981,9 @@
   <message>Filter command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.779607100Z</date>
+  <millis>1744050515779</millis>
+  <nanos>607100</nanos>
   <sequence>2041</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -1991,9 +1993,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.779607100Z</date>
+  <millis>1744050515779</millis>
+  <nanos>607100</nanos>
   <sequence>2042</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2003,9 +2005,9 @@
   <message>Parsing command: addparticipant participant_name | event_id</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.774985700Z</date>
-  <millis>1744048332774</millis>
-  <nanos>985700</nanos>
+  <date>2025-04-07T18:28:35.780670100Z</date>
+  <millis>1744050515780</millis>
+  <nanos>670100</nanos>
   <sequence>2043</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2015,9 +2017,9 @@
   <message>AddParticipant command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.778256200Z</date>
-  <millis>1744048332778</millis>
-  <nanos>256200</nanos>
+  <date>2025-04-07T18:28:35.782911400Z</date>
+  <millis>1744050515782</millis>
+  <nanos>911400</nanos>
   <sequence>2048</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2027,9 +2029,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.778256200Z</date>
-  <millis>1744048332778</millis>
-  <nanos>256200</nanos>
+  <date>2025-04-07T18:28:35.782911400Z</date>
+  <millis>1744050515782</millis>
+  <nanos>911400</nanos>
   <sequence>2049</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2039,9 +2041,9 @@
   <message>Parsing command: find event</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.778256200Z</date>
-  <millis>1744048332778</millis>
-  <nanos>256200</nanos>
+  <date>2025-04-07T18:28:35.782911400Z</date>
+  <millis>1744050515782</millis>
+  <nanos>911400</nanos>
   <sequence>2050</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2051,9 +2053,9 @@
   <message>Find command received with keyword: event</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.779336800Z</date>
-  <millis>1744048332779</millis>
-  <nanos>336800</nanos>
+  <date>2025-04-07T18:28:35.785427Z</date>
+  <millis>1744050515785</millis>
+  <nanos>427000</nanos>
   <sequence>2054</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2063,9 +2065,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.779336800Z</date>
-  <millis>1744048332779</millis>
-  <nanos>336800</nanos>
+  <date>2025-04-07T18:28:35.785427Z</date>
+  <millis>1744050515785</millis>
+  <nanos>427000</nanos>
   <sequence>2055</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2075,9 +2077,9 @@
   <message>Parsing command: add event_name | 2024-05-01 12:00 | 2024-05-01 14:00 | description | details</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.779336800Z</date>
-  <millis>1744048332779</millis>
-  <nanos>336800</nanos>
+  <date>2025-04-07T18:28:35.785427Z</date>
+  <millis>1744050515785</millis>
+  <nanos>427000</nanos>
   <sequence>2056</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2087,9 +2089,9 @@
   <message>Add command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.780423700Z</date>
-  <millis>1744048332780</millis>
-  <nanos>423700</nanos>
+  <date>2025-04-07T18:28:35.786481600Z</date>
+  <millis>1744050515786</millis>
+  <nanos>481600</nanos>
   <sequence>2061</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2099,9 +2101,9 @@
   <message>Parser initialized with custom scanner.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.780423700Z</date>
-  <millis>1744048332780</millis>
-  <nanos>423700</nanos>
+  <date>2025-04-07T18:28:35.786481600Z</date>
+  <millis>1744050515786</millis>
+  <nanos>481600</nanos>
   <sequence>2062</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2111,9 +2113,9 @@
   <message>Parsing command: delete event_id</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.780423700Z</date>
-  <millis>1744048332780</millis>
-  <nanos>423700</nanos>
+  <date>2025-04-07T18:28:35.786481600Z</date>
+  <millis>1744050515786</millis>
+  <nanos>481600</nanos>
   <sequence>2063</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2123,9 +2125,9 @@
   <message>Delete command received.</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.781916900Z</date>
-  <millis>1744048332781</millis>
-  <nanos>916900</nanos>
+  <date>2025-04-07T18:28:35.787516800Z</date>
+  <millis>1744050515787</millis>
+  <nanos>516800</nanos>
   <sequence>2064</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -2135,9 +2137,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.786172500Z</date>
-  <millis>1744048332786</millis>
-  <nanos>172500</nanos>
+  <date>2025-04-07T18:28:35.791523600Z</date>
+  <millis>1744050515791</millis>
+  <nanos>523600</nanos>
   <sequence>2068</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2147,9 +2149,9 @@
   <message>Loading participants from ./data/StorageTestUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.786172500Z</date>
-  <millis>1744048332786</millis>
-  <nanos>172500</nanos>
+  <date>2025-04-07T18:28:35.792524400Z</date>
+  <millis>1744050515792</millis>
+  <nanos>524400</nanos>
   <sequence>2069</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2159,9 +2161,9 @@
   <message>Successfully loaded 0 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.786172500Z</date>
-  <millis>1744048332786</millis>
-  <nanos>172500</nanos>
+  <date>2025-04-07T18:28:35.798028800Z</date>
+  <millis>1744050515798</millis>
+  <nanos>28800</nanos>
   <sequence>2074</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2171,9 +2173,9 @@
   <message>Loading participants from ./data/StorageTestUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.786172500Z</date>
-  <millis>1744048332786</millis>
-  <nanos>172500</nanos>
+  <date>2025-04-07T18:28:35.798028800Z</date>
+  <millis>1744050515798</millis>
+  <nanos>28800</nanos>
   <sequence>2075</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2183,9 +2185,9 @@
   <message>Successfully loaded 0 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.796657500Z</date>
-  <millis>1744048332796</millis>
-  <nanos>657500</nanos>
+  <date>2025-04-07T18:28:35.803027600Z</date>
+  <millis>1744050515803</millis>
+  <nanos>27600</nanos>
   <sequence>2082</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2195,9 +2197,9 @@
   <message>Loading participants from ./data/StorageTestUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.798005300Z</date>
-  <millis>1744048332798</millis>
-  <nanos>5300</nanos>
+  <date>2025-04-07T18:28:35.803027600Z</date>
+  <millis>1744050515803</millis>
+  <nanos>27600</nanos>
   <sequence>2083</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2207,9 +2209,9 @@
   <message>Successfully loaded 0 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.805732200Z</date>
-  <millis>1744048332805</millis>
-  <nanos>732200</nanos>
+  <date>2025-04-07T18:28:35.811875700Z</date>
+  <millis>1744050515811</millis>
+  <nanos>875700</nanos>
   <sequence>2094</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2219,9 +2221,9 @@
   <message>Loading participants from ./data/StorageTestUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.807818100Z</date>
-  <millis>1744048332807</millis>
-  <nanos>818100</nanos>
+  <date>2025-04-07T18:28:35.811875700Z</date>
+  <millis>1744050515811</millis>
+  <nanos>875700</nanos>
   <sequence>2095</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2231,9 +2233,9 @@
   <message>Successfully loaded 0 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.814772800Z</date>
-  <millis>1744048332814</millis>
-  <nanos>772800</nanos>
+  <date>2025-04-07T18:28:35.819279500Z</date>
+  <millis>1744050515819</millis>
+  <nanos>279500</nanos>
   <sequence>2101</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>WARNING</level>
@@ -2243,9 +2245,9 @@
   <message>Logger is already initialized</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.815432100Z</date>
-  <millis>1744048332815</millis>
-  <nanos>432100</nanos>
+  <date>2025-04-07T18:28:35.822277400Z</date>
+  <millis>1744050515822</millis>
+  <nanos>277400</nanos>
   <sequence>2102</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2255,9 +2257,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.815432100Z</date>
-  <millis>1744048332815</millis>
-  <nanos>432100</nanos>
+  <date>2025-04-07T18:28:35.822277400Z</date>
+  <millis>1744050515822</millis>
+  <nanos>277400</nanos>
   <sequence>2103</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2267,9 +2269,9 @@
   <message>Saving 2 participants to storage</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.815432100Z</date>
-  <millis>1744048332815</millis>
-  <nanos>432100</nanos>
+  <date>2025-04-07T18:28:35.822277400Z</date>
+  <millis>1744050515822</millis>
+  <nanos>277400</nanos>
   <sequence>2104</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2279,9 +2281,9 @@
   <message>Successfully saved participants to ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.819699500Z</date>
-  <millis>1744048332819</millis>
-  <nanos>699500</nanos>
+  <date>2025-04-07T18:28:35.825780900Z</date>
+  <millis>1744050515825</millis>
+  <nanos>780900</nanos>
   <sequence>2105</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2291,9 +2293,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.828787500Z</date>
+  <millis>1744050515828</millis>
+  <nanos>787500</nanos>
   <sequence>2106</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2303,9 +2305,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.828787500Z</date>
+  <millis>1744050515828</millis>
+  <nanos>787500</nanos>
   <sequence>2107</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2315,9 +2317,9 @@
   <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.829786100Z</date>
+  <millis>1744050515829</millis>
+  <nanos>786100</nanos>
   <sequence>2109</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2327,9 +2329,9 @@
   <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.829786100Z</date>
+  <millis>1744050515829</millis>
+  <nanos>786100</nanos>
   <sequence>2110</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2339,9 +2341,9 @@
   <message>Saving 1 participants to storage</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.829786100Z</date>
+  <millis>1744050515829</millis>
+  <nanos>786100</nanos>
   <sequence>2111</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2351,9 +2353,9 @@
   <message>Successfully saved participants to ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.821880500Z</date>
-  <millis>1744048332821</millis>
-  <nanos>880500</nanos>
+  <date>2025-04-07T18:28:35.829786100Z</date>
+  <millis>1744050515829</millis>
+  <nanos>786100</nanos>
   <sequence>2112</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2363,9 +2365,9 @@
   <message>Loading participants from ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.823238400Z</date>
-  <millis>1744048332823</millis>
-  <nanos>238400</nanos>
+  <date>2025-04-07T18:28:35.830786400Z</date>
+  <millis>1744050515830</millis>
+  <nanos>786400</nanos>
   <sequence>2114</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2375,9 +2377,9 @@
   <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.823238400Z</date>
-  <millis>1744048332823</millis>
-  <nanos>238400</nanos>
+  <date>2025-04-07T18:28:35.830786400Z</date>
+  <millis>1744050515830</millis>
+  <nanos>786400</nanos>
   <sequence>2115</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2387,9 +2389,9 @@
   <message>Successfully loaded 1 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.824654400Z</date>
-  <millis>1744048332824</millis>
-  <nanos>654400</nanos>
+  <date>2025-04-07T18:28:35.833786700Z</date>
+  <millis>1744050515833</millis>
+  <nanos>786700</nanos>
   <sequence>2116</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2399,9 +2401,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.824654400Z</date>
-  <millis>1744048332824</millis>
-  <nanos>654400</nanos>
+  <date>2025-04-07T18:28:35.834787100Z</date>
+  <millis>1744050515834</millis>
+  <nanos>787100</nanos>
   <sequence>2117</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2411,9 +2413,9 @@
   <message>Loading participants from ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.829252700Z</date>
-  <millis>1744048332829</millis>
-  <nanos>252700</nanos>
+  <date>2025-04-07T18:28:35.837785600Z</date>
+  <millis>1744050515837</millis>
+  <nanos>785600</nanos>
   <sequence>2120</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2423,9 +2425,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.829252700Z</date>
-  <millis>1744048332829</millis>
-  <nanos>252700</nanos>
+  <date>2025-04-07T18:28:35.838786900Z</date>
+  <millis>1744050515838</millis>
+  <nanos>786900</nanos>
   <sequence>2121</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2435,9 +2437,9 @@
   <message>Saving 1 participants to storage</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.829252700Z</date>
-  <millis>1744048332829</millis>
-  <nanos>252700</nanos>
+  <date>2025-04-07T18:28:35.838786900Z</date>
+  <millis>1744050515838</millis>
+  <nanos>786900</nanos>
   <sequence>2122</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2447,9 +2449,9 @@
   <message>Successfully saved participants to ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.829252700Z</date>
-  <millis>1744048332829</millis>
-  <nanos>252700</nanos>
+  <date>2025-04-07T18:28:35.838786900Z</date>
+  <millis>1744050515838</millis>
+  <nanos>786900</nanos>
   <sequence>2123</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2459,9 +2461,9 @@
   <message>Loading participants from ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.829252700Z</date>
-  <millis>1744048332829</millis>
-  <nanos>252700</nanos>
+  <date>2025-04-07T18:28:35.839787200Z</date>
+  <millis>1744050515839</millis>
+  <nanos>787200</nanos>
   <sequence>2124</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2471,9 +2473,9 @@
   <message>Successfully loaded 1 participants</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.831259100Z</date>
-  <millis>1744048332831</millis>
-  <nanos>259100</nanos>
+  <date>2025-04-07T18:28:35.841791300Z</date>
+  <millis>1744050515841</millis>
+  <nanos>791300</nanos>
   <sequence>2125</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2483,9 +2485,9 @@
   <message>Created new user storage file: ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.831259100Z</date>
-  <millis>1744048332831</millis>
-  <nanos>259100</nanos>
+  <date>2025-04-07T18:28:35.842786500Z</date>
+  <millis>1744050515842</millis>
+  <nanos>786500</nanos>
   <sequence>2126</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2495,9 +2497,9 @@
   <message>Saving 2 participants to storage</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.833612200Z</date>
-  <millis>1744048332833</millis>
-  <nanos>612200</nanos>
+  <date>2025-04-07T18:28:35.842786500Z</date>
+  <millis>1744050515842</millis>
+  <nanos>786500</nanos>
   <sequence>2127</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
@@ -2507,9 +2509,9 @@
   <message>Successfully saved participants to ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.833612200Z</date>
-  <millis>1744048332833</millis>
-  <nanos>612200</nanos>
+  <date>2025-04-07T18:28:35.842786500Z</date>
+  <millis>1744050515842</millis>
+  <nanos>786500</nanos>
   <sequence>2128</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>FINE</level>
@@ -2519,9 +2521,9 @@
   <message>Loading participants from ./data/testUsers.txt</message>
 </record>
 <record>
-  <date>2025-04-07T17:52:12.833612200Z</date>
-  <millis>1744048332833</millis>
-  <nanos>612200</nanos>
+  <date>2025-04-07T18:28:35.843789100Z</date>
+  <millis>1744050515843</millis>
+  <nanos>789100</nanos>
   <sequence>2129</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
