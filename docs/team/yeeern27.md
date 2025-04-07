@@ -35,27 +35,36 @@ I am responsible for creating the find feature, duplicate event feature, and to 
     - Determined overlap by checking for non-collision between the participant's available time and the event duration.
     - Intergrated debug print statements to assist with runtime verification of availability.
     - Displayed a warning via the UI when the participant is not free for the event.
+    - Integrated with the `addparticipant` command for execution.
   
 
 ### Implementation of JUnit Test Case 
 - **Added JUnit test case for** :
     - DuplicateEventTest.java
+    - FilterCommandFactoryTest.java
+    - PrintMatchingEventsTest.java
+    - UITest.java
  
 - Ensure coverage of edge case.
 
 ## Contribution to User Guide 
-to be added 
+- Added features for `find` and `duplicate` command. 
+- Contributed to the Features section by including the examples for each command based on the latest version of code.
+- Checked and finalised the User Guide.
 
 ## Contribution to Developer Guide 
-to be added 
+Contributed to the UI section by listing the different methods in the UI and their functions. 
 
 ## Contribution to Team-based task  
   - Helped to write the skeleton of the code for first draft.
   - Reviewed and coordinated the merging of code.
   - Helped with documentations and milestone deliverables.
+  - Edited the coding style to ensure it matches with the standard coding style.
 
 ## Review / Mentoring Contribution  
-  - Assisted with testing and implementation of user input.
-  - Reviewed PRs and edited coding sytle to match gradletest. 
+  - Assisted with debugging of teammates' code.
+  - Reviewed and debugged `listparticipants` code.
+    
+
 
   
