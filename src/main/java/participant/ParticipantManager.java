@@ -1,10 +1,13 @@
 package participant;
 
+import command.LoginCommand;
 import event.Event;
 import exception.SyncException;
 import ui.UI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import storage.UserStorage;
 
 /**
@@ -13,6 +16,8 @@ import storage.UserStorage;
  * The ParticipantManager handles user login, logout, adding new users, and checking availability for events.
  */
 public class ParticipantManager {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private ArrayList<Participant> participants;
     private Participant currentUser;
     private final UI ui;
@@ -58,6 +63,8 @@ public class ParticipantManager {
      * @throws SyncException If the participant already exists.
      */
     public void addNewUser(Participant participant) throws SyncException {
+        assert participant != null : "Participant cannot be null";
+        LOGGER.info("Attempting adding user ");
         if (participants.stream().anyMatch(p -> p.getName().equals(participant.getName()))) {
             throw new SyncException("User already exists.");
         }

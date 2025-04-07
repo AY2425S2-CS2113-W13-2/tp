@@ -13,8 +13,9 @@ import java.util.logging.Logger;
  * to be added to the system.
  */
 public class AddEventCommand extends Command {
-    private final Event event;
     private static final Logger LOGGER = Logger.getLogger(AddEventCommand.class.getName());
+
+    private final Event event;
 
     /**
      * Constructs an {@code AddEventCommand} with the specified event.

@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.ByeCommand;
 import command.Command;
+import command.LoginCommand;
 import exception.SyncException;
 import participant.ParticipantManager;
 
@@ -10,6 +13,8 @@ import participant.ParticipantManager;
  * This class is responsible for creating a ByeCommand when invoked.
  */
 public class ByeCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final ui.UI ui;
 
@@ -32,6 +37,8 @@ public class ByeCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting ByeCommandFactory");
         return new ByeCommand();
     }
 }

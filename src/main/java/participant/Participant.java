@@ -3,12 +3,17 @@ package participant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
+import command.LoginCommand;
 
 /**
  * Represents a participant with a name, password, access level, and available time slots.
  * Provides methods to manage participant availability and access control.
  */
 public class Participant {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final String name;
     private final String password;
     private AccessLevel accessLevel;
@@ -57,6 +62,8 @@ public class Participant {
      * @throws IllegalArgumentException If the event end time is before the start time.
      */
     public boolean assignEventTime(LocalDateTime eventStart, LocalDateTime eventEnd) {
+        assert eventEnd != null;
+        LOGGER.info("Attempting assigning event time to participant ");
         if (eventStart.isAfter(eventEnd)) {
             throw new IllegalArgumentException("Event end time must be after start time.");
         }

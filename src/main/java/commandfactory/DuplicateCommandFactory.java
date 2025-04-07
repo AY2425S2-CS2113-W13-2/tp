@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.DuplicateCommand;
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -14,6 +17,8 @@ import ui.UI;
  * and can duplicate an event by providing a valid event index and a new name.
  */
 public class DuplicateCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final UI ui;
     private final EventManager eventManager;
@@ -42,6 +47,8 @@ public class DuplicateCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting DuplicateCommandFactory");
         if (participantManager.getCurrentUser() == null) {
             throw new SyncException("You are not logged in. Please enter 'login' to login.");
         } else if (!participantManager.isCurrentUserAdmin()) {

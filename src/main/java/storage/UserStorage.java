@@ -1,5 +1,6 @@
 package storage;
 
+import command.LoginCommand;
 import participant.Participant;
 import participant.Participant.AccessLevel;
 import participant.AvailabilitySlot;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Handles storage-related operations for managing participants, including their availability slots.
@@ -23,6 +25,8 @@ import java.util.List;
  * It also includes functionality for managing the format of the participant data, including their availability slots.
  */
 public class UserStorage {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     private final String filePath;
     private final DateTimeFormatter slotFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -63,6 +67,8 @@ public class UserStorage {
      * @throws SyncException if there is an error while saving the data
      */
     public void saveUsers(List<Participant> participants) throws SyncException {
+        assert participants != null;
+        LOGGER.info("Attempting save users");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Participant participant : participants) {
                 writer.write(formatParticipant(participant));

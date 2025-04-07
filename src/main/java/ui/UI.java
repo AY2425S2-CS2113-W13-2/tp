@@ -2,7 +2,9 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -14,6 +16,8 @@ import participant.Participant;
  */
 public class UI {
     public static Scanner scanner = new Scanner(System.in);
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * Sets the scanner instance to a new one for handling user inputs.

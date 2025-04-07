@@ -32,7 +32,7 @@ public class LogOutCommandFactory implements CommandFactory {
      */
     public Command createCommand() throws SyncException {
         assert participantManager != null : "ParticipantManager cannot be null";
-        LOGGER.info("Attempting to create LogOutCommand");
+        LOGGER.info("Attempting to create LogOutCommandFactory");
         if (participantManager.getCurrentUser() == null) {
             throw new SyncException("You are not logged in. Please enter 'login' to log in first.");
         } else {

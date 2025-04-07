@@ -2,6 +2,8 @@ package parser;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
+
+import command.LoginCommand;
 import commandfactory.AddEventCommandFactory;
 import commandfactory.AddParticipantCommandFactory;
 import commandfactory.ByeCommandFactory;
@@ -31,6 +33,8 @@ import exception.SyncException;
  * CommandFactory object that creates a command to be executed.
  */
 public class Parser {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * The logger instance for logging information and warnings.
@@ -97,6 +101,7 @@ public class Parser {
      * @throws SyncException If the input is invalid or the command is not recognized.
      */
     public CommandFactory parse(String input) throws SyncException {
+        assert input != null;
         logger.info("Parsing command: " + input);
 
         String[] parts = input.trim().toLowerCase().split(" ", 2); // Split input
