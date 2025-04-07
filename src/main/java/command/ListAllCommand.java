@@ -31,7 +31,8 @@ public class ListAllCommand extends Command {
             if(ui.readLine().equalsIgnoreCase("yes")) {
                 new LoginCommand().execute(events, ui, participants);
             } else {
-                return;
+                throw new SyncException("No user logged in. Please enter 'login' to log in " +
+                        "or 'create' to create a new user and then log in.");
             }
         }
 

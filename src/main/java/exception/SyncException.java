@@ -22,8 +22,7 @@ public class SyncException extends Exception {
 
     public static String invalidEventIndexErrorMessage() {
         return "   (╯°□°)╯︵ Invalid event index! Enter your command word to try again.\n" +
-                "   Please provide a valid event index.\n" +
-                "   Example: `delete 2` or `edit 3`.";
+                "   Please provide a valid event index.\n";
     }
 
     public static String invalidEventDetailsErrorMessage() {
@@ -36,8 +35,7 @@ public class SyncException extends Exception {
     public static String invalidFilterInputErrorMessage() {
         return "   (╯°□°)╯︵ Invalid filter input! Enter 'filter' to try again.\n" +
                 "   Please provide valid filter inputs in the format: \n" +
-                "   `filter {lower priority bound} {upper priority bound}`.\n" +
-                "   Example: `filter 1 2`.";
+                "   `filter {lower priority bound} {upper priority bound}`.\n";
     }
 
     public static String invalidBoundErrorMessage() {

@@ -1,0 +1,2 @@
+John Doe | MEMBER | password123 | 
+Jane Smith | ADMIN | password456 | 

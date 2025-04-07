@@ -20,8 +20,8 @@ class DeleteEventTest {
     @BeforeEach
     void setUp() throws SyncException {
         UI ui = new UI();
-        UserStorage userStorage = new UserStorage("test-users.txt");
-        Storage storage = new Storage("test-delete-events.txt", userStorage);
+        UserStorage userStorage = new UserStorage("./data/test-users.txt");
+        Storage storage = new Storage("./data/test-events.txt", userStorage);
         eventManager = new EventManager(new ArrayList<>(), ui, storage, userStorage);
     }
 

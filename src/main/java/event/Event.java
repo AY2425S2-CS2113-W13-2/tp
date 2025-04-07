@@ -139,4 +139,8 @@ public class Event {
                 participants
         );
     }
+
+    public void setParticipants(ArrayList<Participant> participants) {
+        this.participants = participants;
+    }
 }
