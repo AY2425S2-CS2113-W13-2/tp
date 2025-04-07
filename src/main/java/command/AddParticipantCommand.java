@@ -50,8 +50,6 @@ public class AddParticipantCommand extends Command {
             participant = participantManager.getParticipant(participantName);
         }
 
-
-        // 3. Check availability and add to event
         boolean isAvailable = participantManager.checkParticipantAvailability(event, participant);
         if (isAvailable) {
             boolean assigned = participantManager.assignParticipant(event, participant);
@@ -59,10 +57,11 @@ public class AddParticipantCommand extends Command {
                 event.addParticipant(participant);
                 ui.showMessage("Participant " + participant.getName() + " has been added.");
             } else {
-                ui.showMessage("Failed to assign time slot.");
+                ui.showMessage("Failed to assign time slot. Enter 'addparticipant' to try again.");
             }
         } else {
-            ui.showMessage("Participant " + participant.getName() + " is unavailable during the event.");
+            ui.showMessage("Participant " + participant.getName() + " is unavailable during the event." +
+                    "Enter 'addparticipant' to try again or try other features.");
         }
 
 

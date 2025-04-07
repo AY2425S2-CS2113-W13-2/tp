@@ -28,7 +28,7 @@ public class Participant {
 
     public boolean assignEventTime(LocalDateTime eventStart, LocalDateTime eventEnd) {
         if (eventStart.isAfter(eventEnd)) {
-            throw new IllegalArgumentException("Event end time must be after start time");
+            throw new IllegalArgumentException("Event end time must be after start time.");
         }
 
         List<AvailabilitySlot> newSlots = new ArrayList<>();

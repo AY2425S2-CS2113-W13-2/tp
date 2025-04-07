@@ -21,15 +21,29 @@ public class AddParticipantCommandFactory implements CommandFactory {
     }
 
     public AddParticipantCommand createCommand() throws SyncException {
+        Participant participant = participantManager.getCurrentUser();
+
+        if (participant == null) {
+            throw new SyncException("You are not logged in. Enter 'login' to log in first.");
+        }
+
         checkAdminPrivileges();
         showAllEvents();
         showAllParticipants();
         String[] input = ui.splitAddParticipantCommandInput();
 
+        int eventIndex;
+        try {
+            eventIndex = Integer.parseInt(input[0].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new SyncException("❌ Invalid event number. Please enter 'addparticipant' and try again.");
+        }
+
         return new AddParticipantCommand(
-                Integer.parseInt(input[0].trim()) - 1,
+                eventIndex,
                 input[1].trim(),
-                ui, participantManager
+                ui,
+                participantManager
         );
     }
 
@@ -48,7 +62,8 @@ public class AddParticipantCommandFactory implements CommandFactory {
 
     private void checkAdminPrivileges() throws SyncException {
         if (!participantManager.isCurrentUserAdmin()) {
-            throw new SyncException("Only ADMIN users can add participants.");
+            throw new SyncException("Only ADMIN users can add participants. Please 'logout' " +
+                    "and 'login' to an ADMIN user");
         }
     }
 

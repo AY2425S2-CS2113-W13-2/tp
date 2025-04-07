@@ -3,15 +3,16 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import exception.SyncException;
 import participant.AvailabilitySlot;
 import participant.Participant;
+import ui.UI;
 
 public final class CommandParser {
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final UI ui = new UI();
 
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -20,7 +21,8 @@ public final class CommandParser {
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);
         } catch (DateTimeException e) {
-            throw new SyncException("Invalid date-time format. Use yyyy-MM-dd HH:mm");
+            throw new SyncException("Invalid date-time format. Use yyyy-MM-dd HH:mm. " +
+                    "Enter any command word to continue.");
         }
     }
 
@@ -55,25 +57,25 @@ public final class CommandParser {
         }
 
         if (slots.isEmpty()) {
-            throw new SyncException("At least one availability slot is required");
+            throw new SyncException("At least one availability slot is required.");
         }
         return slots;
     }
 
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
-        System.out.print("Enter participant's access level (1 for Admin, 2 for Member): ");
+        ui.showMessage("Enter participant's access level (1 for Admin, 2 for Member): ");
         try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
+            int choice = Integer.parseInt(ui.readLine().trim());
             if (choice == 1) {
                 return Participant.AccessLevel.ADMIN;
             } else if (choice == 2) {
                 return Participant.AccessLevel.MEMBER;
             } else {
-                System.out.println("Invalid choice. Defaulting to MEMBER.");
+                ui.showMessage("Invalid choice. Defaulting to MEMBER.");
                 return Participant.AccessLevel.MEMBER;
             }
         } catch (NumberFormatException e) {
-            throw new SyncException("Please enter only 1 or 2");
+            throw new SyncException("You can only enter 1 or 2. Enter 'create' to try again.");
         }
     }
 }

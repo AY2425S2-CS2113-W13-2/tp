@@ -90,7 +90,7 @@ public class Parser {
                 return new AddParticipantCommandFactory(this.eventManager, this.participantManager, this.ui);
             case "listparticipants":
                 logger.info("ListParticipants command received.");
-                return new ListParticipantsCommandFactory(this.ui);
+                return new ListParticipantsCommandFactory(this.ui, this.eventManager, this.participantManager);
             case "filter":
                 logger.info("Filter command received.");
                 return new FilterCommandFactory(this.participantManager, this.ui);
@@ -108,7 +108,7 @@ public class Parser {
                 return new HelpCommandFactory();
             default:
                 logger.warning("Invalid command received: " + input);
-                throw new SyncException(SyncException.invalidCommandErrorMessage(input));
+                throw new SyncException(SyncException.invalidCommandErrorMessage(input, this.participantManager));
             }
         } else {
             logger.warning("Empty input received: " + input);

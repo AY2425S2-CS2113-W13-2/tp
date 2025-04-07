@@ -173,8 +173,6 @@ public class EditEventCommand extends Command {
         }
     }
 
-
-
     private boolean checkParticipantAvailability(Event event, LocalDateTime newStart,
                                                  LocalDateTime newEnd, UI ui) {
         boolean allAvailable = true;

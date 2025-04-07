@@ -3,6 +3,7 @@ package event;
 import java.util.ArrayList;
 
 import participant.Participant;
+import participant.ParticipantManager;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
@@ -96,15 +97,16 @@ public class EventManager {
 
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(event, collisions);
-            throw new SyncException("You can try choose a different timing or venue instead.");
+            throw new SyncException("You can try choose a different timing or venue instead. " +
+                    "Enter 'add' to try again");
         }
 
         if (participant == null) {
-            throw new SyncException("No user is currently selected.");
+            throw new SyncException("No user is currently selected. Please enter 'login' to log in.");
         }
 
         if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime()) ) {
-            throw new SyncException("Participant is not available at the given time.");
+            throw new SyncException("Participant is not available at the given time. Enter 'add' to try again");
         }
 
         event.addParticipant(participant);
@@ -174,6 +176,11 @@ public class EventManager {
 
         if (updatedEvent.getEndTime().isBefore(updatedEvent.getStartTime())) {
             throw new SyncException(SyncException.endTimeBeforeStartTimeMessage());
+        }
+        Event originalEvent = events.get(index);
+
+        if (originalEvent.equals(updatedEvent)) {
+            return;
         }
 
         // Validate participant availability
@@ -255,11 +262,16 @@ public class EventManager {
         return storage;
     }
 
-    public ArrayList<Event> getEventsByParticipant(Participant participant) {
+    public ArrayList<Event> getEventsByParticipant(ParticipantManager participantManager) {
+        Participant participant = participantManager.getCurrentUser();
         ArrayList<Event> events = new ArrayList<>();
-        for (Event event : this.events) {
-            if(event.hasParticipant(participant)) {
-                events.add(event);
+        if (participant.isAdmin()) {
+            events = this.events;
+        } else {
+            for (Event event : this.events) {
+                if (event.hasParticipant(participant)) {
+                    events.add(event);
+                }
             }
         }
         return events;
