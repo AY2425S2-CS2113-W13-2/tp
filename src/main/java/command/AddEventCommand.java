@@ -32,7 +32,7 @@ public class AddEventCommand extends Command {
      * @throws SyncException if the current user is not set or another sync error occurs.
      */
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
-        events.addEvent(event, participantManager.getCurrentUser());
+        events.addEvent(event, participantManager);
     }
 
     /**

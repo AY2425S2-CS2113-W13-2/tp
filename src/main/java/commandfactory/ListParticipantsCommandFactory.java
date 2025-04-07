@@ -56,10 +56,7 @@ public class ListParticipantsCommandFactory implements CommandFactory {
             ui.showMessage("Enter event index to list participants (or type 'exit' to cancel):");
             String input = ui.readLine().trim();
 
-            if (input.equalsIgnoreCase("exit")) {
-                throw new SyncException("Exited list participants menu.");
-            }
-
+            ui.checkForExit(input);
             try {
                 int eventIndex = Integer.parseInt(input) - 1;
                 if (eventIndex < 0 || eventIndex >= events.size()) {

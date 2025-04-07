@@ -71,10 +71,9 @@ public class Storage {
      */
     public void saveEvents(List<Event> events, ArrayList<String> allPriorities) throws SyncException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            List<String> priorities = Priority.getAllPriorities();
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);
-                String priority = (i < priorities.size()) ? priorities.get(i) : Priority.LOW;
+                String priority = (i < allPriorities.size()) ? allPriorities.get(i) : Priority.LOW;
                 writer.write(formatEvent(event, priority));
                 writer.newLine();
             }

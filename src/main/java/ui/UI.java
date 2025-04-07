@@ -9,34 +9,32 @@ import exception.SyncException;
 import participant.Participant;
 
 /**
- * The UI class is responsible for handling the user interface of the EventSync system.
- * It provides methods to display menus, show event details, handle user inputs,
- * and display messages related to events and participants.
+ * The UI class provides methods for handling user interface operations related to event management.
+ * It supports displaying menus, messages, event details, and input prompts to the user.
  */
 public class UI {
     public static Scanner scanner = new Scanner(System.in);
 
     /**
-     * Sets a new Scanner instance for reading user input.
+     * Sets the scanner instance to a new one for handling user inputs.
      *
-     * @param newScanner the new Scanner instance to use
+     * @param newScanner The new scanner instance to be used.
      */
     public void setScanner(Scanner newScanner) {
         UI.scanner = newScanner;
     }
 
     /**
-     * Displays a given message to the user.
+     * Displays a message to the user.
      *
-     * @param message the message to display
+     * @param message The message to be displayed.
      */
     public void showMessage(String message) {
         System.out.println(message);
     }
 
     /**
-     * Displays the main command menu for the user, listing available options for event,
-     * participant, session, and system commands.
+     * Displays the main menu for the EventSync application.
      */
     public void showMenu() {
         System.out.println("╔═════════════════════════════════════════╗");
@@ -68,11 +66,11 @@ public class UI {
     }
 
     /**
-     * Displays an event along with its index and priority.
+     * Displays the event with its index and priority.
      *
-     * @param event the event to display
-     * @param index the index of the event in the list
-     * @param priority the priority of the event
+     * @param event    The event to be displayed.
+     * @param index    The index of the event in the list.
+     * @param priority The priority of the event.
      */
     public void showEventWithIndex(Event event, int index, String priority) {
         System.out.println("The event " + index + " is: ");
@@ -82,19 +80,19 @@ public class UI {
     }
 
     /**
-     * Displays a message when the list of events is empty.
+     * Displays a message when the list is empty.
      */
     public void showEmptyListMessage() {
         System.out.println("There is nothing to view");
     }
 
     /**
-     * Displays the events that match a search query.
+     * Prints the matching events to the user.
      *
-     * @param events the list of matching events
+     * @param events A list of events to be displayed.
      */
     public void printMatchingEvents(ArrayList<Event> events) {
-        if (events.isEmpty()){
+        if (events.isEmpty()) {
             System.out.println("No matching tasks found.");
         } else {
             System.out.println("Found " + events.size() + " matching events.");
@@ -106,7 +104,7 @@ public class UI {
     }
 
     /**
-     * Prompts the user to enter event details in a specific format.
+     * Prompts the user to input event details for adding an event.
      */
     public void showAddFormat() {
         System.out.println("Enter event details (format: Event Name | " +
@@ -114,18 +112,18 @@ public class UI {
     }
 
     /**
-     * Displays a message confirming the successful addition of an event.
+     * Displays a message confirming that the event has been added.
      *
-     * @param event the event that was added
+     * @param event The event that has been added.
      */
     public void showAddedMessage(Event event) {
         System.out.println("The event\n" + event.toString() + "\nhas been added to the list.");
     }
 
     /**
-     * Displays a list of options to edit an event.
+     * Displays a message with the available options for editing an event.
      *
-     * @param event the event to be edited
+     * @param event The event that is being edited.
      */
     public void showEditCommandMessage(Event event) {
         System.out.println("\nEditing Event: " + event.getName());
@@ -139,51 +137,51 @@ public class UI {
     }
 
     /**
-     * Displays an error message when the user enters an invalid input for editing.
+     * Displays a message when an invalid input is entered for editing an event.
      */
     public void showEditCommandCorrectFormat() {
         System.out.println("Invalid input! Please enter a number from 1 to 5");
     }
 
     /**
-     * Displays a prompt to enter a new event name.
+     * Prompts the user to input a new event name for editing.
      */
     public void showEditCommandStep1() {
-        System.out.print("Enter New Event Name: ");
+        System.out.print("Enter New Event Name  (or type 'exit' to cancel): ");
     }
 
     /**
-     * Displays a prompt to enter a new start time for the event.
+     * Prompts the user to input a new start time for editing.
      */
     public void showEditCommandStep2() {
-        System.out.print("Enter New Start Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Enter New Start Time (YYYY-MM-DD HH:MM) (or type 'exit' to cancel): ");
     }
 
     /**
-     * Displays a prompt to enter a new end time for the event.
+     * Prompts the user to input a new end time for editing.
      */
     public void showEditCommandStep3() {
-        System.out.print("Enter New End Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Enter New End Time (YYYY-MM-DD HH:MM) (or type 'exit' to cancel): ");
     }
 
     /**
-     * Displays a prompt to enter a new location for the event.
+     * Prompts the user to input a new event location for editing.
      */
     public void showEditCommandStep4() {
-        System.out.print("Enter New Event Location: ");
+        System.out.print("Enter New Event Location (or type 'exit' to cancel): ");
     }
 
     /**
-     * Displays a prompt to enter a new description for the event.
+     * Prompts the user to input a new event description for editing.
      */
     public void showEditCommandStep5() {
-        System.out.print("Enter New Event Description: ");
+        System.out.print("Enter New Event Description (or type 'exit' to cancel): ");
     }
 
     /**
-     * Displays the updated details of an event after editing.
+     * Displays the updated event details after editing.
      *
-     * @param event the edited event
+     * @param event The edited event.
      */
     public void showEditedEvent(Event event) {
         System.out.println("\nUpdated Event Details:");
@@ -191,17 +189,17 @@ public class UI {
     }
 
     /**
-     * Displays a goodbye message when the user exits the program.
+     * Displays a goodbye message to the user.
      */
     public void showByeMessage() {
         System.out.println("Bye!");
     }
 
     /**
-     * Displays a warning message when there is a scheduling conflict for an event.
+     * Displays a warning when there is a scheduling conflict with a new event.
      *
-     * @param newEvent the new event being scheduled
-     * @param collisions the list of events that conflict with the new event
+     * @param newEvent   The new event being scheduled.
+     * @param collisions A list of events that overlap with the new event.
      */
     public void showCollisionWarning(Event newEvent, ArrayList<Event> collisions) {
         System.out.println("Warning: Scheduling Conflict");
@@ -213,10 +211,10 @@ public class UI {
     }
 
     /**
-     * Displays a warning message when there is a participant slot conflict for an event.
+     * Displays a warning when there is a scheduling conflict with participant availability.
      *
-     * @param event the event being scheduled
-     * @param collisions the list of events that conflict with the participant's availability
+     * @param event      The event being scheduled.
+     * @param collisions A list of events that have a scheduling conflict with the participants.
      */
     public void showParticipantSlotCollisionWarning(Event event, ArrayList<Event> collisions) {
         System.out.println("Warning: Scheduling Conflict");
@@ -228,29 +226,32 @@ public class UI {
     }
 
     /**
-     * Displays a message confirming the deletion of an event.
+     * Displays a message confirming that an event has been deleted.
      *
-     * @param event the event that was deleted
+     * @param event The event that has been deleted.
      */
     public void showDeletedMessage(Event event) {
         System.out.println("\"" + event.getName() + "\" has been deleted.");
     }
 
     /**
-     * Prompts the user for input to duplicate an event.
+     * Prompts the user to input a command for duplicating an event.
      *
-     * @return the input command for duplicating an event
+     * @return The input command for duplicating the event.
+     * @throws SyncException If the user enters an invalid input or cancels the operation.
      */
-    public String readDuplicateEventInput() {
-        System.out.print("Enter duplicate command (format: <index> <New Event Name>): ");
-        return scanner.nextLine();
+    public String readDuplicateEventInput() throws SyncException {
+        System.out.print("Enter duplicate command (format: <index> <New Event Name>) (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
-     * Displays the events that match a search query, with their indices.
+     * Displays a list of matching events with their indices.
      *
-     * @param matchingEvents the list of matching events
-     * @param eventManager the event manager handling the events
+     * @param matchingEvents A list of events that match the user's criteria.
+     * @param eventManager   The event manager instance used to retrieve event details.
      */
     public void showMatchingEventsWithIndices(ArrayList<Event> matchingEvents, EventManager eventManager) {
         System.out.println("\nMatching Events:");
@@ -260,10 +261,10 @@ public class UI {
     }
 
     /**
-     * Prompts the user to confirm the deletion of an event.
+     * Asks the user for confirmation before deleting an event.
      *
-     * @param eventName the name of the event to be deleted
-     * @return true if the user confirms, false otherwise
+     * @param eventName The name of the event to be deleted.
+     * @return true if the user confirms deletion, false otherwise.
      */
     public boolean confirmDeletion(String eventName) {
         System.out.print("Confirm deletion of \"" + eventName + "\"? (yes/no): ");
@@ -272,58 +273,59 @@ public class UI {
     }
 
     /**
-     * Displays a message when event deletion is cancelled.
+     * Displays a message confirming that the deletion process has been cancelled.
      */
     public void showDeletionCancelledMessage() {
         System.out.println("Deletion cancelled.");
     }
 
     /**
-     * Prompts the user to enter participant details.
+     * Prompts the user to input participant details for adding a participant.
      */
     public void showAddParticipantFormat() {
         System.out.println("Enter participant details (format: Name | Email | AccessLevel[ADMIN/MEMBER]):");
     }
 
     /**
-     * Displays a message confirming the successful addition of a participant.
+     * Displays a message confirming that a participant has been added to an event.
      *
-     * @param p the participant that was added
+     * @param p The participant that was added.
      */
     public void showParticipantAdded(Participant p) {
         System.out.println("Participant added: " + p);
     }
 
     /**
-     * Displays a message when a user logs out.
+     * Displays a logout message to the user.
      */
     public void showLogOutMessage() {
-        System.out.println("Bye! Press 'login' to log in or 'create' to create a new user." );
+        System.out.println("Bye! Press 'login' to log in or 'create' to create a new user.");
     }
 
     /**
-     * Prompts the user for confirmation, typically for a "yes/no" decision.
+     * Asks the user for a confirmation input.
      *
-     * @param message the message to display
-     * @return true if the user enters "y", false otherwise
+     * @param message The message to be displayed for confirmation.
+     * @return true if the user confirms, false otherwise.
      */
     public boolean askConfirmation(String message) {
         System.out.println(message);
         String input = scanner.nextLine().trim().toLowerCase();
+
         return input.equals("y");
     }
 
     /**
-     * Displays a message confirming successful login.
+     * Displays a success message when a user successfully logs in.
      */
     public void showSuccessLoginMessage() {
         System.out.println("Successfully logged in.");
     }
 
     /**
-     * Displays a message confirming the successful creation of a user.
+     * Displays a success message when a user is successfully created.
      *
-     * @param participant the participant that was created
+     * @param participant The participant that was created.
      */
     public void showSuccessCreateMessage(Participant participant) {
         System.out.println("Successfully created: " + participant.getName());
@@ -331,17 +333,17 @@ public class UI {
     }
 
     /**
-     * Displays a welcome message to the user, with options to log in or create a new user.
+     * Displays a welcome message to the user when the system starts.
      */
     public void showWelcomeMessage() {
         System.out.println("Welcome to EventSync!");
-        System.out.println("Press 'login' to log in or 'create' to create a new user." );
+        System.out.println("Press 'login' to log in or 'create' to create a new user.");
     }
 
     /**
      * Reads a line of input from the user.
      *
-     * @return the input string
+     * @return The line of input entered by the user.
      */
     public String readLine() {
         return scanner.nextLine();
@@ -350,7 +352,7 @@ public class UI {
     /**
      * Reads an integer input from the user.
      *
-     * @return the parsed integer, or null if the input is not a valid integer
+     * @return The integer input entered by the user, or null if the input is not a valid integer.
      */
     public Integer readInt() {
         String input = scanner.nextLine().trim();
@@ -362,9 +364,9 @@ public class UI {
     }
 
     /**
-     * Displays the options for editing an event and prompts the user to choose one.
+     * Displays the edit menu for an event with options to modify various event details.
      *
-     * @param event the event to edit
+     * @param event The event being edited.
      */
     public void showEditCommandMessageWithOptions(event.Event event) {
         System.out.println("\n--- Editing Event ---");
@@ -380,32 +382,31 @@ public class UI {
     }
 
     /**
-     * Prompts the user to enter event details when adding a new event.
+     * Reads the input for adding an event from the user.
      *
-     * @return the input command for adding an event
+     * @return The input string containing event details.
+     * @throws SyncException If the user cancels the operation by typing 'exit'.
      */
-    public String readAddCommandInput() {
+    public String readAddCommandInput() throws SyncException {
         System.out.print("Enter event details (format: Event Name | " +
-                "Start Date | End Date | Location | Description): \n");
-        return scanner.nextLine();
+                "Start Date | End Date | Location | Description) (or type 'exit' to cancel) : \n");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
-     * Splits the input string for adding a participant into event index and participant name.
+     * Splits the input string for adding a participant and validates the format.
      *
-     * @return an array of two strings: the event index and the participant name
-     * @throws SyncException if the input format is invalid
+     * @return A string array with the event index and participant name.
+     * @throws SyncException If the input format is invalid.
      */
     public String[] splitAddParticipantCommandInput() throws SyncException {
         System.out.println("Use: <EventIndex> | <Participant Name>");
         System.out.println("Type 'exit' to cancel.");
 
         String input = scanner.nextLine().trim();
-
-        if (input.equalsIgnoreCase("exit")) {
-            throw new SyncException("❌ Add participant cancelled by user.");
-        }
-
+        checkForExit(input);
         String[] parts = input.split("\\|");
         if (parts.length != 2) {
             throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>. " +
@@ -416,62 +417,89 @@ public class UI {
     }
 
     /**
-     * Prompts the user to enter a name to search for events to delete.
+     * Reads the name input from the user to search for events to delete.
      *
-     * @return the name entered by the user
+     * @return The name entered by the user.
+     * @throws SyncException If the user cancels the operation by typing 'exit'.
      */
-    public String readDeleteName() {
-        System.out.print("Enter name to search for events to delete: ");
-        return scanner.nextLine().trim();
+    public String readDeleteName() throws SyncException {
+        System.out.print("Enter name to search for events to delete (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
-     * Prompts the user to enter a priority or a range for filtering events.
+     * Reads a filter input (priority or range) from the user.
      *
-     * @return the priority or range input by the user
+     * @return The input filter entered by the user (either a priority or a range).
+     * @throws SyncException If the user types "exit", the operation is cancelled.
      */
-    public String readFilterInput() {
-        System.out.print("Enter a priority or a range: ");
-        return scanner.nextLine().trim();
+    public String readFilterInput() throws SyncException {
+        System.out.print("Enter a priority or a range (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
      * Prompts the user to enter a participant's name.
      *
-     * @return the participant's name entered by the user
+     * @return The name of the participant entered by the user.
+     * @throws SyncException If the user types "exit", the operation is cancelled.
      */
-    public String askParticipantName() {
-        System.out.print("Enter participant's name: ");
-        return scanner.nextLine().trim();
+    public String askParticipantName() throws SyncException {
+        System.out.print("Enter participant's name (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
      * Prompts the user to enter a participant's password.
      *
-     * @return the password entered by the user
+     * @return The password of the participant entered by the user.
+     * @throws SyncException If the user types "exit", the operation is cancelled.
      */
-    public String askPassword() {
-        System.out.print("Enter participant's password: ");
-        return scanner.nextLine().trim();
+    public String askPassword() throws SyncException {
+        System.out.print("Enter participant's password (or type 'exit' to cancel): ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
-     * Prompts the user to enter their sort type preference (priority, start, or end).
+     * Reads the list sorting command input from the user (priority, start, or end).
      *
-     * @return the sort type entered by the user
+     * @return The sorting type (priority, start, or end) entered by the user.
+     * @throws SyncException If the user types "exit", the operation is cancelled.
      */
-    public String readListCommandInput() {
-        System.out.print("Enter your sort type (priority, start, end): ");
-        return scanner.nextLine().trim();
+    public String readListCommandInput() throws SyncException {
+        System.out.print("Enter your sort type (priority, start, end) or type 'exit' to cancel: ");
+        String input = scanner.nextLine().trim();
+        checkForExit(input);
+        return input;
     }
 
     /**
-     * Prompts the user to enter participant details in the format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability>.
+     * Reads input from the user to add a participant, following the specified format.
      *
-     * @return the participant details entered by the user
+     * @return The input containing event index, participant name, access level, and availability.
      */
     public String readAddParticipantInput() {
         System.out.print("Follow this format: <EventIndex> | <Participant Name> | <AccessLevel> | <Availability> \n");
         return scanner.nextLine().trim();
+    }
+
+    /**
+     * Checks if the user input is "exit", and if so, throws a SyncException to cancel the operation.
+     *
+     * @param input The user input to be checked.
+     * @throws SyncException If the user types "exit", the operation is cancelled.
+     */
+    public void checkForExit(String input) throws SyncException {
+        if (input.trim().equalsIgnoreCase("exit")) {
+            throw new SyncException("Operation cancelled.");
+        }
     }
 }

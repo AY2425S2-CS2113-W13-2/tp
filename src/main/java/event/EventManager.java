@@ -14,21 +14,22 @@ import storage.Storage;
 import label.Priority;
 
 /**
- * Manages events, including adding, deleting, updating, viewing, and checking for collisions among events.
+ * Manages events, including creation, deletion, updating, and participant assignments.
+ * It also handles event collision checks, stores events in persistent storage, and interacts with the UI.
  */
 public class EventManager {
-    public ArrayList<Event> events;
+    private ArrayList<Event> events;
     private final UI ui;
     private final Storage storage;
     private final UserStorage userStorage;
 
     /**
-     * Constructor for initializing the EventManager with a list of events, UI, storage, and userStorage.
+     * Constructs an EventManager with the specified event list, UI, storage, and user storage.
      *
-     * @param events the list of events
-     * @param ui the UI instance for user interaction
-     * @param storage the storage instance for saving events
-     * @param userStorage the user storage for managing users
+     * @param events      the list of events to manage.
+     * @param ui          the UI used for displaying information.
+     * @param storage     the storage system for saving events.
+     * @param userStorage the user storage system.
      */
     public EventManager(ArrayList<Event> events, UI ui, Storage storage, UserStorage userStorage) {
         this.events = events;
@@ -38,11 +39,11 @@ public class EventManager {
     }
 
     /**
-     * Constructor for initializing the EventManager from a file path and userStorage.
+     * Constructs an EventManager by loading events from a file and initializing necessary components.
      *
-     * @param filePath the path to the event storage file
-     * @param userStorage the user storage for managing users
-     * @throws SyncException if there is an error initializing from the file
+     * @param filePath    the file path from which to load events.
+     * @param userStorage the user storage system.
+     * @throws SyncException if there is an error during synchronization.
      */
     public EventManager(String filePath, UserStorage userStorage) throws SyncException {
         this.userStorage = userStorage;
@@ -52,20 +53,20 @@ public class EventManager {
     }
 
     /**
-     * Returns the list of events.
+     * Returns the list of all events managed by the EventManager.
      *
-     * @return the list of events
+     * @return the list of events.
      */
     public ArrayList<Event> getEvents() {
         return events;
     }
 
     /**
-     * Returns the event at the specified index.
+     * Returns a specific event by its index.
      *
-     * @param index the index of the event
-     * @return the event at the specified index
-     * @throws SyncException if the event index is invalid
+     * @param index the index of the event.
+     * @return the event at the specified index.
+     * @throws SyncException if the index is invalid.
      */
     public Event getEvent(int index) throws SyncException {
         if (index >= 0 && index < events.size()) {
@@ -76,19 +77,20 @@ public class EventManager {
     }
 
     /**
-     * Returns the number of events.
+     * Returns the number of events managed by the EventManager.
      *
-     * @return the number of events
+     * @return the number of events.
      */
     public int size() {
         return events.size();
     }
 
     /**
-     * Adds an event to the list of events and checks for collisions.
+     * Adds a new event to the event list after checking for any collisions.
+     * If collisions are found, a warning is displayed.
      *
-     * @param event the event to be added
-     * @throws SyncException if there is an error adding the event
+     * @param event the event to be added.
+     * @throws SyncException if there is a collision or other error.
      */
     public void addEvent(Event event) throws SyncException {
         assert event != null : "Event cannot be null";
@@ -122,14 +124,15 @@ public class EventManager {
     }
 
     /**
-     * Adds an event and a participant to the event, checking for availability and collisions.
+     * Adds a new event and assigns a participant to the event.
      *
-     * @param event the event to be added
-     * @param participant the participant to be added
-     * @throws SyncException if there is an error adding the event or participant
+     * @param event              the event to be added.
+     * @param participantManager the participant manager that provides the current user.
+     * @throws SyncException if there are any issues with participant availability or event collision.
      */
-    public void addEvent(Event event, Participant participant) throws SyncException {
+    public void addEvent(Event event, ParticipantManager participantManager) throws SyncException {
         assert event != null : "Event cannot be null";
+        Participant participant = participantManager.getCurrentUser();
 
         // Set the exclude index to -1 to avoid excluding any element
         ArrayList<Event> collisions = checkCollision(
@@ -152,6 +155,8 @@ public class EventManager {
 
         if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime())) {
             throw new SyncException("Participant is not available at the given time. Enter 'add' to try again");
+        } else {
+            participantManager.assignParticipant(event, participant);
         }
 
         event.addParticipant(participant);
@@ -170,7 +175,7 @@ public class EventManager {
     }
 
     /**
-     * Views all events, showing their details.
+     * Displays all events managed by the EventManager.
      */
     public void viewAllEvents() {
         assert events != null : "Events list should not be null";
@@ -187,10 +192,10 @@ public class EventManager {
     }
 
     /**
-     * Views the specified list of events.
+     * Displays a list of specified events.
      *
-     * @param events the list of events to view
-     * @throws SyncException if there is an error viewing the events
+     * @param events the list of events to display.
+     * @throws SyncException if there is an error with event retrieval.
      */
     public void viewEvents(List<Event> events) throws SyncException {
         assert events != null : "Events list should not be null";
@@ -208,10 +213,10 @@ public class EventManager {
     }
 
     /**
-     * Deletes the event at the specified index.
+     * Deletes an event by its index.
      *
-     * @param index the index of the event to delete
-     * @throws SyncException if the event index is invalid
+     * @param index the index of the event to be deleted.
+     * @throws SyncException if the index is invalid.
      */
     public void deleteEvent(int index) throws SyncException {
         if (index < 0 || index >= events.size()) {
@@ -224,11 +229,11 @@ public class EventManager {
     }
 
     /**
-     * Updates the event at the specified index with the new event details.
+     * Updates an existing event with new details.
      *
-     * @param index the index of the event to update
-     * @param updatedEvent the updated event
-     * @throws SyncException if the event index is invalid or the update is invalid
+     * @param index        the index of the event to update.
+     * @param updatedEvent the new event details.
+     * @throws SyncException if there are any issues with the update (e.g., invalid times, participant availability).
      */
     public void updateEvent(int index, Event updatedEvent) throws SyncException {
         if (index < 0 || index >= events.size()) {
@@ -249,18 +254,27 @@ public class EventManager {
             return;
         }
 
-        // Validate participant availability
-        for (Participant p : updatedEvent.getParticipants()) {
+        for (Participant p : originalEvent.getParticipants()) {
+            p.unassignEventTime(originalEvent.getStartTime(), originalEvent.getEndTime());
+        }
+
+        for (Participant p : originalEvent.getParticipants()) {
             if (!p.isAvailableDuring(updatedEvent.getStartTime(), updatedEvent.getEndTime())) {
+                for (Participant recover : originalEvent.getParticipants()) {
+                    recover.assignEventTime(originalEvent.getStartTime(), originalEvent.getEndTime());
+                }
                 throw new SyncException(SyncException.participantUnavailableDuringEditError(
                         p.getName(), updatedEvent.getStartTime(), updatedEvent.getEndTime()));
             }
         }
 
-        // Update the event
+        events.set(index, updatedEvent);
+        for (Participant p : updatedEvent.getParticipants()) {
+            p.assignEventTime(updatedEvent.getStartTime(), updatedEvent.getEndTime());
+        }
+
         events.set(index, updatedEvent);
 
-        // Collision check
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -269,7 +283,6 @@ public class EventManager {
                 index
         );
 
-        // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(updatedEvent, collisions);
         } else {
@@ -280,11 +293,11 @@ public class EventManager {
     }
 
     /**
-     * Duplicates the specified event with a new name and adds it to the event list.
+     * Duplicates an existing event with a new name and adds it to the event list.
      *
-     * @param eventToDuplicate the event to duplicate
-     * @param newName the new name for the duplicated event
-     * @throws SyncException if there is an error duplicating the event
+     * @param eventToDuplicate the event to be duplicated.
+     * @param newName          the new name for the duplicated event.
+     * @throws SyncException if there is an error during the duplication process.
      */
     public void duplicateEvent(Event eventToDuplicate, String newName) throws SyncException {
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
@@ -298,14 +311,15 @@ public class EventManager {
     }
 
     /**
-     * Checks for collisions between the specified event and other events in the list.
+     * Checks for collisions between the specified event and the existing events.
+     * A collision occurs when an event overlaps in time and location with another event.
      *
-     * @param start the start time of the event
-     * @param end the end time of the event
-     * @param location the location of the event
-     * @param events the list of events to check for collisions
-     * @param excludeIndex the index of the event to exclude from the collision check
-     * @return a list of events that collide with the specified event
+     * @param start        the start time of the event to check for collisions.
+     * @param end          the end time of the event to check for collisions.
+     * @param location     the location of the event to check for collisions.
+     * @param events       the list of existing events to compare against.
+     * @param excludeIndex the index of the event to exclude from the collision check (typically the event being edited).
+     * @return a list of events that collide with the specified event.
      */
     public ArrayList<Event> checkCollision(
             String start,
@@ -339,19 +353,20 @@ public class EventManager {
     }
 
     /**
-     * Returns the storage instance used for saving events.
+     * Returns the storage system used for managing events.
      *
-     * @return the storage instance
+     * @return the storage system.
      */
     public Storage getStorage() {
         return storage;
     }
 
     /**
-     * Returns a list of events associated with the current participant.
+     * Returns the list of events that a specific participant is involved in.
+     * If the participant is an admin, all events are returned.
      *
-     * @param participantManager the participant manager for retrieving the current user
-     * @return the list of events associated with the current participant
+     * @param participantManager the participant manager that provides the current user.
+     * @return a list of events the participant is involved in.
      */
     public ArrayList<Event> getEventsByParticipant(ParticipantManager participantManager) {
         Participant participant = participantManager.getCurrentUser();
@@ -369,11 +384,20 @@ public class EventManager {
     }
 
     /**
-     * Sets the list of events.
+     * Sets the list of events managed by the EventManager.
      *
-     * @param events the list of events to set
+     * @param events the list of events to set.
      */
     public void setEvents(ArrayList<Event> events) {
         this.events = events;
+    }
+
+    /**
+     * Saves the current events and their associated priorities to persistent storage.
+     *
+     * @throws SyncException if there is an error saving the events.
+     */
+    public void save() throws SyncException {
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
 }

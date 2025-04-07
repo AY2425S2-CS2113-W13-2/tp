@@ -2,19 +2,28 @@
 actor User
 
 User -> Parser : input command string
-Parser -> CommandFactory : parse(input)
 activate Parser
+
+Parser -> Parser : parse(input)
 note right of Parser : Determines command type\n(e.g., "add", "list", etc.)
+
 Parser -> CommandFactory : new AddEventCommandFactory()
 deactivate Parser
 
-CommandFactory -> Command : createCommand()
+CommandFactory -> CommandParser : calls methods to get input
 activate CommandFactory
-note right of CommandFactory : Uses user input to\ninstantiate specific Command
+note right of CommandFactory : Factory uses CommandParser\nto validate and parse input
+
+CommandParser --> CommandFactory : return parsed input
 deactivate CommandFactory
 
-Command -> Command : execute(EventManager, UI, ParticipantManager)
+CommandFactory -> Command : createCommand()
+activate CommandFactory
+note right of CommandFactory : Uses parsed input to\ninstantiate specific Command
+deactivate CommandFactory
+
 activate Command
+Command -> Command : execute(EventManager, UI, ParticipantManager)
 note right of Command : Executes behavior depending\non command type
-deactivate Command
+
 @enduml

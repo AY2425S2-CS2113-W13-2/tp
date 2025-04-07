@@ -11,17 +11,19 @@ import participant.ParticipantManager;
 import ui.UI;
 
 /**
- * Represents a command that allows editing an existing event's details.
+ * Command that allows the administrator to edit event details such as name, start time,
+ * end time, location, and description. It checks for participant availability and
+ * ensures that no conflicts arise during the editing process.
  */
 public class EditEventCommand extends Command {
     private final int index;
     private final ParticipantManager participantManager;
 
     /**
-     * Constructs an {@code EditEventCommand} with the specified event index and participant manager.
+     * Constructor to initialize the EditEventCommand with an event index and participant manager.
      *
-     * @param index the index of the event to be edited.
-     * @param participantManager the manager handling participant information.
+     * @param index The index of the event to edit
+     * @param participantManager The participant manager responsible for managing participants
      */
     public EditEventCommand(int index, ParticipantManager participantManager) {
         this.index = index;
@@ -29,14 +31,16 @@ public class EditEventCommand extends Command {
     }
 
     /**
-     * Executes the event editing process by allowing the user to select specific fields to edit.
-     * Only administrators can edit events.
+     * Executes the edit event command. This method allows an administrator to modify event details.
+     * It prompts the user to edit specific event properties, such as name, start time, end time, location,
+     * and description, and ensures the consistency of participant availability.
      *
-     * @param events the event manager managing the events.
-     * @param ui the user interface for input/output.
-     * @param participantManager the participant manager for checking access and availability.
-     * @throws SyncException if the user is not an admin or input is invalid.
+     * @param events The event manager that holds the events
+     * @param ui The UI interface to interact with the user
+     * @param participantManager The participant manager to handle participant data
+     * @throws SyncException If an error occurs during the editing process, such as invalid data or participant unavailability
      */
+    @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
         if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("You are not currently administrator.");
@@ -80,34 +84,42 @@ public class EditEventCommand extends Command {
                 ui.showEditCommandCorrectFormat();
             }
 
-            events.updateEvent(index, event);
+            events.save();
+            participantManager.save();
         }
     }
 
     /**
-     * Prompts the user to edit the event name.
+     * Edits the event's name.
+     *
+     * @param event The event to edit
+     * @param ui The UI interface for interaction
+     * @return true if the name was successfully updated, false if editing was cancelled
+     * @throws SyncException If an error occurs during editing
      */
-    private boolean editName(Event event, UI ui) {
+    private boolean editName(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep1();
         String newName = ui.readLine().trim();
-        if (newName.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Name editing cancelled.");
-            return true;
-        }
+        ui.checkForExit(newName);
         event.setName(newName);
         ui.showMessage("✅ Name updated:");
         return true;
     }
 
     /**
-     * Prompts the user to edit the event start time with validations.
+     * Edits the event's start time.
+     *
+     * @param event The event to edit
+     * @param ui The UI interface for interaction
+     * @return true if the start time was successfully updated, false if editing was cancelled
+     * @throws SyncException If an error occurs during editing, such as an invalid time or participant unavailability
      */
     private boolean editStartTime(Event event, UI ui) throws SyncException {
         while (true) {
             LocalDateTime newStart = getValidDateTime(ui, "start");
             if (newStart == null) {
                 ui.showMessage("❌ Start time editing cancelled.");
-                return true;
+                return true; // return to main edit menu
             }
 
             if (newStart.isAfter(event.getEndTime())) {
@@ -115,9 +127,24 @@ public class EditEventCommand extends Command {
                 continue;
             }
 
-            if (!checkParticipantAvailability(event, newStart, event.getEndTime(), ui)) {
-                ui.showMessage(SyncException.participantConflictMessage());
-                continue;
+            for (Participant p : event.getParticipants()) {
+                p.unassignEventTime(event.getStartTime(), event.getEndTime());
+            }
+
+            for (Participant p : event.getParticipants()) {
+                if (!p.isAvailableDuring(newStart, event.getEndTime())) {
+                    for (Participant recover : event.getParticipants()) {
+                        recover.assignEventTime(event.getStartTime(), event.getEndTime());
+                        participantManager.save(recover);
+                    }
+                    throw new SyncException(SyncException.participantUnavailableDuringEditError(
+                            p.getName(), event.getStartTime(), event.getEndTime()));
+                }
+            }
+
+            for (Participant p : event.getParticipants()) {
+                p.assignEventTime(newStart, event.getEndTime());
+                participantManager.save(p);
             }
 
             event.setStartTime(newStart);
@@ -126,7 +153,12 @@ public class EditEventCommand extends Command {
     }
 
     /**
-     * Prompts the user to edit the event end time with validations.
+     * Edits the event's end time.
+     *
+     * @param event The event to edit
+     * @param ui The UI interface for interaction
+     * @return true if the end time was successfully updated, false if editing was cancelled
+     * @throws SyncException If an error occurs during editing, such as an invalid time or participant unavailability
      */
     private boolean editEndTime(Event event, UI ui) throws SyncException {
         while (true) {
@@ -142,9 +174,24 @@ public class EditEventCommand extends Command {
                 continue;
             }
 
-            if (!checkParticipantAvailability(event, event.getStartTime(), newEnd, ui)) {
-                ui.showMessage(SyncException.participantConflictMessage());
-                continue;
+            for (Participant p : event.getParticipants()) {
+                p.unassignEventTime(event.getStartTime(), event.getEndTime());
+            }
+
+            for (Participant p : event.getParticipants()) {
+                if (!p.isAvailableDuring(event.getStartTime(), newEnd)) {
+                    for (Participant recover : event.getParticipants()) {
+                        recover.assignEventTime(event.getStartTime(), event.getEndTime());
+                        participantManager.save();
+                    }
+                    throw new SyncException(SyncException.participantUnavailableDuringEditError(
+                            p.getName(), event.getStartTime(), event.getEndTime()));
+                }
+            }
+
+            for (Participant p : event.getParticipants()) {
+                p.assignEventTime(event.getStartTime(), newEnd);
+                participantManager.save();
             }
 
             event.setEndTime(newEnd);
@@ -153,37 +200,46 @@ public class EditEventCommand extends Command {
     }
 
     /**
-     * Prompts the user to edit the event location.
+     * Edits the event's location.
+     *
+     * @param event The event to edit
+     * @param ui The UI interface for interaction
+     * @return true if the location was successfully updated, false if editing was cancelled
+     * @throws SyncException If an error occurs during editing
      */
-    private boolean editLocation(Event event, UI ui) {
+    private boolean editLocation(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep4();
         String newLocation = ui.readLine().trim();
-        if (newLocation.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Location editing cancelled.");
-            return true;
-        }
+        ui.checkForExit(newLocation);
         event.setLocation(newLocation);
         ui.showMessage("✅ Location updated:");
         return true;
     }
 
     /**
-     * Prompts the user to edit the event description.
+     * Edits the event's description.
+     *
+     * @param event The event to edit
+     * @param ui The UI interface for interaction
+     * @return true if the description was successfully updated, false if editing was cancelled
+     * @throws SyncException If an error occurs during editing
      */
-    private boolean editDescription(Event event, UI ui) {
+    private boolean editDescription(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep5();
         String newDesc = ui.readLine().trim();
-        if (newDesc.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Description editing cancelled.");
-            return true;
-        }
+        ui.checkForExit(newDesc);
         event.setDescription(newDesc);
         ui.showMessage("✅ Description updated:");
         return true;
     }
 
     /**
-     * Prompts the user for a valid date and time input.
+     * Prompts the user for a valid date-time input for start or end time.
+     *
+     * @param ui The UI interface for interaction
+     * @param type The type of time ("start" or "end")
+     * @return The parsed LocalDateTime if valid, null if user cancels
+     * @throws SyncException If an error occurs during the input process
      */
     private LocalDateTime getValidDateTime(UI ui, String type) throws SyncException {
         boolean firstPrompt = true;
@@ -198,20 +254,24 @@ public class EditEventCommand extends Command {
             }
 
             String input = ui.readLine().trim();
-            if (input.equalsIgnoreCase("exit")) {
-                return null;
-            }
+            ui.checkForExit(input);
 
             try {
                 return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             } catch (Exception e) {
-                throw new SyncException("cInvalid format! Please re-enter or type 'exit' to cancel:");
+                // loop will continue and re-show the re-entry prompt
             }
         }
     }
 
     /**
-     * Checks if all participants in the event are available during the new time.
+     * Checks if all participants are available during the specified time range.
+     *
+     * @param event The event to check
+     * @param newStart The new start time for the event
+     * @param newEnd The new end time for the event
+     * @param ui The UI interface for interaction
+     * @return true if all participants are available, false otherwise
      */
     private boolean checkParticipantAvailability(Event event, LocalDateTime newStart,
                                                  LocalDateTime newEnd, UI ui) {

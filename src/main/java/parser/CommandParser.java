@@ -72,9 +72,11 @@ public final class CommandParser {
      * @throws SyncException If the input is invalid or the user does not enter a valid number.
      */
     public static Participant.AccessLevel askAccessLevel() throws SyncException {
-        ui.showMessage("Enter participant's access level (1 for Admin, 2 for Member): ");
+        ui.showMessage("Enter participant's access level (1 for Admin, 2 for Member) (or type 'exit' to cancel): ");
+        String input = ui.readLine().trim();
+        ui.checkForExit(input);
         try {
-            int choice = Integer.parseInt(ui.readLine().trim());
+            int choice = Integer.parseInt(input);
             if (choice == 1) {
                 return Participant.AccessLevel.ADMIN;
             } else if (choice == 2) {

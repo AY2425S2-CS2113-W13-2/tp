@@ -6,18 +6,18 @@ import exception.SyncException;
 import participant.ParticipantManager;
 
 /**
- * Factory class responsible for creating a ListCommand.
- * This factory creates a command that lists events with a specified sorting order.
+ * Factory class responsible for creating instances of the ListCommand.
+ * The ListCommand is used to list events or participants with a specific sorting order.
  */
 public class ListCommandFactory implements CommandFactory {
     private final ParticipantManager participantManager;
     private final ui.UI ui;
 
     /**
-     * Constructs a ListCommandFactory with the given participant manager and UI.
+     * Constructs a ListCommandFactory with the provided ParticipantManager and UI.
      *
-     * @param participantManager The participant manager to check the current user's role
-     * @param ui The UI to interact with the user and get the sorting input
+     * @param participantManager the participant manager used to manage participants.
+     * @param ui the user interface used to interact with the user.
      */
     public ListCommandFactory(ParticipantManager participantManager, ui.UI ui) {
         this.participantManager = participantManager;
@@ -25,21 +25,18 @@ public class ListCommandFactory implements CommandFactory {
     }
 
     /**
-     * Creates a ListCommand that lists events with the selected sorting order.
+     * Creates a new ListCommand based on user input.
+     * The user is prompted to provide a sorting type for listing events or participants.
      *
-     * @return A new ListCommand with the selected sorting option
-     * @throws SyncException If the user provides an invalid or empty sorting type
+     * @return a new ListCommand object with the specified sort type.
+     * @throws SyncException if the sort type input is empty or invalid.
      */
     @Override
     public Command createCommand() throws SyncException {
         String sortType = ui.readListCommandInput();
-
         if (sortType.equals("")) {
             throw new SyncException("List sort type is empty. Please enter 'list' and try again.");
-        } else if (sortType.equals("asc")) {
-            // You can add specific logic here for sorting in ascending order
         }
-
         return new ListCommand(sortType);
     }
 }
