@@ -7,6 +7,7 @@ import ui.UI;
 import exception.SyncException;
 import event.Event;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Represents a command to find events based on a search keyword.
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
 
     /** The keyword to search for in event names and descriptions. */
+    private static final Logger LOGGER = Logger.getLogger(FindCommand.class.getName());
+
     private final String keyword;
 
     /**
@@ -38,6 +41,8 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert keyword != null : "Search keyword cannot be null";
+        LOGGER.info("Searching for events with keyword: " + keyword);
         try {
             Participant participant = participantManager.getCurrentUser();
 

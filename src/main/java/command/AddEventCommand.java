@@ -5,6 +5,7 @@ import event.EventManager;
 import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
+import java.util.logging.Logger;
 
 /**
  * Represents a command to add an event.
@@ -13,6 +14,7 @@ import exception.SyncException;
  */
 public class AddEventCommand extends Command {
     private final Event event;
+    private static final Logger LOGGER = Logger.getLogger(AddEventCommand.class.getName());
 
     /**
      * Constructs an {@code AddEventCommand} with the specified event.
@@ -32,6 +34,8 @@ public class AddEventCommand extends Command {
      * @throws SyncException if the current user is not set or another sync error occurs.
      */
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        LOGGER.info("Attempting to create AddEventCommand");
+        assert event != null : "Event cannot be null";
         events.addEvent(event, participantManager);
     }
 

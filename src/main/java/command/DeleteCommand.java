@@ -2,14 +2,17 @@ package command;
 
 import event.Event;
 import event.EventManager;
+import participant.Participant;
 import participant.ParticipantManager;
 import ui.UI;
 import exception.SyncException;
+import java.util.logging.Logger;
 
 /**
  * Represents a command to delete an event from the event manager.
  */
 public class DeleteCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(DeleteCommand.class.getName());
     private final int index;
 
     /**
@@ -31,6 +34,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert ui != null;
+        LOGGER.info("Attempting to create DeletetCommand");
         if (index < 0 || index >= eventManager.getEvents().size()) {
             throw new SyncException("Invalid event index. Please enter a valid index.");
         }
@@ -44,9 +49,15 @@ public class DeleteCommand extends Command {
 
         if (ui.confirmDeletion(eventToDelete.getName())) {
             eventManager.deleteEvent(index);
+            for (Participant participant : eventToDelete.getParticipants()) {
+                participant.unassignEventTime(eventToDelete.getStartTime(), eventToDelete.getEndTime());
+                participantManager.save(participant);
+            }
         } else {
             ui.showDeletionCancelledMessage();
         }
+        participantManager.save();
+        eventManager.save();
     }
 
     /**

@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import commandfactory.CommandFactory;
 import commandfactory.CreateUserCommandFactory;
 import event.Event;
@@ -16,6 +18,8 @@ import label.Priority;
  * to a specific event by index, creating the participant if needed.
  */
 public class AddParticipantCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(AddParticipantCommand.class.getName());
+
     private final int eventIndex;
     private final String participantName;
     private final UI ui;
@@ -48,6 +52,8 @@ public class AddParticipantCommand extends Command {
      * @throws SyncException if there is an error during execution or saving data.
      */
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert eventIndex >= 0 : "Event index must be non-negative";
+        LOGGER.info("Attempting to create AddParticipantCommand");
         Event event = eventManager.getEvent(eventIndex);
         ui.showMessage("Event Index: " + eventIndex);
         ui.showMessage("Event Start Time: " + event.getStartTime());

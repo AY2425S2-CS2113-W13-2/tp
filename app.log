@@ -1,112 +1,112 @@
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç logger.EventSyncLogger setupLogger
-ĞÅÏ¢: Logger initialized successfully
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç logger.EventSyncLoggerTest testLoggerInfoMessage
-ĞÅÏ¢: Logger initialized successfully
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: logout
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Logout command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: duplicate event_id
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Duplicate command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: listparticipants
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: ListParticipants command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: listall
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: List all command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: find
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-¾¯¸æ: Find command received without keyword.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: invalidCommand
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-¾¯¸æ: Invalid command received: invalidCommand
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: bye
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Bye command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: list
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: List command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: login username password
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Login command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: create username password
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Create command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: 
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-¾¯¸æ: Invalid command received: 
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: help
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Help command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: edit event_id | new_description
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Edit command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: filter event_type
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Filter command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: addparticipant participant_name | event_id
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: AddParticipant command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: find event
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Find command received with keyword: event
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: add event_name | 2024-05-01 12:00 | 2024-05-01 14:00 | description | details
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Add command received.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser <init>
-ĞÅÏ¢: Parser initialized with custom scanner.
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Parsing command: delete event_id
-4ÔÂ 08, 2025 4:46:31 ÉÏÎç parser.Parser parse
-ĞÅÏ¢: Delete command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ logger.EventSyncLogger setupLogger
+ä¿¡æ¯: Logger initialized successfully
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ logger.EventSyncLoggerTest testLoggerInfoMessage
+ä¿¡æ¯: Logger initialized successfully
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: logout
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Logout command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: duplicate event_id
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Duplicate command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: listparticipants
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: ListParticipants command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: listall
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: List all command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: find
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+è­¦å‘Š: Find command received without keyword.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: invalidCommand
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+è­¦å‘Š: Invalid command received: invalidCommand
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: bye
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Bye command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: list
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: List command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: login username password
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Login command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: create username password
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Create command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: 
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+è­¦å‘Š: Invalid command received: 
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: help
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Help command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: edit event_id | new_description
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Edit command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: filter event_type
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Filter command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: addparticipant participant_name | event_id
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: AddParticipant command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: find event
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Find command received with keyword: event
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: add event_name | 2024-05-01 12:00 | 2024-05-01 14:00 | description | details
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Add command received.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser <init>
+ä¿¡æ¯: Parser initialized with custom scanner.
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Parsing command: delete event_id
+4æœˆ 08, 2025 5:20:28 ä¸Šåˆ parser.Parser parse
+ä¿¡æ¯: Delete command received.

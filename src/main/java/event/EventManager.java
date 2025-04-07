@@ -223,11 +223,11 @@ public class EventManager {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
         Event deletedEvent = events.remove(index);
+
         Priority.removePriority(index);
         ui.showDeletedMessage(deletedEvent);
         storage.saveEvents(events, Priority.getAllPriorities());
     }
-
     /**
      * Updates an existing event with new details.
      *
