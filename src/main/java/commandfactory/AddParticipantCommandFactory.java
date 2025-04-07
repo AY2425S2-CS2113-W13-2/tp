@@ -1,12 +1,15 @@
 package commandfactory;
 
 import command.AddParticipantCommand;
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import participant.Participant;
 import participant.ParticipantManager;
 import exception.SyncException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import ui.UI;
 
 /**
@@ -14,6 +17,8 @@ import ui.UI;
  * Ensures that the current user is logged in, has admin privileges, and shows available events and participants.
  */
 public class AddParticipantCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final UI ui;
     private final EventManager eventManager;
@@ -40,6 +45,8 @@ public class AddParticipantCommandFactory implements CommandFactory {
      * @throws SyncException if the user is not logged in, is not an admin, or if the input is invalid
      */
     public AddParticipantCommand createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting addParticipantCommandFactory");
         Participant participant = participantManager.getCurrentUser();
 
         if (participant == null) {

@@ -1,12 +1,17 @@
 package participant;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
+
+import command.LoginCommand;
 
 /**
  * Represents an availability slot with a start time and an end time.
  * This class is used to define a period during which a participant is available.
  */
 public class AvailabilitySlot {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * The start time of the availability slot.
@@ -35,6 +40,8 @@ public class AvailabilitySlot {
      * @return The start time of the availability slot.
      */
     public LocalDateTime getStartTime() {
+        assert this != null;
+        LOGGER.info("Attempting getting start time");
         return startTime;
     }
 

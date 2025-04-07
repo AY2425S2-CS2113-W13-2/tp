@@ -2,7 +2,9 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -13,6 +15,8 @@ import participant.Participant;
  * It supports displaying menus, messages, event details, and input prompts to the user.
  */
 public class UI {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     public static Scanner scanner = new Scanner(System.in);
 
     /**

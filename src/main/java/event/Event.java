@@ -2,15 +2,19 @@ package event;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import command.LoginCommand;
 import exception.SyncException;
 import participant.Participant;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Represents an event that has a name, start and end time, location, description, and a list of participants.
  * Provides functionality to add/remove participants, list participants, and duplicate the event with a new name.
  */
 public class Event {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String name;
     private LocalDateTime startTime;
@@ -174,6 +178,8 @@ public class Event {
      * @throws SyncException If the participant is already added to the event.
      */
     public void addParticipant(Participant participant) throws SyncException {
+        assert participant != null : "Participant cannot be null";
+        LOGGER.info("Attempting adding participant ");
         if (!participants.contains(participant)) {
             participants.add(participant);
         } else {

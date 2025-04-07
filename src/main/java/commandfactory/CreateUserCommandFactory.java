@@ -2,6 +2,7 @@ package commandfactory;
 
 import command.Command;
 import command.CreateUserCommand;
+import command.LoginCommand;
 import exception.SyncException;
 import participant.Participant;
 import participant.AvailabilitySlot;
@@ -11,12 +12,15 @@ import parser.CommandParser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Factory class responsible for creating a CreateUserCommand.
  * This factory gathers all necessary information from the user to create a new participant.
  */
 public class CreateUserCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final UI ui;
     private final ParticipantManager participantManager;
 
@@ -41,6 +45,8 @@ public class CreateUserCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting CreateUserCommandFactory");
         String participantName = askParticipantName();
         if (participantManager.getParticipant(participantName) != null) {
             throw new SyncException("Participant " + participantName + " already exists. Please enter 'create' " +
