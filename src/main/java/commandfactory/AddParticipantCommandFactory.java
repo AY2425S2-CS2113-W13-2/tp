@@ -32,10 +32,18 @@ public class AddParticipantCommandFactory implements CommandFactory {
         showAllParticipants();
         String[] input = ui.splitAddParticipantCommandInput();
 
+        int eventIndex;
+        try {
+            eventIndex = Integer.parseInt(input[0].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new SyncException("❌ Invalid event number. Please enter 'addparticipant' and try again.");
+        }
+
         return new AddParticipantCommand(
-                Integer.parseInt(input[0].trim()) - 1,
+                eventIndex,
                 input[1].trim(),
-                ui, participantManager
+                ui,
+                participantManager
         );
     }
 
