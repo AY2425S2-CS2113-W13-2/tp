@@ -46,11 +46,20 @@ public class FilterCommandFactory implements CommandFactory {
         // Read and validate the input for filter criteria
         String input = ui.readFilterInput();
 
-        assert input != null : "Input string should not be null";
-        assert !input.trim().isEmpty() : "Input string should not be empty";
+        if (input == null) {
+            throw new SyncException("Input string should not be null");
+        }
+
+        input = input.trim();
+
+        if (input.trim().isEmpty()) {
+            throw new SyncException("Input string should not be empty");
+        }
 
         String[] stringParts = input.split(" ");
-        assert stringParts.length > 0 : "Split result should not be empty";
+        if (stringParts.length == 0) {
+            throw new SyncException("Input string should not be empty");
+        }
 
         if ((stringParts.length != 1) && (stringParts.length != 2)) {
             throw new SyncException("Please provide one or two priority levels (e.g., 'LOW', 'LOW MEDIUM')");

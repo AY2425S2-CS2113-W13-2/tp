@@ -61,7 +61,7 @@ public class UI {
         System.out.println("║                                         ║");
         System.out.println("║  === System Commands ===                ║");
         System.out.println("║  bye            - Exit program          ║");
-        System.out.println("║  help           - Show this menu        ║");
+        System.out.println("║  help           - Show help menu        ║");
         System.out.println("╚═════════════════════════════════════════╝");
     }
 
@@ -92,8 +92,9 @@ public class UI {
      * @param events A list of events to be displayed.
      */
     public void printMatchingEvents(ArrayList<Event> events) {
-        if (events.isEmpty()) {
-            System.out.println("No matching tasks found.");
+        if (events.isEmpty()){
+            System.out.println("No matching events found.");
+
         } else {
             System.out.println("Found " + events.size() + " matching events.");
             System.out.println("Here are the matching events in your list: ");

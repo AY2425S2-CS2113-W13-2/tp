@@ -69,7 +69,8 @@ class CreateUserCommandFactoryTest {
 
     @Test
     void testThrowsIfParticipantExists() throws SyncException {
-        participantManager.addNewUser(new Participant("John Doe", "password123", Participant.AccessLevel.ADMIN));
+        participantManager.addNewUser(new Participant("John Doe", "password123",
+                Participant.AccessLevel.ADMIN));
 
         simulateInput("John Doe\nnewpassword123\n1\n1\n2025-04-08 09:00\n2025-04-08 17:00");
 
@@ -83,7 +84,8 @@ class CreateUserCommandFactoryTest {
         simulateInput("Jane Doe\npassword123\n1\n0");
 
         SyncException exception = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' and try again." +
+        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' " +
+                "and try again." +
                 "", exception.getMessage());
     }
 
@@ -101,7 +103,8 @@ class CreateUserCommandFactoryTest {
         simulateInput("Bob\npassword123\n1\n-1");
 
         SyncException exception = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' and try again.",
+        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' and " +
+                        "try again.",
                 exception.getMessage());
     }
 

@@ -25,7 +25,8 @@ public class LogOutCommandFactoryTest {
         UserStorage userStorage = new UserStorage("./data/test-users.txt");
         participantManager = new ParticipantManager(new ArrayList<>(), null, userStorage);
 
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
 
@@ -33,7 +34,7 @@ public class LogOutCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_NotLoggedIn_ThrowsException() {
+    public void testCreateCommandNotLoggedInThrowsException() {
         participantManager.setCurrentUser(null);
 
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
@@ -41,7 +42,7 @@ public class LogOutCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_LoggedIn_ReturnsLogOutCommand() throws SyncException {
+    public void testCreateCommandLoggedInReturnsLogOutCommand() throws SyncException {
         Command command = factory.createCommand();
         assertTrue(command instanceof LogOutCommand);
     }

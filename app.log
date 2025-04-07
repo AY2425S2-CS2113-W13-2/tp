@@ -1,3 +1,117 @@
+<<<<<<< HEAD
+Apr 07, 2025 10:34:34 PM logger.EventSyncLogger setupLogger
+INFO: Logger initialized successfully
+Apr 07, 2025 10:34:34 PM logger.EventSyncLoggerTest testLoggerInfoMessage
+INFO: Logger initialized successfully
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: logout
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Logout command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: duplicate event_id
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Duplicate command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: listparticipants
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: ListParticipants command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: listall
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: List all command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: find
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+WARNING: Find command received without keyword.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: invalidCommand
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+WARNING: Invalid command received: invalidCommand
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: bye
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Bye command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: list
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: List command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: login username password
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Login command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: create username password
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Create command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: 
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+WARNING: Invalid command received: 
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: help
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Help command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: edit event_id | new_description
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Edit command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: filter event_type
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Filter command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: addparticipant participant_name | event_id
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: AddParticipant command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: find event
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Find command received with keyword: event
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: add event_name | 2024-05-01 12:00 | 2024-05-01 14:00 | description | details
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Add command received.
+Apr 07, 2025 10:34:34 PM parser.Parser <init>
+INFO: Parser initialized with custom scanner.
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Parsing command: delete event_id
+Apr 07, 2025 10:34:34 PM parser.Parser parse
+INFO: Delete command received.
+=======
 4月 07, 2025 11:34:34 下午 logger.EventSyncLogger setupLogger
 信息: Logger initialized successfully
 4月 07, 2025 11:34:34 下午 logger.EventSyncLoggerTest testLoggerInfoMessage
@@ -110,3 +224,4 @@
 信息: Parsing command: delete event_id
 4月 07, 2025 11:34:34 下午 parser.Parser parse
 信息: Delete command received.
+>>>>>>> 7ab5b74ca23220b4e8e5b04485de041d5fcd95d2

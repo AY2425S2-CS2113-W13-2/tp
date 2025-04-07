@@ -124,13 +124,15 @@ public class CreateUserCommandFactory implements CommandFactory {
         try {
             int numSlots = Integer.parseInt(input);
             if (numSlots <= 0) {
-                throw new SyncException("❌ Number of availability slots must be at least 1. Please enter 'create' and try again.");
+                throw new SyncException("❌ Number of availability slots must be at least 1. " +
+                        "Please enter 'create' and try again.");
             } else if (numSlots > 10) {
                 ui.showMessage("You entered more than 10 slots. The number of slots has been set to 10 by default.");
             }
             return Math.min(numSlots, 10);
         } catch (NumberFormatException e) {
-            throw new SyncException("❌ Invalid input. Please enter a valid number between 1 and 10. Please enter 'create' and try again.");
+            throw new SyncException("❌ Invalid input. Please enter a valid number between 1 and 10. " +
+                    "Please enter 'create' and try again.");
         }
     }
 
@@ -160,7 +162,8 @@ public class CreateUserCommandFactory implements CommandFactory {
      * @throws SyncException if the user input is invalid
      */
     private LocalDateTime askStartTime(int slotIndex) throws SyncException {
-        ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): ");
+        ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) " +
+                "(or type 'exit' to cancel): ");
         String startTimeStr = ui.readLine().trim();
         ui.checkForExit(startTimeStr);
         return CommandParser.parseDateTime(startTimeStr);
@@ -174,7 +177,8 @@ public class CreateUserCommandFactory implements CommandFactory {
      * @throws SyncException if the user input is invalid
      */
     private LocalDateTime askEndTime(int slotIndex) throws SyncException {
-        ui.showMessage("Enter end time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): ");
+        ui.showMessage("Enter end time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm)" +
+                " (or type 'exit' to cancel): ");
         String endTimeStr = ui.readLine().trim();
         ui.checkForExit(endTimeStr);
         return CommandParser.parseDateTime(endTimeStr);

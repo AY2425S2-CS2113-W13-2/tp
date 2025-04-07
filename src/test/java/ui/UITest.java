@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import exception.SyncException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +19,6 @@ import java.util.Scanner;
 
 import event.Event;
 import participant.Participant;
-
 
 public class UITest {
 
@@ -41,7 +42,6 @@ public class UITest {
     @Test
     public void testShowMenu() {
         ui.showMenu();
-        // Check if the menu contains specific expected strings
         assertTrue(outputStreamCaptor.toString().contains("╔═════════════════════════════════════════╗"));
         assertTrue(outputStreamCaptor.toString().contains("║          EVENT SYNC COMMAND MENU        ║"));
         assertTrue(outputStreamCaptor.toString().contains("║  === Event Management Commands ===      ║"));
@@ -78,6 +78,81 @@ public class UITest {
         Integer result = ui.readInt();
 
         assertNull(result, "Input should be invalid and return null");
+    }
+
+    @Test
+    public void testReadFilterInputValid() {
+        String simulatedInput = "4 5\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readFilterInput();
+            assertEquals("4 5", result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadFilterInputInvalid() {
+        String simulatedInput = "invalid\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readFilterInput();
+            assertEquals("invalid", result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadListCommandInputValidAll() {
+        String simulatedInput = "all\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readListCommandInput();
+            assertEquals("all", result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadListCommandInputValidParticipants() {
+        String simulatedInput = "participants EventName\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readListCommandInput();
+            assertEquals("participants EventName", result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadListCommandInputInvalid() {
+        String simulatedInput = "invalid\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readListCommandInput();
+            assertEquals("invalid", result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
     }
 
     @Test
@@ -151,14 +226,49 @@ public class UITest {
     @Test
     public void testShowLogOutMessage() {
         ui.showLogOutMessage();
-        assertTrue(outputStreamCaptor.toString().contains("Bye! Press 'login' to log in or 'create' to create a new user."));
+        assertTrue(outputStreamCaptor.toString().contains("Bye! Press 'login' to log in or 'create' " +
+                "to create a new user."));
+    }
+
+    @Test
+    public void testReadAddCommandInputValid() {
+        String simulatedInput = "Event Name | 2025-03-25 10:00 | 2025-03-25 11:00 | Room 101 | Description\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readAddCommandInput();
+            assertEquals(simulatedInput.trim(), result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadAddCommandInputInvalid() {
+        String simulatedInput = "Invalid Input\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
+        Scanner testScanner = new Scanner(inputStream);
+        ui.setScanner(testScanner);
+
+        try {
+            String result = ui.readAddCommandInput();
+            assertEquals(simulatedInput.trim(), result);
+        } catch (SyncException e) {
+            Assertions.fail("SyncException was thrown: " + e.getMessage());
+        }
     }
 
     @Test
     public void testShowCollisionWarning() {
-        Event newEvent = new Event("New Event", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description");
+        Event newEvent = new Event("New Event", LocalDateTime.of(2025, 3, 25, 10,
+                0), LocalDateTime.of(2025, 3, 25, 11, 0),
+                "Room 101", "Description");
         ArrayList<Event> collisions = new ArrayList<>();
-        collisions.add(new Event("Existing Event", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 102", "Description"));
+        collisions.add(new Event("Existing Event", LocalDateTime.of(2025, 3, 25, 10,
+                0), LocalDateTime.of(2025, 3, 25, 11, 0),
+                "Room 102", "Description"));
         ui.showCollisionWarning(newEvent, collisions);
 
         assertTrue(outputStreamCaptor.toString().contains("Warning: Scheduling Conflict"));
@@ -166,9 +276,13 @@ public class UITest {
 
     @Test
     public void testShowParticipantSlotCollisionWarning() {
-        Event event = new Event("Event with Conflict", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 101", "Description");
+        Event event = new Event("Event with Conflict", LocalDateTime.of(2025, 3, 25,
+                10, 0), LocalDateTime.of(2025, 3, 25, 11, 0),
+                "Room 101", "Description");
         ArrayList<Event> collisions = new ArrayList<>();
-        collisions.add(new Event("Conflicting Event", LocalDateTime.of(2025, 3, 25, 10, 0), LocalDateTime.of(2025, 3, 25, 11, 0), "Room 102", "Description"));
+        collisions.add(new Event("Conflicting Event", LocalDateTime.of(2025, 3, 25,
+                10, 0), LocalDateTime.of(2025, 3, 25, 11, 0),
+                "Room 102", "Description"));
         ui.showParticipantSlotCollisionWarning(event, collisions);
 
         assertTrue(outputStreamCaptor.toString().contains("Warning: Scheduling Conflict"));

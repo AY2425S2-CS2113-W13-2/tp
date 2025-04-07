@@ -44,7 +44,7 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_NoUserLoggedIn_ThrowsSyncException() {
+    public void testCreateCommandNoUserLoggedInThrowsSyncException() {
         participantManager.setCurrentUser(null);
         factory = new ListParticipantsCommandFactory(ui, eventManager, participantManager);
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
@@ -52,14 +52,16 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_UserLoggedIn_ReturnsListParticipantsCommand() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
+    public void testCreateCommandUserLoggedInReturnsListParticipantsCommand() throws SyncException {
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
 
         LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
         LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
+        Event event = new Event("Test Event", startTime, endTime, "Test Location",
+                "Test Description");
         eventManager.addEvent(event);
 
         UI mockUi = new UI() {
@@ -76,14 +78,16 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_InvalidEventIndex_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
+    public void testCreateCommandInvalidEventIndexThrowsSyncException() throws SyncException {
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
 
         LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
         LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
+        Event event = new Event("Test Event", startTime, endTime, "Test Location",
+                "Test Description");
         eventManager.addEvent(event);
 
         UI mockUi = new UI() {
@@ -111,8 +115,9 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_NoEventsAvailable_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
+    public void testCreateCommandNoEventsAvailableThrowsSyncException() throws SyncException {
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
 

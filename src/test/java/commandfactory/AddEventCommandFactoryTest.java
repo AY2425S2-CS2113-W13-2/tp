@@ -15,7 +15,6 @@ import participant.ParticipantManager;
 import ui.UI;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;

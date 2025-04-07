@@ -30,6 +30,16 @@ public class FilterCommand extends Command {
         this.upperBound = upper;
     }
 
+
+    public int getLowerBound() {
+        return lowerBound;
+    }
+
+    public int getUpperBound() {
+        return upperBound;
+    }
+
+
     /**
      * Executes the command to filter events based on the priority bounds.
      * The method validates the bounds, checks if the user is logged in, and filters the events accordingly.

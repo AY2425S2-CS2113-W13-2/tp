@@ -18,6 +18,7 @@ public class Event {
     private String location;
     private String description;
     private ArrayList<Participant> participants;
+    private String priority;
 
     /**
      * Constructs an Event with the specified details.
@@ -224,6 +225,15 @@ public class Event {
             }
         }
     }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
 
     /**
      * Returns a string representation of the event, including all details and participants.

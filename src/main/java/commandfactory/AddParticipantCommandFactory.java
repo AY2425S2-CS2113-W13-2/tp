@@ -57,6 +57,18 @@ public class AddParticipantCommandFactory implements CommandFactory {
             throw new SyncException("❌ Invalid event number. Please enter 'addparticipant' and try again.");
         }
 
+        if (eventIndex < 0) {
+            throw new SyncException("Event index cannot be negative. Please enter a valid index.");
+        }
+
+        if (eventIndex >= eventManager.getEvents().size()) {
+            throw new SyncException("Event index is out of bounds. Please enter a valid index.");
+        }
+
+        if (input[1].trim().isEmpty()) {
+            throw new SyncException("Participant name cannot be empty. Please enter a valid name.");
+        }
+
         return new AddParticipantCommand(
                 eventIndex,
                 input[1].trim(),

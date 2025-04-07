@@ -35,7 +35,7 @@ class HelpCommandTest {
     }
 
     @Test
-    void testExecute_ShowsMenu() throws SyncException {
+    void testExecuteShowsMenu() throws SyncException {
         HelpCommand helpCommand = new HelpCommand();
         helpCommand.execute(eventManager, ui, participantManager);
 

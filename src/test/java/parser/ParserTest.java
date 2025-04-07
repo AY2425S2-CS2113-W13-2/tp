@@ -92,7 +92,8 @@ public class ParserTest {
     @Test
     public void testParseFindCommandWithoutKeyword() {
         String input = "find";
-        assertThrows(SyncException.class, () -> parser.parse(input), "Find command without keyword should throw SyncException");
+        assertThrows(SyncException.class, () -> parser.parse(input), "Find command without keyword " +
+                "should throw SyncException");
     }
 
     @Test
@@ -147,12 +148,14 @@ public class ParserTest {
     @Test
     public void testParseInvalidCommand() {
         String input = "invalidCommand";
-        assertThrows(SyncException.class, () -> parser.parse(input), "Invalid command should throw SyncException");
+        assertThrows(SyncException.class, () -> parser.parse(input), "Invalid command should throw " +
+                "SyncException");
     }
 
     @Test
     public void testParseEmptyCommand() {
         String input = "";
-        assertThrows(SyncException.class, () -> parser.parse(input), "Empty input should throw SyncException");
+        assertThrows(SyncException.class, () -> parser.parse(input), "Empty input should throw " +
+                "SyncException");
     }
 }

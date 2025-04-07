@@ -3,7 +3,9 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import exception.SyncException;
+
 import participant.Participant;
 import ui.UI;
 
@@ -18,6 +20,8 @@ public final class CommandParser {
      * The UI instance used for interacting with the user.
      */
     private static UI ui = new UI();
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Sets the UI instance used for user interactions.
@@ -41,6 +45,7 @@ public final class CommandParser {
      * @return The corresponding LocalDateTime object.
      * @throws SyncException If the input date-time format is invalid.
      */
+
     public static LocalDateTime parseDateTime(String dateStr) throws SyncException {
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);

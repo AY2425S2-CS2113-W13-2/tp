@@ -27,7 +27,7 @@ public class SyncExceptionTest {
     }
 
     @Test
-    public void testInvalidCommandErrorMessage_NoUserLoggedIn() {
+    public void testInvalidCommandErrorMessageNoUserLoggedIn() {
         participantManager.setCurrentUser(null);
 
         String command = "add";
@@ -36,11 +36,12 @@ public class SyncExceptionTest {
 
         String actualMessage = SyncException.invalidCommandErrorMessage(command, participantManager);
 
-        assertEquals(expectedMessage, actualMessage, "The error message should match when no user is logged in.");
+        assertEquals(expectedMessage, actualMessage, "The error message should match when no " +
+                "user is logged in.");
     }
 
     @Test
-    public void testInvalidCommandErrorMessage_UserLoggedIn() {
+    public void testInvalidCommandErrorMessageUserLoggedIn() {
         Participant participant = new Participant("John", "password", Participant.AccessLevel.ADMIN);
         participantManager.setCurrentUser(participant);
 
@@ -51,7 +52,8 @@ public class SyncExceptionTest {
 
         String actualMessage = SyncException.invalidCommandErrorMessage(command, participantManager);
 
-        assertEquals(expectedMessage, actualMessage, "The error message should match when a user is logged in.");
+        assertEquals(expectedMessage, actualMessage, "The error message should match when a user is " +
+                "logged in.");
     }
 
     @Test
@@ -151,7 +153,8 @@ public class SyncExceptionTest {
         String expectedMessage = "❌ John Doe is not available from 2025-05-10T10:00 to 2025-05-10T12:00";
 
         String actualMessage = SyncException.participantUnavailableDuringEditError(name,
-                LocalDateTime.of(2025, 5, 10, 10, 0), LocalDateTime.of(2025, 5, 10, 12, 0));
+                LocalDateTime.of(2025, 5, 10, 10, 0), LocalDateTime.of(2025,
+                        5, 10, 12, 0));
 
         assertEquals(expectedMessage, actualMessage, "The participant unavailable " +
                 "during edit error message should be as expected.");
@@ -163,6 +166,7 @@ public class SyncExceptionTest {
 
         String actualMessage = SyncException.participantConflictMessage();
 
-        assertEquals(expectedMessage, actualMessage, "The participant conflict message should be as expected.");
+        assertEquals(expectedMessage, actualMessage, "The participant conflict message should be as " +
+                "expected.");
     }
 }
