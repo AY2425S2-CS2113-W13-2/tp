@@ -82,6 +82,9 @@ public class EventSync {
             } catch (SyncException e) {
                 ui.showMessage(e.getMessage());
             }
+            if (!isExit) {
+                System.out.print("\nEnter your command: ");
+            }
         }
         scanner.close();
     }

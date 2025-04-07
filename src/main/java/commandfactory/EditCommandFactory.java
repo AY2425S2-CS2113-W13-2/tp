@@ -63,12 +63,23 @@ public class EditCommandFactory implements CommandFactory {
      * @throws SyncException If an invalid event index is provided
      */
     private int readEditEventIndex() throws SyncException {
-        ui.showMessage("\nEnter event index to edit: ");
+        ui.showMessage("\nEnter event index to edit (or type 'exit' to cancel): ");
+        if (!UI.scanner.hasNextLine()) {
+            throw new SyncException("❌ No input received. Edit cancelled.");
+        }
+
+        String input = ui.readLine().trim().toLowerCase();
+
+        if (input.equals("exit")) {
+            throw new SyncException("❌ Edit cancelled by user.");
+        }
+
         try {
-            int index = Integer.parseInt(ui.readLine().trim()) - 1;
+            int index = Integer.parseInt(input) - 1;
             return index;
-        } catch (Exception e) {
-            throw new SyncException(SyncException.invalidEventDetailsErrorMessage());
+        } catch (NumberFormatException e) {
+            throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
     }
+
 }

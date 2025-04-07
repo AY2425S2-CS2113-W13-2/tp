@@ -398,12 +398,20 @@ public class UI {
      */
     public String[] splitAddParticipantCommandInput() throws SyncException {
         System.out.println("Use: <EventIndex> | <Participant Name>");
-        String input = this.scanner.nextLine();
+        System.out.println("Type 'exit' to cancel.");
+
+        String input = scanner.nextLine().trim();
+
+        if (input.equalsIgnoreCase("exit")) {
+            throw new SyncException("❌ Add participant cancelled by user.");
+        }
+
         String[] parts = input.split("\\|");
         if (parts.length != 2) {
             throw new SyncException("Invalid format. Use: <EventIndex> | <Participant Name>. " +
                     "Enter 'addparticipant' to try again.");
         }
+
         return parts;
     }
 
