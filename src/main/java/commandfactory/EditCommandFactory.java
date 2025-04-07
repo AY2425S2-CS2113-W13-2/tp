@@ -44,9 +44,7 @@ public class EditCommandFactory implements CommandFactory {
 
         String input = ui.readLine().trim().toLowerCase();
 
-        if (input.equals("exit")) {
-            throw new SyncException("❌ Edit cancelled by user.");
-        }
+        ui.checkForExit(input);
 
         try {
             int index = Integer.parseInt(input) - 1;

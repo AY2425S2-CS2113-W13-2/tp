@@ -56,11 +56,13 @@ public class ParticipantManager {
     }
 
     public ParticipantManager login() throws SyncException {
-        ui.showMessage("Please enter your Username");
+        ui.showMessage("Please enter your Username (or type 'exit' to leave)");
         String username = ui.readLine();
+        ui.checkForExit(username);
         if(this.getParticipant(username) != null) {
-            ui.showMessage("Please enter your password");
+            ui.showMessage("Please enter your password (or type 'exit' to leave)");
             String password = ui.readLine();
+            ui.checkForExit(password);
             if(this.getParticipant(username).checkPassword(password)) {
                 this.currentUser = this.getParticipant(username);
                 ui.showSuccessLoginMessage();

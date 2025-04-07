@@ -42,11 +42,11 @@ public class CreateUserCommandFactory implements CommandFactory {
         return new CreateUserCommand(participant);
     }
 
-    private String askParticipantName() {
+    private String askParticipantName() throws SyncException {
         return ui.askParticipantName();
     }
 
-    private String askPassword() {
+    private String askPassword() throws SyncException {
         return ui.askPassword();
     }
 
@@ -70,7 +70,9 @@ public class CreateUserCommandFactory implements CommandFactory {
 
     private int askNumberOfSlots() throws SyncException {
         int numSlots;
-        ui.showMessage("Enter number of availability slots (maximum 10): ");
+        ui.showMessage("Enter number of availability slots (maximum 10) (or type 'exit' to cancel): ");
+        String input = ui.readLine();
+        ui.checkForExit(input);
 
         try {
             numSlots = Integer.parseInt(ui.readLine().trim());
@@ -100,14 +102,16 @@ public class CreateUserCommandFactory implements CommandFactory {
 
 
     private LocalDateTime askStartTime(int slotIndex) throws SyncException {
-        ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm): ");
+        ui.showMessage("Enter start time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): ");
         String startTimeStr = ui.readLine().trim();
+        ui.checkForExit(startTimeStr);
         return CommandParser.parseDateTime(startTimeStr);
     }
 
     private LocalDateTime askEndTime(int slotIndex) throws SyncException {
-        ui.showMessage("Enter end time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm): ");
+        ui.showMessage("Enter end time for availability slot " + slotIndex + " (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): ");
         String endTimeStr = ui.readLine().trim();
+        ui.checkForExit(endTimeStr);
         return CommandParser.parseDateTime(endTimeStr);
     }
 }
