@@ -66,19 +66,16 @@ public class EditEventCommand extends Command {
         }
     }
 
-    private boolean editName(Event event, UI ui) {
+    private boolean editName(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep1();
         String newName = ui.readLine().trim();
-        if (newName.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Name editing cancelled.");
-            return true; // return to main edit menu
-        }
+        ui.checkForExit(newName);
         event.setName(newName);
         ui.showMessage("✅ Name updated:");
         return true;
     }
 
-    private boolean editStartTime(Event event, UI ui) {
+    private boolean editStartTime(Event event, UI ui) throws SyncException {
         while (true) {
 
             LocalDateTime newStart = getValidDateTime(ui, "start");
@@ -102,7 +99,7 @@ public class EditEventCommand extends Command {
         }
     }
 
-    private boolean editEndTime(Event event, UI ui) {
+    private boolean editEndTime(Event event, UI ui) throws SyncException{
         while (true) {
             ui.showEditCommandStep3();
             LocalDateTime newEnd = getValidDateTime(ui, "end");
@@ -126,31 +123,25 @@ public class EditEventCommand extends Command {
         }
     }
 
-    private boolean editLocation(Event event, UI ui) {
+    private boolean editLocation(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep4();
         String newLocation = ui.readLine().trim();
-        if (newLocation.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Location editing cancelled.");
-            return true;
-        }
+        ui.checkForExit(newLocation);
         event.setLocation(newLocation);
         ui.showMessage("✅ Location updated:");
         return true;
     }
 
-    private boolean editDescription(Event event, UI ui) {
+    private boolean editDescription(Event event, UI ui) throws SyncException {
         ui.showEditCommandStep5();
         String newDesc = ui.readLine().trim();
-        if (newDesc.equalsIgnoreCase("exit")) {
-            ui.showMessage("❌ Description editing cancelled.");
-            return true;
-        }
+        ui.checkForExit(newDesc);
         event.setDescription(newDesc);
         ui.showMessage("✅ Description updated:");
         return true;
     }
 
-    private LocalDateTime getValidDateTime(UI ui, String type) {
+    private LocalDateTime getValidDateTime(UI ui, String type) throws SyncException {
         boolean firstPrompt = true;
 
         while (true) {
@@ -163,9 +154,7 @@ public class EditEventCommand extends Command {
             }
 
             String input = ui.readLine().trim();
-            if (input.equalsIgnoreCase("exit")) {
-                return null;
-            }
+            ui.checkForExit(input);
 
             try {
                 return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
