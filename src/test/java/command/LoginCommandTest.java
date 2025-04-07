@@ -42,7 +42,7 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void testExecute_Login() throws SyncException {
+    public void testExecuteLogin() throws SyncException {
         String simulatedInput = "admin\npw\n";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
         Scanner testScanner = new Scanner(inputStream);

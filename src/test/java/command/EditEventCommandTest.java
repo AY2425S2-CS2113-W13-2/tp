@@ -70,7 +70,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_AdminRole() throws SyncException {
+    public void testEditEventCommandAdminRole() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "1\nNew Event Name\n6\n";
@@ -85,7 +85,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_NoAdminRole() {
+    public void testEditEventCommandNoAdminRole() {
         participantManager.setCurrentUser(member);
 
         EditEventCommand command = new EditEventCommand(0, participantManager);
@@ -98,7 +98,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_EditName() throws SyncException {
+    public void testEditEventCommandEditName() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "1\nNew Event Name\n6\n";
@@ -112,7 +112,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_EditStartTime() throws SyncException {
+    public void testEditEventCommandEditStartTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput= "2\n2025-05-10 12:00\n6\n";
@@ -122,11 +122,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 12, 0), originalEvent.getStartTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 12, 0),
+                originalEvent.getStartTime());
     }
 
     @Test
-    public void testEditEventCommand_EditEndTime() throws SyncException {
+    public void testEditEventCommandEditEndTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "3\n2025-05-10 15:00\n6\n";
@@ -136,11 +137,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 15, 0), originalEvent.getEndTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 15, 0),
+                originalEvent.getEndTime());
     }
 
     @Test
-    public void testEditEventCommand_EditLocation() throws SyncException {
+    public void testEditEventCommandEditLocation() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "4\nNew Location\n6\n";
@@ -154,7 +156,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_EditDescription() throws SyncException {
+    public void testEditEventCommandEditDescription() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "5\nNew Description\n6\n";
@@ -168,7 +170,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_EditCancel() throws SyncException {
+    public void testEditEventCommandEditCancel() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "6\n";
@@ -184,7 +186,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_InvalidChoice() throws SyncException {
+    public void testEditEventCommandInvalidChoice() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "invalid\n6\n";
@@ -198,7 +200,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_OutOfRangeChoice() throws SyncException {
+    public void testEditEventCommandOutOfRangeChoice() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "7\n6\n";
@@ -212,7 +214,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_InvalidStartTime() throws SyncException {
+    public void testEditEventCommandInvalidStartTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "2\ninvalid format\n2025-05-10 12:30\n6\n";
@@ -225,7 +227,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_CancelStartTimeEdit() throws SyncException {
+    public void testEditEventCommandCancelStartTimeEdit() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "6\n";
@@ -241,7 +243,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_CancelEndTimeEdit() throws SyncException {
+    public void testEditEventCommandCancelEndTimeEdit() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "6\n";
@@ -257,7 +259,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_StartTimeAfterEndTime() throws SyncException {
+    public void testEditEventCommandStartTimeAfterEndTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "2\n2025-05-10 15:00\n2025-05-10 12:30\n6\n";
@@ -267,11 +269,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 12, 30), originalEvent.getStartTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 12, 30),
+                originalEvent.getStartTime());
     }
 
     @Test
-    public void testEditEventCommand_EndTimeBeforeStartTime() throws SyncException {
+    public void testEditEventCommandEndTimeBeforeStartTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "3\n2025-05-10 12:00\n2025-05-10 15:30\n6\n";
@@ -281,11 +284,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 15, 30), originalEvent.getEndTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 15, 30),
+                originalEvent.getEndTime());
     }
 
     @Test
-    public void testEditEventCommand_ParticipantConflictStartTime() throws SyncException {
+    public void testEditEventCommandParticipantConflictStartTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         ArrayList<AvailabilitySlot> limitedAvailability = new ArrayList<>();
@@ -308,11 +312,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 13, 0), originalEvent.getStartTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 13, 0),
+                originalEvent.getStartTime());
     }
 
     @Test
-    public void testEditEventCommand_ParticipantConflictEndTime() throws SyncException {
+    public void testEditEventCommandParticipantConflictEndTime() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         ArrayList<AvailabilitySlot> limitedAvailability = new ArrayList<>();
@@ -335,11 +340,12 @@ public class EditEventCommandTest {
 
         command.execute(eventManager, ui, participantManager);
 
-        assertEquals(LocalDateTime.of(2025, 5, 10, 14, 0), originalEvent.getEndTime());
+        assertEquals(LocalDateTime.of(2025, 5, 10, 14, 0),
+                originalEvent.getEndTime());
     }
 
     @Test
-    public void testEditEventCommand_CancelLocationEdit() throws SyncException {
+    public void testEditEventCommandCancelLocationEdit() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "6\n";
@@ -353,7 +359,7 @@ public class EditEventCommandTest {
     }
 
     @Test
-    public void testEditEventCommand_CancelDescriptionEdit() throws SyncException {
+    public void testEditEventCommandCancelDescriptionEdit() throws SyncException {
         participantManager.setCurrentUser(admin);
 
         String simulatedInput = "6\n";

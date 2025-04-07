@@ -30,6 +30,7 @@ public class UserStorageTest {
         try {
             Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
         } catch (IOException e) {
+            e.printStackTrace();
         }
         userStorage = new UserStorage(TEST_FILE_PATH);
     }
@@ -50,7 +51,8 @@ public class UserStorageTest {
 
         List<Participant> loadedParticipants = userStorage.loadUsers();
         assertEquals(1, loadedParticipants.size(), "There should be one participant loaded.");
-        assertEquals("John Doe", loadedParticipants.get(0).getName(), "The participant's name should match.");
+        assertEquals("John Doe", loadedParticipants.get(0).getName(), "The participant's name " +
+                "should match.");
     }
 
     @Test
@@ -64,14 +66,17 @@ public class UserStorageTest {
 
         List<Participant> loadedParticipants = userStorage.loadUsers();
         assertEquals(2, loadedParticipants.size(), "There should be two participants loaded.");
-        assertEquals("John Doe", loadedParticipants.get(0).getName(), "The first participant's name should match.");
-        assertEquals("Jane Smith", loadedParticipants.get(1).getName(), "The second participant's name should match.");
+        assertEquals("John Doe", loadedParticipants.get(0).getName(),
+                "The first participant's name should match.");
+        assertEquals("Jane Smith", loadedParticipants.get(1).getName(),
+                "The second participant's name should match.");
     }
 
     @Test
     public void testSaveAndLoadAvailabilitySlots() throws SyncException {
         Participant participant = new Participant("John Doe", "password123", AccessLevel.MEMBER);
-        AvailabilitySlot slot = new AvailabilitySlot(LocalDateTime.of(2025, 4, 7, 9, 0),
+        AvailabilitySlot slot = new AvailabilitySlot(LocalDateTime.of(2025, 4, 7, 9,
+                0),
                 LocalDateTime.of(2025, 4, 7, 10, 0));
         participant.addAvailableTime(slot.getStartTime(), slot.getEndTime());
         List<Participant> participants = new ArrayList<>();
@@ -81,7 +86,8 @@ public class UserStorageTest {
 
         List<Participant> loadedParticipants = userStorage.loadUsers();
         assertEquals(1, loadedParticipants.size(), "There should be one participant loaded.");
-        assertEquals(1, loadedParticipants.get(0).getAvailableTimes().size(), "The participant should have one availability slot.");
+        assertEquals(1, loadedParticipants.get(0).getAvailableTimes().size(),
+                "The participant should have one availability slot.");
         assertEquals(slot.getStartTime(), loadedParticipants.get(0).getAvailableTimes().get(0).getStartTime(),
                 "The availability start time should match.");
     }
@@ -97,7 +103,8 @@ public class UserStorageTest {
 
         Participant foundParticipant = userStorage.findUserByName(participants, "john doe");
         assertNotNull(foundParticipant, "The participant should be found by name.");
-        assertEquals("John Doe", foundParticipant.getName(), "The found participant's name should match.");
+        assertEquals("John Doe", foundParticipant.getName(),
+                "The found participant's name should match.");
 
         Participant notFoundParticipant = userStorage.findUserByName(participants, "nonexistent");
         assertNull(notFoundParticipant, "The participant should not be found.");
@@ -111,6 +118,7 @@ public class UserStorageTest {
         SyncException exception = assertThrows(SyncException.class, () -> {
             userStorage.loadUsers();
         });
-        assertTrue(exception.getMessage().contains("Skipping corrupted line"), "The exception message should mention corrupted lines.");
+        assertTrue(exception.getMessage().contains("Skipping corrupted line"),
+                "The exception message should mention corrupted lines.");
     }
 }

@@ -5,7 +5,6 @@ import exception.SyncException;
 import ui.UI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 import storage.UserStorage;
 
 public class ParticipantManager {

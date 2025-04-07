@@ -24,7 +24,7 @@ public class PrintMatchingEventsTest {
     }
 
     @Test
-    public void testPrintMatchingEvents_EmptyList() {
+    public void testPrintMatchingEventsEmptyList() {
         ArrayList<Event> events = new ArrayList<>();
         ui.printMatchingEvents(events);
         String output = outputStreamCaptor.toString().trim();
@@ -32,7 +32,7 @@ public class PrintMatchingEventsTest {
     }
 
     @Test
-    public void testPrintMatchingEvents_NonEmptyList() {
+    public void testPrintMatchingEventsNonEmptyList() {
         ArrayList<Event> events = new ArrayList<>();
 
         // Parse String to LocalDateTime using DateTimeFormatter

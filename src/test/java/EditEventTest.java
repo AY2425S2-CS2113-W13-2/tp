@@ -1,13 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import event.Event;
 import event.EventManager;
 import participant.Participant;
 import participant.AvailabilitySlot;
-import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;

@@ -138,8 +138,8 @@ public class FilterCommandFactoryTest {
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
         Command command = factory.createCommand();
         FilterCommand filterCommand = (FilterCommand) command;
-        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound()); // Correct usage
-        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound()); // Correct usage
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound());
+        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound());
     }
 
     @Test
@@ -148,8 +148,8 @@ public class FilterCommandFactoryTest {
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
         Command command = factory.createCommand();
         FilterCommand filterCommand = (FilterCommand) command;
-        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound()); // Correct usage
-        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound()); // Correct usage
+        assertEquals(Priority.getValue(Priority.LOW), filterCommand.getLowerBound());
+        assertEquals(Priority.getValue(Priority.HIGH), filterCommand.getUpperBound());
     }
 
     @Test

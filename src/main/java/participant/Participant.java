@@ -146,7 +146,8 @@ public class Participant {
                 mergedSlots.add(slot);
             } else {
                 newSlot = new AvailabilitySlot(
-                        slot.getStartTime().isBefore(newSlot.getStartTime()) ? slot.getStartTime() : newSlot.getStartTime(),
+                        slot.getStartTime().isBefore(newSlot.getStartTime()) ? slot.getStartTime() :
+                                newSlot.getStartTime(),
                         slot.getEndTime().isAfter(newSlot.getEndTime()) ? slot.getEndTime() : newSlot.getEndTime()
                 );
             }

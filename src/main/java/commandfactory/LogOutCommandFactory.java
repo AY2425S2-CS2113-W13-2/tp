@@ -3,7 +3,6 @@ package commandfactory;
 import command.Command;
 import command.LogOutCommand;
 import exception.SyncException;
-import participant.Participant;
 import participant.ParticipantManager;
 
 public class LogOutCommandFactory implements CommandFactory {

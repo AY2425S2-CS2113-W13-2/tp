@@ -1,7 +1,6 @@
 package exception;
 import java.time.LocalDateTime;
 
-import participant.Participant;
 import participant.ParticipantManager;
 
 public class SyncException extends Exception {

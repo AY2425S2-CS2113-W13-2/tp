@@ -50,7 +50,7 @@ public class ListParticipantsCommandTest {
     }
 
     @Test
-    public void testExecute_ListParticipants() throws SyncException {
+    public void testExecuteListParticipants() throws SyncException {
         ListParticipantsCommand command = new ListParticipantsCommand(0);
 
         command.execute(eventManager, ui, participantManager);
@@ -62,7 +62,7 @@ public class ListParticipantsCommandTest {
     }
 
     @Test
-    public void testExecute_InvalidEventIndex() throws SyncException {
+    public void testExecuteInvalidEventIndex() throws SyncException {
         ListParticipantsCommand command = new ListParticipantsCommand(999);
 
         SyncException thrown = assertThrows(SyncException.class, () -> {

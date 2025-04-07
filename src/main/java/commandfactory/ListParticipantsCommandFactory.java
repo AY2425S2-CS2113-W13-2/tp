@@ -34,32 +34,25 @@ public class ListParticipantsCommandFactory implements CommandFactory {
             throw new SyncException("No events available.");
         }
 
-        while (true) {
-            showAllEvents(events);
-            ui.showMessage("Enter event index to list participants (or type 'exit' to cancel):");
-            String input = ui.readLine().trim();
+        showAllEvents(events);
+        ui.showMessage("Enter event index to list participants (or type 'exit' to cancel):");
+        String input = ui.readLine().trim();
 
-            ui.checkForExit(input);
-            try {
-                int eventIndex = Integer.parseInt(input) - 1;
-                if (eventIndex < 0 || eventIndex >= events.size()) {
-                    ui.showMessage("Invalid index. Please try again.");
-                    continue;
-                }
-
-                // Show participants of the selected event
-                Command listCommand = new ListParticipantsCommand(eventIndex);
-                listCommand.execute(eventManager, ui, participantManager);
-
-
-            } catch (NumberFormatException e) {
-                ui.showMessage("Invalid input. Please enter a valid number or 'exit'.");
-            } catch (SyncException e) {
-                ui.showMessage("Error: " + e.getMessage());
+        ui.checkForExit(input);
+        try {
+            int eventIndex = Integer.parseInt(input) - 1;
+            if (eventIndex < 0 || eventIndex >= events.size()) {
+                ui.showMessage("Invalid index. Please try again.");
             }
 
-            ui.showMessage("--------------------------------------------------");
+            // Show participants of the selected event
+            Command listCommand = new ListParticipantsCommand(eventIndex);
+            return new ListParticipantsCommand(eventIndex);
+
+        } catch (NumberFormatException e) {
+            ui.showMessage("Invalid input. Please enter a valid number or 'exit'.");
         }
+        return null;
     }
 
 

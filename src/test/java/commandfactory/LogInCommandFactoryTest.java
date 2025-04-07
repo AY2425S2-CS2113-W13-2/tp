@@ -29,18 +29,20 @@ public class LogInCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_NoUserLoggedIn_ReturnsLoginCommand() throws SyncException {
+    public void testCreateCommandNoUserLoggedInReturnsLoginCommand() throws SyncException {
         participantManager.setCurrentUser(null);
         Command command = factory.createCommand();
         assertTrue(command instanceof LoginCommand);
     }
 
     @Test
-    public void testCreateCommand_UserLoggedIn_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
+    public void testCreateCommandUserLoggedInThrowsSyncException() throws SyncException {
+        Participant testUser = new Participant("john_doe", "password123",
+                Participant.AccessLevel.ADMIN, new ArrayList<>());
         participantManager.addNewUser(testUser);
         participantManager.setCurrentUser(testUser);
         SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("You are already logged in. Please enter 'logout' to log out first.", exception.getMessage());
+        assertEquals("You are already logged in. Please enter 'logout' to log out first.",
+                exception.getMessage());
     }
 }

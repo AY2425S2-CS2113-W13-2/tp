@@ -39,27 +39,27 @@ public class EditEventCommand extends Command {
             }
 
             switch (choice) {
-                case 1:
-                    editing = editName(event, ui);
-                    break;
-                case 2:
-                    editing = editStartTime(event, ui);
-                    break;
-                case 3:
-                    editing = editEndTime(event, ui);
-                    break;
-                case 4:
-                    editing = editLocation(event, ui);
-                    break;
-                case 5:
-                    editing = editDescription(event, ui);
-                    break;
-                case 6:
-                    editing = false;
-                    ui.showMessage("✅ Event editing completed.");
-                    break;
-                default:
-                    ui.showEditCommandCorrectFormat();
+            case 1:
+                editing = editName(event, ui);
+                break;
+            case 2:
+                editing = editStartTime(event, ui);
+                break;
+            case 3:
+                editing = editEndTime(event, ui);
+                break;
+            case 4:
+                editing = editLocation(event, ui);
+                break;
+            case 5:
+                editing = editDescription(event, ui);
+                break;
+            case 6:
+                editing = false;
+                ui.showMessage("✅ Event editing completed.");
+                break;
+            default:
+                ui.showEditCommandCorrectFormat();
             }
 
             events.save();

@@ -14,7 +14,8 @@ class CommandTest {
     void testIsExitDefault() {
         Command command = new Command() {
             @Override
-            public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+            public void execute(EventManager events, UI ui, ParticipantManager participantManager)
+                    throws SyncException {
             }
         };
 

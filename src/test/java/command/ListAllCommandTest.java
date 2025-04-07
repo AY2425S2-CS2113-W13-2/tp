@@ -61,7 +61,7 @@ class ListAllCommandTest {
     }
 
     @Test
-    void testExecute_AdminUser() throws SyncException {
+    void testExecuteAdminUser() throws SyncException {
         ListAllCommand listAllCommand = new ListAllCommand("start", ui);
         listAllCommand.execute(eventManager, ui, participantManager);
 
@@ -71,7 +71,7 @@ class ListAllCommandTest {
     }
 
     @Test
-    void testExecute_NoUserLoggedIn() throws SyncException {
+    void testExecuteNoUserLoggedIn() throws SyncException {
         participantManager.setCurrentUser(null);
 
         String simulatedInput = "no\n";
@@ -84,7 +84,7 @@ class ListAllCommandTest {
     }
 
     @Test
-    void testExecute_NonAdminUser() throws SyncException {
+    void testExecuteNonAdminUser() throws SyncException {
         Participant nonAdmin = new Participant("user", "password", Participant.AccessLevel.MEMBER);
         participantManager.setCurrentUser(nonAdmin);
 
@@ -96,7 +96,7 @@ class ListAllCommandTest {
     }
 
     @Test
-    void testExecute_EmptyEventList() throws SyncException {
+    void testExecuteEmptyEventList() throws SyncException {
         eventManager.setEvents(new ArrayList<>());
 
         ListAllCommand listAllCommand = new ListAllCommand("start", ui);
@@ -107,7 +107,7 @@ class ListAllCommandTest {
     }
 
     @Test
-    void testExecute_InvalidSortType() throws SyncException {
+    void testExecuteInvalidSortType() throws SyncException {
         ListAllCommand listAllCommand = new ListAllCommand("invalid", ui);
         listAllCommand.execute(eventManager, ui, participantManager);
 

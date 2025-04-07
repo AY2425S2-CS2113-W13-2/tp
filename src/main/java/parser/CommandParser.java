@@ -3,23 +3,20 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 import exception.SyncException;
-import participant.AvailabilitySlot;
+
 import participant.Participant;
 import ui.UI;
 
 public final class CommandParser {
     private static UI ui = new UI();
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public void setUi(UI ui) {
         this.ui = ui;
     }
-
-    private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static LocalDateTime parseDateTime(String dateStr) throws SyncException {
         try {

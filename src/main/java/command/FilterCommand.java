@@ -51,16 +51,8 @@ public class FilterCommand extends Command {
             }
 
             ArrayList<Event> matchingEvents = new ArrayList<>();
+            ArrayList<String> allPriorities = Priority.getAllPriorities();
 
-<<<<<<< HEAD
-            if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
-                throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");
-            }
-
-            for (Event event : userEvents) {
-                String priority = event.getPriority();
-                if (priority != null) {
-=======
             if (allPriorities.size() != eventManager.size()) {
                 throw new SyncException("Priority list is out of sync with events");
             }
@@ -69,7 +61,6 @@ public class FilterCommand extends Command {
                 Event event = eventManager.getEvent(i);
                 if (event.hasParticipant(currentUser)) {  // Check if user is assigned
                     String priority = allPriorities.get(i);
->>>>>>> 7ab5b74ca23220b4e8e5b04485de041d5fcd95d2
                     int priorityValue = Priority.getValue(priority);
                     if (priorityValue >= lowerBound && priorityValue <= upperBound) {
                         matchingEvents.add(event);
