@@ -1,5 +1,7 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.LogOutCommand;
 import exception.SyncException;
@@ -10,6 +12,7 @@ import participant.ParticipantManager;
  * This factory generates a command to log out the current user if they are logged in.
  */
 public class LogOutCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LogOutCommandFactory.class.getName());
     private final ParticipantManager participantManager;
 
     /**
@@ -28,6 +31,8 @@ public class LogOutCommandFactory implements CommandFactory {
      * @throws SyncException If the user is not logged in and attempts to log out
      */
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting to create LogOutCommand");
         if (participantManager.getCurrentUser() == null) {
             throw new SyncException("You are not logged in. Please enter 'login' to log in first.");
         } else {

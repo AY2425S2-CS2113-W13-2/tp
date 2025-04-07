@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import event.EventManager;
 import exception.SyncException;
 import participant.Participant;
@@ -9,6 +11,8 @@ import participant.ParticipantManager;
  * Represents a command to create a new user in the system.
  */
 public class CreateUserCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(CreateUserCommand.class.getName());
+
     private final Participant participant;
 
     /**
@@ -29,6 +33,8 @@ public class CreateUserCommand extends Command {
      * @throws SyncException if there is an error during user creation.
      */
     public void execute(EventManager events, ui.UI ui, ParticipantManager participantManager) throws SyncException {
+        assert participant != null : "Participant cannot be null";
+        LOGGER.info("Attempting to create CreateUserCommand");
         participantManager.addNewUser(participant);
         ui.showSuccessCreateMessage(participant);
     }

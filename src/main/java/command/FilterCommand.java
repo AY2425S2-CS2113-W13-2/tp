@@ -9,6 +9,7 @@ import event.Event;
 import label.Priority;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
  * It checks the assigned events to the user and filters them based on the priority range.
  */
 public class FilterCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(EditEventCommand.class.getName());
+
     private final int lowerBound;
     private final int upperBound;
 
@@ -51,6 +54,7 @@ public class FilterCommand extends Command {
      */
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert participantManager != null;
         try {
             if (!isValidBound(lowerBound) || !isValidBound(upperBound)) {
                 throw new SyncException("Invalid priority bounds: lowerBound and upperBound must be between 1 and 3.");

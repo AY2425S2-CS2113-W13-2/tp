@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import event.EventManager;
 import event.Event;
 import participant.ParticipantManager;
@@ -10,6 +12,7 @@ import exception.SyncException;
  * Represents a command to duplicate an existing event with a new name.
  */
 public class DuplicateCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(DuplicateCommand.class.getName());
     private final Event eventToDuplicate;
     private final String newName;
 
@@ -33,6 +36,7 @@ public class DuplicateCommand extends Command {
      * @throws SyncException if an error occurs during the duplication process.
      */
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert eventToDuplicate != null : "Event to duplicate cannot be null";
         events.duplicateEvent(eventToDuplicate, newName);
         Event duplicatedEvent = eventToDuplicate.duplicate(newName);
         ui.showMessage("Event duplicated: " + duplicatedEvent.toString());

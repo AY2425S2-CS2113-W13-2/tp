@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import event.EventManager;
 import participant.ParticipantManager;
 import ui.UI;
@@ -10,7 +12,7 @@ import exception.SyncException;
  * A {@code ByeCommand} displays a farewell message and signals the system to exit.
  */
 public class ByeCommand extends Command {
-
+    private static final Logger LOGGER = Logger.getLogger(ByeCommand.class.getName());
     /**
      * Executes the command to display the goodbye message.
      *
@@ -20,6 +22,8 @@ public class ByeCommand extends Command {
      * @throws SyncException if there is an error during execution.
      */
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert ui != null : "UI cannot be null";
+        LOGGER.info("Attempting to create ByeCommand");
         ui.showByeMessage();
     }
 

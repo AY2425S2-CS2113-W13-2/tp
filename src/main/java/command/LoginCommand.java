@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import event.EventManager;
 import exception.SyncException;
 import participant.ParticipantManager;
@@ -9,6 +11,7 @@ import ui.UI;
  * Command to handle the login functionality for participants.
  */
 public class LoginCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
 
     /**
      * Constructs a LoginCommand.
@@ -27,6 +30,8 @@ public class LoginCommand extends Command {
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting to log in user");
         participantManager.login();
     }
 }
