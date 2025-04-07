@@ -8,19 +8,19 @@
     - 3.2 [`login` - Log in](#-login--log-in-as-an-existing-participant)
     - 3.3 [`logout` - Log out](#-logout--ends-the-current-user-session)
     - 3.4 [`add` - Add event](#-add--add-a-new-event)
-    - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event-admin-only)
-    - 3.6 [`delete` - Delete event](#-delete--delete-an-event)
+    - 3.5 [`edit` - Edit event](#-edit--edit-details-of-an-existing-event) 
+    - 3.6 [`delete` - Delete event](#-delete--delete-an-event-from-system) 
     - 3.7 [`list` - List events](#-list--list-events-assigned-to-you)
-    - 3.8 [`listall` - List all events](#-listall--list-all-events-admin-only)
+    - 3.8 [`listall` - List all events](#-listall--list-all-events-in-the-system) 
     - 3.9 [`find` - Search events](#-find-keyword--search-for-events)
     - 3.10 [`filter` - Filter events](#-filter--show-events-by-priority)
-    - 3.11 [`duplicate` - Duplicate event](#-duplicate--duplicate-an-event)
+    - 3.11 [`duplicate` - Duplicate event](#-duplicate--duplicate-an-existing-event)
     - 3.12 [`addparticipant` - Add participant](#-addparticipant--assign-participant-to-event)
     - 3.13 [`listparticipants` - List participants](#-listparticipants--show-event-participants)
     - 3.14 [`bye` - Exit](#-bye--exit-the-application)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
-6. [Notes](#notes)
+6. [Notes](#final-notes)
 
 ## Introduction
 
@@ -219,7 +219,7 @@ has been added to the list.
 ```
 ---
 
-### ✏️ `edit` — Edit details of an existing event (admin only)
+### ✏️ `edit` — Edit details of an existing event 
 
 #### Command: `edit`
 
@@ -663,7 +663,7 @@ Bye!
 
 ---
 
-## Notes
+## Final Notes
 
 - All changes are saved automatically after every command.
 - Participant availability is validated before adding to events.
