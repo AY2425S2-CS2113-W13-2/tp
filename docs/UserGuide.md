@@ -46,39 +46,9 @@ java -jar EventManager.jar
 
 ## Features(command you need to enter - description)
 
-### 👤 `create` — Create a new participant
+### 👤 `create` — Creates a user (admin or member) and sets availability.
 
 #### Command: `create`
-
-#### Example
-
-```plaintext
-User not found. Please create user first!
->create
-
-Enter participant's name: 
->Alice
-
-Enter participant's password: 
->123
-
-Enter participant's access level (1 for Admin, 2 for Member): 
->2
-
-Enter number of availability slots (maximum 10): 
->1
-
-Enter start time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
->2025-03-31 12:00
-
-Enter end time for availability slot 1 (in format yyyy-MM-dd HH:mm): 
->2025-05-31 12:00
-
-Successfully created: Alice
-```
-
-#### Notes: `create`
-Creates a user (admin or member) and sets availability.
 
 **Input format:**  
 You will be asked to provide:
@@ -88,38 +58,57 @@ You will be asked to provide:
 - Number of available slots
 - Availability slots (`yyyy-MM-dd HH:mm - yyyy-MM-dd HH:mm`)
 
+#### Example
+
+```plaintext
+Press 'login' to log in or 'create' to create a new user.
+>create
+
+Enter participant's name (or type 'exit' to cancel): 
+>Alice
+
+Enter participant's password (or type 'exit' to cancel):
+>123
+
+Enter participant's access level (1 for Admin, 2 for Member) (or type 'exit' to cancel): 
+>2
+
+Enter number of availability slots (maximum 10) (or type 'exit' to cancel): 
+>1
+
+Enter start time for availability slot 1 (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): 
+>2025-03-31 12:00
+
+Enter end time for availability slot 1 (in format yyyy-MM-dd HH:mm) (or type 'exit' to cancel): 
+>2025-05-31 12:00
+
+Successfully created: Alice
+```
+
 ---
 
 ### ✅ `login` — Log in as an existing participant
 
 #### Command: `login`
 
-#### Example
+#### Notes: 
+- You must log in to manage or view events.
+- Prompts for your name and password.
+- You will be asked to provide:
+- Username
+- Password
+- Required before accessing most features.
+  
+#### Example for Successful Login
 
 ```plaintext
-Welcome to EventSync!
-Press 'login' to log in or 'create' to create a new user.
+Please enter 'login' to log in or continue with your previous command.
 >login
 
-Please enter your Username
->alice
+Please enter your Username (or type 'exit' to leave)
+>Alice
 
-User not found. Please create user first!
->login
-
-Please enter your Username
->Terry
-
-Please enter your password
->123
-
-Wrong password. Do you want to login again? (yes/no)
->yes
-
-Please enter your Username
->hii
-
-Please enter your password
+Please enter your password (or type 'exit' to leave)
 >123
 
 Successfully logged in.
@@ -150,20 +139,38 @@ Successfully logged in.
 ║  help           - Show this menu        ║
 ╚════════════════════════════════════════╝
 ```
+#### Example for Unsuccessful Login 
 
-#### Notes: `login`
-- You must log in to manage or view events.
-- Prompts for your name and password.
-- You will be asked to provide:
-- Username
-- Password
-- Required before accessing most features.
+```plaintext
+Please enter your Username (or type 'exit' to leave)
+>Terry 
+
+User not found. Please enter 'create' to create user first!
+>login
+```
+
+```plaintext
+Please enter your Username (or type 'exit' to leave)
+>Alice
+
+Please enter your password (or type 'exit' to leave)
+>330
+
+Wrong password. Do you want to login again? (yes/no)
+>no
+
+Wrong password! Session ends
+```
 ---
 
-### 🔒 `logout` — Log out of your session
+### 🔒 `logout` — Ends the current user session
 
 #### Command: `logout`
 
+#### Notes:
+- You must login first
+- Another participant can log in afterward.
+  
 #### Example
 
 ```plaintext
@@ -171,25 +178,30 @@ Successfully logged in.
 Terry has logged out.
 Bye! Press 'login' to log in or 'create' to create a new user.
 ```
-
-#### Notes: `logout`
-Need to log in first.
-Ends the current user session.  
-Another participant can log in afterward.
-
 ---
 
 ### 📅 `add` — Add a new event
 
 #### Command: `add`
 
+#### Notes:
+- You need to log in to an ADMIN account. 
+- Adds an event to the system. Only ADMIN can add an event. The creator will be automatically added to the event.
+
+**Input format:**
+```
+Event Name | Start Date | End Date | Location | Description
+```
+*Date/time must be in `yyyy-MM-dd HH:mm` format.*  
+You will then be prompted to set the event’s priority (`HIGH`, `MEDIUM`, `LOW`).
+
 #### Example
 
 ```plaintext
 >add
 
-Enter event details (format: Event Name | Start Date | End Date | Location | Description): 
->Team Meeting | 2020-05-10 14:00 | 2020-05-10 16:00 | Conference Room | A team meeting to discuss project updates
+Enter event details (format: Event Name | Start Date | End Date | Location | Description) (or type 'exit' to cancel): 
+>Team Meeting | 2025-10-10 20:00 | 2025-10-10 21:00 | Conference Room | A team meeting to discuss project updates
 
 Enter event priority (LOW, MEDIUM, HIGH): 
 >Low
@@ -197,201 +209,245 @@ Enter event priority (LOW, MEDIUM, HIGH):
 The event
 +----------------------+--------------------------------+
 | Name                 | Team Meeting
-| Start Time           | 2020-05-10 14:00
-| End Time             | 2020-05-10 16:00
+| Start Time           | 2025-10-10 20:00
+| End Time             | 2025-10-10 21:00
 | Location             | Conference Room
 | Description          | A team meeting to discuss project updates
-| Participants         | [Participant: Terry (Available: 2 slots)]
+| Participants         | [Participant: Terry]
 +----------------------+--------------------------------+
 has been added to the list.
 ```
-
-#### Notes: `add`
-You need to log in to an ADMIN account first.
-Adds an event to the system. Only ADMIN can add an event. The creator will be automatically added to the event.
-
-**Input format:**
-```
-Event Name | Start Date | End Date | Location | Description
-```
----
-*Date/time must be in `yyyy-MM-dd HH:mm` format.*  
-You will then be prompted to set the event’s priority (`HIGH`, `MEDIUM`, `LOW`).
-
 ---
 
-### ✏️ `edit` — Edit an existing event (admin only)
+### ✏️ `edit` — Edit details of an existing event (admin only)
 
-Allows an admin to change event fields. Only ADMIN can edit an event.
-You will be shown options to modify:
-1. Name
-2. Start time
-3. End time
-4. Location
-5. Description
+#### Command: `edit`
+
+#### Notes:
+- Only ADMIN can edit an event.
+- You will be shown options to modify:
+- 1. Name
+- 2. Start time
+- 3. End time
+- 4. Location
+- 5. Description
 
 #### Example:
 
 ```plaintext
 >edit
 
-Enter event index to edit: 
->7
-
-Editing Event: Chill
-1. Edit Name
-2. Edit Start Time
-3. Edit End Time
-4. Edit Location
-5. Edit Description
-6. Done Editing
-Select an option: 
+Enter event index to edit (or type 'exit' to cancel): 
 >1
 
-Enter New Event Name: 
->Chillingg
-
-Updated Event Details:
+--- Editing Event ---
 +----------------------+--------------------------------+
-| Name                 | Chillingg
-| Start Time           | 2020-01-01 10:00
-| End Time             | 2020-01-02 10:00
-| Location             | Home
-| Description          | chill
-| Participants         | [Participant: Jacky (Available: 1 slots), Participant: jack (Available: 3 slots)]
+| Name                 | Team Meeting
+| Start Time           | 2025-10-10 20:00
+| End Time             | 2025-10-10 21:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry]
 +----------------------+--------------------------------+
+What would you like to edit?
+1. Name
+2. Start Time (format: yyyy-MM-dd HH:mm)
+3. End Time (format: yyyy-MM-dd HH:mm)
+4. Location
+5. Description
+6. Done
 
-Editing Event: Chillingg
-1. Edit Name
-2. Edit Start Time
-3. Edit End Time
-4. Edit Location
-5. Edit Description
-6. Done Editing
-Select an option: 
+Enter your choice (1-6):
+>1
+
+Enter New Event Name  (or type 'exit' to cancel): meet
+✅ Name updated:
+
+--- Editing Event ---
++----------------------+--------------------------------+
+| Name                 | meet
+| Start Time           | 2025-10-10 20:00
+| End Time             | 2025-10-10 21:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry]
++----------------------+--------------------------------+
+What would you like to edit?
+1. Name
+2. Start Time (format: yyyy-MM-dd HH:mm)
+3. End Time (format: yyyy-MM-dd HH:mm)
+4. Location
+5. Description
+6. Done
+
+Enter your choice (1-6):
+>6
+
+✅ Event editing completed.
 ````
 ---
 
-### 🗑️ `delete` — Delete an event
+### 🗑️ `delete` — Delete an event from system
 
-Removes an event from the system. Only ADMIN can delete an event.
+#### Command: `delete`
 
-- Prompts you to search by name.
+#### Notes:
+- Only ADMIN can delete an event.
+- You will be prompted to search by name.
 - If multiple matches are found, you can select by index.
 - Confirmation is required before deletion.
 
+```plaintext
+>delete
+
+Enter name to search for events to delete (or type 'exit' to cancel):
+>meet
+
+Matching Events:
+1. meet
+2. Team Meeting
+Enter the index of the event you want to delete: 
+>2
+
+Confirm deletion of "Team Meeting"? (yes/no):
+>yes
+
+"Team Meeting" has been deleted.
+```
 ---
 
 ### 📋 `list` — List events assigned to you
 
 #### Command: `list`
 
+#### Notes: 
+- Displays all events for the logged-in participant.
+- You’ll be prompted to choose a sort order:
+    - `priority` — by priority, then end time
+    - `start` — by start time, then priority
+    - `end` — by end time, then priority
+  
 #### Example
 
 ```plaintext
 >list
 
-Enter your sort type: Now we have a list of available sort types: priority, start, end 
+Enter your sort type (priority, start, end) or type 'exit' to cancel:
 >end
 
 The event 1 is: 
 +----------------------+--------------------------------+
 | Name                 | Team Meeting
-| Start Time           | 2020-05-10 14:00
-| End Time             | 2020-05-10 16:00
+| Start Time           | 2025-03-12 20:00
+| End Time             | 2025-03-12 21:00
 | Location             | Conference Room
 | Description          | A team meeting to discuss project updates
-| Participants         | [Participant: Terry (Available: 2 slots)]
+| Participants         | [Participant: a]
 +----------------------+--------------------------------+
 Priority: LOW
 
 The event 2 is: 
 +----------------------+--------------------------------+
-| Name                 | event a
-| Start Time           | 2023-05-23 16:00
-| End Time             | 2023-05-24 17:00
-| Location             | sdfsf
-| Description          | sdfsf
-| Participants         | [Participant: Terry (Available: 2 slots)]
+| Name                 | chill
+| Start Time           | 2025-03-31 19:00
+| End Time             | 2025-03-31 20:00
+| Location             | Room
+| Description          | A team meeting to relax
+| Participants         | [Participant: a]
 +----------------------+--------------------------------+
 Priority: LOW
 ```
-
-#### Notes: `list`
-Displays all events for the logged-in participant.
-
-You’ll be prompted to choose a sort order:
-- `priority` — by priority, then end time
-- `start` — by start time, then priority
-- `end` — by end time, then priority
-
 ---
 
-### 📋 `listall` — List all events in the storage to you
+### 📋 `listall` — List all events in the system
 
 #### Command: `listall`
 
+#### Notes:
+- You need to log in to an ADMIN account first.
+- You’ll be prompted to choose a sort order:
+    - `priority` — by priority, then end time
+    - `start` — by start time, then priority
+    - `end` — by end time, then priority
+ 
 #### Example
 
 ```plaintext
 >listall
 
 Enter your sort type: Now we have a list of available sort types: priority, start, end 
->end
+>priority
 
 The event 1 is: 
 +----------------------+--------------------------------+
 | Name                 | Team Meeting
-| Start Time           | 2020-05-10 14:00
-| End Time             | 2020-05-10 16:00
+| Start Time           | 2025-03-12 20:00
+| End Time             | 2025-03-12 21:00
 | Location             | Conference Room
 | Description          | A team meeting to discuss project updates
+| Participants         | [Participant: a]
 +----------------------+--------------------------------+
 Priority: LOW
 
-#### Notes: `listall`
-You need to log in to an ADMIN account first.
-Displays all events in the storage. Only ADMIN can list all events.
+The event 2 is: 
++----------------------+--------------------------------+
+| Name                 | chill
+| Start Time           | 2025-03-31 19:00
+| End Time             | 2025-03-31 20:00
+| Location             | Room
+| Description          | A team meeting to relax
+| Participants         | [Participant: a]
++----------------------+--------------------------------+
+Priority: LOW
 
-You’ll be prompted to choose a sort order:
-- `priority` — by priority, then end time
-- `start` — by start time, then priority
-- `end` — by end time, then priority
+The event 3 is: 
++----------------------+--------------------------------+
+| Name                 | meet
+| Start Time           | 2025-10-10 20:00
+| End Time             | 2025-10-10 21:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry]
++----------------------+--------------------------------+
+Priority: LOW
 ```
 ---
 
 ### 🧠 `find KEYWORD` — Search for events
 
-Finds events that contain the keyword in either:
-- Event name
-- Event description
-
 #### Command : `find <KEYWORD>`
+
+#### Notes:
+- Finds events that contain the keyword in either:
+    - Event name
+    - Event description
 
 #### Example : 
 
 ```plaintext
-> find team
-Searching for 'team' in list:
-Found 1 matching event.
-Here are the matching events in your list.
+> find chill
 
-1. +----------------------+--------------------------------+
-| Name                 | Team Meeting
-| Start Time           | 2020-05-10 14:00
-| End Time             | 2020-05-10 16:00
-| Location             | Conference Room
-| Description          | A team meeting to discuss project updates
+Found 1 matching events.
+Here are the matching events in your list: 
+ 1. +----------------------+--------------------------------+
+| Name                 | chill
+| Start Time           | 2025-03-31 19:00
+| End Time             | 2025-03-31 20:00
+| Location             | Room
+| Description          | A team meeting to relax
+| Participants         | [Participant: a]
 +----------------------+--------------------------------+
-Priority: LOW
 ```
 ---
 
 ### 🎯 `filter` — Show events by priority
 
-Filters and displays events by either:
-- A certain priority
-- A priority range
+#### Command : `filter`
+
+#### Notes:
+- Filters and displays events by either:
+    - A certain priority
+    - A priority range
 
 **Input format:**: 
 - filter {priority}
@@ -399,121 +455,170 @@ Filters and displays events by either:
 
 Valid values: `HIGH`, `MEDIUM`, `LOW`.
 
-#### Example
+#### Example for certain priority 
+```plaintext 
+>filter
+
+Enter a priority or a range (or type 'exit' to cancel):
+>HIGH
+
+Found 1 matching events.
+Here are the matching events in your list: 
+ 1. +----------------------+--------------------------------+
+| Name                 | coffee
+| Start Time           | 2025-03-20 15:00
+| End Time             | 2025-03-20 16:00
+| Location             | Conference Room
+| Description          | Coffee chat
+| Participants         | [Participant: a]
++----------------------+--------------------------------+
 ```
-LOW 
-```
-```
-LOW MEDIUM
+#### Example for Range
+
+```plaintext 
+>filter
+
+Enter a priority or a range (or type 'exit' to cancel):
+>LOW HIGH
+
+Found 2 matching events.
+Here are the matching events in your list: 
+ 1. +----------------------+--------------------------------+
+| Name                 | Team Meeting
+| Start Time           | 2025-03-12 20:00
+| End Time             | 2025-03-12 21:00
+| Location             | Conference Room
+| Description          | A team meeting to discuss project updates
+| Participants         | [Participant: a]
++----------------------+--------------------------------+
+2. +----------------------+--------------------------------+
+| Name                 | coffee
+| Start Time           | 2025-03-20 15:00
+| End Time             | 2025-03-20 16:00
+| Location             | Conference Room
+| Description          | Coffee chat
+| Participants         | [Participant: a]
++----------------------+--------------------------------+
 ```
 ---
 
-### 📎 `duplicate` — Duplicate an event
+### 📎 `duplicate` — Duplicate an existing event
 
-Clones an existing event and gives it a new name. Only ADMIN can duplicate an event.
+#### Command : `duplicate`
 
-You will be prompted to enter:
-- Event index
-- New name
-
-The copy retains all original details and priority.
-
-#### Command : 'duplicate'
+#### Notes:
+- Clones an existing event and gives it a new name. Only ADMIN can duplicate an event.
+- You will be prompted to enter:
+    - Event index
+    - New name
+- The copy retains all original details and priority.
 
 #### Example : 
 
 ```plaintext
 > duplicate
 
-Enter duplicate command (format: <index> <New Event Name>):
-`3 new team`
+Enter duplicate command (format: <index> <New Event Name>)(or type 'exit' to cancel):
+>1 new
 
-Event duplicated : 
-+----------------------+--------------------------------+
-| Name                 | new team
-| Start Time           | 2020-05-10 14:00
-| End Time             | 2020-05-10 16:00
+Event duplicated: +----------------------+--------------------------------+
+| Name                 | new
+| Start Time           | 2025-10-10 20:00
+| End Time             | 2025-10-10 21:00
 | Location             | Conference Room
 | Description          | A team meeting to discuss project updates
+| Participants         | [Participant: Terry]
 +----------------------+--------------------------------+
-Priority: LOW
 ```
 ---
 
 ### 🙋 `addparticipant` — Assign participant to event
 
-Adds a participant to an event if available. Only ADMIN can add a participant. 
-The list of events and users will be shown.
+#### Command : `addparticipant`
 
+#### Notes:
+- Adds a participant to an event if available.
+- Only ADMIN can add a participant. 
 
-#### Example 1: ✅ Successful Addition
+#### Example : ✅ Successful Addition
 
 ```plaintext
 >addparticipant
 
 Available Events:
-1. event a
-2. Meeting
-3. Team Meeting
-4. Team Meeting
-5. Meeting
-6. MEETUP
-7. Chill
-
+1. meet
+2. Team Meeting
+3. chill
+4. coffee
+5. new
+6. ret
 Available Participants:
-- hii
-- Terry
-- jack
 - Alice
-- Jacky
-
+- Terry
+- a
+- gg
 Use: <EventIndex> | <Participant Name>
->7|jack
+Type 'exit' to cancel.
+> 6 | gg
 
-Event Index : 6
-Event Start Time : 2020-01-01T10:00
-Event End Time : 2020-01-02T10:00
+Event Index: 5
+Event Start Time: 2025-03-20T16:30
+Event End Time: 2025-03-20T17:00
 Checking participant availability
-  -2000-12-12T12:00 to 2023-03-03T15:59
-Participant jack has been added.
+  -2025-03-20T14:00 to 2025-03-20T19:00
+Participant gg has been added.
+```
 
-
-#### Example 2 : Fail Addition
+#### Example : Fail Addition
+```plaintext
 >addparticipant
-7|ye
+5|Alice
 
-Event Index : 6
-Event Start Time : 2020-01-01T10:00
-Event End Time : 2020-01-02T10:00
-Participant 'ye' does not exist. Create a new one? (Y/N)
->N
-Operation cancelled.
-
+Event Index: 4
+Event Start Time: 2025-10-10T20:00
+Event End Time: 2025-10-10T21:00
+Checking participant availability
+  -2025-03-31T12:00 to 2025-05-31T12:00
+Warning: Scheduling Conflict
+Participants are not able to attend
+Please find another participant
+Participant Alice is unavailable during the event.Enter 'addparticipant' to try again or try other features.
 ````
 ### 🧑‍🤝‍🧑 `listparticipants` — Show event participants
 
-Lists participants of a selected event.
+#### Command : `listparticipants`
 
-You will be prompted to enter the index of the event.
+#### Notes:
+- Lists participants of a selected event.
+- You will be prompted to enter the index of the event.
 
-#### Example 1 : Successful list
+
+#### Example:
 ```plaintext
 >listparticipants
 
-Enter event index to list participants:
->7
+Available Events:
+1. meet
+2. Team Meeting
+3. chill
+4. coffee
+5. new
+6. ret
+Enter event index to list participants (or type 'exit' to cancel):
+>6
 
-Participants for event "Chill":
-- Participant: Jacky (Available: 1 slots)
-- Participant: jack (Available: 3 slots)
+Participants for event "ret":
+- Participant: a
+- Participant: gg
 ````
 ---
 
 ### 👋 `bye` — Exit the application
 
-Saves all data and exits the program safely.
-
 #### Command : 'bye'
+
+#### Notes
+Saves all data and exits the program safely.
 
 #### Example : 
 
