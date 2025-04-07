@@ -3,6 +3,7 @@ package command;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.AvailabilitySlot;
 import participant.Participant;
 import participant.ParticipantManager;
@@ -10,6 +11,8 @@ import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
 import event.EventManager;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +26,12 @@ public class LoginCommandTest {
     private EventManager eventManager;
     private ParticipantManager participantManager;
     private UI ui;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     public void setUp() throws SyncException {

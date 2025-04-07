@@ -8,6 +8,14 @@ import event.EventManager;
 import exception.SyncException;
 import participant.Participant;
 
+/**
+ * Handles all user interface interactions for the EventSync application.
+ * <p>
+ * This class manages displaying information to users and collecting user input,
+ * providing a consistent interface throughout the application.
+ * </p>
+ */
+
 public class UI {
     public static Scanner scanner = new Scanner(System.in);
 

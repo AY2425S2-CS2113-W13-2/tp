@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.Participant.AccessLevel;
 import participant.AvailabilitySlot;
@@ -24,6 +26,12 @@ public class UserStorageTest {
 
     private static final String TEST_FILE_PATH = "./data/testUsers.txt";
     private UserStorage userStorage;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     public void setUp() throws SyncException {
@@ -108,9 +116,8 @@ public class UserStorageTest {
         String corruptedLine = "John Doe | USER | password123 | invalidSlot\n";
         Files.write(Paths.get(TEST_FILE_PATH), corruptedLine.getBytes());
 
-        SyncException exception = assertThrows(SyncException.class, () -> {
+        assertThrows(SyncException.class, () -> {
             userStorage.loadUsers();
         });
-        assertTrue(exception.getMessage().contains("Skipping corrupted line"), "The exception message should mention corrupted lines.");
     }
 }

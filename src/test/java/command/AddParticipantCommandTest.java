@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
+import logger.EventSyncLogger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import participant.AvailabilitySlot;
@@ -29,6 +31,12 @@ class AddParticipantCommandTest {
     private EventManager eventManager;
     private ParticipantManager participantManager;
     private Participant admin;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

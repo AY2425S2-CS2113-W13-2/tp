@@ -8,9 +8,12 @@ import command.AddParticipantCommand;
 import exception.SyncException;
 import event.Event;
 import event.EventManager;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import logger.EventSyncLogger;
 import participant.AvailabilitySlot;
 import participant.Participant;
 import participant.ParticipantManager;
@@ -25,8 +28,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 public class AddParticipantCommandFactoryTest {
 
     private UI ui;
@@ -34,6 +35,12 @@ public class AddParticipantCommandFactoryTest {
     private EventManager eventManager;
     private AddParticipantCommandFactory factory;
     private Participant admin;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

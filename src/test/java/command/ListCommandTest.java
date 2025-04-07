@@ -3,12 +3,15 @@ package command;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.AvailabilitySlot;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +34,12 @@ class ListCommandTest {
     private Participant participant;
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

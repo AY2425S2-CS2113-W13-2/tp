@@ -1,1 +1,1 @@
-john_doe | ADMIN | password123 | 
+john_doe | ADMIN | password123

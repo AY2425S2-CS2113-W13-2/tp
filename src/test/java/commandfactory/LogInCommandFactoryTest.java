@@ -7,10 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import command.Command;
 import command.LoginCommand;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +22,12 @@ public class LogInCommandFactoryTest {
 
     private LoginCommandFactory factory;
     private ParticipantManager participantManager;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

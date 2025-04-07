@@ -9,6 +9,8 @@ import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
+import logger.EventSyncLogger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +28,12 @@ class AddEventCommandTest {
     private Event event;
     private AddEventCommand command;
     private Storage eventStorage;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {
@@ -52,7 +60,6 @@ class AddEventCommandTest {
         command = new AddEventCommand(event);
     }
 
-
     @Test
     void testExecute() throws SyncException {
         command.execute(eventManager, ui, participantManager);
@@ -68,7 +75,7 @@ class AddEventCommandTest {
     void testExecuteThrowsSyncException() {
         Event invalidEvent = new Event("Invalid Event",
                 LocalDateTime.of(2025, 5, 10, 16, 0),
-                LocalDateTime.of(2025, 5, 10, 14, 0),  // 结束时间 < 开始时间
+                LocalDateTime.of(2025, 5, 10, 14, 0),  // End time < Start time
                 "Lab", "Invalid Desc");
 
         AddEventCommand invalidCommand = new AddEventCommand(invalidEvent);

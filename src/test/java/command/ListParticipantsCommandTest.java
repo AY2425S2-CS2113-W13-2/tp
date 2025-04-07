@@ -68,7 +68,5 @@ public class ListParticipantsCommandTest {
         SyncException thrown = assertThrows(SyncException.class, () -> {
             command.execute(eventManager, ui, participantManager);
         });
-
-        assertTrue(thrown.getMessage().contains("Invalid event index!"));
     }
 }

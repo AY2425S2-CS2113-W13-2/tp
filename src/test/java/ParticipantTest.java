@@ -1,5 +1,8 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.AvailabilitySlot;
 import java.time.LocalDateTime;
@@ -15,6 +18,12 @@ class ParticipantTest {
     private Participant participant;
     private AvailabilitySlot slot1;
     private AvailabilitySlot slot2;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() {

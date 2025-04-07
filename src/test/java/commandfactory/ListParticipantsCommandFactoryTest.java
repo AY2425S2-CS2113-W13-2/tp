@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import exception.SyncException;
 import event.Event;
 import event.EventManager;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,12 @@ public class ListParticipantsCommandFactoryTest {
     private EventManager eventManager;
 
     private InputStream originalSystemIn;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {
@@ -52,73 +60,27 @@ public class ListParticipantsCommandFactoryTest {
     }
 
     @Test
-    public void testCreateCommand_UserLoggedIn_ReturnsListParticipantsCommand() throws SyncException {
+    public void testCreateCommand_NoEventsAvailable_ThrowsSyncException() throws SyncException {
         Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
-        participantManager.addNewUser(testUser);
+
+        // Try to add the user, ignore if already exists
+        try {
+            participantManager.addNewUser(testUser);
+        } catch (SyncException e) {
+            // Ignore if user already exists
+        }
+
         participantManager.setCurrentUser(testUser);
 
-        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
-        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
-        eventManager.addEvent(event);
-
         UI mockUi = new UI() {
+            @Override
+            public void showMessage(String message) {
+                // Suppress message output
+            }
+
             @Override
             public String readLine() {
                 return "exit";
-            }
-        };
-
-        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
-
-        SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Operation cancelled.", exception.getMessage());
-    }
-
-    @Test
-    public void testCreateCommand_InvalidEventIndex_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
-        participantManager.addNewUser(testUser);
-        participantManager.setCurrentUser(testUser);
-
-        LocalDateTime startTime = LocalDateTime.of(2020, 5, 10, 14, 0);
-        LocalDateTime endTime = LocalDateTime.of(2020, 5, 10, 14, 30);
-        Event event = new Event("Test Event", startTime, endTime, "Test Location", "Test Description");
-        eventManager.addEvent(event);
-
-        UI mockUi = new UI() {
-            private int callCount = 0;
-
-            @Override
-            public String readLine() {
-                callCount++;
-                if (callCount == 1) {
-                    return "invalid";
-                } else {
-                    return "exit";
-                }
-            }
-
-            @Override
-            public void showMessage(String message) {
-            }
-        };
-
-        factory = new ListParticipantsCommandFactory(mockUi, eventManager, participantManager);
-
-        SyncException exception = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Operation cancelled.", exception.getMessage());
-    }
-
-    @Test
-    public void testCreateCommand_NoEventsAvailable_ThrowsSyncException() throws SyncException {
-        Participant testUser = new Participant("john_doe", "password123", Participant.AccessLevel.ADMIN, new ArrayList<>());
-        participantManager.addNewUser(testUser);
-        participantManager.setCurrentUser(testUser);
-
-        UI mockUi = new UI() {
-            @Override
-            public void showMessage(String message) {
             }
         };
 

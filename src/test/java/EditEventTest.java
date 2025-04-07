@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -5,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import event.Event;
 import event.EventManager;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.AvailabilitySlot;
 import participant.ParticipantManager;
@@ -24,6 +26,12 @@ class EditEventTest {
     private UI ui;
     private Event event;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

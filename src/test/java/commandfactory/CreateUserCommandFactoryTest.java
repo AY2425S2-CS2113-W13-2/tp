@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import command.Command;
 import command.CreateUserCommand;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.AvailabilitySlot;
 import participant.Participant;
 import participant.ParticipantManager;
@@ -31,6 +33,12 @@ class CreateUserCommandFactoryTest {
     private ParticipantManager participantManager;
     private CreateUserCommandFactory factory;
     private Participant participant;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

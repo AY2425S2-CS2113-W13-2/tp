@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.Storage;
@@ -28,6 +32,12 @@ class FindCommandTest {
     private Event teamMeeting;
     private Event conference;
     private TestUI testUI;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     private static class TestUI extends UI {
         private ArrayList<Event> lastPrintedEvents;

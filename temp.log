@@ -2,15 +2,2532 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2025-04-07T15:34:34.295050800Z</date>
-  <millis>1744040074295</millis>
-  <nanos>50800</nanos>
-  <sequence>8</sequence>
+  <date>2025-04-07T17:52:12.737766Z</date>
+  <millis>1744048332737</millis>
+  <nanos>766000</nanos>
+  <sequence>1926</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
   <class>logger.EventSyncLoggerTest</class>
   <method>testFileNotCreatedInTest</method>
   <thread>1</thread>
   <message>Test info message</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.737766Z</date>
+  <millis>1744048332737</millis>
+  <nanos>766000</nanos>
+  <sequence>1927</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.739837100Z</date>
+  <millis>1744048332739</millis>
+  <nanos>837100</nanos>
+  <sequence>1928</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.741Z</date>
+  <millis>1744048332741</millis>
+  <sequence>1929</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.741Z</date>
+  <millis>1744048332741</millis>
+  <sequence>1930</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>logger.EventSyncLoggerTest</class>
+  <method>testLoggerInfoMessage</method>
+  <thread>1</thread>
+  <message>Logger initialized successfully</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.747757400Z</date>
+  <millis>1744048332747</millis>
+  <nanos>757400</nanos>
+  <sequence>1945</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.747757400Z</date>
+  <millis>1744048332747</millis>
+  <nanos>757400</nanos>
+  <sequence>1949</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.747757400Z</date>
+  <millis>1744048332747</millis>
+  <nanos>757400</nanos>
+  <sequence>1950</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: logout</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.747757400Z</date>
+  <millis>1744048332747</millis>
+  <nanos>757400</nanos>
+  <sequence>1951</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Logout command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.750577900Z</date>
+  <millis>1744048332750</millis>
+  <nanos>577900</nanos>
+  <sequence>1955</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.750577900Z</date>
+  <millis>1744048332750</millis>
+  <nanos>577900</nanos>
+  <sequence>1956</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: duplicate event_id</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.750577900Z</date>
+  <millis>1744048332750</millis>
+  <nanos>577900</nanos>
+  <sequence>1957</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Duplicate command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.751491300Z</date>
+  <millis>1744048332751</millis>
+  <nanos>491300</nanos>
+  <sequence>1961</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.751491300Z</date>
+  <millis>1744048332751</millis>
+  <nanos>491300</nanos>
+  <sequence>1962</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: listparticipants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.751491300Z</date>
+  <millis>1744048332751</millis>
+  <nanos>491300</nanos>
+  <sequence>1963</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>ListParticipants command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.754185800Z</date>
+  <millis>1744048332754</millis>
+  <nanos>185800</nanos>
+  <sequence>1967</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.754185800Z</date>
+  <millis>1744048332754</millis>
+  <nanos>185800</nanos>
+  <sequence>1968</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: listall</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.754185800Z</date>
+  <millis>1744048332754</millis>
+  <nanos>185800</nanos>
+  <sequence>1969</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>List all command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.755218Z</date>
+  <millis>1744048332755</millis>
+  <nanos>218000</nanos>
+  <sequence>1973</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.756303800Z</date>
+  <millis>1744048332756</millis>
+  <nanos>303800</nanos>
+  <sequence>1974</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: find</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.756303800Z</date>
+  <millis>1744048332756</millis>
+  <nanos>303800</nanos>
+  <sequence>1975</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Find command received without keyword.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.756303800Z</date>
+  <millis>1744048332756</millis>
+  <nanos>303800</nanos>
+  <sequence>1977</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Sync exception during command parsing</message>
+  <exception>
+    <message>exception.SyncException: Please provide a keyword</message>
+    <frame>
+      <class>parser.Parser</class>
+      <method>parse</method>
+      <line>119</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>lambda$testParseFindCommandWithoutKeyword$0</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>39</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.Assertions</class>
+      <method>assertThrows</method>
+      <line>3127</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>testParseFindCommandWithoutKeyword</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.commons.util.ReflectionUtils</class>
+      <method>invokeMethod</method>
+      <line>728</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.MethodInvocation</class>
+      <method>proceed</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation</class>
+      <method>proceed</method>
+      <line>131</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>intercept</method>
+      <line>156</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestableMethod</method>
+      <line>147</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestMethod</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall</class>
+      <method>lambda$ofVoidMethod$0</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>lambda$invoke$0</method>
+      <line>93</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation</class>
+      <method>proceed</method>
+      <line>106</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>proceed</method>
+      <line>64</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>chainAndInvoke</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>invoke</method>
+      <line>37</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>92</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>lambda$invokeTestMethod$7</method>
+      <line>218</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>invokeTestMethod</method>
+      <line>214</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>151</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>submit</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor</class>
+      <method>execute</method>
+      <line>57</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine</class>
+      <method>execute</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>107</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>88</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>lambda$execute$0</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>withInterceptedStreams</method>
+      <line>67</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>52</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>114</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.SessionPerRequestLauncher</class>
+      <method>execute</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>processAllTestClasses</method>
+      <line>99</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>access$000</method>
+      <line>79</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor</class>
+      <method>stop</method>
+      <line>75</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor</class>
+      <method>stop</method>
+      <line>62</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>36</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>24</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ContextClassLoaderDispatch</class>
+      <method>dispatch</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler</class>
+      <method>invoke</method>
+      <line>94</line>
+    </frame>
+    <frame>
+      <class>jdk.proxy1.$Proxy2</class>
+      <method>stop</method>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker$3</class>
+      <method>run</method>
+      <line>193</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>executeAndMaintainThreadName</method>
+      <line>129</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>100</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.ActionExecutionWorker</class>
+      <method>execute</method>
+      <line>56</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>113</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>65</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>run</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>main</method>
+      <line>74</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.759841700Z</date>
+  <millis>1744048332759</millis>
+  <nanos>841700</nanos>
+  <sequence>1981</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.760059700Z</date>
+  <millis>1744048332760</millis>
+  <nanos>59700</nanos>
+  <sequence>1982</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: invalidCommand</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.760059700Z</date>
+  <millis>1744048332760</millis>
+  <nanos>59700</nanos>
+  <sequence>1983</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Invalid command received: invalidCommand</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.760059700Z</date>
+  <millis>1744048332760</millis>
+  <nanos>59700</nanos>
+  <sequence>1985</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Sync exception during command parsing</message>
+  <exception>
+    <message>exception.SyncException:    (╯°□°)╯︵ OOPS!!! Invalid command: invalidCommand
+   Please enter 'login' to login first.</message>
+    <frame>
+      <class>parser.Parser</class>
+      <method>parse</method>
+      <line>152</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>lambda$testParseInvalidCommand$1</method>
+      <line>158</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>39</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.Assertions</class>
+      <method>assertThrows</method>
+      <line>3127</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>testParseInvalidCommand</method>
+      <line>158</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.commons.util.ReflectionUtils</class>
+      <method>invokeMethod</method>
+      <line>728</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.MethodInvocation</class>
+      <method>proceed</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation</class>
+      <method>proceed</method>
+      <line>131</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>intercept</method>
+      <line>156</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestableMethod</method>
+      <line>147</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestMethod</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall</class>
+      <method>lambda$ofVoidMethod$0</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>lambda$invoke$0</method>
+      <line>93</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation</class>
+      <method>proceed</method>
+      <line>106</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>proceed</method>
+      <line>64</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>chainAndInvoke</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>invoke</method>
+      <line>37</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>92</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>lambda$invokeTestMethod$7</method>
+      <line>218</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>invokeTestMethod</method>
+      <line>214</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>151</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>submit</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor</class>
+      <method>execute</method>
+      <line>57</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine</class>
+      <method>execute</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>107</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>88</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>lambda$execute$0</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>withInterceptedStreams</method>
+      <line>67</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>52</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>114</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.SessionPerRequestLauncher</class>
+      <method>execute</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>processAllTestClasses</method>
+      <line>99</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>access$000</method>
+      <line>79</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor</class>
+      <method>stop</method>
+      <line>75</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor</class>
+      <method>stop</method>
+      <line>62</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>36</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>24</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ContextClassLoaderDispatch</class>
+      <method>dispatch</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler</class>
+      <method>invoke</method>
+      <line>94</line>
+    </frame>
+    <frame>
+      <class>jdk.proxy1.$Proxy2</class>
+      <method>stop</method>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker$3</class>
+      <method>run</method>
+      <line>193</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>executeAndMaintainThreadName</method>
+      <line>129</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>100</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.ActionExecutionWorker</class>
+      <method>execute</method>
+      <line>56</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>113</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>65</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>run</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>main</method>
+      <line>74</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.763487300Z</date>
+  <millis>1744048332763</millis>
+  <nanos>487300</nanos>
+  <sequence>1989</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.763697100Z</date>
+  <millis>1744048332763</millis>
+  <nanos>697100</nanos>
+  <sequence>1990</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: bye</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.763697100Z</date>
+  <millis>1744048332763</millis>
+  <nanos>697100</nanos>
+  <sequence>1991</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Bye command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.764083100Z</date>
+  <millis>1744048332764</millis>
+  <nanos>83100</nanos>
+  <sequence>1996</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.764083100Z</date>
+  <millis>1744048332764</millis>
+  <nanos>83100</nanos>
+  <sequence>1997</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: list</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.764083100Z</date>
+  <millis>1744048332764</millis>
+  <nanos>83100</nanos>
+  <sequence>1998</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>List command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2002</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2003</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: login username password</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2004</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Login command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2008</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2009</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: create username password</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.765639Z</date>
+  <millis>1744048332765</millis>
+  <nanos>639000</nanos>
+  <sequence>2010</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Create command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.768993800Z</date>
+  <millis>1744048332768</millis>
+  <nanos>993800</nanos>
+  <sequence>2015</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.769259800Z</date>
+  <millis>1744048332769</millis>
+  <nanos>259800</nanos>
+  <sequence>2016</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: </message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.769259800Z</date>
+  <millis>1744048332769</millis>
+  <nanos>259800</nanos>
+  <sequence>2017</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Invalid command received: </message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.769259800Z</date>
+  <millis>1744048332769</millis>
+  <nanos>259800</nanos>
+  <sequence>2019</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Sync exception during command parsing</message>
+  <exception>
+    <message>exception.SyncException:    (╯°□°)╯︵ OOPS!!! Invalid command: 
+   Please enter 'login' to login first.</message>
+    <frame>
+      <class>parser.Parser</class>
+      <method>parse</method>
+      <line>152</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>lambda$testParseEmptyCommand$2</method>
+      <line>164</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.AssertThrows</class>
+      <method>assertThrows</method>
+      <line>39</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.api.Assertions</class>
+      <method>assertThrows</method>
+      <line>3127</line>
+    </frame>
+    <frame>
+      <class>parser.ParserTest</class>
+      <method>testParseEmptyCommand</method>
+      <line>164</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.commons.util.ReflectionUtils</class>
+      <method>invokeMethod</method>
+      <line>728</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.MethodInvocation</class>
+      <method>proceed</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation</class>
+      <method>proceed</method>
+      <line>131</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>intercept</method>
+      <line>156</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestableMethod</method>
+      <line>147</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.extension.TimeoutExtension</class>
+      <method>interceptTestMethod</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall</class>
+      <method>lambda$ofVoidMethod$0</method>
+      <line>103</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>lambda$invoke$0</method>
+      <line>93</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation</class>
+      <method>proceed</method>
+      <line>106</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>proceed</method>
+      <line>64</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>chainAndInvoke</method>
+      <line>45</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InvocationInterceptorChain</class>
+      <method>invoke</method>
+      <line>37</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>92</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.execution.InterceptingExecutableInvoker</class>
+      <method>invoke</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>lambda$invokeTestMethod$7</method>
+      <line>218</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>invokeTestMethod</method>
+      <line>214</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor</class>
+      <method>execute</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>151</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>java.util.ArrayList</class>
+      <method>forEach</method>
+      <line>1511</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>invokeAll</method>
+      <line>41</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$6</method>
+      <line>155</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$8</method>
+      <line>141</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.Node</class>
+      <method>around</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>lambda$executeRecursively$9</method>
+      <line>139</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.ThrowableCollector</class>
+      <method>execute</method>
+      <line>73</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>executeRecursively</method>
+      <line>138</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.NodeTestTask</class>
+      <method>execute</method>
+      <line>95</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService</class>
+      <method>submit</method>
+      <line>35</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor</class>
+      <method>execute</method>
+      <line>57</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine</class>
+      <method>execute</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>107</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>88</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>lambda$execute$0</method>
+      <line>54</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>withInterceptedStreams</method>
+      <line>67</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.EngineExecutionOrchestrator</class>
+      <method>execute</method>
+      <line>52</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>114</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher</class>
+      <method>execute</method>
+      <line>86</line>
+    </frame>
+    <frame>
+      <class>org.junit.platform.launcher.core.SessionPerRequestLauncher</class>
+      <method>execute</method>
+      <line>53</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>processAllTestClasses</method>
+      <line>99</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor</class>
+      <method>access$000</method>
+      <line>79</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor</class>
+      <method>stop</method>
+      <line>75</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor</class>
+      <method>stop</method>
+      <line>62</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke0</method>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.NativeMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>77</line>
+    </frame>
+    <frame>
+      <class>jdk.internal.reflect.DelegatingMethodAccessorImpl</class>
+      <method>invoke</method>
+      <line>43</line>
+    </frame>
+    <frame>
+      <class>java.lang.reflect.Method</class>
+      <method>invoke</method>
+      <line>568</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>36</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ReflectionDispatch</class>
+      <method>dispatch</method>
+      <line>24</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ContextClassLoaderDispatch</class>
+      <method>dispatch</method>
+      <line>33</line>
+    </frame>
+    <frame>
+      <class>org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler</class>
+      <method>invoke</method>
+      <line>94</line>
+    </frame>
+    <frame>
+      <class>jdk.proxy1.$Proxy2</class>
+      <method>stop</method>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker$3</class>
+      <method>run</method>
+      <line>193</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>executeAndMaintainThreadName</method>
+      <line>129</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>100</line>
+    </frame>
+    <frame>
+      <class>org.gradle.api.internal.tasks.testing.worker.TestWorker</class>
+      <method>execute</method>
+      <line>60</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.ActionExecutionWorker</class>
+      <method>execute</method>
+      <line>56</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>113</line>
+    </frame>
+    <frame>
+      <class>org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker</class>
+      <method>call</method>
+      <line>65</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>run</method>
+      <line>69</line>
+    </frame>
+    <frame>
+      <class>worker.org.gradle.process.internal.worker.GradleWorkerMain</class>
+      <method>main</method>
+      <line>74</line>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.772791900Z</date>
+  <millis>1744048332772</millis>
+  <nanos>791900</nanos>
+  <sequence>2023</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.773055800Z</date>
+  <millis>1744048332773</millis>
+  <nanos>55800</nanos>
+  <sequence>2024</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: help</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.773055800Z</date>
+  <millis>1744048332773</millis>
+  <nanos>55800</nanos>
+  <sequence>2025</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Help command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.773928400Z</date>
+  <millis>1744048332773</millis>
+  <nanos>928400</nanos>
+  <sequence>2029</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.773928400Z</date>
+  <millis>1744048332773</millis>
+  <nanos>928400</nanos>
+  <sequence>2030</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: edit event_id | new_description</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.773928400Z</date>
+  <millis>1744048332773</millis>
+  <nanos>928400</nanos>
+  <sequence>2031</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Edit command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2035</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2036</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: filter event_type</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2037</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Filter command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2041</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2042</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: addparticipant participant_name | event_id</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.774985700Z</date>
+  <millis>1744048332774</millis>
+  <nanos>985700</nanos>
+  <sequence>2043</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>AddParticipant command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.778256200Z</date>
+  <millis>1744048332778</millis>
+  <nanos>256200</nanos>
+  <sequence>2048</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.778256200Z</date>
+  <millis>1744048332778</millis>
+  <nanos>256200</nanos>
+  <sequence>2049</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: find event</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.778256200Z</date>
+  <millis>1744048332778</millis>
+  <nanos>256200</nanos>
+  <sequence>2050</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Find command received with keyword: event</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.779336800Z</date>
+  <millis>1744048332779</millis>
+  <nanos>336800</nanos>
+  <sequence>2054</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.779336800Z</date>
+  <millis>1744048332779</millis>
+  <nanos>336800</nanos>
+  <sequence>2055</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: add event_name | 2024-05-01 12:00 | 2024-05-01 14:00 | description | details</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.779336800Z</date>
+  <millis>1744048332779</millis>
+  <nanos>336800</nanos>
+  <sequence>2056</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Add command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.780423700Z</date>
+  <millis>1744048332780</millis>
+  <nanos>423700</nanos>
+  <sequence>2061</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Parser initialized with custom scanner.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.780423700Z</date>
+  <millis>1744048332780</millis>
+  <nanos>423700</nanos>
+  <sequence>2062</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Parsing command: delete event_id</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.780423700Z</date>
+  <millis>1744048332780</millis>
+  <nanos>423700</nanos>
+  <sequence>2063</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>parser.Parser</class>
+  <method>parse</method>
+  <thread>1</thread>
+  <message>Delete command received.</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.781916900Z</date>
+  <millis>1744048332781</millis>
+  <nanos>916900</nanos>
+  <sequence>2064</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.786172500Z</date>
+  <millis>1744048332786</millis>
+  <nanos>172500</nanos>
+  <sequence>2068</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/StorageTestUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.786172500Z</date>
+  <millis>1744048332786</millis>
+  <nanos>172500</nanos>
+  <sequence>2069</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 0 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.786172500Z</date>
+  <millis>1744048332786</millis>
+  <nanos>172500</nanos>
+  <sequence>2074</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/StorageTestUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.786172500Z</date>
+  <millis>1744048332786</millis>
+  <nanos>172500</nanos>
+  <sequence>2075</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 0 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.796657500Z</date>
+  <millis>1744048332796</millis>
+  <nanos>657500</nanos>
+  <sequence>2082</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/StorageTestUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.798005300Z</date>
+  <millis>1744048332798</millis>
+  <nanos>5300</nanos>
+  <sequence>2083</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 0 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.805732200Z</date>
+  <millis>1744048332805</millis>
+  <nanos>732200</nanos>
+  <sequence>2094</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/StorageTestUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.807818100Z</date>
+  <millis>1744048332807</millis>
+  <nanos>818100</nanos>
+  <sequence>2095</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 0 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.814772800Z</date>
+  <millis>1744048332814</millis>
+  <nanos>772800</nanos>
+  <sequence>2101</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>WARNING</level>
+  <class>logger.EventSyncLogger</class>
+  <method>setupLogger</method>
+  <thread>1</thread>
+  <message>Logger is already initialized</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.815432100Z</date>
+  <millis>1744048332815</millis>
+  <nanos>432100</nanos>
+  <sequence>2102</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.815432100Z</date>
+  <millis>1744048332815</millis>
+  <nanos>432100</nanos>
+  <sequence>2103</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Saving 2 participants to storage</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.815432100Z</date>
+  <millis>1744048332815</millis>
+  <nanos>432100</nanos>
+  <sequence>2104</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Successfully saved participants to ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.819699500Z</date>
+  <millis>1744048332819</millis>
+  <nanos>699500</nanos>
+  <sequence>2105</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2106</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2107</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>participant.AvailabilitySlot</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2109</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>participant.AvailabilitySlot</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2110</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Saving 1 participants to storage</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2111</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Successfully saved participants to ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.821880500Z</date>
+  <millis>1744048332821</millis>
+  <nanos>880500</nanos>
+  <sequence>2112</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.823238400Z</date>
+  <millis>1744048332823</millis>
+  <nanos>238400</nanos>
+  <sequence>2114</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>participant.AvailabilitySlot</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>Created new AvailabilitySlot: 2025-04-07T09:00 - 2025-04-07T10:00</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.823238400Z</date>
+  <millis>1744048332823</millis>
+  <nanos>238400</nanos>
+  <sequence>2115</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 1 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.824654400Z</date>
+  <millis>1744048332824</millis>
+  <nanos>654400</nanos>
+  <sequence>2116</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.824654400Z</date>
+  <millis>1744048332824</millis>
+  <nanos>654400</nanos>
+  <sequence>2117</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.829252700Z</date>
+  <millis>1744048332829</millis>
+  <nanos>252700</nanos>
+  <sequence>2120</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.829252700Z</date>
+  <millis>1744048332829</millis>
+  <nanos>252700</nanos>
+  <sequence>2121</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Saving 1 participants to storage</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.829252700Z</date>
+  <millis>1744048332829</millis>
+  <nanos>252700</nanos>
+  <sequence>2122</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Successfully saved participants to ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.829252700Z</date>
+  <millis>1744048332829</millis>
+  <nanos>252700</nanos>
+  <sequence>2123</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.829252700Z</date>
+  <millis>1744048332829</millis>
+  <nanos>252700</nanos>
+  <sequence>2124</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 1 participants</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.831259100Z</date>
+  <millis>1744048332831</millis>
+  <nanos>259100</nanos>
+  <sequence>2125</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>ensureFileExists</method>
+  <thread>1</thread>
+  <message>Created new user storage file: ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.831259100Z</date>
+  <millis>1744048332831</millis>
+  <nanos>259100</nanos>
+  <sequence>2126</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Saving 2 participants to storage</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.833612200Z</date>
+  <millis>1744048332833</millis>
+  <nanos>612200</nanos>
+  <sequence>2127</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>saveUsers</method>
+  <thread>1</thread>
+  <message>Successfully saved participants to ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.833612200Z</date>
+  <millis>1744048332833</millis>
+  <nanos>612200</nanos>
+  <sequence>2128</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>FINE</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Loading participants from ./data/testUsers.txt</message>
+</record>
+<record>
+  <date>2025-04-07T17:52:12.833612200Z</date>
+  <millis>1744048332833</millis>
+  <nanos>612200</nanos>
+  <sequence>2129</sequence>
+  <logger>logger.EventSyncLogger</logger>
+  <level>INFO</level>
+  <class>storage.UserStorage</class>
+  <method>loadUsers</method>
+  <thread>1</thread>
+  <message>Successfully loaded 2 participants</message>
 </record>
 </log>

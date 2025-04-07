@@ -6,10 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import command.Command;
 import command.FindCommand;
 import exception.SyncException;
+import logger.EventSyncLogger;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
 public class FindCommandFactoryTest {
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @Test
     public void testCreateCommand_validKeyword_returnsFindCommand() throws SyncException {

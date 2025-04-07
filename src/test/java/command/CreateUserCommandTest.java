@@ -2,11 +2,14 @@ package command;
 
 import event.EventManager;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.Storage;
 import ui.UI;
 import storage.UserStorage;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +25,12 @@ class CreateUserCommandTest {
     private UI ui;
     private UserStorage userStorage;
     private EventManager eventManager;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

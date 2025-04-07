@@ -3,7 +3,9 @@ package storage;
 import event.Event;
 import exception.SyncException;
 import label.Priority;
+import logger.EventSyncLogger;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,12 @@ public class StorageTest {
 
     private static final String TEST_FILE_PATH = "./data/StorageTest.txt";
     private Storage storage;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     public void setUp() throws SyncException, IOException {

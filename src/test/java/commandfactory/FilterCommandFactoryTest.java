@@ -7,7 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import command.Command;
 import command.FilterCommand;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.AvailabilitySlot;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import participant.Participant;
@@ -38,6 +41,12 @@ public class FilterCommandFactoryTest {
         public void setSimulatedInput(String input) {
             this.simulatedInput = input;
         }
+    }
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
     }
 
     @BeforeEach

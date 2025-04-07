@@ -3,8 +3,12 @@ package commandfactory;
 import command.Command;
 import command.LogOutCommand;
 import exception.SyncException;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
@@ -19,6 +23,12 @@ public class LogOutCommandFactoryTest {
 
     private LogOutCommandFactory factory;
     private ParticipantManager participantManager;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

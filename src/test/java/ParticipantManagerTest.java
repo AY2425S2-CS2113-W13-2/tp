@@ -1,10 +1,12 @@
 import event.Event;
+import logger.EventSyncLogger;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
 import ui.UI;
 import exception.SyncException;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,12 @@ public class ParticipantManagerTest {
     private ArrayList<Participant> participants;
     private UI ui;
     private UserStorage storage;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {

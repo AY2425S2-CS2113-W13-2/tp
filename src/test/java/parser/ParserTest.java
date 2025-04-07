@@ -3,9 +3,11 @@ package parser;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import storage.Storage;
 import storage.UserStorage;
 import ui.UI;
@@ -22,6 +24,12 @@ public class ParserTest {
     private EventManager eventManager;
     private ParticipantManager participantManager;
     private Scanner scanner;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     public void setUp() throws SyncException {

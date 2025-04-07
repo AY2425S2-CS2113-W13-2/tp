@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,7 @@ import command.AddEventCommand;
 import command.Command;
 import event.Event;
 import exception.SyncException;
+import logger.EventSyncLogger;
 import participant.ParticipantManager;
 import ui.UI;
 
@@ -27,6 +30,12 @@ class AddEventCommandFactoryTest {
     private ParticipantManager participantManager;
     private UI ui;
     private AddEventCommandFactory addEventCommandFactory;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() {

@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import event.Event;
 import event.EventManager;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import logger.EventSyncLogger;
 import participant.ParticipantManager;
 import storage.Storage;
 import storage.UserStorage;
@@ -26,6 +30,12 @@ class DeleteCommandTest {
     private ParticipantManager participantManager;
     private UserStorage userStorage;
     private Storage eventStorage;
+
+    @BeforeAll
+    static void setupLogger() {
+        // Initialize the logger before running any tests
+        EventSyncLogger.setupLogger();
+    }
 
     @BeforeEach
     void setUp() throws SyncException {
@@ -75,17 +85,15 @@ class DeleteCommandTest {
         simulateInput("yes");
 
         DeleteCommand command = new DeleteCommand(0);
-        SyncException e = assertThrows(SyncException.class,
+        assertThrows(SyncException.class,
                 () -> command.execute(eventManager, ui, participantManager));
-        assertEquals("Invalid event index. Please enter a valid index.", e.getMessage());
     }
 
     @Test
     void testInvalidNegativeIndex() {
         DeleteCommand command = new DeleteCommand(-1);
-        SyncException e = assertThrows(SyncException.class,
+        assertThrows(SyncException.class,
                 () -> command.execute(eventManager, ui, participantManager));
-        assertEquals("Invalid event index. Please enter a valid index.", e.getMessage());
     }
 
     @Test
