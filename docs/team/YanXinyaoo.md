@@ -67,6 +67,8 @@ I focused on implementing key functionalities for event management, optimizing p
 ### Implementation of JUnit Tests
 - **Added comprehensive JUnit tests for:**
     - `EventSyncTest`
+    - All JUnit test under file `command`, `commandfactory`, `exception`, `logger`, `parser`, `storage`, `ui`
+    - Modify all JUnit test to pass the test.
     - Updated **text-ui-test**
 
 ## Contributions to the User Guide
@@ -76,7 +78,7 @@ I focused on implementing key functionalities for event management, optimizing p
 
 ## Contributions to the Developer Guide
 - **Added:**
-    - **Sequence Diagrams** for `addEvent`, `listEvent`, `storage`, `userStorage`, `login`, `logout` and `create` commands.
+    - **Sequence Diagrams** for `addEvent`, `editEvent`, `duplicate`, `add participant`, `list participant`, `listEvent`, `storage`, `userStorage`, `login`, `logout` and `create` commands.
     - **Class Diagrams** for `Storage`, `UserStorage` and its dependencies.
     - **Design** for Storage
     - **Implementaiton** for `addEvent`, `listEvent`, `storage`, `userStorage`, `login`, `logout` and `create`
