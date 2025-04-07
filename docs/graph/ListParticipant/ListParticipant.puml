@@ -1,0 +1,21 @@
+@startuml
+actor User
+participant "UI" as UI
+participant "ListParticipantsCommandFactory" as Factory
+participant "ListParticipantsCommand" as Command
+participant "EventManager" as EM
+participant "ParticipantManager" as PM
+
+User -> UI : input "listparticipants"
+UI -> Factory : prompt user to select event
+Factory -> UI : show available events
+UI -> User : prompt for index
+User -> UI : enter index
+
+Factory -> Command : createCommand(index)
+User -> Command : execute()
+
+Command -> EM : getEvent(index)
+EM -> Command : return Event
+Command -> Event : listParticipants()
+@enduml

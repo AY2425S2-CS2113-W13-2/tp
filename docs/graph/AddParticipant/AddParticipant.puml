@@ -1,0 +1,31 @@
+@startuml
+actor Admin
+participant "UI" as UI
+participant "AddParticipantCommandFactory" as Factory
+participant "AddParticipantCommand" as Command
+participant "ParticipantManager" as PM
+participant "EventManager" as EM
+participant "UserStorage" as Storage
+
+Admin -> UI : input "addparticipant"
+UI -> Factory : parse input, get eventIndex and participantName
+Factory -> Command : createCommand(eventIndex, name)
+Admin -> Command : execute()
+
+Command -> EM : getEvent(index)
+Command -> PM : getParticipant(name)
+alt Participant not found
+    UI -> Admin : Ask to create participant
+    Admin -> UI : input yes
+    Command -> PM : createUser(...)
+    PM -> Storage : saveUsers()
+end
+
+Command -> PM : checkParticipantAvailability()
+alt isAvailable
+    Command -> PM : assignParticipant()
+    PM -> Storage : saveUsers()
+    Command -> EM : event.addParticipant()
+    EM -> Storage : saveEvents()
+end
+@enduml

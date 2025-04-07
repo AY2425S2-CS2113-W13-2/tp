@@ -1,0 +1,44 @@
+@startuml
+actor Admin
+participant "UI" as UI
+participant "EditCommandFactory" as Factory
+participant "EditEventCommand" as Command
+participant "EventManager" as EM
+participant "ParticipantManager" as PM
+participant "Event" as Event
+participant "Participant" as Participant
+
+Admin -> UI : input "edit"
+UI -> Factory : prompt for index
+Admin -> UI : enter index
+Factory -> Command : createCommand(index)
+Admin -> Command : execute()
+
+Command -> EM : getEvent(index)
+UI -> Admin : show edit options
+Admin -> UI : choose "edit start time"
+
+loop until valid
+    Command -> UI : prompt for new start time
+    Admin -> UI : enter time
+    Command -> Event : getEndTime()
+    alt newStart after endTime
+        UI -> Admin : error
+    else
+        Command -> Event : getParticipants()
+        Command -> Participant : unassignEventTime()
+        Command -> Participant : isAvailableDuring(newStart, endTime)
+        alt not available
+            Command -> Participant : reassign old time
+            PM -> PM : save()
+            UI -> Admin : throw error
+        else
+            Command -> Participant : assignEventTime(newStart, endTime)
+            PM -> PM : save()
+        end
+    end
+end
+Command -> Event : setStartTime()
+EM -> Storage : save()
+PM -> Storage : saveUsers()
+@enduml

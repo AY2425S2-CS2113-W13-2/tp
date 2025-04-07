@@ -1,2 +1,2 @@
-test meet | 2025-12-12 11:00 | 2025-12-12 12:49 | meeting room | na | LOW | TestUser:ADMIN
+test meet | 2025-12-12 11:00 | 2025-12-12 12:49 | meeting room | na | LOW | TestUser:ADMIN,SUPERUSER:ADMIN
 Test Meeting 2 | 2025-12-13 12:00 | 2025-12-13 12:49 | meeting room | na | MEDIUM | TestUser:ADMIN

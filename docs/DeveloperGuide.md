@@ -349,22 +349,40 @@ The `AddEventCommand` feature allows users to add an event to their schedule. It
 - **Alternative 1**: Throw `SyncException` on errors.
   - **Pros**: Centralized error handling that clearly defines issues.
   - **Cons**: Requires users to manage exceptions correctly.
+  
 
 ### 2. Edit Event Feature
 
 ### Implementation
 
-The `EditEventCommand` feature allows users to modify an existing event.
+The `EditEventCommand` allows ADMIN users to modify existing event details (name, time, location, description).
 
-1. **User Input Parsing**: The `Parser` prompts the user for the index of the event they want to edit.
-2. **Modification Flow**: The user is guided through inputs to edit event fields (e.g., name, time, location, etc.).
-3. **Update Storage**: The original event is updated in the `EventList`.
+- Users are prompted to choose a field to update.
+- When changing time, participant availability is verified to avoid conflicts.
+- Participant availability slots are updated if a new time is assigned.
+- Changes are persisted to both event and user storage files.
 
+#### Steps:
+1. Admin logs in and runs `edit`.
+2. System displays a list of editable events.
+3. Admin selects an event and field (name, time, etc.).
+4. If editing time:
+  - System checks if all participants are available.
+  - Updates their availability slots accordingly.
+5. Saves event and participant data.
+
+![Edit Event Sequence Diagram](graph/EditEvent/EditEventSD.png)
 ### Design Considerations
 
-- **Why this design?**
-  - Enables users to fix or update event details without needing to delete and recreate them.
-  - Reuses existing input and validation logic, keeping the system modular.
+**Aspect 1: Live Availability Validation**
+- **Alternative 1 (current choice)**: Check participant availability before updating the event time.
+  - **Pros**: Ensures no participant is assigned to conflicting time slots.
+  - **Cons**: Adds complexity to the editing process, especially with large groups.
+
+**Aspect 2: Participant Availability Reassignment**
+- **Alternative 1 (current choice)**: Unassign and reassign participants' availability during time change.
+  - **Pros**: Maintains accurate availability records in real-time.
+  - **Cons**: Requires robust error handling in case reassignment fails partway.
 
 
 ### 3. Conflict Detector Feature
@@ -475,39 +493,74 @@ The `DuplicateEventCommand` feature allows users to duplicate an existing event 
 - **Why this design?**
     - The `Command` pattern allows easy extension for future commands.
     - Using an `EventList` simplifies storage and retrieval.
-
+  
 ### 8. Add Participant Feature
 
 ### Implementation
 
-The `AddParticipantCommand` feature enables users to add a participant to a specific event.
+The `AddParticipantCommand` feature enables users (typically with ADMIN access) to assign participants to a specific event while ensuring scheduling constraints are respected.
 
-1. **User Input Parsing**: The `Parser` reads the event index, participant name, and access level (ADMIN or MEMBER).
-2. **Validation**: Ensures valid access level and event index.
-3. **Participant Assignment**: Adds the participant to the event.
+1. **User Input Parsing**
+  - The `Parser` reads the event index and participant name.
+  - If the participant does not exist, the user is prompted to create a new one via the `CreateUserCommandFactory`.
 
+2. **Availability Validation**
+  - Before assigning the participant, their availability is validated against the event’s time slot using `isAvailableDuring`.
+
+3. **Participant Assignment**
+  - If the participant is available, they are assigned to the event using `assignEventTime`.
+  - Their availability slot is updated accordingly, and saved to disk using `UserStorage`.
+
+4. **Persistence & UI Update**
+  - Updated participant and event data is written to file using `saveUsers` and `saveEvents`.
+  - The user interface confirms success or failure.
+
+![Add Participant Sequence Diagram](graph/AddParticipant/AddPSD.png)
 ### Design Considerations
 
-- **Why this design?**
-  - Facilitates collaboration by assigning roles to users in events.
-  - Enhances event detail and accountability.
+**Aspect 1: Participant Creation on Demand**
+- **Alternative 1 (current choice)**: Allow admin to create a new participant if the entered name does not exist.
+  - **Pros**: Enhances flexibility and user experience by reducing workflow interruptions.
+  - **Cons**: Risk of creating unintended users if names are misspelled.
 
+**Aspect 2: Availability Validation Before Assignment**
+- **Alternative 1 (current choice)**: Assign participant only if they are available during the event.
+  - **Pros**: Prevents scheduling conflicts and ensures logical consistency.
+  - **Cons**: Adds user-side complexity if participants frequently have unavailable slots.
+
+**Aspect 3: Immediate Storage Update**
+- **Alternative 1 (current choice)**: Update user storage immediately after availability is updated.
+  - **Pros**: Maintains up-to-date availability in persistent storage.
+  - **Cons**: File write operations are triggered even for small changes.
 
 ### 9. List Participants Feature
 
 ### Implementation
 
-The `ListParticipantsCommand` feature lists all participants assigned to a specific event.
+The `ListParticipantsCommand` feature allows logged-in users (ADMIN or MEMBER) to view all participants involved in a specific event they are assigned to.
 
-1. **User Input Parsing**: The user inputs the index of the event.
-2. **Retrieval**: Fetches and displays the participants for that event.
+1. **User Access Check**
+  - The system checks if a user is logged in using `ParticipantManager.getCurrentUser()`.
+  - If no user is logged in, a `SyncException` is thrown.
 
+2. **Prompt for Event Index**
+  - A list of events is displayed, and the user is prompted to enter the event index to view participants.
+
+3. **Participant Listing**
+  - The `ListParticipantsCommand` retrieves the event using the provided index and calls `event.listParticipants()` to display the participant list via `UI`.
+
+![List Participant Sequence Diagram](graph/ListParticipant/ListPSD.png)
 ### Design Considerations
+**Aspect 1: Participant Retrieval Method**
+- **Alternative 1 (current choice)**: Retrieve participants from `Event.getParticipants()` based on user selection.
+  - **Pros**: Keeps implementation simple and tied to selected event.
+  - **Cons**: Cannot show detailed availability or other user details unless extended.
 
-- **Why this design?**
-  - Allows users to view who's involved in an event.
-  - Useful for managing group tasks or meetings.
-
+**Aspect 2: Storage Independence**
+- **Alternative 1 (current choice)**: Listing participants reads only from memory (no storage involved).
+  - **Pros**: Lightweight and fast.
+  - **Cons**: Could show outdated data if the memory was not synced with the storage.
+  
 ### 10. Event Storage Feature
 
 ### Implementation
