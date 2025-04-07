@@ -83,8 +83,9 @@ public class EventManager {
         storage.saveEvents(events, Priority.getAllPriorities());
     }
 
-    public void addEvent(Event event, Participant participant) throws SyncException {
+    public void addEvent(Event event, ParticipantManager participantManager) throws SyncException {
         assert event != null : "Event cannot be null";
+        Participant participant = participantManager.getCurrentUser();
 
         // Set the exclude index to -1 to avoid excluding any element
         ArrayList<Event> collisions = checkCollision(
@@ -107,6 +108,8 @@ public class EventManager {
 
         if (!participant.isAvailableDuring(event.getStartTime(), event.getEndTime()) ) {
             throw new SyncException("Participant is not available at the given time. Enter 'add' to try again");
+        } else {
+            participantManager.assignParticipant(event, participant);
         }
 
         event.addParticipant(participant);
@@ -183,18 +186,27 @@ public class EventManager {
             return;
         }
 
-        // Validate participant availability
-        for (Participant p : updatedEvent.getParticipants()) {
+        for (Participant p : originalEvent.getParticipants()) {
+            p.unassignEventTime(originalEvent.getStartTime(), originalEvent.getEndTime());
+        }
+
+        for (Participant p : originalEvent.getParticipants()) {
             if (!p.isAvailableDuring(updatedEvent.getStartTime(), updatedEvent.getEndTime())) {
+                for (Participant recover : originalEvent.getParticipants()) {
+                    recover.assignEventTime(originalEvent.getStartTime(), originalEvent.getEndTime());
+                }
                 throw new SyncException(SyncException.participantUnavailableDuringEditError(
                         p.getName(), updatedEvent.getStartTime(), updatedEvent.getEndTime()));
             }
         }
 
-        // Update the event
+        events.set(index, updatedEvent);
+        for (Participant p : updatedEvent.getParticipants()) {
+            p.assignEventTime(updatedEvent.getStartTime(), updatedEvent.getEndTime());
+        }
+
         events.set(index, updatedEvent);
 
-        // Collision check
         ArrayList<Event> collisions = checkCollision(
                 updatedEvent.getStartTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                 updatedEvent.getEndTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -203,9 +215,6 @@ public class EventManager {
                 index
         );
 
-
-
-        // If collisions are detected, show the collision warning
         if (!collisions.isEmpty()) {
             ui.showCollisionWarning(updatedEvent, collisions);
         } else {
@@ -279,5 +288,9 @@ public class EventManager {
 
     public void setEvents(ArrayList<Event> events) {
         this.events = events;
+    }
+
+    public void save() throws SyncException {
+        storage.saveEvents(events, Priority.getAllPriorities());
     }
 }

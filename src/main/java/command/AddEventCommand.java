@@ -13,7 +13,7 @@ public class AddEventCommand extends Command {
     }
 
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
-        events.addEvent(event, participantManager.getCurrentUser());
+        events.addEvent(event, participantManager);
     }
 
     public Event getEvent() {

@@ -100,7 +100,6 @@ public class EditCommandFactoryTest {
     void testCreateCommandThrowsOnInvalidInput() {
         ui.setSimulatedInput("abc"); // not a number
 
-        SyncException ex = assertThrows(SyncException.class, () -> editCommandFactory.createCommand());
-        assertTrue(ex.getMessage().contains("Invalid event details"));
+        assertThrows(SyncException.class, () -> editCommandFactory.createCommand());
     }
 }

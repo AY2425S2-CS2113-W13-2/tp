@@ -19,8 +19,6 @@ public class ListCommandFactory implements CommandFactory{
         String sortType = ui.readListCommandInput();
         if (sortType.equals("")) {
             throw new SyncException("List sort type is empty. Please enter 'list' and try again.");
-        } else if (sortType.equals("asc")) {
-
         }
         return new ListCommand(sortType);
     }
