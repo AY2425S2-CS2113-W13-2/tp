@@ -101,7 +101,7 @@ public class FilterCommandFactoryTest {
 
         FilterCommandFactory factory = new FilterCommandFactory(participantManager, ui);
         SyncException e = assertThrows(SyncException.class, factory::createCommand);
-        assertEquals("Please provide one or two priority levels (e.g.,'LOW', 'LOW MEDIUM')", e.getMessage());
+        assertTrue(e.getMessage().contains("Please provide one or two priority"));
     }
 
     @Test

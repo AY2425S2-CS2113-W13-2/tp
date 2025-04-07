@@ -30,11 +30,11 @@ test {
 }
 
 application {
-    mainClass.set("EventSync")
+    mainClass.set("seedu.EventSync")
 }
 
 shadowJar {
-    archiveBaseName.set("EventSync")
+    archiveBaseName.set("seedu.EventSync")
     archiveClassifier.set("")
 }
 
