@@ -1,4 +1,6 @@
-## **Overview**
+# Hua Zhenting - Project Portfolio Page
+
+# Overview
 
 Our team developed **EventSync**, a command-line event scheduling and management application aimed at optimizing
 collaboration and time management. Users can create, view, edit, and organize events with conflict detection,
@@ -9,7 +11,7 @@ I am primarily responsible for creating the conflict detector feature, and an ad
 ## Code Contributed
 [View my code on tP Code Dashboard](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=HuaZhenting&sort=groupTitle%20dsc&sortWithin=title&since=2025-02-21&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
 
-## **Enhancements Implemented**
+## Enhancements Implemented
 
 ### **Core Event Management Features (v1.0)**
 - **Conflict Detection Feature:**
@@ -43,12 +45,12 @@ I am primarily responsible for creating the conflict detector feature, and an ad
     - Conflict detection logic for adding/editing events in `EventSyncTest`
 - Ensured coverage of edge cases.
 
-## **Contributions to the User Guide**
+## Contributions to the User Guide
 - **Documented:**
     - Interactive usage of `listAll`, `filter`, and conflict resolution features.
     - Provided example inputs/outputs to assist user understanding.
 
-## **Contributions to the Developer Guide**
+## Contributions to the Developer Guide
 - **Added:**
     - **Architecture Diagram** giving an overview of the main components and their interaction.
     - **Sequence Diagram** for:
@@ -57,13 +59,13 @@ I am primarily responsible for creating the conflict detector feature, and an ad
     - **Implementation Details** for conflict detection, priority filter and list all feature.
     - **Documentation Guide** providing guidance on setting up, maintaining, and styling the project's documentation.
 
-## **Contributions to Team-Based Tasks**
+## Contributions to Team-Based Tasks
 - Assisted in debugging and integration.
 - Reviewed and corrected issues from PE Dry Run.
 - Contributed to project documentation and testing strategies.
 - Participated in milestone planning and feature discussions.
 
-## **Review/Mentoring Contributions**
+## Review/Mentoring Contributions
 - Reviewed PRs related to event listing and filtering.
 - Added JavaDoc Comments for the code.
 - Edited coding style.
