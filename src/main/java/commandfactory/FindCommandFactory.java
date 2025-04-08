@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.FindCommand;
+import command.LoginCommand;
 import exception.SyncException;
 
 /**
@@ -9,6 +12,8 @@ import exception.SyncException;
  * This factory creates a command that performs a search based on the provided keyword.
  */
 public class FindCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final String keyword;
 
     /**
@@ -29,6 +34,7 @@ public class FindCommandFactory implements CommandFactory {
     public Command createCommand() throws SyncException {
         assert keyword != null : "Keyword should not be null";
         assert !keyword.isEmpty() : "Keyword should not be empty";
+        LOGGER.info("Attempting FindCommandFactory");
 
         return new FindCommand(keyword);
     }

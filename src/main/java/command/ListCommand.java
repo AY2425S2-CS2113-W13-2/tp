@@ -13,12 +13,14 @@ import sort.SortByStartTime;
 import sort.SortByEndTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * Command to list events assigned to the current user, optionally sorted by a specified criterion.
  */
 public class ListCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ListCommand.class.getName());
     private final String sortType;
 
     /**
@@ -31,7 +33,8 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Executes the command to list events assigned to the current user, with optional sorting based on the provided sort type.
+     * Executes the command to list events assigned to the current user,
+     * with optional sorting based on the provided sort type.
      *
      * @param events the EventManager instance that manages the events
      * @param ui the UI instance used to display messages to the user
@@ -40,6 +43,8 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
+        assert sortType != null : "Sort type cannot be null";
+        LOGGER.info("Listing events with sort type: " + sortType);
         Participant currentUser = ensureUserLoggedIn(events, ui, participants);
         if (currentUser == null) {
             return;

@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.ListCommand;
+import command.LoginCommand;
 import exception.SyncException;
 import participant.ParticipantManager;
 
@@ -10,6 +13,8 @@ import participant.ParticipantManager;
  * The ListCommand is used to list events or participants with a specific sorting order.
  */
 public class ListCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final ui.UI ui;
 
@@ -33,6 +38,8 @@ public class ListCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting ListCommandFactory");
         String sortType = ui.readListCommandInput();
         if (sortType.equals("")) {
             throw new SyncException("List sort type is empty. Please enter 'list' and try again.");

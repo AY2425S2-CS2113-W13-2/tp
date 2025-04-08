@@ -1,5 +1,6 @@
 package storage;
 
+import command.LoginCommand;
 import event.Event;
 import label.Priority;
 import participant.Participant;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
  * storing and retrieving data in a specific format.
  */
 public class Storage {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final String filePath;
     private final UserStorage userStorage;
@@ -70,6 +74,8 @@ public class Storage {
      * @throws SyncException If an error occurs during the saving process.
      */
     public void saveEvents(List<Event> events, ArrayList<String> allPriorities) throws SyncException {
+        assert events != null;
+        LOGGER.info("Attempting saving events ");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (int i = 0; i < events.size(); i++) {
                 Event event = events.get(i);

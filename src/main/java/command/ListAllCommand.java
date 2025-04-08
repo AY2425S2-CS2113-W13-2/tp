@@ -13,12 +13,14 @@ import sort.SortByStartTime;
 import sort.SortByEndTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Represents a command that lists all events for the current user, optionally sorted by a specified criterion.
  * This command requires the user to be an Admin.
  */
 public class ListAllCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ListAllCommand.class.getName());
     private final String sortType;
     private final UI ui;
 
@@ -34,7 +36,8 @@ public class ListAllCommand extends Command {
     }
 
     /**
-     * Executes the command to list all events for the current user, optionally sorting them based on the given criterion.
+     * Executes the command to list all events for the current
+     * user, optionally sorting them based on the given criterion.
      *
      * @param events the EventManager instance that manages the events
      * @param ui the UI instance used to display messages to the user
@@ -43,6 +46,8 @@ public class ListAllCommand extends Command {
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participants) throws SyncException {
+        assert sortType != null : "Sort type cannot be null";
+        LOGGER.info("Attempting to list all events with sort type: " + sortType);
         Participant currentUser = participants.getCurrentUser();
 
         // Check if user is logged in

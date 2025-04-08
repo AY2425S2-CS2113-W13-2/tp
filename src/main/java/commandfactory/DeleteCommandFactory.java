@@ -2,9 +2,11 @@ package commandfactory;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import command.Command;
 import command.DeleteCommand;
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -17,6 +19,8 @@ import ui.UI;
  * ensuring that the user is logged in and has admin privileges.
  */
 public class DeleteCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final UI ui;
     private final EventManager eventManager;
@@ -44,6 +48,8 @@ public class DeleteCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting DeleteCommandFactory");
         if (participantManager.getCurrentUser() == null) {
             throw new SyncException("You are not logged in. Please enter 'login' to login.");
         } else if (!participantManager.isCurrentUserAdmin()) {

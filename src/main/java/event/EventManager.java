@@ -1,6 +1,8 @@
 package event;
 
 import java.util.ArrayList;
+
+import command.LoginCommand;
 import participant.Participant;
 import participant.ParticipantManager;
 import storage.UserStorage;
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
+
 import storage.Storage;
 import label.Priority;
 
@@ -18,6 +22,8 @@ import label.Priority;
  * It also handles event collision checks, stores events in persistent storage, and interacts with the UI.
  */
 public class EventManager {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private ArrayList<Event> events;
     private final UI ui;
     private final Storage storage;
@@ -94,6 +100,7 @@ public class EventManager {
      */
     public void addEvent(Event event) throws SyncException {
         assert event != null : "Event cannot be null";
+        LOGGER.info("Attempting adding event");
 
         // Set the exclude index to -1 to avoid excluding any element
         ArrayList<Event> collisions = checkCollision(
@@ -223,11 +230,11 @@ public class EventManager {
             throw new SyncException(SyncException.invalidEventIndexErrorMessage());
         }
         Event deletedEvent = events.remove(index);
+
         Priority.removePriority(index);
         ui.showDeletedMessage(deletedEvent);
         storage.saveEvents(events, Priority.getAllPriorities());
     }
-
     /**
      * Updates an existing event with new details.
      *
@@ -318,7 +325,8 @@ public class EventManager {
      * @param end          the end time of the event to check for collisions.
      * @param location     the location of the event to check for collisions.
      * @param events       the list of existing events to compare against.
-     * @param excludeIndex the index of the event to exclude from the collision check (typically the event being edited).
+     * @param excludeIndex the index of the event to exclude from the collision
+     *                     check (typically the event being edited).
      * @return a list of events that collide with the specified event.
      */
     public ArrayList<Event> checkCollision(

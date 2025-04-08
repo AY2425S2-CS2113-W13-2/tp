@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.ListAllCommand;
+import command.LoginCommand;
 import exception.SyncException;
 import ui.UI;
 import participant.ParticipantManager;
@@ -11,6 +14,8 @@ import participant.ParticipantManager;
  * This factory creates a command that lists all events with optional sorting.
  */
 public class ListAllCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final UI ui;
 
@@ -33,6 +38,8 @@ public class ListAllCommandFactory implements CommandFactory {
      */
     @Override
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting ListAllCommandFactory");
         if (participantManager.getCurrentUser() == null) {
             throw new SyncException("You are not logged in. Please enter 'login' to login.");
         } else if (!participantManager.isCurrentUserAdmin()) {

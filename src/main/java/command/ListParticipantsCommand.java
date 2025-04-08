@@ -1,5 +1,7 @@
 package command;
 
+import java.util.logging.Logger;
+
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -10,6 +12,7 @@ import ui.UI;
  * Command to list the participants of a specific event identified by the event index.
  */
 public class ListParticipantsCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ListParticipantsCommand.class.getName());
     private final int eventIndex;
 
     /**
@@ -31,6 +34,8 @@ public class ListParticipantsCommand extends Command {
      */
     @Override
     public void execute(EventManager eventManager, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert eventIndex >= 0 : "Event index must be non-negative";
+        LOGGER.info("Listing participants for event at index: " + eventIndex);
         Event event = eventManager.getEvent(eventIndex);
         event.listParticipants();
     }

@@ -1,7 +1,10 @@
 package commandfactory;
 
+import java.util.logging.Logger;
+
 import command.Command;
 import command.FilterCommand;
+import command.LoginCommand;
 import exception.SyncException;
 import label.Priority;
 import participant.Participant;
@@ -14,6 +17,8 @@ import participant.ParticipantManager;
  * based on priority levels.
  */
 public class FilterCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final ParticipantManager participantManager;
     private final UI ui;
 
@@ -34,9 +39,11 @@ public class FilterCommandFactory implements CommandFactory {
      * It validates the input to ensure the user is logged in and the provided priority levels are valid.
      *
      * @return A new FilterCommand to filter events by priority
-     * @throws SyncException If an error occurs during command creation, such as invalid input or the user not being logged in
+     * @throws SyncException If an error occurs, such as invalid input or the user not being logged in
      */
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting FilterCommandFactory");
         Participant participant = participantManager.getCurrentUser();
 
         if (participant == null) {

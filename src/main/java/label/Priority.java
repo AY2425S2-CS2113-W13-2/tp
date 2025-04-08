@@ -3,6 +3,9 @@ package label;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
+
+import command.LoginCommand;
 import ui.UI;
 
 /**
@@ -12,7 +15,6 @@ import ui.UI;
  * with the user to set priorities for events.
  */
 public class Priority {
-
     /**
      * Constant representing the HIGH priority level.
      */
@@ -37,6 +39,9 @@ public class Priority {
      * The UI instance used to interact with the user for input and output.
      */
     private static final UI ui = new UI();
+
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * Returns the numeric value associated with a given priority.
@@ -107,6 +112,8 @@ public class Priority {
      * @param priority The priority to add to the list.
      */
     public static void addPriority(String priority) {
+        assert priority != null : "Priority cannot be null";
+        LOGGER.info("Attempting adding priority");
         priorityList.add(priority);
     }
 

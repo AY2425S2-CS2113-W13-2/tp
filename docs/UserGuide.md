@@ -33,12 +33,12 @@ in and see or manage only their assigned events. Data is saved automatically bet
 ## Quick Start
 
 1. Ensure you have `Java 17` or above installed on your computer.
-2. Download the latest `EventManager.jar`.
+2. Download the latest `EventSync.jar`.
 3. Copy the `.jar` file into any folder you want to use as the home directory for Event Manager.
 4. Open a command prompt or terminal and navigate to the folder where you placed the `.jar` file.
 5. Run the application using the following command:
 ```
-java -jar EventManager.jar
+java -jar EventSync.jar
 ```
 6. Type a command and press `Enter` to execute it.
 

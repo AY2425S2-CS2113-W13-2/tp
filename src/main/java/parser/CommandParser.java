@@ -3,7 +3,9 @@ package parser;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
+import command.LoginCommand;
 import exception.SyncException;
 
 import participant.Participant;
@@ -15,6 +17,8 @@ import ui.UI;
  * It also throws custom exceptions in case of invalid input.
  */
 public final class CommandParser {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * The UI instance used for interacting with the user.
@@ -33,12 +37,6 @@ public final class CommandParser {
     }
 
     /**
-     * The date-time formatter used for parsing date-time strings in the format "yyyy-MM-dd HH:mm".
-     */
-    private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    /**
      * Parses a date-time string and converts it into a LocalDateTime object.
      *
      * @param dateStr The date-time string to be parsed.
@@ -47,6 +45,8 @@ public final class CommandParser {
      */
 
     public static LocalDateTime parseDateTime(String dateStr) throws SyncException {
+        assert dateStr != null : "dateStr cannot be null";
+        LOGGER.info("Attempting parsing date time");
         try {
             return LocalDateTime.parse(dateStr.trim(), DATE_FORMATTER);
         } catch (DateTimeException e) {

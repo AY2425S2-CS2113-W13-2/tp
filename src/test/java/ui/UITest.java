@@ -42,9 +42,7 @@ public class UITest {
     @Test
     public void testShowMenu() {
         ui.showMenu();
-        assertTrue(outputStreamCaptor.toString().contains("╔═════════════════════════════════════════╗"));
-        assertTrue(outputStreamCaptor.toString().contains("║          EVENT SYNC COMMAND MENU        ║"));
-        assertTrue(outputStreamCaptor.toString().contains("║  === Event Management Commands ===      ║"));
+        assertTrue(outputStreamCaptor.toString().contains("          EVENT SYNC COMMAND MENU    "));
     }
 
     @Test

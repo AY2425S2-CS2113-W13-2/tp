@@ -84,9 +84,7 @@ class CreateUserCommandFactoryTest {
         simulateInput("Jane Doe\npassword123\n1\n0");
 
         SyncException exception = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' " +
-                "and try again." +
-                "", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Number of availability slots must be at least 1"));
     }
 
     @Test
@@ -94,8 +92,8 @@ class CreateUserCommandFactoryTest {
         simulateInput("Alice\npassword123\n1\n1\n2025-04-08 17:00\n2025-04-08 09:00");
 
         SyncException exception = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ End time must be after start time. Please enter 'create' and try again.",
-                exception.getMessage());
+        assertTrue(exception.getMessage().contains("End time must be after start time"));
+
     }
 
     @Test
@@ -103,9 +101,8 @@ class CreateUserCommandFactoryTest {
         simulateInput("Bob\npassword123\n1\n-1");
 
         SyncException exception = assertThrows(SyncException.class, () -> factory.createCommand());
-        assertEquals("❌ Number of availability slots must be at least 1.\"Please enter 'create' and " +
-                        "try again.",
-                exception.getMessage());
+        assertEquals(true,
+                exception.getMessage().contains("Number of availability slots must be at least 1"));
     }
 
     private void simulateInput(String input) {

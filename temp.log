@@ -2,10 +2,10 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2025-04-07T15:34:34.295050800Z</date>
-  <millis>1744040074295</millis>
-  <nanos>50800</nanos>
-  <sequence>8</sequence>
+  <date>2025-04-07T21:44:41.464080100Z</date>
+  <millis>1744062281464</millis>
+  <nanos>80100</nanos>
+  <sequence>836</sequence>
   <logger>logger.EventSyncLogger</logger>
   <level>INFO</level>
   <class>logger.EventSyncLoggerTest</class>

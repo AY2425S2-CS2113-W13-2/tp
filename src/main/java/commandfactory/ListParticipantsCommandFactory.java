@@ -1,9 +1,11 @@
 package commandfactory;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import command.Command;
 import command.ListParticipantsCommand;
+import command.LoginCommand;
 import event.Event;
 import event.EventManager;
 import exception.SyncException;
@@ -16,6 +18,8 @@ import ui.UI;
  * This factory generates a command that lists participants of a specific event.
  */
 public class ListParticipantsCommandFactory implements CommandFactory {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final UI ui;
     private final EventManager eventManager;
     private final ParticipantManager participantManager;
@@ -40,6 +44,8 @@ public class ListParticipantsCommandFactory implements CommandFactory {
      * @throws SyncException If the user is not logged in or the event index is invalid
      */
     public Command createCommand() throws SyncException {
+        assert participantManager != null : "ParticipantManager cannot be null";
+        LOGGER.info("Attempting ListParticipantsCommandFactory");
         Participant participant = participantManager.getCurrentUser();
 
         if (participant == null) {

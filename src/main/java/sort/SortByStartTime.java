@@ -1,8 +1,10 @@
 package sort;
 
+import command.LoginCommand;
 import event.Event;
 import label.Priority;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * The SortByStartTime class implements the sorting algorithm for a list of events,
@@ -11,6 +13,8 @@ import java.util.List;
  * with higher priority events appearing first.
  */
 public class SortByStartTime extends Sort {
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
 
     /**
      * Sorts a list of events based on their start time and priority.
@@ -23,6 +27,8 @@ public class SortByStartTime extends Sort {
      */
     @Override
     public void sort(List<Event> events, List<String> priorities) {
+        assert events != null;
+        LOGGER.info("Attempting sorting by start time ");
         int n = events.size();
         for (int i = 0; i < n - 1; i++) {
             int bestIdx = i;

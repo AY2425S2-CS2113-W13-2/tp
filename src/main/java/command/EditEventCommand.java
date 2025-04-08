@@ -2,6 +2,7 @@ package command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 import event.Event;
 import event.EventManager;
@@ -16,6 +17,8 @@ import ui.UI;
  * ensures that no conflicts arise during the editing process.
  */
 public class EditEventCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(EditEventCommand.class.getName());
+
     private final int index;
     private final ParticipantManager participantManager;
 
@@ -38,10 +41,11 @@ public class EditEventCommand extends Command {
      * @param events The event manager that holds the events
      * @param ui The UI interface to interact with the user
      * @param participantManager The participant manager to handle participant data
-     * @throws SyncException If an error occurs during the editing process, such as invalid data or participant unavailability
+     * @throws SyncException If an error occurs, such as invalid data or participant unavailability
      */
     @Override
     public void execute(EventManager events, UI ui, ParticipantManager participantManager) throws SyncException {
+        assert ui != null;
         if (!participantManager.isCurrentUserAdmin()) {
             throw new SyncException("You are not currently administrator.");
         }

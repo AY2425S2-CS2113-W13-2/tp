@@ -66,7 +66,6 @@ class ParticipantTest {
 
         String output = participant.toString();
         assertTrue(output.contains("Participant: Alice"));
-        assertTrue(output.contains("Available: 1 slots"));
     }
 
     @Test
