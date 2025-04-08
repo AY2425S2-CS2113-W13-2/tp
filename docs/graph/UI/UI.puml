@@ -1,0 +1,58 @@
+@startuml
+
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+class UI {
+    - scanner: Scanner
+
+    + UI()
+    + setScanner(newScanner: Scanner): void
+    + readLine(): String
+    + readInt(): Integer
+    + checkForExit(input: String): boolean
+    + readAddCommandInput(): String
+    + readDuplicateEventInput(): String
+    + readDeleteName(): String
+    + readFilterInput(): String
+    + readListCommandInput(): String
+    + readAddParticipantInput(): String
+    + splitAddParticipantCommandInput(): String[]
+    + askParticipantName(): String
+    + askPassword(): String
+    + askConfirmation(message: String): boolean
+    + confirmDeletion(eventName: String): boolean
+    + showMessage(message: String): void
+    + showMenu(): void
+    + showEventWithIndex(event: Event, index: int, priority: String): void
+    + showEmptyListMessage(): void
+    + printMatchingEvents(events: ArrayList<Event>): void
+    + showAddFormat(): void
+    + showAddedMessage(event: Event): void
+    + showEditCommandMessageWithOptions(event: Event): void
+    + showEditCommandCorrectFormat(): void
+    + showEditCommandStep1(): void
+    + showEditCommandStep2(): void
+    + showEditCommandStep3(): void
+    + showEditCommandStep4(): void
+    + showEditCommandStep5(): void
+    + showEditedEvent(event: Event): void
+    + showByeMessage(): void
+    + showWelcomeMessage(): void
+    + showCollisionWarning(): void
+    + showParticipantSlotCollisionWarning(): void
+    + showDeletedMessage(event: Event): void
+    + showMatchingEventsWithIndices(matchingEvents: ArrayList<Event>, eventManager: EventManager): void
+    + showDeletionCancelledMessage(): void
+    + showAddParticipantFormat(): void
+    + showParticipantAdded(p: Participant): void
+    + showLogOutMessage(): void
+    + showSuccessLoginMessage(): void
+    + showSuccessCreateMessage(participant: Participant): void
+}
+
+Command "1" -- "1" UI : uses
+CommandParser ..> UI : uses (static)
+
+@enduml
