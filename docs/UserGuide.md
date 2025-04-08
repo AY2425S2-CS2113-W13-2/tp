@@ -119,7 +119,7 @@ Successfully logged in.
 ║  add            - Add new event         ║
 ║  list           - List your events      ║
 ║  listall        - List all events       ║
-║  delete [INDEX] - Delete an event       ║
+║  delete         - Delete an event       ║
 ║  edit [INDEX]   - Edit an event         ║
 ║  duplicate [ID] - Duplicate an event    ║
 ║  find [KEYWORD] - Search events         ║
