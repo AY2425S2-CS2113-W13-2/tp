@@ -218,7 +218,7 @@ The event
 has been added to the list.
 ```
 ---
-<a name="-edit--edit-details-of-an-existing-event"></a>
+<a name="edit--edit-details-of-an-existing-event"></a>
 ### ✏️ `edit` — Edit an existing event
 
 #### Command: `edit`
