@@ -1,4 +1,4 @@
-# Event Manager Developer Guide
+# EventSync Developer Guide
 
 ## Table of Contents
 1. [Acknowledgements](#acknowledgements)
