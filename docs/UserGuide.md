@@ -8,7 +8,7 @@
     - 3.2 [`login` - Log in](#-login--log-in-as-an-existing-participant)
     - 3.3 [`logout` - Log out](#-logout--ends-the-current-user-session)
     - 3.4 [`add` - Add event](#-add--add-a-new-event)
-    - 3.5 [`edit` - Edit event](#-edit--edit-details-of-an-existing-event) 
+    - 3.5 [`edit` - Edit event](#-edit--edit-an-existing-event)
     - 3.6 [`delete` - Delete event](#-delete--delete-an-event-from-system) 
     - 3.7 [`list` - List events](#-list--list-events-assigned-to-you)
     - 3.8 [`listall` - List all events](#-listall--list-all-events-in-the-system) 
@@ -219,7 +219,7 @@ has been added to the list.
 ```
 ---
 
-### ✏️ `edit` — Edit details of an existing event 
+### ✏️ `edit` — Edit an existing event
 
 #### Command: `edit`
 

@@ -1,3 +1,4 @@
 Team Meeting | 2025-03-12 20:00 | 2025-03-12 21:00 | Conference Room | A team meeting to discuss project updates | LOW | a:ADMIN
 chill | 2025-03-31 19:00 | 2025-03-31 20:00 | Room | A team meeting to relax | LOW | a:ADMIN,ALice:MEMBER
 ret | 2025-03-20 16:30 | 2025-03-20 17:00 | iii | fun | LOW | a:ADMIN,gg:MEMBER
+test | 2025-10-10 19:00 | 2025-10-10 19:59 | room a | na | LOW | Terry:ADMIN
