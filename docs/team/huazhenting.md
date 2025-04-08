@@ -6,8 +6,6 @@ user management, and sorting capabilities.
 
 I am primarily responsible for creating the conflict detector feature, and an admin-only feature that display all stored events with different sorting strategies.
 
-## **Code Contributed**
-
 ## Code Contributed
 [View my code on tP Code Dashboard](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=HuaZhenting&sort=groupTitle%20dsc&sortWithin=title&since=2025-02-21&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
 
