@@ -139,6 +139,8 @@ The UI component handles all user interaction through the command line. It displ
 
 The `UI` class is instantiated when the application starts. Other components, such as `Event Manager` should use the `UI` instance to interact with the user. `UI` helps to separate the user interaction from the core application logic.
 
+![UIDiagram.png](graph/UI/UI.png)
+
 - **Input Handling**:
   - `Scanner scanner` handles the input from the user. It is used to read user commands and data.
   - `setScanner(Scanner newScanner)` allows setting a different scanner, useful for testing purposes.
