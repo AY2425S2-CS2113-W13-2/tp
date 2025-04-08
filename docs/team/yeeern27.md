@@ -53,8 +53,9 @@ I am responsible for creating the find feature, duplicate event feature, and to 
 - Checked and finalised the User Guide.
 
 ## Contribution to Developer Guide 
-Contributed to the UI section by listing the different methods in the UI and their functions. 
-
+- Contributed to the UI section by listing the different methods in the UI and their functions. 
+- Contributed to generating the UI diagram.
+  
 ## Contribution to Team-based task  
   - Helped to write the skeleton of the code for first draft.
   - Reviewed and coordinated the merging of code.
