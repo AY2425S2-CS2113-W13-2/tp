@@ -27,7 +27,7 @@ I am responsible for creating the find feature, duplicate event feature, and to 
    - Ensured that the duplicated event is properly added to the event manager.
    - Provided user feedback via the UI to confirm successful duplication.
  
- ### New Event Management Feature (v2.0) 
+### New Event Management Feature (v2.0) 
  
  - **Availability Conflict Detection** :
 
