@@ -1,58 +1,97 @@
 # Khoo Shi Xian - Project Portfolio Page
 
-## Project Overview
-Our team developed EventSync, a command-line event scheduling and management application aimed at optimizing collaboration and time management. Users can create, view, edit, and organize events with conflict detection, user management, and sorting capabilities.
+## Overview
+Our team developed **EventSync**, a command-line smart scheduling application that supports event creation, editing, participant management, and availability conflict resolution. It aims to streamline event coordination with robust participant-role handling and persistent storage integration.
 
-I am responsible for creating the edit event feature, add participant feature, and to list participants of a specific event.
+As one of the key contributors, I was responsible for building major interaction features such as event editing, participant management, and implementing the global **exit feature** for all interactive commands (v2.1). I also maintained data integrity between participant availability and event timing logic.
 
-## Code Contribution
+## Code Contributed
+[View my code on tP Code Dashboard](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=sxkhoo&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=sxkhoo&tabRepo=AY2425S2-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
-[View my code contribution](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=W13&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=sxkhoo&tabRepo=AY2425S2-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
-## Enhanced Implementation
+## Enhancements Implemented
 
-### Core Event Management Feature (v1.0)
+### Core Event Management Features (v1.0)
+- **`EditEventCommand`**:
+  - Enables administrators to modify name, time, location, and description of events.
+  - Ensures start and end times are logically valid, preventing conflicts like a start time occurring after the end time or overlapping schedules.
+  - Supports UI-driven step-by-step editing flow with dynamic feedback.
 
-- **Edit Event Feature**:
-    - Implemented the `EditEventCommand` to allow users to edit existing events.
-    - Provided the ability to update event details such as name, description, and timing.
-    - Validated input and ensured events were correctly updated in the event manager.
-    - Provided feedback to the user via the UI when an event was successfully edited.
+### New Features (v2.0)
+- **`AddParticipantCommand`**:
+  - Allows admin to assign participants to events.
+  - Validates that the participant exists or allows on-the-fly user creation.
+  - Checks participant availability and updates their time slots upon successful assignment.
+  - Syncs changes to storage.
 
-### New Event Management Feature (v2.0)
+- **`ListParticipantsCommand`**:
+  - Lists all participants assigned to a specific event with roles (ADMIN/MEMBER).
+  - Integrated robust UI prompts to assist user in selecting the target event index.
 
-- **Add Participant Feature**:
-    - Implemented the `AddParticipantCommand` to allow users to add participants to events.
-    - Ensured proper validation that only available participants are added to the event.
-    - Provided clear feedback to the user via the UI when a participant is successfully added.
+- **`Participant` class enhancements**:
+  - Developed availability slot logic including methods for assigning and unassigning time.
+  - Designed consistent `equals()` and `hashCode()` methods to avoid duplication.
+  - Added access level tracking, slot sorting, and time-based conflict resolution.
 
-- **List Participant Feature**:
-    - Implemented the `ListParticipantCommand` to display all participants of a specific event.
-    - Ensured that the participant list is displayed in a clear, readable format for users.
+### Exit Feature for All Commands (v2.1)
+- Implemented a **universal exit feature** across all multi-step commands (e.g., `add`, `edit`, `create`, `login`).
+  - Users can type `'exit'` at any stage to cancel the current command.
+  - Improved UX by eliminating user lock-in during prompts.
+  - Added `UI.checkForExit()` across critical input points and validated cancelation logic gracefully.
+  - Significantly enhanced system responsiveness and user control.
 
-- **Participant Class**:
-    - Created the `Participant` class to manage participant data such as username, password, availability, and access levels.
-    - Ensured the class included functionality for managing participant information and availability.
-    - Integrated the `Participant` class with the add and list participant features.
+---
 
-### Implementation of JUnit Test Case
-- **Added JUnit test case for**:
-    - `EditEvent.java`
-    - `ParticipantTest.java`
-  
-    - Ensured coverage of edge cases.
+## Implementation of JUnit Tests
+- Developed and maintained tests for:
+  - `EditEventCommand`
+  - `ParticipantTest`
+  - `ListParticipantsTest`
+- Validated correct update of availability during edits.
+- Checked corner cases such as duplicate assignments and invalid time formats.
+- Helped with the checking and debugging of other JUnit tests.
 
-## Contribution to User Guide
-- Contributed sections for the **Add Participant** and **Edit Event** features.
-- Provided detailed steps and examples for how users can add participants to events and edit event details.
+---
 
-## Contribution to Developer Guide
+## Contributions to the User Guide
+- **Documented:**:
+  - Interactive usage of EditEvent,AddParticipants and ListParticipants.
+  - Provided detailed examples and common user scenarios
 
-### Logic Diagram for Parser
+---
 
-- Contributed to the **Parser** section of the Developer Guide by creating both **class** and **sequence** diagrams to describe how the **Parser** interacts with the **CommandParser**, **Command**, and **CommandFactory** classes.
-- The **class diagram** illustrates the structure and relationships between these components, showcasing the flow and dependencies among them.
-- The **sequence diagram** visualizes the interactions between the classes during runtime, demonstrating how commands are parsed and executed in the system.
+## Contributions to the Developer Guide
+- **Parser and Command System**:
+  - Documented the architecture of the Logic layer, including the role of the `Parser`, `Command`, and `CommandFactory` classes.
+  - Provided detailed explanations of how user input is parsed and converted into executable commands.
 
-## Contribution to Team-Based Tasks
+- Helped with the detailed explanations for:
+  - **Edit Event** feature flow, validations, and participant synchronization.  
+  - **Add Participant** command with participant creation fallback.
+  - **List Participant** interaction and input validation.
+
+- Contributed:
+  - **Sequence and class Diagrams** for Logic
+  - **PlantUML** diagrams (`.puml`) under `docs/graph/` directory.
+
+---
+
+## Contributions to Team-Based Tasks
+- Helped with writing the skeleton of the code for first draft. 
+- Actively reviewed pull requests and coordinated the merging of code.
+- Helped with documentations and milestone deliverables.
+- Helped refactor command structure for better testability and consistency across command factories.
+- Actively coordinated feature integration with team members working on storage and parser components.
+
+---
 
 ## Review / Mentoring Contributions
+- Helped with debugging teammates' code.
+- Reviewed and debugged several code in classes such as EventManager.
+- Reviewed and debugged command input flow to ensure consistent `'exit'` handling.
+- Provided guidance to teammates on applying assert statements and improving storage robustness.
+- Conducted code walkthroughs for participant scheduling bugs and helped resolve storage syncing issues.
+
+---
+
+## Summary
+My work covered both feature implementation and architectural support across multiple components. From editing and assigning participants to introducing a global exit flow, my contributions ensured that EventSync was interactive, robust, and user-friendly.
