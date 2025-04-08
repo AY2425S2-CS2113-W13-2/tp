@@ -117,27 +117,27 @@ Successfully logged in.
 ╠═════════════════════════════════════════╣
 ║  === Event Management Commands ===      ║
 ║  add            - Add new event         ║
-║  list           - List your events      ║
 ║  listall        - List all events       ║
-║  delete [INDEX] - Delete an event       ║
-║  edit [INDEX]   - Edit an event         ║
+║  delete         - Delete an event       ║
+║  edit           - Edit an event         ║
 ║  duplicate [ID] - Duplicate an event    ║
-║  find [KEYWORD] - Search events         ║
-║  filter         - Filter events         ║
+║  addparticipant - Add to event          ║
 ║                                         ║
 ║  === Participant Commands ===           ║
-║  addparticipant - Add to event          ║
+║  list           - List your events      ║
+║  find [KEYWORD] - Search events         ║
+║  filter         - Filter events         ║
 ║  listparticipants- List participants    ║
-║  create         - Create new user       ║
 ║                                         ║
 ║  === Session Commands ===               ║
+║  create         - Create new user       ║
 ║  login          - Login to system       ║
 ║  logout         - Logout                ║
 ║                                         ║
 ║  === System Commands ===                ║
 ║  bye            - Exit program          ║
-║  help           - Show this menu        ║
-╚════════════════════════════════════════╝
+║  help           - Show help menu        ║
+╚═════════════════════════════════════════╝
 ```
 #### Example for Unsuccessful Login 
 

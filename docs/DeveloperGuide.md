@@ -240,8 +240,6 @@ This **sequence diagram** illustrates the interaction flow when a user inputs th
 
 ---
 
-
-
 ### 4. Model Component
 ![modelComponent.png](graph/ModelComponent/modelComponent.png)
 The **Model Component** is responsible for representing the core data entities of the system and providing functionality to manage them. It is composed of the following parts:
@@ -717,13 +715,13 @@ The login system manages user authentication and session state through the `Part
   - Immediately persists to storage
   - Includes name, password, access level and available slots
 
-Login SD
+#### Login SD
 ![Simplified Login Sequence Diagram](graph/LoginSystem/LoginSequenceDiagram.png)
 
-Logout SD
+#### Logout SD
 ![Simplified Logout Sequence Diagram](graph/LoginSystem/LogOutSequenceDiagram.png)
 
-Create user SD
+#### Create user SD
 ![Simplified Create User Sequence Diagram](graph/LoginSystem/CreateSequenceDiagram.png)
 
 ### Design Considerations
@@ -782,10 +780,10 @@ Access Control:
   - **Pros**: Ensures data confidentiality; prevents unauthorized access.
   - **Cons**: Non-admin users cannot view full event list, even if necessary for context.
 
-* **Aspect 3: User Interaction for Sort Type**
-* - **Implementation**: Prompt user for sort input at runtime using `UI.readListCommandInput()`.
-*   - **Pros**: Allows flexible choice each time the command is called.
-*   - **Cons**: Requires additional input step from the user; might reduce efficiency if used frequently.
+**Aspect 2: User Interaction for Sort Type**
+- **Implementation**: Prompt user for sort input at runtime using `UI.readListCommandInput()`.
+  - **Pros**: Allows flexible choice each time the command is called.
+  - **Cons**: Requires additional input step from the user; might reduce efficiency if used frequently.
 
 ## Documentation, logging, testing, configuration, dev-ops
 
